@@ -2658,3 +2658,37 @@ body.horof-bell-mode .horof-bell-hero-visual img{
   transform:translate(3px,3px);
   box-shadow:1px 1px 0 #bfb4c8;
 }
+
+
+/* V26 - ضبط محاذاة محتوى الهيدر */
+@media (min-width:760px){
+  .hero-copy{
+    max-width:640px !important;
+    width:640px !important;
+    justify-self:end !important;
+    text-align:right !important;
+  }
+
+  .hero-copy h1,
+  .hero-copy p,
+  .hero-copy .hero-tags,
+  .hero-copy .hero-actions{
+    width:100% !important;
+    margin-right:0 !important;
+    margin-left:0 !important;
+    justify-content:flex-start !important;
+    align-items:flex-start !important;
+  }
+
+  .hero-tags{
+    display:flex !important;
+    justify-content:flex-start !important;
+    gap:12px !important;
+    flex-wrap:wrap !important;
+  }
+
+  .hero-actions{
+    display:flex !important;
+    justify-content:flex-start !important;
+  }
+}
