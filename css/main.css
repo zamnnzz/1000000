@@ -338,3 +338,18 @@ body.game-mode #gameView .game-footer{display:block!important}
   .retro-shots-grid,.retro-reviews-grid,.other-games-grid{grid-template-columns:1fr}.retro-shot:nth-child(4){grid-column:auto}
   .retro-shot,.retro-shot div{min-height:215px}.other-game-image{font-size:58px}.other-game-card h3{font-size:18px}
 }
+
+/* V8 - بيانات الألعاب الحقيقية وصورها */
+.game-card-image{width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
+.games-row .game-card:hover .game-card-image{transform:scale(1.025)}
+.retro-shot{padding:0;overflow:hidden;background:#fff}
+.retro-shot img{width:100%;height:100%;min-height:255px;object-fit:cover;display:block}
+.retro-shot:hover img{transform:scale(1.02)}
+.other-game-image{overflow:hidden;background:#fff}
+.other-game-image img{width:100%;height:100%;object-fit:cover;display:block}
+.other-game-card{display:block;color:inherit;text-decoration:none}
+.empty-state{grid-column:1/-1;padding:30px;text-align:center;color:#756780;background:#fff;border:2px dashed #d9cfee;border-radius:20px;font-weight:800}
+.zamn-lightbox{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(20,4,35,.92)}
+.zamn-lightbox.open{display:flex}.zamn-lightbox img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:20px;box-shadow:0 25px 70px rgba(0,0,0,.35)}
+.action-wide{display:flex;text-decoration:none;align-items:center;justify-content:center}
+@media(max-width:600px){.retro-shot img{min-height:215px}}

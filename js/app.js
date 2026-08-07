@@ -1,63 +1,149 @@
-document.getElementById("browseBtn")?.addEventListener("click",()=>document.getElementById("games-list")?.scrollIntoView({behavior:"smooth"}));
-document.querySelectorAll(".faq-question").forEach(btn=>btn.addEventListener("click",()=>{const item=btn.closest(".faq-item");const ans=item.querySelector(".faq-answer");const icon=item.querySelector(".faq-icon");const open=ans.classList.contains("open");document.querySelectorAll(".faq-answer.open").forEach(x=>x.classList.remove("open"));document.querySelectorAll(".faq-icon.open").forEach(x=>x.classList.remove("open"));if(!open){ans.classList.add("open");icon.classList.add("open")}}));
 
-// V7: واجهة اللعبة حسب المرجع
+const GAMES = window.ZAMN_GAMES || [];
+const bySlug = slug => GAMES.find(g => g.slug === slug);
+const homeTitle = document.title;
+const pageDescription = document.getElementById("pageDescription");
+const canonicalLink = document.getElementById("canonicalLink");
 const gameView = document.getElementById("gameView");
-const detailTitle = document.getElementById("detailTitle");
-const detailDesc = document.getElementById("detailDesc");
 
-function syncShotTitles(title){
-  for(let i=1;i<=4;i++){
-    const el=document.getElementById(`shotTitle${i}`);
-    if(el) el.textContent=title;
-  }
+document.getElementById("browseBtn")?.addEventListener("click",()=>document.getElementById("games-list")?.scrollIntoView({behavior:"smooth"}));
+document.querySelectorAll(".faq-question").forEach(btn=>btn.addEventListener("click",()=>{
+  const item=btn.closest(".faq-item"), ans=item.querySelector(".faq-answer"), icon=item.querySelector(".faq-icon");
+  const open=ans.classList.contains("open");
+  document.querySelectorAll(".faq-answer.open").forEach(x=>x.classList.remove("open"));
+  document.querySelectorAll(".faq-icon.open").forEach(x=>x.classList.remove("open"));
+  if(!open){ans.classList.add("open");icon.classList.add("open")}
+}));
+
+function setText(id, value){
+  const el=document.getElementById(id);
+  if(el) el.textContent=value || "";
 }
-
-function openGameView(card,push=true){
-  if(!card||!gameView)return;
-  const id=card.dataset.gameId||"1";
-  const title=card.dataset.gameTitle||card.querySelector(".game-title")?.textContent?.trim()||"اللعبة";
-  const desc=card.querySelector(".game-desc")?.textContent?.trim()||"لعبة جماعية ممتعة من ألعاب زامن.";
-  if(detailTitle) detailTitle.textContent=title;
-  if(detailDesc) detailDesc.textContent=desc.replace("مكان جاهز", "لعبة جاهزة").replace("مكان لعبة", "لعبة").replace("بطاقة", "لعبة");
-  syncShotTitles(title);
+function setSEO(game){
+  document.title = game.seoTitle || `${game.name} | ألعاب زامن`;
+  if(pageDescription) pageDescription.setAttribute("content", game.seoDescription || game.description || "");
+  if(canonicalLink) canonicalLink.setAttribute("href", `https://zamn-games.vercel.app/game/${game.slug}`);
+}
+function resetSEO(){
+  document.title=homeTitle;
+  if(pageDescription) pageDescription.setAttribute("content","ألعاب زامن - ألعاب جماعية عربية");
+  if(canonicalLink) canonicalLink.setAttribute("href","https://zamn-games.vercel.app/");
+}
+function renderShots(game){
+  const grid=document.getElementById("retroShotsGrid");
+  const section=grid?.closest(".screenshots-panel");
+  if(!grid)return;
+  grid.innerHTML="";
+  const shots=(game.screenshots||[]).filter(Boolean);
+  if(!shots.length){
+    if(section) section.hidden=true;
+    return;
+  }
+  if(section) section.hidden=false;
+  shots.forEach((src,index)=>{
+    const btn=document.createElement("button");
+    btn.className="retro-shot";
+    btn.type="button";
+    btn.innerHTML=`<img src="${src}" alt="صورة ${index+1} من داخل ${game.name}" loading="lazy" decoding="async">`;
+    btn.addEventListener("click",()=>openLightbox(src, game.name));
+    grid.appendChild(btn);
+  });
+}
+function renderReviews(game){
+  const grid=document.getElementById("retroReviewsGrid");
+  const section=grid?.closest(".reviews-panel");
+  if(!grid)return;
+  grid.innerHTML="";
+  const reviews=(game.reviews||[]).filter(r=>r && r.name);
+  if(!reviews.length){
+    if(section) section.hidden=true;
+    return;
+  }
+  if(section) section.hidden=false;
+  reviews.forEach(r=>{
+    const article=document.createElement("article");
+    const safeComment=(r.comment||"").trim();
+    article.innerHTML=`<div class="review-head"><strong></strong><span></span></div>${safeComment?`<p></p>`:""}`;
+    article.querySelector("strong").textContent=r.name;
+    article.querySelector("span").textContent=r.stars||"⭐⭐⭐⭐⭐";
+    if(safeComment) article.querySelector("p").textContent=safeComment;
+    grid.appendChild(article);
+  });
+}
+function renderOtherGames(game){
+  const grid=document.getElementById("otherGamesGrid");
+  if(!grid)return;
+  grid.innerHTML="";
+  GAMES.filter(g=>g.slug!==game.slug).forEach(g=>{
+    const a=document.createElement("a");
+    a.className="other-game-card";
+    a.href=`/game/${g.slug}`;
+    a.dataset.slug=g.slug;
+    a.innerHTML=`<div class="other-game-image"><img src="${g.image}" alt="${g.name}" loading="lazy" decoding="async"></div><h3></h3>`;
+    a.querySelector("h3").textContent=g.name;
+    grid.appendChild(a);
+  });
+}
+function openGame(game,push=true){
+  if(!game||!gameView)return;
+  setText("detailTitle",game.name);
+  setText("detailDesc",game.description);
+  setText("detailPlayers",game.players || "٢+ لاعبين");
+  setText("detailCategory",game.category || game.badge || "لعبة جماعية");
+  setText("detailStatus",game.status || "متاحة الآن");
+  const play=document.getElementById("gamePlayBtn");
+  const buy=document.getElementById("gameBuyBtn");
+  const trial=document.getElementById("gameTrialBtn");
+  if(play){play.href=game.playLink||"#"; play.textContent="▶ العب الآن"}
+  if(buy){buy.href=game.buyLink||"#"; buy.textContent=`💳 اشتر الآن - ${game.price||""}`}
+  if(trial){trial.dataset.trialKey=game.trialKey||""}
+  renderShots(game);
+  renderReviews(game);
+  renderOtherGames(game);
+  setSEO(game);
   document.body.classList.add("game-mode");
   gameView.hidden=false;
   window.scrollTo({top:0,behavior:"auto"});
-  if(push) history.pushState({game:id},"",`/game/game-${id}`);
+  if(push) history.pushState({slug:game.slug},"",`/game/${game.slug}`);
 }
-
-function closeGameView(push=true){
+function closeGame(push=true){
   document.body.classList.remove("game-mode");
   if(gameView) gameView.hidden=true;
+  resetSEO();
   window.scrollTo({top:0,behavior:"auto"});
   if(push) history.pushState({},"","/");
 }
-
-document.querySelectorAll(".game-card.empty-card").forEach(card=>{
-  card.addEventListener("click",()=>openGameView(card));
-  card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openGameView(card)}});
+document.addEventListener("click",e=>{
+  const link=e.target.closest('a[href^="/game/"]');
+  if(!link)return;
+  const slug=link.getAttribute("href").replace(/^\/game\//,"").replace(/\/$/,"");
+  const game=bySlug(slug);
+  if(!game)return;
+  e.preventDefault();
+  openGame(game,true);
 });
-
-document.getElementById("gameBackBtn")?.addEventListener("click",()=>closeGameView());
-
-document.querySelectorAll(".other-game-card").forEach((card,index)=>{
-  card.addEventListener("click",()=>{
-    const target=document.querySelector(`.game-card[data-game-id="${Math.min(index+1,9)}"]`);
-    if(target) openGameView(target);
-  });
+document.getElementById("gameBackBtn")?.addEventListener("click",()=>closeGame(true));
+document.getElementById("gameTrialBtn")?.addEventListener("click",()=>{
+  alert("زر التجربة جاهز للربط بنظام التجربة 45 ثانية في الخطوة التالية.");
 });
-
 window.addEventListener("popstate",()=>{
-  const m=location.pathname.match(/^\/game\/game-(\d+)\/?$/);
-  if(m){
-    const card=document.querySelector(`.game-card[data-game-id="${m[1]}"]`);
-    if(card) openGameView(card,false);
-  }else closeGameView(false);
+  const m=location.pathname.match(/^\/game\/([^/]+)\/?$/);
+  if(m){ const g=bySlug(decodeURIComponent(m[1])); if(g) openGame(g,false); else closeGame(false); }
+  else closeGame(false);
 });
+const initial=location.pathname.match(/^\/game\/([^/]+)\/?$/);
+if(initial){ const g=bySlug(decodeURIComponent(initial[1])); if(g) openGame(g,false); }
 
-const initialGame=location.pathname.match(/^\/game\/game-(\d+)\/?$/);
-if(initialGame){
-  const card=document.querySelector(`.game-card[data-game-id="${initialGame[1]}"]`);
-  if(card) openGameView(card,false);
+let lightbox;
+function openLightbox(src,alt){
+  if(!lightbox){
+    lightbox=document.createElement("div");
+    lightbox.className="zamn-lightbox";
+    lightbox.innerHTML='<img alt="">';
+    lightbox.addEventListener("click",()=>lightbox.classList.remove("open"));
+    document.body.appendChild(lightbox);
+  }
+  const img=lightbox.querySelector("img");
+  img.src=src; img.alt=alt||"صورة اللعبة";
+  lightbox.classList.add("open");
 }
