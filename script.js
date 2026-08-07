@@ -2723,7 +2723,7 @@ className="cairo-btn game-details-btn game-details-trial"
   title={`لقطة من لعبة ${selectedGame.name}`}
   width="1920"
   height="1080"
-  loading={index < 3 ? "eager" : "lazy"}
+  loading={index === 0 ? "eager" : "lazy"}
   decoding="async"
   className="w-full aspect-[16/9] object-cover group-hover:scale-[1.03] transition duration-300"
 />
@@ -3806,6 +3806,9 @@ className="bg-white/15 px-4 py-2 rounded-full backdrop-blur text-sm font-bold"  
   alt="شعار ألعاب زامن"
   width="256"
   height="256"
+  loading="eager"
+  decoding="async"
+  fetchPriority="high"
   className="w-52 md:w-72"
   />
 
