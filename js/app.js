@@ -144,6 +144,18 @@ document.addEventListener("click",e=>{
 });
 document.getElementById("gameBackBtn")?.addEventListener("click",()=>closeGame(true));
 
+
+const faqMoreBtn=document.getElementById("faqMoreBtn");
+if(faqMoreBtn){
+  faqMoreBtn.addEventListener("click",()=>{
+    const extras=[...document.querySelectorAll("#faq .faq-extra")];
+    const willShow=extras.some(el=>el.hidden);
+    extras.forEach(el=>el.hidden=!willShow);
+    faqMoreBtn.textContent=willShow ? "إظهار أقل" : "إظهار المزيد";
+    faqMoreBtn.setAttribute("aria-expanded",willShow ? "true" : "false");
+  });
+}
+
 window.addEventListener("popstate",(event)=>{
   const m=location.pathname.match(/^\/game\/([^/]+)\/?$/);
   if(m){

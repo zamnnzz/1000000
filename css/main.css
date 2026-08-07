@@ -2619,3 +2619,42 @@ body.horof-bell-mode .horof-bell-hero-visual img{
 .package-card .package-btn{
   margin-top:auto !important;
 }
+
+/* =====================================================
+   V25 — FAQ الرئيسية: 4 أسئلة + إظهار المزيد
+===================================================== */
+#faq .faq-extra[hidden]{display:none!important}
+
+#faq .faq-more-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:27px;
+}
+
+#faq .faq-more-btn{
+  padding:13px 30px;
+  color:#4c1d95;
+  background:#fff;
+  border:3px solid #d8cfe0;
+  border-radius:11px;
+  font-family:"Tajawal",sans-serif;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:4px 4px 0 #c8bfd0;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    background .2s ease;
+}
+
+#faq .faq-more-btn:hover{
+  background:#f6f2fa;
+  transform:translateY(-2px);
+  box-shadow:6px 6px 0 #bfb4c8;
+}
+
+#faq .faq-more-btn:active{
+  transform:translate(3px,3px);
+  box-shadow:1px 1px 0 #bfb4c8;
+}
