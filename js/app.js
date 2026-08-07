@@ -1,1 +1,2 @@
-document.getElementById('browseBtn')?.addEventListener('click',()=>document.getElementById('games-list')?.scrollIntoView({behavior:'smooth'}));
+document.getElementById("browseBtn")?.addEventListener("click",()=>document.getElementById("games-list")?.scrollIntoView({behavior:"smooth"}));
+document.querySelectorAll(".faq-question").forEach(btn=>btn.addEventListener("click",()=>{const item=btn.closest(".faq-item");const ans=item.querySelector(".faq-answer");const icon=item.querySelector(".faq-icon");const open=ans.classList.contains("open");document.querySelectorAll(".faq-answer.open").forEach(x=>x.classList.remove("open"));document.querySelectorAll(".faq-icon.open").forEach(x=>x.classList.remove("open"));if(!open){ans.classList.add("open");icon.classList.add("open")}}));

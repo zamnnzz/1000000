@@ -1,1 +1,1 @@
-Zamn new design base. No games, React, Babel, Tailwind or Firebase yet.
+نسخة تصميم فقط - واجهة زامن الجديدة. لا تحتوي ألعاب أو Firebase أو React.
