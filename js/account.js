@@ -45,12 +45,14 @@
     el.textContent=text; el.className="z-message "+(type==="error"?"error":"ok"); el.hidden=false;
     clearTimeout(message._t); message._t=setTimeout(()=>el.hidden=true,3500);
   }
-  function normalizeCode(v){
+  function normalizeDigits(v){
     return String(v||"")
       .replace(/[٠-٩]/g,d=>"0123456789"["٠١٢٣٤٥٦٧٨٩".indexOf(d)])
       .replace(/[۰-۹]/g,d=>"0123456789"["۰۱۲۳۴۵۶۷۸۹".indexOf(d)])
       .replace(/[^0-9]/g,"");
   }
+
+  function normalizeCode(v){ return normalizeDigits(v); }
   async function loadOwnedGames(p){
     await ensureFirebase();
     const snap=await db.ref("customers/"+p+"/games").get();
@@ -106,7 +108,7 @@
 
   async function login(){
     const c=countries[+$("countrySelect").value||0];
-    const local=$("phoneInput").value.replace(/\D/g,"");
+    const local=normalizeDigits($("phoneInput").value);
     if(local.length!==c.length){ message(`رقم ${c.name} يجب أن يكون ${c.length} أرقام ❌`,"error"); return; }
     const full=c.code+local;
     try{
@@ -276,7 +278,15 @@
       renderLibrary();
       showLogin();
     });
-    $("loginBtn")?.addEventListener("click",login);
+    $("phoneInput")?.addEventListener("input",(e)=>{
+      const raw=e.target.value;
+      // Keep Arabic/English numerals accepted; strip letters/symbols only.
+      e.target.value=raw.replace(/[^0-9٠-٩۰-۹]/g,"");
+    });
+    $("gameCodeInput")?.addEventListener("input",(e)=>{
+      e.target.value=e.target.value.replace(/[^0-9٠-٩۰-۹]/g,"");
+    });
+        $("loginBtn")?.addEventListener("click",login);
     $("saveNameBtn")?.addEventListener("click",saveName);
     $("logoutBtn")?.addEventListener("click",logout);
     $("openLibraryBtn")?.addEventListener("click",()=>{
