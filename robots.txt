@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zamn-games.vercel.app/sitemap.xml
+Host: zamn-games.vercel.app
