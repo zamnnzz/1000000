@@ -3298,3 +3298,80 @@ body.horof-bell-mode .horof-bell-hero-visual img{
     font-size:24px;
   }
 }
+
+
+
+/* =====================================================
+   V35 — تواصل معنا مطابق للموقع القديم
+===================================================== */
+.footer-contact-old{
+  text-align:right;
+}
+
+.footer-contact-old h2{
+  margin:0 0 24px;
+  color:#fff;
+  font-family:"Tajawal",sans-serif;
+  font-size:30px;
+  line-height:1.25;
+  font-weight:900;
+}
+
+.footer-contact-old-actions{
+  display:flex;
+  gap:20px;
+  align-items:center;
+  justify-content:flex-start;
+}
+
+.footer-contact-old-circle{
+  width:80px;
+  height:80px;
+  flex:0 0 80px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#fff;
+  background:rgba(255,255,255,.10);
+
+  border-radius:999px;
+  text-decoration:none;
+
+  transition:
+    background .3s ease,
+    transform .3s ease;
+}
+
+.footer-contact-old-circle:hover{
+  background:rgba(255,255,255,.20);
+  transform:translateY(-2px);
+}
+
+.footer-contact-old-store,
+.footer-contact-old-whatsapp{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  color:#fff;
+}
+
+.footer-contact-old-store svg,
+.footer-contact-old-whatsapp svg{
+  width:36px;
+  height:36px;
+  display:block;
+}
+
+@media(max-width:760px){
+  .footer-contact-old{
+    text-align:center;
+  }
+
+  .footer-contact-old-actions{
+    justify-content:center;
+  }
+}
