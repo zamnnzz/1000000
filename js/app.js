@@ -94,8 +94,8 @@ function openGame(game,push=true){
   const play=document.getElementById("gamePlayBtn");
   const buy=document.getElementById("gameBuyBtn");
   const trial=document.getElementById("gameTrialBtn");
-  if(play){play.href=game.playLink||"#"; play.textContent="▶ العب الآن"}
-  if(buy){buy.href=game.buyLink||"#"; buy.textContent=`💳 اشتر الآن - ${game.price||""}`}
+  if(play){play.href=game.playLink||"#"; play.target="_blank"; play.rel="noopener"; play.textContent="▶ العب الآن"}
+  if(buy){buy.href=game.buyLink||"#"; buy.target="_blank"; buy.rel="noopener"; buy.textContent=`💳 اشتر الآن - ${game.price||""}`}
   if(trial){trial.dataset.trialKey=game.trialKey||""}
   renderShots(game);
   renderReviews(game);
@@ -104,7 +104,7 @@ function openGame(game,push=true){
   document.body.classList.add("game-mode");
   gameView.hidden=false;
   window.scrollTo({top:0,behavior:"auto"});
-  if(push) history.pushState({view:"game",slug:game.slug},"",location.pathname === "/" ? "/" : location.pathname);
+  if(push) history.pushState({view:"game",slug:game.slug},"",`/game/${game.slug}`);
 }
 function closeGame(push=true){
   document.body.classList.remove("game-mode");
