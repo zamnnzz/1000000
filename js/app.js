@@ -1,4 +1,25 @@
 
+function setPageIcon(iconUrl){
+  if(!iconUrl)return;
+  document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"],link[rel="apple-touch-icon"]').forEach(link=>link.remove());
+
+  const icon=document.createElement("link");
+  icon.rel="icon";
+  icon.href=iconUrl;
+  document.head.appendChild(icon);
+
+  const shortcut=document.createElement("link");
+  shortcut.rel="shortcut icon";
+  shortcut.href=iconUrl;
+  document.head.appendChild(shortcut);
+
+  const apple=document.createElement("link");
+  apple.rel="apple-touch-icon";
+  apple.href=iconUrl;
+  document.head.appendChild(apple);
+}
+
+
 const GAMES = window.ZAMN_GAMES || [];
 const bySlug = slug => GAMES.find(g => g.slug === slug);
 const homeTitle = document.title;
@@ -86,6 +107,7 @@ function renderOtherGames(game){
 }
 function openGame(game,push=true){
   window.ZAMN_CURRENT_GAME = game;
+  setPageIcon(game.icon || game.image);
   if(!game||!gameView)return;
   setText("detailTitle",game.name);
   setText("detailDesc",game.description);
@@ -121,6 +143,7 @@ window.openGame = openGame;
 
 function closeGame(push=true){
   window.ZAMN_CURRENT_GAME = null;
+  setPageIcon("https://zamn-games.vercel.app/favicon.png?v=10");
   document.body.classList.remove("game-mode","horof-bell-mode");
   const horofBellFaq = document.getElementById("horofBellFaq");
   const horofBellHowTo = document.getElementById("horofBellHowTo");
@@ -185,3 +208,11 @@ function openLightbox(src,alt){
   img.src=src; img.alt=alt||"صورة اللعبة";
   lightbox.classList.add("open");
 }
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const path=window.location.pathname;
+  if(!/^\/game\//.test(path)){
+    setPageIcon("https://zamn-games.vercel.app/favicon.png?v=10");
+  }
+});
