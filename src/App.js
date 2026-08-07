@@ -1,9 +1,9 @@
 const React = window.React;
-import { games } from "./data/games";
-import { articles } from "./data/articles";
-import { faqItems } from "./data/faq";
-import { getGameSeoTitle, getGameSeoDescription } from "./seo/gameSeo";
-import { db, updateOnlinePlayer, registerGameEntry } from "./services/firebase";
+import { games } from "./data/games.js";
+import { articles } from "./data/articles.js";
+import { faqItems } from "./data/faq.js";
+import { getGameSeoTitle, getGameSeoDescription } from "./seo/gameSeo.js";
+import { db, updateOnlinePlayer, registerGameEntry } from "./services/firebase.js";
 
 function App() {
     const [previewImage, setPreviewImage] = React.useState(null);
