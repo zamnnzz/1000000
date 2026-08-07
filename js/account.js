@@ -16,7 +16,7 @@
     {name:"جيبوتي",flag:"🇩🇯",code:"253",length:8},{name:"جزر القمر",flag:"🇰🇲",code:"269",length:7}
   ];
 
-  let db=null, firebasePromise=null, phone="", playerName="", pendingPhone="", ownedCodes=[], pendingGame=null, trialTimer=null;
+  let db=null, firebasePromise=null, phone="", playerName="", pendingPhone="", ownedCodes=[], pendingGame=null, trialTimer=null, playerTopTimer=null;
   const $ = id => document.getElementById(id);
 
   function loadScript(src){
@@ -210,6 +210,12 @@
     $("playingGameName").textContent=game.name;
     $("trialCounter").textContent="";
     overlay.hidden=false; document.body.classList.add("player-open");
+    const playerTop = document.querySelector(".game-player-top");
+    if(playerTop){
+      playerTop.classList.remove("player-top-hidden");
+      clearTimeout(playerTopTimer);
+      playerTopTimer=setTimeout(()=>playerTop.classList.add("player-top-hidden"),5000);
+    }
     iframe.src=game.playLink;
     registerGameEntry(game,entryType);
     if(Number(game.id)===9 && entryType==="owned"){
@@ -223,6 +229,9 @@
 
   function closePlayer(){
     clearInterval(trialTimer); trialTimer=null;
+    clearTimeout(playerTopTimer); playerTopTimer=null;
+    const playerTop=document.querySelector(".game-player-top");
+    if(playerTop) playerTop.classList.remove("player-top-hidden");
     $("gameIframe").src="about:blank"; $("gamePlayerOverlay").hidden=true;
     $("trialCounter").textContent=""; document.body.classList.remove("player-open");
     updatePresence();
