@@ -874,3 +874,7 @@ body:not(.game-mode) .game-btn:active{
     aspect-ratio:487 / 730 !important;
   }
 }
+
+/* patch */
+.game-rating{display:none!important;}
+.game-desc{display:none!important;}
