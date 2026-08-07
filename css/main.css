@@ -1672,3 +1672,143 @@ body.player-open{overflow:hidden}
   flex:1;
   border:0;
 }
+
+
+
+/* =====================================================
+   V19 — توزيع البطاقات النهائي
+   - أقرب لبعض
+   - لا تتراكب عند تصغير الشاشة
+   - الجوال بطاقتان بنفس نسب الكمبيوتر
+===================================================== */
+
+/* الكمبيوتر: نفس 245x345 ولكن بفجوات أصغر */
+@media (min-width:900px){
+  body:not(.game-mode) .games-row{
+    display:grid !important;
+    justify-content:center !important;
+    align-items:start !important;
+    gap:12px !important;
+    width:fit-content !important;
+    max-width:100% !important;
+    margin-inline:auto !important;
+  }
+
+  body:not(.game-mode) .games-row-2{
+    grid-template-columns:repeat(2,245px) !important;
+  }
+
+  body:not(.game-mode) .games-row-3{
+    grid-template-columns:repeat(3,245px) !important;
+  }
+
+  body:not(.game-mode) .games-row-4{
+    grid-template-columns:repeat(4,245px) !important;
+  }
+}
+
+/* عند تصغير شاشة الكمبيوتر/التابلت: العناصر تنزل صفوف ولا تتراكب */
+@media (min-width:560px) and (max-width:899px){
+  body:not(.game-mode) .games-row-2,
+  body:not(.game-mode) .games-row-3,
+  body:not(.game-mode) .games-row-4{
+    display:grid !important;
+    grid-template-columns:repeat(2,245px) !important;
+    justify-content:center !important;
+    align-items:start !important;
+    gap:12px !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin-inline:auto !important;
+  }
+}
+
+/* الجوال: نفس شكل الكمبيوتر ونفس النسب، لكن مصغر تلقائياً */
+@media (max-width:559px){
+  body:not(.game-mode) .games-row-2,
+  body:not(.game-mode) .games-row-3,
+  body:not(.game-mode) .games-row-4{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    justify-content:center !important;
+    align-items:start !important;
+    gap:8px !important;
+    width:100% !important;
+  }
+
+  body:not(.game-mode) .games-row .game-card{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    height:auto !important;
+    min-height:0 !important;
+    aspect-ratio:245 / 345 !important;
+    margin:0 !important;
+    border-width:3px !important;
+    border-radius:18px !important;
+  }
+
+  /* نفس نسبة صورة الكمبيوتر 245x175 */
+  body:not(.game-mode) .games-row .game-image-box{
+    width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+    aspect-ratio:7 / 5 !important;
+    flex:none !important;
+  }
+
+  body:not(.game-mode) .games-row .game-image,
+  body:not(.game-mode) .games-row .game-card-image{
+    width:100% !important;
+    height:100% !important;
+    display:block !important;
+    object-fit:cover !important;
+    object-position:center !important;
+  }
+
+  body:not(.game-mode) .games-row .game-content{
+    padding:7px !important;
+    flex:1 !important;
+    min-height:0 !important;
+  }
+
+  body:not(.game-mode) .games-row .game-title{
+    margin:0 0 5px !important;
+    font-size:clamp(11px,3.4vw,14px) !important;
+    line-height:1.25 !important;
+  }
+
+  body:not(.game-mode) .games-row .game-tags{
+    gap:4px !important;
+    margin:0 0 6px !important;
+  }
+
+  body:not(.game-mode) .games-row .game-tag{
+    padding:3px 5px !important;
+    font-size:clamp(7px,2.2vw,9px) !important;
+    border-radius:7px !important;
+  }
+
+  body:not(.game-mode) .games-row .game-btn{
+    width:100% !important;
+    height:34px !important;
+    min-height:34px !important;
+    margin-top:auto !important;
+    font-size:clamp(10px,3vw,13px) !important;
+    border-radius:9px !important;
+  }
+}
+
+/* حتى أضيق أجهزة الجوال: يبقون بطاقتين لكن بدون خروج من الشاشة */
+@media (max-width:360px){
+  body:not(.game-mode) .games-row-2,
+  body:not(.game-mode) .games-row-3,
+  body:not(.game-mode) .games-row-4{
+    gap:6px !important;
+  }
+
+  body:not(.game-mode) .games-row .game-content{
+    padding:6px !important;
+  }
+}

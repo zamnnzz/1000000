@@ -104,10 +104,8 @@
 
   async function login(){
     const c=countries[+$("countrySelect").value||0];
-    let local=$("phoneInput").value.replace(/\D/g,"");
-    if(local.startsWith(c.code)) local=local.slice(c.code.length);
-    if(local.startsWith("0")) local=local.slice(1);
-    if(local.length!==c.length){ message(`رقم ${c.name} يجب أن يكون ${c.length} أرقام`,"error"); return; }
+    const local=$("phoneInput").value.replace(/\D/g,"");
+    if(local.length!==c.length){ message(`رقم ${c.name} يجب أن يكون ${c.length} أرقام ❌`,"error"); return; }
     const full=c.code+local;
     try{
       await ensureFirebase();
@@ -131,9 +129,10 @@
     if(!$("termsAgree").checked){ message("يجب الموافقة على التعهد أولاً","error"); return; }
     try{
       await ensureFirebase();
-      await db.ref("customers/"+pendingPhone).update({
-        name,agreeTerms:true,agreeTermsAt:Date.now(),lastLogin:Date.now()
-      });
+      await db.ref("customers/"+pendingPhone+"/name").set(name);
+      await db.ref("customers/"+pendingPhone+"/agreeTerms").set(true);
+      await db.ref("customers/"+pendingPhone+"/agreeTermsAt").set(Date.now());
+      await db.ref("customers/"+pendingPhone+"/lastLogin").set(Date.now());
       phone=pendingPhone; playerName=name; pendingPhone="";
       localStorage.setItem("playerPhone",phone);
       await loadOwnedGames(phone); await updatePresence();
