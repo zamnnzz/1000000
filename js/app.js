@@ -104,14 +104,14 @@ function openGame(game,push=true){
   document.body.classList.add("game-mode");
   gameView.hidden=false;
   window.scrollTo({top:0,behavior:"auto"});
-  if(push) history.pushState({slug:game.slug},"",`/game/${game.slug}`);
+  if(push) history.pushState({view:"game",slug:game.slug},"",location.pathname === "/" ? "/" : location.pathname);
 }
 function closeGame(push=true){
   document.body.classList.remove("game-mode");
   if(gameView) gameView.hidden=true;
   resetSEO();
   window.scrollTo({top:0,behavior:"auto"});
-  if(push) history.pushState({},"","/");
+  if(push) history.pushState({view:"home"},"","/");
 }
 document.addEventListener("click",e=>{
   const link=e.target.closest('a[href^="/game/"]');
@@ -126,10 +126,18 @@ document.getElementById("gameBackBtn")?.addEventListener("click",()=>closeGame(t
 document.getElementById("gameTrialBtn")?.addEventListener("click",()=>{
   alert("زر التجربة جاهز للربط بنظام التجربة 45 ثانية في الخطوة التالية.");
 });
-window.addEventListener("popstate",()=>{
+window.addEventListener("popstate",(event)=>{
   const m=location.pathname.match(/^\/game\/([^/]+)\/?$/);
-  if(m){ const g=bySlug(decodeURIComponent(m[1])); if(g) openGame(g,false); else closeGame(false); }
-  else closeGame(false);
+  if(m){
+    const g=bySlug(decodeURIComponent(m[1]));
+    if(g) openGame(g,false); else closeGame(false);
+    return;
+  }
+  if(event.state && event.state.view==="game" && event.state.slug){
+    const g=bySlug(event.state.slug);
+    if(g){ openGame(g,false); return; }
+  }
+  closeGame(false);
 });
 const initial=location.pathname.match(/^\/game\/([^/]+)\/?$/);
 if(initial){ const g=bySlug(decodeURIComponent(initial[1])); if(g) openGame(g,false); }

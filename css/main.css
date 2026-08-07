@@ -353,3 +353,80 @@ body.game-mode #gameView .game-footer{display:block!important}
 .zamn-lightbox.open{display:flex}.zamn-lightbox img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:20px;box-shadow:0 25px 70px rgba(0,0,0,.35)}
 .action-wide{display:flex;text-decoration:none;align-items:center;justify-content:center}
 @media(max-width:600px){.retro-shot img{min-height:215px}}
+
+/* V9 — واجهة ألعاب كرتونية، مع إبقاء الوصف داخل اللعبة فقط */
+body:not(.game-mode) .games-row .game-card .game-desc{
+  display:none !important;
+}
+
+/* Make homepage cards feel more game/cartoon-like without changing layout */
+body:not(.game-mode) .games-row .game-card{
+  border-width:4px;
+  border-color:#4c1d95;
+  border-radius:28px;
+  box-shadow:8px 9px 0 #c4b5fd, 0 18px 38px rgba(76,29,149,.12);
+  overflow:hidden;
+  background:#fff;
+  transform:translateZ(0);
+}
+body:not(.game-mode) .games-row .game-card:hover{
+  transform:translateY(-6px) rotate(-.35deg);
+  box-shadow:10px 12px 0 #a78bfa, 0 24px 46px rgba(76,29,149,.18);
+}
+body:not(.game-mode) .games-row .game-card:nth-child(even):hover{
+  transform:translateY(-6px) rotate(.35deg);
+}
+body:not(.game-mode) .game-image-box{
+  border-bottom:4px solid #4c1d95;
+  background:linear-gradient(135deg,#f5f3ff,#ede9fe);
+}
+body:not(.game-mode) .game-rating{
+  border:3px solid #4c1d95;
+  box-shadow:3px 3px 0 #4c1d95;
+  font-weight:1000;
+}
+body:not(.game-mode) .game-title{
+  font-weight:1000;
+  letter-spacing:-.3px;
+}
+body:not(.game-mode) .game-tag{
+  border:2px solid #7c3aed;
+  box-shadow:2px 2px 0 #ddd6fe;
+  font-weight:900;
+}
+body:not(.game-mode) .game-btn{
+  border:3px solid #9a3412;
+  box-shadow:4px 5px 0 #9a3412;
+  border-radius:16px;
+  font-weight:1000;
+}
+body:not(.game-mode) .game-btn:active{
+  transform:translate(2px,2px);
+  box-shadow:2px 3px 0 #9a3412;
+}
+
+/* Cartoon polish for section titles and pills */
+.games-section-title{
+  text-shadow:2px 3px 0 rgba(124,58,237,.12);
+}
+.section-chip, .games-title-pill{
+  border-width:3px !important;
+  box-shadow:5px 6px 0 rgba(124,58,237,.18) !important;
+}
+
+/* Keep cards safe: nothing is allowed to spill out */
+.games-row .game-card,
+.games-row .game-card *{
+  box-sizing:border-box;
+}
+.games-row .game-card{
+  min-width:0;
+}
+.games-row .game-content{
+  min-width:0;
+  overflow:hidden;
+}
+.games-row .game-title,
+.games-row .game-tags{
+  max-width:100%;
+}
