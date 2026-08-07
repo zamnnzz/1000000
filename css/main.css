@@ -1812,3 +1812,147 @@ body.player-open{overflow:hidden}
     padding:6px !important;
   }
 }
+
+
+
+/* =====================================================
+   V20 — واجهة تسجيل اللاعب من المشروع القديم
+===================================================== */
+.player-login-overlay[hidden]{display:none!important}
+.player-login-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100000;
+  overflow-y:auto;
+  display:block;
+  background:#f7f5fb;
+  animation:playerOverlayShow .25s ease both;
+}
+.player-login-page{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  overflow:hidden;
+  background:#f7f5fb;
+  animation:playerLoginPop .35s cubic-bezier(.22,1,.36,1) both;
+}
+.player-login-header{
+  position:relative;
+  min-height:260px;
+  overflow:hidden;
+  padding:30px 24px 20px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  text-align:center;
+  color:#fff;
+  background:linear-gradient(135deg,#3b0764,#6d28d9 55%,#8b5cf6);
+}
+.player-login-header-grid{
+  position:absolute;inset:0;opacity:.18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.35) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px);
+  background-size:19px 19px;
+}
+.player-login-header::after{
+  content:"";position:absolute;left:-5%;right:-5%;bottom:-35px;height:75px;
+  border-radius:50% 50% 0 0;background:#ede9fe;
+}
+.player-login-header-content{position:relative;z-index:3}
+.player-login-pixels span{position:absolute;z-index:4;width:12px;height:12px}
+.player-login-pixels span:nth-child(1){top:18px;left:24px;background:#fde047}
+.player-login-pixels span:nth-child(2){top:18px;left:43px;background:rgba(255,255,255,.52)}
+.player-login-pixels span:nth-child(3){right:24px;bottom:42px;background:#c084fc}
+.player-login-back,.player-login-logout{
+  position:absolute;top:18px;z-index:20;min-height:44px;padding:10px 16px;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  border:2px solid rgba(255,255,255,.24);border-radius:10px;color:#fff;
+  font-family:'Tajawal',sans-serif;font-size:14px;font-weight:900;cursor:pointer;
+  box-shadow:3px 3px 0 rgba(0,0,0,.22);
+}
+.player-login-back{right:18px;background:rgba(0,0,0,.22)}
+.player-login-logout{left:18px;background:#ef4444;border-color:#b91c1c;box-shadow:3px 3px 0 #991b1b}
+.player-login-icon{
+  width:84px;height:84px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;
+  border:3px solid rgba(255,255,255,.5);border-radius:12px;background:rgba(255,255,255,.14);
+  font-size:48px;box-shadow:6px 6px 0 rgba(0,0,0,.26);
+}
+.player-login-title{margin:0 0 8px;font-size:38px;line-height:1.2;font-weight:900}
+.player-login-subtitle{margin:0;color:rgba(255,255,255,.82);font-size:16px;font-weight:800}
+.player-login-content{position:relative;z-index:4;width:min(760px,100%);margin:auto;padding:22px}
+.player-login-card,.player-account-card{
+  padding:22px;background:#fff;border:3px solid #e5e2e8;border-radius:18px;
+  box-shadow:6px 6px 0 #d3cfd8,0 18px 34px rgba(0,0,0,.07);
+}
+.player-login-card h3{margin:0 0 8px;color:#3b0764;font-size:24px;font-weight:900}
+.player-login-card-text{margin:0 0 18px;color:#77717d;line-height:1.8;font-size:14px;font-weight:800}
+.player-phone-row{display:flex;gap:10px;align-items:stretch}
+.player-country-wrap{flex:0 0 180px}
+.player-country-button,.player-login-input{
+  width:100%;height:58px;padding:0 13px;border:3px solid #ddd7e2;border-radius:11px;
+  background:#fff;color:#3b2e47;font:inherit;font-weight:900;outline:none;
+  box-shadow:3px 3px 0 #d4ced9;
+}
+.player-login-input:focus,.player-country-button:focus{border-color:#8b5cf6}
+.player-login-main-button{
+  width:100%;min-height:54px;margin-top:16px;border:3px solid #4c1d95;border-radius:11px;
+  background:#7c3aed;color:#fff;font:inherit;font-size:16px;font-weight:900;cursor:pointer;
+  box-shadow:5px 5px 0 #4c1d95;
+}
+.player-name-input{margin-top:8px}
+.player-terms{display:flex;align-items:flex-start;gap:9px;margin:16px 0;color:#6f6676;font-size:14px;line-height:1.7;font-weight:700}
+.player-account-card{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.player-account-avatar{width:62px;height:62px;display:grid;place-items:center;border-radius:12px;background:#ede9fe;font-size:32px;border:3px solid #ddd6fe}
+.player-account-info{display:grid;gap:4px}.player-account-name{color:#3b0764;font-size:20px}.player-account-phone{color:#77717d;direction:ltr;text-align:right}
+.player-library-heading{margin:18px 0 14px;display:flex;align-items:center;justify-content:space-between}
+.player-library-heading h3{margin:0;color:#3b0764;font-size:24px;font-weight:900}.player-library-heading p{margin:4px 0 0;color:#7d7682;font-size:13px;font-weight:800}
+.player-games-list{display:flex;flex-direction:column;gap:14px}
+.player-library-game{
+  width:100%;padding:12px;display:flex;align-items:center;gap:14px;border:2px solid #e5e2e8;border-radius:15px;
+  background:#fff;color:inherit;text-decoration:none;box-shadow:5px 5px 0 #d7d4da,0 11px 24px rgba(0,0,0,.06)
+}
+.player-library-image-wrap{flex:0 0 74px;height:74px;overflow:hidden;border:3px solid #d8d5dc;border-radius:10px;box-shadow:3px 3px 0 #d2cfd5}
+.player-library-image{width:100%;height:100%;object-fit:cover}
+.player-library-game-info{flex:1;min-width:0}.player-library-game-info h4{margin:0 0 4px;color:#3b0764;font-size:17px}.player-library-game-info p{margin:0;color:#77717d;font-size:12px;font-weight:800}
+.player-library-open{padding:9px 11px;border:2px solid #4c1d95;border-radius:9px;background:#7c3aed;color:#fff;font-size:12px;font-weight:900}
+@keyframes playerOverlayShow{from{opacity:0}to{opacity:1}}
+@keyframes playerLoginPop{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+@media(max-width:600px){
+  .player-login-header{min-height:275px;padding:24px 20px 18px}
+  .player-login-header-content{transform:translateY(-12px)}
+  .player-login-title{font-size:31px}.player-login-icon{width:74px;height:74px;font-size:41px}
+  .player-login-back,.player-login-logout{top:13px;min-height:40px;padding:8px 11px;font-size:12px}
+  .player-login-back{right:12px}.player-login-logout{left:12px}
+  .player-login-content{padding:15px 12px 25px}.player-login-card{padding:17px 14px}
+  .player-phone-row{gap:7px}.player-country-wrap{flex-basis:104px}.player-country-button,.player-login-input{height:55px;font-size:13px;padding-inline:8px}
+}
+
+/* =====================================================
+   V20 — حروف والوف مع جرس: الصورة وتعليمات التشغيل القديمة
+===================================================== */
+.horof-bell-hero-visual[hidden],.horof-howto[hidden]{display:none!important}
+.horof-bell-mode .retro-game-hero{
+  min-height:520px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(280px,520px);
+  align-items:center;
+  gap:20px;
+  padding-inline:clamp(18px,5vw,70px);
+}
+.horof-bell-mode .retro-game-content{max-width:700px}
+.horof-bell-hero-visual{position:relative;z-index:6;display:flex;align-items:center;justify-content:center}
+.horof-bell-hero-visual img{width:min(100%,520px);height:auto;object-fit:contain;filter:drop-shadow(0 28px 32px rgba(22,5,35,.3))}
+.horof-howto{background:#fff;border:2px solid #eadcff;border-radius:28px;padding:28px;box-shadow:6px 7px 0 #d9cfdf}
+.horof-howto-head{text-align:center;margin-bottom:25px}.horof-howto-head h2{margin:0 0 8px;color:#3b0764;font-size:30px;font-weight:900}.horof-howto-head p{margin:0;color:#77717d;font-weight:800}
+.horof-howto-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.horof-step{position:relative;padding:24px 18px;background:#faf7ff;border:2px solid #eadcff;border-radius:22px;text-align:center}
+.horof-step-number{position:absolute;top:12px;right:12px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#7c3aed;color:#fff;font-weight:900}
+.horof-step-icon{width:72px;height:72px;margin:4px auto 15px;display:grid;place-items:center;border-radius:22px;background:#ede9fe;font-size:34px}
+.horof-step h3{margin:0 0 9px;color:#3b0764;font-size:21px;font-weight:900}.horof-step p{margin:0;color:#62596a;line-height:1.8;font-weight:700}
+@media(max-width:850px){
+  .horof-bell-mode .retro-game-hero{grid-template-columns:1fr;padding-top:80px}
+  .horof-bell-hero-visual{grid-row:1}.horof-bell-mode .retro-game-content{grid-row:2;text-align:center}
+  .horof-bell-hero-visual img{width:min(78vw,340px)}
+  .horof-howto-grid{grid-template-columns:1fr}
+}

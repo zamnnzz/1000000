@@ -247,6 +247,12 @@
 
       <button id="gameBackBtn" class="retro-home-btn" type="button">الرئيسية <span aria-hidden="true">◆</span></button>
 
+      <div id="horofBellHeroVisual" class="horof-bell-hero-visual" hidden>
+        <img src="https://i.postimg.cc/cLs9NqGk/shat.webp"
+             alt="لعبة حروف وألوف مع جرس مدمج"
+             width="520" height="520" loading="eager" decoding="async">
+      </div>
+
       <div class="retro-game-content">
         <h1 id="detailTitle">حروف والوف</h1>
 
@@ -268,6 +274,36 @@
         <a id="gamePlayBtn" class="action-wide action-play" href="#" rel="noopener">▶ العب الآن</a>
         <a id="gameBuyBtn" class="action-wide action-buy" href="#" rel="noopener">💳 اشتر الآن</a>
         <button id="gameTrialBtn" class="action-wide action-trial" type="button">🎮 جرّب مجاناً 45 ثانية</button>
+      </section>
+
+      <section id="horofBellHowTo" class="horof-howto retro-section" hidden>
+        <div class="horof-howto-head">
+          <h2>كيف تلعب حروف وألوف مع الجرس؟</h2>
+          <p>ابدأ التحدي في ثلاث خطوات بسيطة</p>
+        </div>
+
+        <div class="horof-howto-grid">
+          <article class="horof-step">
+            <span class="horof-step-number">1</span>
+            <div class="horof-step-icon">👥</div>
+            <h3>قسّم اللاعبين</h3>
+            <p>قسّم المشاركين إلى فريقين، ثم اختر أسماء الفرق وابدأ جولة جديدة.</p>
+          </article>
+
+          <article class="horof-step">
+            <span class="horof-step-number">2</span>
+            <div class="horof-step-icon">📺</div>
+            <h3>اعرض اللعبة</h3>
+            <p>اعرض اللعبة على التلفزيون أو الشاشة الكبيرة ليشاهد الجميع الحروف والأسئلة.</p>
+          </article>
+
+          <article class="horof-step">
+            <span class="horof-step-number">3</span>
+            <div class="horof-step-icon">🔔</div>
+            <h3>اضغط الجرس وأجب</h3>
+            <p>أول فريق يضغط الجرس يحصل على فرصة الإجابة، والإجابة الصحيحة تمنحه النقطة.</p>
+          </article>
+        </div>
       </section>
 
       <section id="gameShots" class="retro-section screenshots-panel">
@@ -368,36 +404,71 @@
   </section>
 
   <!-- نظام الحساب والمكتبة والأكواد - منطق المشروع القديم بصيغة خفيفة -->
-  <div id="accountModal" class="z-modal" hidden>
-    <div class="z-modal-card" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
-      <button class="z-modal-close" data-close-modal="accountModal" type="button">×</button>
-      <h2 id="accountTitle">🎮 حساب ألعاب زامن</h2>
+  <div id="accountModal" class="player-login-overlay" hidden>
+    <div class="player-login-page" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
 
-      <div id="loginStage">
-        <p class="z-muted">سجل برقم الجوال للوصول إلى ألعابك المحفوظة من أي جهاز.</p>
-        <label class="z-label">الدولة</label>
-        <select id="countrySelect" class="z-input"></select>
-        <label class="z-label">رقم الجوال</label>
-        <input id="phoneInput" class="z-input" inputmode="numeric" autocomplete="tel" placeholder="مثال: 5xxxxxxxx">
-        <button id="loginBtn" class="z-primary" type="button">دخول / تسجيل</button>
-      </div>
+      <header class="player-login-header">
+        <div class="player-login-header-grid" aria-hidden="true"></div>
+        <div class="player-login-pixels" aria-hidden="true"><span></span><span></span><span></span></div>
 
-      <div id="nameStage" hidden>
-        <p class="z-muted">أول مرة؟ اكتب اسم اللاعب لإكمال التسجيل.</p>
-        <label class="z-label">اسم اللاعب</label>
-        <input id="playerNameInput" class="z-input" maxlength="40" placeholder="اسمك">
-        <label class="z-check"><input id="termsAgree" type="checkbox"> أوافق على حفظ اسمي ورقم الجوال للوصول إلى الألعاب التي أملكها.</label>
-        <button id="saveNameBtn" class="z-primary" type="button">حفظ وإكمال</button>
-      </div>
+        <button class="player-login-back" data-close-modal="accountModal" type="button">← رجوع</button>
+        <button id="logoutBtn" class="player-login-logout" type="button" hidden>تسجيل الخروج</button>
 
-      <div id="accountStage" hidden>
-        <div class="z-profile">
-          <strong id="accountName"></strong>
-          <span id="accountPhone"></span>
+        <div class="player-login-header-content">
+          <div class="player-login-icon">🎮</div>
+          <h2 id="accountTitle" class="player-login-title">ألعاب زامن</h2>
+          <p class="player-login-subtitle">سجل دخولك وشاهد ألعابك المحفوظة</p>
         </div>
-        <button id="openLibraryBtn" class="z-primary" type="button">📚 ألعابي المحفوظة</button>
-        <button id="logoutBtn" class="z-secondary" type="button">تسجيل الخروج</button>
-      </div>
+      </header>
+
+      <main class="player-login-content">
+
+        <section id="loginStage" class="player-login-card">
+          <h3>دخول اللاعب</h3>
+          <p class="player-login-card-text">اكتب رقم جوالك للوصول إلى الألعاب التي اشتريتها سابقًا.</p>
+
+          <div class="player-phone-row">
+            <div class="player-country-wrap">
+              <select id="countrySelect" class="player-country-button" aria-label="الدولة"></select>
+            </div>
+            <input id="phoneInput" class="player-login-input" inputmode="numeric" autocomplete="tel" placeholder="رقم الجوال">
+          </div>
+
+          <button id="loginBtn" class="player-login-main-button" type="button">دخول / تسجيل</button>
+        </section>
+
+        <section id="nameStage" class="player-login-card" hidden>
+          <h3>أهلاً بك 👋</h3>
+          <p class="player-login-card-text">هذه أول مرة تستخدم الرقم. اكتب اسم اللاعب لإكمال التسجيل.</p>
+          <input id="playerNameInput" class="player-login-input player-name-input" maxlength="40" placeholder="اسم اللاعب">
+          <label class="player-terms">
+            <input id="termsAgree" type="checkbox">
+            <span>أوافق على حفظ الاسم ورقم الجوال للوصول إلى ألعابي من أي جهاز.</span>
+          </label>
+          <button id="saveNameBtn" class="player-login-main-button" type="button">حفظ وإكمال</button>
+        </section>
+
+        <section id="accountStage" hidden>
+          <div class="player-account-card">
+            <div class="player-account-avatar">👤</div>
+            <div class="player-account-info">
+              <strong id="accountName" class="player-account-name"></strong>
+              <span id="accountPhone" class="player-account-phone"></span>
+            </div>
+          </div>
+
+          <div class="player-library-heading">
+            <div>
+              <h3>ألعابي</h3>
+              <p>الألعاب المحفوظة على حسابك</p>
+            </div>
+          </div>
+
+          <div id="ownedGamesInline" class="player-games-list"></div>
+          <button id="openLibraryBtn" class="player-login-main-button" type="button">عرض المكتبة كاملة</button>
+        </section>
+
+      </main>
     </div>
   </div>
 

@@ -103,8 +103,12 @@ function openGame(game,push=true){
   renderOtherGames(game);
 
   const horofBellFaq = document.getElementById("horofBellFaq");
+  const horofBellHowTo = document.getElementById("horofBellHowTo");
+  const horofBellHeroVisual = document.getElementById("horofBellHeroVisual");
   const isHorofBell = game.slug === "horof-bell";
   if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
+  if(horofBellHowTo) horofBellHowTo.hidden = !isHorofBell;
+  if(horofBellHeroVisual) horofBellHeroVisual.hidden = !isHorofBell;
   document.body.classList.toggle("horof-bell-mode", isHorofBell);
 
   setSEO(game);
@@ -117,7 +121,11 @@ function closeGame(push=true){
   window.ZAMN_CURRENT_GAME = null;
   document.body.classList.remove("game-mode","horof-bell-mode");
   const horofBellFaq = document.getElementById("horofBellFaq");
+  const horofBellHowTo = document.getElementById("horofBellHowTo");
+  const horofBellHeroVisual = document.getElementById("horofBellHeroVisual");
   if(horofBellFaq) horofBellFaq.hidden = true;
+  if(horofBellHowTo) horofBellHowTo.hidden = true;
+  if(horofBellHeroVisual) horofBellHeroVisual.hidden = true;
   if(gameView) gameView.hidden=true;
   resetSEO();
   window.scrollTo({top:0,behavior:"auto"});

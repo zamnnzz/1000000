@@ -96,9 +96,11 @@
     $("loginStage").hidden=!!phone;
     $("nameStage").hidden=true;
     $("accountStage").hidden=!phone;
+    if($("logoutBtn")) $("logoutBtn").hidden=!phone;
     if(phone){
       $("accountName").textContent=playerName||"لاعب";
       $("accountPhone").textContent="+"+phone;
+      renderLibrary();
     }
   }
 
@@ -161,18 +163,33 @@
   }
 
   function renderLibrary(){
-    const box=$("ownedGamesList"); if(!box)return;
+    const box=$("ownedGamesList");
+    const inline=$("ownedGamesInline");
     const owned=GAMES.filter(isOwned);
-    if(!owned.length){
-      box.innerHTML='<div class="z-empty">لا توجد ألعاب محفوظة في حسابك حتى الآن.</div>'; return;
-    }
-    box.innerHTML="";
-    owned.forEach(g=>{
-      const a=document.createElement("a");
-      a.className="owned-game-card"; a.href="/game/"+g.slug;
-      a.innerHTML=`<img src="${g.image}" alt=""><div><strong>${g.name}</strong><span>فتح صفحة اللعبة ←</span></div>`;
-      box.appendChild(a);
-    });
+
+    const renderInto=(target,oldStyle=false)=>{
+      if(!target)return;
+      target.innerHTML="";
+      if(!owned.length){
+        target.innerHTML='<div class="z-empty">لا توجد ألعاب محفوظة في حسابك حتى الآن.</div>';
+        return;
+      }
+      owned.forEach(g=>{
+        const a=document.createElement("a");
+        a.href="/game/"+g.slug;
+        if(oldStyle){
+          a.className="player-library-game";
+          a.innerHTML=`<div class="player-library-image-wrap"><img class="player-library-image" src="${g.image}" alt=""></div><div class="player-library-game-info"><h4>${g.name}</h4><p>لعبة محفوظة في حسابك</p></div><span class="player-library-open">فتح</span>`;
+        }else{
+          a.className="owned-game-card";
+          a.innerHTML=`<img src="${g.image}" alt=""><div><strong>${g.name}</strong><span>فتح صفحة اللعبة ←</span></div>`;
+        }
+        target.appendChild(a);
+      });
+    };
+
+    renderInto(box,false);
+    renderInto(inline,true);
   }
 
   function currentGame(){ return window.ZAMN_CURRENT_GAME || null; }
