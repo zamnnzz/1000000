@@ -427,114 +427,296 @@ body:not(.game-mode) .game-btn:active{
 }
 
 
-/* V11 — بطاقة مطابقة للمرجع */
-body:not(.game-mode) .games-row .game-card{
+
+/* V12 — تصميم بطاقات الألعاب حسب الكود المرسل */
+
+/* =====================================================
+   شبكة الألعاب
+===================================================== */
+
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  justify-content:center;
+  gap:12px;
+  width:100%;
+}
+
+/* =====================================================
+   بطاقة اللعبة الكرتونية
+===================================================== */
+
+.game-card{
+  position:relative;
+  width:100%;
+  height:300px;
+  margin:auto;
+  overflow:hidden;
+
   display:flex;
   flex-direction:column;
-  height:100%;
-  min-width:0;
-  overflow:hidden;
-  border:2px solid #ece7f1;
-  border-radius:28px;
-  background:#fff;
-  box-shadow:12px 14px 0 rgba(87,72,100,.18);
-  text-decoration:none;
+
   color:inherit;
-  transition:transform .18s ease, box-shadow .18s ease;
+  text-decoration:none;
+
+  background:#fff;
+
+  border:3px solid #e5e0ea;
+  border-radius:18px;
+
+  box-shadow:
+    6px 6px 0 #d2cbd8,
+    12px 12px 25px rgba(59,7,100,.10);
+
+  cursor:pointer;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
 }
 
-body:not(.game-mode) .games-row .game-card:hover{
-  transform:translateY(-3px);
-  box-shadow:12px 17px 0 rgba(87,72,100,.16);
+/* لمعة كرتونية */
+.game-card::before{
+  content:"";
+  position:absolute;
+  top:-130%;
+  left:-70%;
+  z-index:5;
+
+  width:55%;
+  height:330%;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,.45),
+      transparent
+    );
+
+  transform:rotate(24deg);
+  transition:left .75s ease;
 }
 
-body:not(.game-mode) .game-image-box{
-  width:100%;
-  aspect-ratio:4 / 3;
+.game-card:hover::before{
+  left:135%;
+}
+
+/* إطار داخلي */
+.game-card::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  z-index:4;
+  pointer-events:none;
+
+  border:1px dashed rgba(124,58,237,.16);
+  border-radius:12px;
+}
+
+.game-card:hover{
+  transform:translateY(-7px) rotate(-.3deg);
+  border-color:#c4b5fd;
+
+  box-shadow:
+    8px 8px 0 #b8afd0,
+    17px 17px 32px rgba(76,29,149,.16);
+}
+
+/* =====================================================
+   صورة اللعبة
+===================================================== */
+
+.game-image-box{
+  position:relative;
+  height:145px;
   overflow:hidden;
-  background:#f4edff;
-  border-bottom:1px solid #eee8f4;
+  flex-shrink:0;
+
+  background:#ede9fe;
+  border-bottom:3px solid #e4dff0;
 }
 
-body:not(.game-mode) .game-card-image{
+.game-image-box::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 60%,
+      rgba(59,7,100,.12)
+    );
+}
+
+.game-image,
+.game-card-image{
   width:100%;
   height:100%;
-  display:block;
   object-fit:cover;
+
+  transition:
+    transform .4s ease,
+    filter .4s ease;
 }
 
-body:not(.game-mode) .game-rating{
+.game-card:hover .game-image,
+.game-card:hover .game-card-image{
+  transform:scale(1.055);
+  filter:saturate(1.08) contrast(1.02);
+}
+
+/* =====================================================
+   تقييم اللعبة
+===================================================== */
+
+.game-rating{
   display:none !important;
 }
 
-body:not(.game-mode) .game-content{
+/* =====================================================
+   محتوى بطاقة اللعبة
+===================================================== */
+
+.game-content{
+  position:relative;
+  z-index:6;
+
   display:flex;
-  flex-direction:column;
   flex:1;
+  flex-direction:column;
+
   min-width:0;
-  padding:22px 24px 24px;
-  text-align:center;
+  padding:12px;
 }
 
-body:not(.game-mode) .game-title{
-  margin:0 0 20px;
+.game-title{
+  margin:0 0 8px;
+
   color:#3b0764;
-  font-size:clamp(24px,2vw,34px);
-  line-height:1.35;
-  font-weight:1000;
+
+  font-size:17px;
+  line-height:1.3;
+  font-weight:900;
+  letter-spacing:-.2px;
+
   overflow-wrap:anywhere;
 }
 
-body:not(.game-mode) .game-desc{
+.game-desc{
   display:none !important;
 }
 
-body:not(.game-mode) .game-tags{
+.game-tags{
   display:flex;
   flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  margin:0 0 24px;
-}
+  gap:6px;
 
-body:not(.game-mode) .game-tag{
-  min-height:44px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:9px 15px;
-  border:2px solid #e3dde8;
-  border-radius:14px;
-  background:#f8f5fa;
-  color:#574e5e;
-  font-size:15px;
-  line-height:1.2;
-  font-weight:900;
-  box-shadow:3px 4px 0 #ddd6e1;
-}
-
-body:not(.game-mode) .game-btn{
   margin-top:auto;
+  margin-bottom:10px;
+}
+
+.game-tag{
+  padding:5px 8px;
+
+  color:#554a63;
+  background:#f4f1f7;
+
+  border:2px solid #e2dce8;
+  border-radius:7px;
+
+  font-size:11px;
+  font-weight:900;
+
+  box-shadow:2px 2px 0 #d5cedb;
+}
+
+/* =====================================================
+   زر عرض اللعبة
+===================================================== */
+
+.game-btn{
   width:100%;
-  min-height:64px;
+  height:40px;
+  margin-top:auto;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  border:3px solid #4c1d95;
-  border-radius:17px;
-  background:linear-gradient(135deg,#6d28d9,#8b5cf6);
+
   color:#fff;
-  font-size:clamp(21px,1.8vw,29px);
-  font-weight:1000;
-  box-shadow:7px 8px 0 #4c1d95;
+  background:linear-gradient(90deg,#6d28d9,#8b5cf6);
+
+  border:2px solid #4c1d95;
+  border-radius:9px;
+
+  font-size:14px;
+  font-weight:900;
+
+  box-shadow:
+    4px 4px 0 #4c1d95,
+    0 8px 16px rgba(109,40,217,.18);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    filter .2s ease;
 }
 
-body:not(.game-mode) .game-card:active .game-btn{
-  transform:translate(2px,2px);
-  box-shadow:4px 5px 0 #4c1d95;
+.game-btn:hover{
+  filter:brightness(1.07);
+  transform:translateY(-1px);
+
+  box-shadow:
+    5px 5px 0 #4c1d95,
+    0 10px 20px rgba(109,40,217,.22);
 }
 
-@media (max-width:900px){
-  body:not(.game-mode) .game-title{font-size:24px}
-  body:not(.game-mode) .game-btn{min-height:58px;font-size:22px}
+.game-btn:active{
+  transform:translate(3px,3px);
+
+  box-shadow:
+    1px 1px 0 #4c1d95,
+    0 5px 10px rgba(109,40,217,.16);
+}
+
+/* نفس الصفوف 2 / 3 / 4 على الكمبيوتر */
+.games-row-2{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+}
+.games-row-3{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+}
+.games-row-4{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+}
+
+/* التابلت */
+@media(max-width:900px){
+  .games-row-2,
+  .games-row-3,
+  .games-row-4{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+
+/* الجوال */
+@media(max-width:560px){
+  .games-grid,
+  .games-row-2,
+  .games-row-3,
+  .games-row-4{
+    grid-template-columns:1fr !important;
+    gap:14px;
+  }
+
+  .game-card{
+    max-width:420px;
+    height:300px;
+  }
 }
