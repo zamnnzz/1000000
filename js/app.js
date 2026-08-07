@@ -85,6 +85,7 @@ function renderOtherGames(game){
   });
 }
 function openGame(game,push=true){
+  window.ZAMN_CURRENT_GAME = game;
   if(!game||!gameView)return;
   setText("detailTitle",game.name);
   setText("detailDesc",game.description);
@@ -94,7 +95,7 @@ function openGame(game,push=true){
   const play=document.getElementById("gamePlayBtn");
   const buy=document.getElementById("gameBuyBtn");
   const trial=document.getElementById("gameTrialBtn");
-  if(play){play.href=game.playLink||"#"; play.target="_blank"; play.rel="noopener"; play.textContent="▶ العب الآن"}
+  if(play){play.href="#"; play.removeAttribute("target"); play.textContent="▶ العب الآن"}
   if(buy){buy.href=game.buyLink||"#"; buy.target="_blank"; buy.rel="noopener"; buy.textContent=`💳 اشتر الآن - ${game.price||""}`}
   if(trial){trial.dataset.trialKey=game.trialKey||""}
   renderShots(game);
@@ -113,6 +114,7 @@ function openGame(game,push=true){
   if(push) history.pushState({view:"game",slug:game.slug},"",`/game/${game.slug}`);
 }
 function closeGame(push=true){
+  window.ZAMN_CURRENT_GAME = null;
   document.body.classList.remove("game-mode","horof-bell-mode");
   const horofBellFaq = document.getElementById("horofBellFaq");
   if(horofBellFaq) horofBellFaq.hidden = true;
@@ -131,9 +133,7 @@ document.addEventListener("click",e=>{
   openGame(game,true);
 });
 document.getElementById("gameBackBtn")?.addEventListener("click",()=>closeGame(true));
-document.getElementById("gameTrialBtn")?.addEventListener("click",()=>{
-  alert("زر التجربة جاهز للربط بنظام التجربة 45 ثانية في الخطوة التالية.");
-});
+
 window.addEventListener("popstate",(event)=>{
   const m=location.pathname.match(/^\/game\/([^/]+)\/?$/);
   if(m){
