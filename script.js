@@ -1,9 +1,3 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import firebase from "firebase/compat/app";
-import "firebase/compat/database";
-import "./styles.css";
-
 
 
 const firebaseConfig = {
@@ -2729,7 +2723,7 @@ className="cairo-btn game-details-btn game-details-trial"
   title={`لقطة من لعبة ${selectedGame.name}`}
   width="1920"
   height="1080"
-  loading={index < 3 ? "eager" : "lazy"}
+  loading="lazy"
   decoding="async"
   className="w-full aspect-[16/9] object-cover group-hover:scale-[1.03] transition duration-300"
 />
@@ -4777,4 +4771,4 @@ className={`game-card reveal-on-scroll reveal-delay-${(index % 4) + 1}`}
 
 
 
-createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
