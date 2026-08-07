@@ -3082,3 +3082,69 @@ body.horof-bell-mode .horof-bell-hero-visual img{
     aspect-ratio:7/5;
   }
 }
+
+/* =====================================================
+   V30 — ربط داخلي خفيف بدون تعقيد الواجهة
+===================================================== */
+.seo-related-section{
+  margin-top:28px;
+}
+.seo-related-section h2{
+  margin:0 0 16px;
+  text-align:center;
+  color:#3b0764;
+  font-size:25px;
+  font-weight:900;
+}
+.seo-related-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.seo-related-card{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  padding:9px;
+  color:#3b0764;
+  background:#fff;
+  border:2px solid #e5e0ea;
+  border-radius:13px;
+  text-decoration:none;
+  font-weight:900;
+  box-shadow:3px 3px 0 #d2cbd8;
+}
+.seo-related-card img{
+  width:68px;
+  height:52px;
+  flex:0 0 68px;
+  object-fit:cover;
+  border-radius:9px;
+}
+.seo-related-card span{
+  min-width:0;
+  line-height:1.4;
+}
+.seo-related-articles{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+}
+.seo-related-articles a{
+  padding:8px 11px;
+  color:#6d28d9;
+  background:#faf7ff;
+  border:1px solid #e7dcf5;
+  border-radius:9px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:900;
+}
+@media(max-width:650px){
+  .seo-related-grid{
+    grid-template-columns:1fr;
+  }
+}
