@@ -197,64 +197,106 @@
 
   
   <section id="gameView" class="game-view" hidden aria-live="polite">
-    <div class="game-view-topbar">
-      <button id="gameBackBtn" class="game-back-btn" type="button">← رجوع للألعاب</button>
-      <div class="game-view-brand">ألعاب زامن</div>
-    </div>
+    <section class="retro-game-hero">
+      <div class="retro-grid-overlay" aria-hidden="true"></div>
+      <span class="pixel pixel-a" aria-hidden="true"></span>
+      <span class="pixel pixel-b" aria-hidden="true"></span>
+      <span class="pixel pixel-c" aria-hidden="true"></span>
+      <span class="pixel pixel-d" aria-hidden="true"></span>
 
-    <section class="game-detail-hero">
-      <div class="game-detail-inner">
-        <div class="game-detail-copy">
-          <div class="game-breadcrumb">الرئيسية / الألعاب / <span id="detailBreadcrumb">اللعبة</span></div>
-          <h1 id="detailTitle">اسم اللعبة</h1>
-          <p id="detailDesc">واجهة اللعبة جاهزة. نضيف بيانات اللعبة الحقيقية لاحقًا من ملف مستقل بدون ما نثقل الصفحة الرئيسية.</p>
-          <div class="game-detail-pills">
-            <span>👥 ٢+ لاعبين</span>
-            <span>📱 تعمل على الجوال</span>
-            <span>⚡ لعب فوري</span>
-          </div>
-          <div class="game-detail-rating"><span>★★★★★</span> <b>5.0</b></div>
-          <div class="game-detail-actions">
-            <button class="game-play-btn" type="button">ابدأ اللعبة</button>
-            <button class="game-preview-btn" type="button" data-scroll-target="gameShots">شاهد الصور</button>
-          </div>
+      <button id="gameBackBtn" class="retro-home-btn" type="button">الرئيسية <span aria-hidden="true">◆</span></button>
+
+      <div class="retro-game-content">
+        <h1 id="detailTitle">حروف والوف</h1>
+
+        <div class="retro-info-row">
+          <div class="retro-info-card">+٢ لاعبين</div>
+          <div class="retro-info-card">لعبة جماعية</div>
+          <div class="retro-info-card retro-status">متاحة الآن</div>
         </div>
-        <div class="game-detail-visual">
-          <div id="detailIcon" class="game-detail-icon">🎮</div>
-          <div class="game-detail-screen-label">صورة اللعبة</div>
+
+        <div class="retro-desc-box">
+          <strong>✨ وصف اللعبة</strong>
+          <p id="detailDesc">الجزء الثاني من لعبة حروف والوف بتحديات جديدة وجو جماعي ممتع.</p>
         </div>
       </div>
-      <svg class="game-detail-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#f4f0ff" d="M0,80 C250,130 500,130 720,90 C950,50 1200,40 1440,80 L1440,120 L0,120 Z"/></svg>
     </section>
 
-    <main class="game-detail-page">
-      <section id="gameShots" class="game-detail-section">
-        <div class="game-detail-heading"><h2>صور من داخل اللعبة</h2><p>نضيف صور اللعبة الحقيقية هنا لاحقًا.</p></div>
-        <div class="game-shots-grid">
-          <div class="game-shot-placeholder">📸<span>صورة 1</span></div>
-          <div class="game-shot-placeholder">📸<span>صورة 2</span></div>
-          <div class="game-shot-placeholder">📸<span>صورة 3</span></div>
+    <main class="retro-game-body">
+      <section class="game-actions-panel" aria-label="خيارات اللعبة">
+        <button class="action-wide action-play" type="button">▶ العب الآن</button>
+        <button class="action-wide action-buy" type="button">💳 اشتر الآن - 4.99 ريال</button>
+        <button class="action-wide action-trial" type="button">🎮 جرّب مجاناً 45 ثانية</button>
+      </section>
+
+      <section id="gameShots" class="retro-section screenshots-panel">
+        <h2>صور من الداخل</h2>
+        <div class="retro-shots-grid">
+          <button class="retro-shot" type="button"><div>صورة 1 من داخل <span id="shotTitle1">اللعبة</span></div></button>
+          <button class="retro-shot" type="button"><div>صورة 2 من داخل <span id="shotTitle2">اللعبة</span></div></button>
+          <button class="retro-shot" type="button"><div>صورة 3 من داخل <span id="shotTitle3">اللعبة</span></div></button>
+          <button class="retro-shot" type="button"><div>صورة 4 من داخل <span id="shotTitle4">اللعبة</span></div></button>
         </div>
       </section>
 
-      <section class="game-detail-section">
-        <div class="game-detail-heading"><h2>عن اللعبة</h2><p>واجهة بنفس هوية الموقع السابق، والمحتوى يجي لاحقًا من ملف اللعبة.</p></div>
-        <div class="game-info-panel">
-          <div><b>🎯 نوع اللعبة</b><span>لعبة جماعية</span></div>
-          <div><b>👥 عدد اللاعبين</b><span>٢+ لاعبين</span></div>
-          <div><b>📱 الأجهزة</b><span>جوال، كمبيوتر، تلفزيون</span></div>
+      <section class="retro-section reviews-panel">
+        <h2>تقييمات اللاعبين</h2>
+        <div class="retro-reviews-grid">
+          <article><div class="review-head"><strong>R لمياء</strong><span>★★★★★</span></div><p>تعاملهم جداً جميل وسريعين بالرد 👍🏻</p></article>
+          <article><div class="review-head"><strong>yomn Abodalkarem</strong><span>★★★★★</span></div><p>لعبة رائعة ممتعة</p></article>
+          <article><div class="review-head"><strong>لاعب زامن</strong><span>★★★★★</span></div><p>ممتعة جداً للجمعات.</p></article>
         </div>
       </section>
 
-      <section class="game-detail-section">
-        <div class="game-detail-heading"><h2>آراء اللاعبين</h2><p>مكان التقييمات الحقيقية محفوظ من الآن.</p></div>
-        <div class="game-reviews-grid">
-          <article><strong>لاعب زامن</strong><span>★★★★★</span><p>مكان التقييم الأول.</p></article>
-          <article><strong>لاعب زامن</strong><span>★★★★★</span><p>مكان التقييم الثاني.</p></article>
-          <article><strong>لاعب زامن</strong><span>★★★★★</span><p>مكان التقييم الثالث.</p></article>
+      <section class="retro-section other-games-section">
+        <h2>ألعاب أخرى من زامن</h2>
+        <div class="other-games-grid">
+          <article class="other-game-card" data-other-game="1">
+      <div class="other-game-image">🎮</div>
+      <h3>لعبة 1</h3>
+    </article>
+<article class="other-game-card" data-other-game="2">
+      <div class="other-game-image">🔤</div>
+      <h3>لعبة 2</h3>
+    </article>
+<article class="other-game-card" data-other-game="3">
+      <div class="other-game-image">🖼️</div>
+      <h3>لعبة 3</h3>
+    </article>
+<article class="other-game-card" data-other-game="4">
+      <div class="other-game-image">🧩</div>
+      <h3>لعبة 4</h3>
+    </article>
+<article class="other-game-card" data-other-game="5">
+      <div class="other-game-image">🏆</div>
+      <h3>لعبة 5</h3>
+    </article>
+<article class="other-game-card" data-other-game="6">
+      <div class="other-game-image">🎲</div>
+      <h3>لعبة 6</h3>
+    </article>
+<article class="other-game-card" data-other-game="7">
+      <div class="other-game-image">🧠</div>
+      <h3>لعبة 7</h3>
+    </article>
+<article class="other-game-card" data-other-game="8">
+      <div class="other-game-image">🎯</div>
+      <h3>لعبة 8</h3>
+    </article>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer game-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <section><h3>ألعاب زامن</h3><p>منصة ألعاب تفاعلية عربية تجمع العائلة والأصدقاء في تجربة مليئة بالمرح والتحدي.</p></section>
+          <section><h3>روابط سريعة</h3><div class="footer-links"><a href="/">🏠 <span>الرئيسية</span></a><a href="/#games-list">🎮 <span>ألعابنا</span></a><a href="#">📰 <span>المدونة</span></a></div></section>
+          <section><h3>تواصل معنا</h3><div class="footer-social"><a href="https://zamn1.com/" target="_blank" rel="noopener" title="المتجر">🏪</a><a href="https://wa.me/message/ZDFHGX5MVYMOF1" target="_blank" rel="noopener" title="واتساب">💬</a></div></section>
+        </div>
+        <div class="copyright">© 2026 جميع الحقوق محفوظة - متجر ZAMN</div>
+      </div>
+    </footer>
   </section>
 <script src="/js/app.js" defer></script>
 </body>

@@ -222,3 +222,119 @@ body{overflow-x:hidden}
   .games-row .game-card:hover{transform:none}
 }
 \n\n/* =====================================================\n   V6 - واجهة اللعبة داخل نفس المشروع\n===================================================== */\n.game-card.empty-card{cursor:pointer}\n.game-card.empty-card:focus-visible{outline:4px solid rgba(124,58,237,.35);outline-offset:5px}\n.game-view[hidden]{display:none!important}\n.game-view{min-height:100vh;background:#f4f0ff;color:#3b0764}\n.game-view-topbar{position:absolute;top:0;left:0;right:0;z-index:40;max-width:1240px;margin:auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;color:#fff}\n.game-back-btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.13);color:#fff;padding:11px 17px;border-radius:12px;font-weight:900;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 7px 20px rgba(30,5,50,.12)}\n.game-view-brand{font-size:17px;font-weight:900}\n.game-detail-hero{position:relative;overflow:hidden;min-height:565px;color:#fff;background:radial-gradient(circle at 14% 20%,rgba(255,255,255,.12),transparent 24%),radial-gradient(circle at 88% 18%,rgba(139,92,246,.28),transparent 28%),linear-gradient(120deg,#39005d 0%,#5b0fb7 43%,#7c3aed 100%);border-top:4px solid #2e0747}\n.game-detail-inner{max-width:1180px;min-height:500px;margin:auto;padding:92px 42px 90px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);gap:66px;align-items:center}\n.game-detail-copy{text-align:right}\n.game-breadcrumb{font-size:13px;font-weight:700;color:rgba(255,255,255,.66);margin-bottom:13px}\n.game-detail-copy h1{margin:0 0 16px;font-size:56px;line-height:1.08;font-weight:900;letter-spacing:-1px}\n.game-detail-copy>p{margin:0 0 20px;max-width:650px;color:rgba(255,255,255,.79);font-size:18px;line-height:1.9;font-weight:700}\n.game-detail-pills{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 17px}\n.game-detail-pills span{padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);font-size:12px;font-weight:900}\n.game-detail-rating{display:flex;gap:8px;align-items:center;margin-bottom:22px;font-size:14px}.game-detail-rating span{color:#fde047;letter-spacing:2px}.game-detail-rating b{color:#fff}\n.game-detail-actions{display:flex;flex-wrap:wrap;gap:12px}\n.game-play-btn,.game-preview-btn{min-height:48px;padding:0 24px;border-radius:13px;font-family:inherit;font-weight:900;font-size:15px;cursor:pointer}\n.game-play-btn{border:3px solid #c2410c;background:#ff7417;color:#fff;box-shadow:4px 4px 0 #9a3412}\n.game-preview-btn{border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff}\n.game-detail-visual{position:relative;min-height:335px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.22);border-radius:28px;background:rgba(255,255,255,.12);box-shadow:0 24px 60px rgba(20,5,40,.28);backdrop-filter:blur(10px)}\n.game-detail-icon{font-size:122px;line-height:1;filter:drop-shadow(0 12px 20px rgba(25,0,50,.2))}\n.game-detail-screen-label{margin-top:24px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.14);font-size:12px;font-weight:900}\n.game-detail-wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:100px;display:block}\n.game-detail-page{max-width:1180px;margin:0 auto;padding:34px 24px 80px}\n.game-detail-section{padding:38px 0}\n.game-detail-heading{text-align:center;margin-bottom:27px}.game-detail-heading h2{margin:0 0 8px;font-size:30px;font-weight:900}.game-detail-heading p{margin:0;color:#746c7d;font-size:15px;font-weight:700}\n.game-shots-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}\n.game-shot-placeholder{aspect-ratio:16/9;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;background:linear-gradient(145deg,#ede9fe,#fff);border:3px solid #e5e0e8;border-radius:20px;box-shadow:5px 5px 0 #d3ccd8;color:#6d28d9;font-size:42px;font-weight:900;overflow:hidden}.game-shot-placeholder span{font-size:12px;color:#746c7d}\n.game-info-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.game-info-panel>div{display:flex;flex-direction:column;gap:8px;padding:22px;background:#fff;border:3px solid #e5e0e8;border-radius:18px;box-shadow:5px 5px 0 #d3ccd8}.game-info-panel b{font-size:16px}.game-info-panel span{color:#746c7d;font-size:14px;font-weight:700}\n.game-reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.game-reviews-grid article{padding:22px;background:#fff;border:3px solid #e5e0e8;border-radius:18px;box-shadow:5px 5px 0 #d3ccd8}.game-reviews-grid strong{display:block;margin-bottom:7px}.game-reviews-grid span{color:#f59e0b;letter-spacing:1px}.game-reviews-grid p{margin:10px 0 0;color:#746c7d;font-size:14px}\nbody.game-mode{background:#f4f0ff}body.game-mode #homeLogin,body.game-mode #homeHero,body.game-mode #homeMain{display:none!important}\n@media(max-width:900px){.game-detail-inner{grid-template-columns:1fr;padding:88px 22px 90px;gap:28px}.game-detail-copy{text-align:center}.game-detail-copy>p{margin-inline:auto}.game-detail-pills,.game-detail-actions{justify-content:center}.game-detail-visual{min-height:280px;max-width:580px;width:100%;margin:auto}.game-detail-copy h1{font-size:43px}.game-shots-grid,.game-info-panel,.game-reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}\n@media(max-width:600px){.game-view-topbar{padding:12px}.game-view-brand{display:none}.game-back-btn{font-size:12px;padding:9px 12px}.game-detail-inner{padding:72px 14px 76px}.game-detail-copy h1{font-size:36px}.game-detail-copy>p{font-size:14px}.game-detail-pills{gap:6px}.game-detail-pills span{font-size:10px;padding:7px 10px}.game-detail-actions{display:grid}.game-play-btn,.game-preview-btn{width:100%}.game-detail-visual{min-height:235px}.game-detail-icon{font-size:92px}.game-detail-page{padding:22px 14px 60px}.game-detail-section{padding:28px 0}.game-detail-heading h2{font-size:24px}.game-shots-grid,.game-info-panel,.game-reviews-grid{grid-template-columns:1fr}.game-detail-wave{height:70px}}\n
+
+/* =====================================================
+   V7 - صفحة اللعبة حسب التصميم المرجعي
+===================================================== */
+.game-view[hidden]{display:none!important}
+.game-view{min-height:100vh;background:#f4f0ff;color:#3b0764}
+body.game-mode{background:#f4f0ff}
+body.game-mode #homeLogin,
+body.game-mode #homeHero,
+body.game-mode #homeMain,
+body.game-mode > .site-footer{display:none!important}
+body.game-mode #gameView{display:block!important}
+body.game-mode #gameView .game-footer{display:block!important}
+
+.retro-game-hero{
+  position:relative;
+  min-height:535px;
+  overflow:hidden;
+  color:#fff;
+  border-radius:0 0 44px 44px;
+  border-bottom:10px solid #4c1d95;
+  background:
+    radial-gradient(circle at 82% 16%,rgba(124,58,237,.9),transparent 42%),
+    radial-gradient(circle at 16% 72%,rgba(76,29,149,.55),transparent 38%),
+    linear-gradient(120deg,#39005d 0%,#6615c5 47%,#8b5cf6 100%);
+  box-shadow:0 18px 34px rgba(76,29,149,.20);
+}
+.retro-grid-overlay{
+  position:absolute;inset:0;pointer-events:none;opacity:.15;
+  background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.pixel{position:absolute;width:17px;height:17px;z-index:2;box-shadow:0 0 12px rgba(255,255,255,.15)}
+.pixel-a{left:7%;top:30%;background:#fde047}.pixel-b{left:17%;top:23%;background:rgba(255,255,255,.18)}
+.pixel-c{left:10%;top:42%;background:rgba(196,181,253,.55)}.pixel-d{left:26%;top:47%;background:rgba(253,186,116,.55)}
+.retro-home-btn{
+  position:absolute;top:28px;right:24px;z-index:5;
+  min-width:142px;padding:14px 20px;border-radius:20px;
+  border:3px solid rgba(255,255,255,.24);color:#fff;background:rgba(76,29,149,.62);
+  font:900 16px/1 "Tajawal",sans-serif;cursor:pointer;
+  box-shadow:5px 5px 0 rgba(59,7,100,.65),0 10px 24px rgba(20,0,40,.22);
+}
+.retro-game-content{position:relative;z-index:3;width:min(900px,calc(100% - 48px));margin-left:auto;padding:98px 48px 62px 0;text-align:right}
+.retro-game-content h1{margin:0 0 44px;font-size:clamp(50px,7vw,82px);line-height:1;font-weight:900;letter-spacing:-2px;color:#fff}
+.retro-info-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:30px}
+.retro-info-card{
+  min-height:66px;display:flex;align-items:center;justify-content:center;
+  padding:12px 18px;border:3px solid rgba(255,255,255,.18);border-radius:16px;
+  background:linear-gradient(135deg,rgba(124,58,237,.75),rgba(139,92,246,.68));
+  box-shadow:5px 5px 0 rgba(59,7,100,.52),0 8px 20px rgba(30,0,60,.12);
+  font-size:17px;font-weight:900
+}
+.retro-status{color:#4ade80}
+.retro-desc-box{
+  padding:22px 26px 24px;border:3px solid rgba(255,255,255,.18);border-radius:17px;
+  background:linear-gradient(135deg,rgba(124,58,237,.56),rgba(167,139,250,.46));
+  box-shadow:5px 5px 0 rgba(59,7,100,.52);text-align:right
+}
+.retro-desc-box strong{display:block;margin-bottom:9px;color:#fde047;font-size:14px}
+.retro-desc-box p{margin:0;font-size:20px;line-height:1.8;font-weight:900;color:#fff}
+
+.retro-game-body{padding:42px 24px 70px;background:#f4f0ff}
+.game-actions-panel{
+  width:min(1450px,100%);margin:0 auto 46px;padding:28px;
+  display:grid;gap:15px;border:3px solid #e5e0e8;border-radius:27px;background:#fff;
+  box-shadow:10px 10px 0 #d3ccd8,0 18px 42px rgba(76,29,149,.10)
+}
+.action-wide{width:100%;min-height:76px;border-radius:15px;font:900 20px/1 "Tajawal",sans-serif;cursor:pointer;transition:transform .18s ease,filter .18s ease}
+.action-wide:hover{transform:translateY(-2px);filter:brightness(1.03)}
+.action-play{color:#fff;border:4px solid #4c1d95;background:linear-gradient(90deg,#6d28d9,#8b5cf6);box-shadow:5px 5px 0 #4c1d95}
+.action-buy{color:#fff;border:4px solid #047857;background:linear-gradient(90deg,#10b981,#22c55e);box-shadow:5px 5px 0 #047857}
+.action-trial{color:#6d28d9;border:4px solid #7c3aed;background:#fff;box-shadow:5px 5px 0 #c4b5fd}
+
+.retro-section{width:min(1450px,100%);margin:0 auto 48px}
+.retro-section>h2{margin:0 0 30px;text-align:center;color:#3b0764;font-size:34px;font-weight:900}
+.screenshots-panel{padding:34px 36px 38px;border:2px solid #e6ddf4;border-radius:27px;background:#fff;box-shadow:0 18px 34px rgba(59,7,100,.10)}
+.retro-shots-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start;direction:rtl}
+.retro-shot{
+  min-height:255px;overflow:hidden;border:2px solid #e5e7eb;border-radius:24px;background:#fff;color:#4c1d95;
+  font:700 15px/1.5 "Tajawal",sans-serif;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,.04)
+}
+.retro-shot div{height:100%;min-height:255px;display:flex;align-items:flex-start;justify-content:center;padding-top:4px;background:linear-gradient(180deg,#fff,#fefefe)}
+.retro-shot:nth-child(4){grid-column:1}
+
+.reviews-panel>h2{text-align:right;font-size:34px;margin-bottom:26px}
+.retro-reviews-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.retro-reviews-grid article{padding:25px 28px;border:2px solid #e6ddf4;border-radius:24px;background:#fff;box-shadow:0 4px 12px rgba(76,29,149,.08)}
+.review-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}.review-head strong{font-size:15px}.review-head span{color:#f59e0b;letter-spacing:2px}.retro-reviews-grid p{margin:0;color:#746c7d;font-size:16px;line-height:1.8}
+
+.other-games-section{padding-top:18px}
+.other-games-section>h2{font-size:38px;margin-bottom:40px}
+.other-games-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 28px}
+.other-game-card{min-width:0;text-align:center;cursor:pointer}
+.other-game-image{aspect-ratio:1.38/1;display:grid;place-items:center;border-radius:25px;background:linear-gradient(145deg,#ede9fe,#fff);border:2px solid #e2dce8;box-shadow:0 5px 14px rgba(59,7,100,.08);font-size:72px;transition:transform .2s ease,box-shadow .2s ease}
+.other-game-card:hover .other-game-image{transform:translateY(-5px);box-shadow:0 14px 28px rgba(76,29,149,.15)}
+.other-game-card h3{margin:14px 0 0;color:#3b0764;font-size:20px;font-weight:900}
+.game-footer{margin-top:20px}
+
+@media(max-width:1000px){
+  .retro-game-content{width:min(820px,calc(100% - 32px));padding-right:24px}
+  .retro-info-row{grid-template-columns:repeat(3,1fr)}
+  .retro-shots-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.retro-shot:nth-child(4){grid-column:auto}
+  .other-games-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .retro-game-hero{min-height:500px;border-radius:0 0 28px 28px}
+  .retro-home-btn{top:16px;right:14px;min-width:116px;padding:11px 14px;font-size:13px}
+  .retro-game-content{width:100%;padding:82px 14px 46px;text-align:center}
+  .retro-game-content h1{font-size:44px;margin-bottom:26px}
+  .retro-info-row{grid-template-columns:1fr;gap:10px}.retro-info-card{min-height:52px;font-size:14px}
+  .retro-desc-box{text-align:right}.retro-desc-box p{font-size:16px}
+  .retro-game-body{padding:25px 12px 55px}.game-actions-panel{padding:18px;border-radius:20px}.action-wide{min-height:58px;font-size:16px}
+  .screenshots-panel{padding:25px 14px}.retro-section>h2,.reviews-panel>h2{font-size:27px;text-align:center}
+  .retro-shots-grid,.retro-reviews-grid,.other-games-grid{grid-template-columns:1fr}.retro-shot:nth-child(4){grid-column:auto}
+  .retro-shot,.retro-shot div{min-height:215px}.other-game-image{font-size:58px}.other-game-card h3{font-size:18px}
+}
