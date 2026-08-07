@@ -284,6 +284,21 @@
       const list=$("ownedGamesInline");
       if(list) list.scrollIntoView({behavior:"smooth",block:"start"});
     });
+
+    $("ownedGamesInline")?.addEventListener("click",(e)=>{
+      const link=e.target.closest("a[href^='/game/']");
+      if(!link)return;
+      e.preventDefault();
+      modal("accountModal",false);
+      history.pushState({},"",link.getAttribute("href"));
+      const slug=link.getAttribute("href").replace(/^\/game\//,"").replace(/\/$/,"");
+      const game=GAMES.find(g=>g.slug===slug);
+      if(game && typeof window.openGame==="function"){
+        window.openGame(game,false);
+      }else{
+        window.location.href=link.getAttribute("href");
+      }
+    });
     $("verifyCodeBtn")?.addEventListener("click",verifyCode);
     $("codeBuyBtn")?.addEventListener("click",()=>{ const g=pendingGame||currentGame(); if(g) window.open(g.buyLink,"_blank","noopener"); });
     $("closeGamePlayer")?.addEventListener("click",closePlayer);

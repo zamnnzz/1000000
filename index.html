@@ -472,14 +472,23 @@
     </div>
   </div>
 
-  <div id="codeModal" class="z-modal" hidden>
-    <div class="z-modal-card" role="dialog" aria-modal="true">
-      <button class="z-modal-close" data-close-modal="codeModal" type="button">×</button>
-      <h2>🔐 أدخل رمز اللعبة</h2>
-      <p id="codeGameName" class="z-muted"></p>
-      <input id="gameCodeInput" class="z-input z-code-input" inputmode="numeric" placeholder="رمز اللعبة">
-      <button id="verifyCodeBtn" class="z-primary" type="button">تأكيد الرمز وفتح اللعبة</button>
-      <button id="codeBuyBtn" class="z-secondary" type="button">شراء اللعبة</button>
+  <div id="codeModal" class="code-entry-overlay" hidden>
+    <div class="code-entry-card" role="dialog" aria-modal="true" aria-labelledby="codeEntryTitle">
+      <button class="code-entry-back" data-close-modal="codeModal" type="button">← رجوع</button>
+
+      <div class="code-entry-icon">🔐</div>
+      <h2 id="codeEntryTitle">أدخل رمز اللعبة</h2>
+      <p id="codeGameName" class="code-entry-game-name"></p>
+
+      <div class="code-entry-box">
+        <label for="gameCodeInput">رمز التفعيل</label>
+        <input id="gameCodeInput" class="code-entry-input" inputmode="numeric" autocomplete="one-time-code" placeholder="••••••">
+      </div>
+
+      <button id="verifyCodeBtn" class="code-entry-main" type="button">تأكيد الرمز وفتح اللعبة</button>
+      <button id="codeBuyBtn" class="code-entry-buy" type="button">شراء اللعبة</button>
+
+      <p class="code-entry-note">بعد إدخال الرمز الصحيح تُحفظ اللعبة في حسابك وتظهر داخل «ألعابي».</p>
     </div>
   </div>
 

@@ -2236,3 +2236,153 @@ body.horof-bell-mode .horof-bell-hero-visual img{
     font-size:11px !important;
   }
 }
+
+/* =====================================================
+   V22 — واجهة رمز اللعبة بنفس روح المشروع القديم
+===================================================== */
+.code-entry-overlay[hidden]{display:none!important}
+.code-entry-overlay{
+  position:fixed;
+  inset:0;
+  z-index:105000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:
+    linear-gradient(rgba(59,7,100,.86),rgba(59,7,100,.92)),
+    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:auto,20px 20px,20px 20px;
+  backdrop-filter:blur(7px);
+}
+.code-entry-card{
+  position:relative;
+  width:min(470px,100%);
+  padding:34px 26px 26px;
+  background:#fff;
+  border:3px solid #e5e0ea;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:
+    8px 8px 0 #cfc6d8,
+    0 28px 70px rgba(31,10,50,.34);
+  animation:codeBoxPop .28s cubic-bezier(.22,1,.36,1) both;
+}
+.code-entry-back{
+  position:absolute;
+  top:13px;
+  right:13px;
+  min-height:40px;
+  padding:8px 12px;
+  border:2px solid #d8cfe0;
+  border-radius:9px;
+  background:#fff;
+  color:#4c1d95;
+  font:inherit;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:3px 3px 0 #c8bfd0;
+}
+.code-entry-icon{
+  width:78px;
+  height:78px;
+  margin:16px auto 14px;
+  display:grid;
+  place-items:center;
+  border:3px solid #ddd6fe;
+  border-radius:16px;
+  background:#f3efff;
+  font-size:38px;
+  box-shadow:5px 5px 0 #d3c9e2;
+}
+.code-entry-card h2{
+  margin:0 0 8px;
+  color:#3b0764;
+  font-size:28px;
+  font-weight:900;
+}
+.code-entry-game-name{
+  margin:0 0 20px;
+  color:#756a7f;
+  font-weight:800;
+}
+.code-entry-box{
+  padding:17px;
+  background:#faf8fc;
+  border:2px solid #e7e1eb;
+  border-radius:14px;
+}
+.code-entry-box label{
+  display:block;
+  margin-bottom:9px;
+  color:#4c1d95;
+  font-weight:900;
+}
+.code-entry-input{
+  width:100%;
+  height:60px;
+  padding:0 14px;
+  text-align:center;
+  direction:ltr;
+  letter-spacing:7px;
+  border:3px solid #dcd3e5;
+  border-radius:10px;
+  background:#fff;
+  color:#3b0764;
+  font:inherit;
+  font-size:25px;
+  font-weight:900;
+  outline:0;
+  box-shadow:3px 3px 0 #d2cad8;
+}
+.code-entry-input:focus{border-color:#8b5cf6}
+.code-entry-main,
+.code-entry-buy{
+  width:100%;
+  min-height:52px;
+  margin-top:14px;
+  border-radius:10px;
+  font:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+.code-entry-main{
+  border:3px solid #4c1d95;
+  background:#7c3aed;
+  color:#fff;
+  box-shadow:4px 4px 0 #4c1d95;
+}
+.code-entry-buy{
+  border:3px solid #d8cfe0;
+  background:#fff;
+  color:#4c1d95;
+  box-shadow:4px 4px 0 #c8bfd0;
+}
+.code-entry-note{
+  margin:16px 0 0;
+  color:#84778d;
+  font-size:12px;
+  line-height:1.7;
+  font-weight:700;
+}
+@keyframes codeBoxPop{
+  from{opacity:0;transform:translateY(20px) scale(.94)}
+  to{opacity:1;transform:none}
+}
+@media(max-width:560px){
+  .code-entry-overlay{padding:0;background:#f7f5fb}
+  .code-entry-card{
+    width:100%;
+    min-height:100vh;
+    border:0;
+    border-radius:0;
+    box-shadow:none;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:70px 18px 28px;
+  }
+  .code-entry-back{top:14px;right:14px}
+}

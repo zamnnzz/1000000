@@ -117,6 +117,8 @@ function openGame(game,push=true){
   window.scrollTo({top:0,behavior:"auto"});
   if(push) history.pushState({view:"game",slug:game.slug},"",`/game/${game.slug}`);
 }
+window.openGame = openGame;
+
 function closeGame(push=true){
   window.ZAMN_CURRENT_GAME = null;
   document.body.classList.remove("game-mode","horof-bell-mode");
