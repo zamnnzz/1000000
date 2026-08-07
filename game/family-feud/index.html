@@ -34,9 +34,6 @@
 <script id="page-schema" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Product","@id":"https://zamn-games.vercel.app/game/family-feud#product","name":"فاميلي فيود","description":"العب فاميلي فيود أونلاين مع العائلة والأصدقاء وخمّن الإجابات الأكثر شيوعًا في لعبة جماعية مليئة بالحماس والضحك.","image":["https://i.postimg.cc/PxsWkJVD/famyly.jpg","/screenshots/family-feud/1.webp","/screenshots/family-feud/2.webp"],"url":"https://zamn-games.vercel.app/game/family-feud","sku":"6","category":"عائلية","brand":{"@type":"Brand","name":"ألعاب زامن"},"offers":{"@type":"Offer","url":"https://zamn-games.vercel.app/game/family-feud","price":4.99,"priceCurrency":"SAR","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://zamn-games.vercel.app/"},{"@type":"ListItem","position":2,"name":"فاميلي فيود","item":"https://zamn-games.vercel.app/game/family-feud"}]}]}</script>
 
 
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
-<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="//i.postimg.cc">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -57,8 +54,9 @@
 
 
 
-<script defer src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
 <style>
 
 
@@ -3247,10 +3245,10 @@ input:focus-visible{
     </main></noscript>
 
 
-<script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-<script defer src="/script.js"></script>
+<script type="text/babel" src="/script.js"></script>
 </body>
 </html>
 

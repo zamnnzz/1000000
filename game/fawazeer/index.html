@@ -34,9 +34,6 @@
 <script id="page-schema" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Product","@id":"https://zamn-games.vercel.app/game/fawazeer#product","name":"فوازير","description":"لعبة فوازير وأسئلة جماعية تعمل من المتصفح بدون تحميل، مناسبة للجلسات والتحديات الثقافية بين الأصدقاء والعائلة.","image":["https://i.postimg.cc/7PBx09tP/dwn-ʿnwan-(1280-x-960-byksl).webp","/screenshots/fawazeer/1.webp","/screenshots/fawazeer/2.webp","/screenshots/fawazeer/3.webp"],"url":"https://zamn-games.vercel.app/game/fawazeer","sku":"7","category":"ثقافية","brand":{"@type":"Brand","name":"ألعاب زامن"},"offers":{"@type":"Offer","url":"https://zamn-games.vercel.app/game/fawazeer","price":7.99,"priceCurrency":"SAR","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"},"aggregateRating":{"@type":"AggregateRating","ratingValue":4.7,"reviewCount":1,"bestRating":5,"worstRating":1},"review":[{"@type":"Review","author":{"@type":"Person","name":"مشاري التويم"},"reviewRating":{"@type":"Rating","ratingValue":5,"bestRating":5,"worstRating":1},"reviewBody":"اسئلة حلوة وخفيفه"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://zamn-games.vercel.app/"},{"@type":"ListItem","position":2,"name":"فوازير","item":"https://zamn-games.vercel.app/game/fawazeer"}]}]}</script>
 
 
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
-<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="//i.postimg.cc">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -57,8 +54,9 @@
 
 
 
-<script defer src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
 <style>
 
 
@@ -3247,10 +3245,10 @@ input:focus-visible{
     </main></noscript>
 
 
-<script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-<script defer src="/script.js"></script>
+<script type="text/babel" src="/script.js"></script>
 </body>
 </html>
 
