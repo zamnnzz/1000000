@@ -1,11 +1,16 @@
-Zamn split v2
+Zamn Design Only
 
-تم فصل المشروع إلى:
-- css/main.css للتصميم
-- js/games.js لبيانات الألعاب
-- js/content.js للمقالات والأسئلة
-- js/seo.js لبيانات SEO
-- js/firebase.js لإعداد Firebase والتحليلات
-- js/app.js لواجهة React
+هذه النسخة تحتوي التصميم فقط:
+- بدون ألعاب فعلية
+- بدون Firebase
+- بدون React
+- بدون Babel
+- بدون Tailwind
 
-مهم: app.js ما زال يعمل عبر Babel مثل المشروع الأصلي لضمان أقل تغيير ممكن.
+الملفات:
+index.html
+css/main.css
+js/app.js
+vercel.json
+
+نضيف الألعاب والوظائف لاحقًا واحدًا واحدًا.
