@@ -848,3 +848,29 @@ body:not(.game-mode) .game-btn:active{
     font-size:12px !important;
   }
 }
+
+
+/* V16 card proportions */
+.games-row .game-card{
+  width:93% !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  transform-origin:center top;
+}
+.games-row .game-content{
+  padding-bottom:34px !important;
+}
+.games-row .game-btn{
+  margin-top:auto !important;
+}
+@media (min-width:700px){
+  .games-row .game-card{
+    aspect-ratio:487 / 735 !important;
+  }
+}
+@media (max-width:699px){
+  .games-row .game-card{
+    width:94% !important;
+    aspect-ratio:487 / 730 !important;
+  }
+}
