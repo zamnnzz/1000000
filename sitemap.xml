@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/sitemap/0.9">
   <url><loc>https://zamn-games.vercel.app/</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://zamn-games.vercel.app/game/horof-bell</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://zamn-games.vercel.app/game/horof</loc><changefreq>weekly</changefreq></url>
@@ -13,4 +13,8 @@
   <url><loc>https://zamn-games.vercel.app/blog</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://zamn-games.vercel.app/blog/ramadan-games-2026</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://zamn-games.vercel.app/blog/how-to-play-horof</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://zamn-games.vercel.app/privacy</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://zamn-games.vercel.app/terms</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://zamn-games.vercel.app/about</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://zamn-games.vercel.app/contact</loc><changefreq>weekly</changefreq></url>
 </urlset>

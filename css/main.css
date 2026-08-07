@@ -3148,3 +3148,126 @@ body.horof-bell-mode .horof-bell-hero-visual img{
     grid-template-columns:1fr;
   }
 }
+
+/* =====================================================
+   V31 — مقال حروف فقط داخل صفحة حروف مع جرس
+===================================================== */
+.horof-article-box[hidden]{display:none!important}
+.horof-article-box{
+  margin:16px auto 0;
+  width:min(100%,720px);
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px 16px;
+  color:#3b0764;
+  background:#fffaf0;
+  border:2px solid #f2d58c;
+  border-radius:14px;
+  text-decoration:none;
+  box-shadow:4px 4px 0 #dfc783;
+}
+.horof-article-icon{
+  width:46px;height:46px;flex:0 0 46px;
+  display:grid;place-items:center;
+  background:#fff3c8;border-radius:11px;font-size:24px;
+}
+.horof-article-copy{display:grid;gap:3px;flex:1;min-width:0}
+.horof-article-copy strong{font-size:16px;font-weight:900}
+.horof-article-copy small{color:#74664d;font-size:12px;line-height:1.6;font-weight:700}
+.horof-article-arrow{font-size:22px;font-weight:900}
+
+/* =====================================================
+   الصفحات النظامية
+===================================================== */
+.legal-page{
+  min-height:100vh;
+  margin:0;
+  direction:rtl;
+  font-family:"Tajawal",sans-serif;
+  color:#3b0764;
+  background:#f4f0ff;
+}
+.legal-header{
+  padding:34px 20px 70px;
+  color:#fff;
+  background:
+    linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px),
+    linear-gradient(135deg,#3b0764,#6d28d9 55%,#8b5cf6);
+  background-size:22px 22px,22px 22px,auto;
+}
+.legal-nav{
+  width:min(1050px,100%);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.legal-brand{
+  display:flex;align-items:center;gap:10px;
+  color:#fff;text-decoration:none;font-weight:900;font-size:19px;
+}
+.legal-brand img{width:50px;height:50px;object-fit:contain}
+.legal-home{
+  padding:9px 14px;color:#fff;text-decoration:none;font-weight:900;
+  border:2px solid rgba(255,255,255,.28);border-radius:10px;background:rgba(255,255,255,.1)
+}
+.legal-title{
+  width:min(850px,100%);
+  margin:46px auto 0;
+  text-align:center;
+}
+.legal-title h1{margin:0 0 10px;font-size:clamp(34px,6vw,56px)}
+.legal-title p{margin:0;color:rgba(255,255,255,.82);line-height:1.8;font-weight:700}
+.legal-main{
+  width:min(880px,calc(100% - 28px));
+  margin:-28px auto 60px;
+  position:relative;
+  z-index:2;
+  padding:30px;
+  background:#fff;
+  border:3px solid #e5e0ea;
+  border-radius:22px;
+  box-shadow:6px 6px 0 #d2cbd8,12px 12px 25px rgba(59,7,100,.08);
+}
+.legal-main h2{margin:30px 0 10px;color:#3b0764;font-size:24px}
+.legal-main h2:first-child{margin-top:0}
+.legal-main p,.legal-main li{
+  color:#62596a;
+  font-size:16px;
+  line-height:2;
+  font-weight:700;
+}
+.legal-main ul{padding-right:22px}
+.legal-note{
+  padding:15px;
+  background:#faf7ff;
+  border:2px solid #e9ddf8;
+  border-radius:13px;
+}
+.legal-footer{
+  padding:30px 18px;
+  text-align:center;
+  color:#fff;
+  background:#2b0a47;
+}
+.legal-footer-links{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:12px
+}
+.legal-footer a{color:#e9d5ff;text-decoration:none;font-weight:900}
+
+.site-legal-links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:14px;
+}
+.site-legal-links a{
+  color:rgba(255,255,255,.82);
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+}

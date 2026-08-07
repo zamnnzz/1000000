@@ -1,15 +1,12 @@
 
 const ZAMN_RELATED_GAMES = {"horof-bell":["horof","fawazeer","family-feud"],"horof":["horof-bell","fawazeer","photos-1"],"photos-1":["photos-2","photos-3","guess-link"],"photos-2":["photos-1","photos-3","guess-link"],"photos-3":["photos-2","photos-1","guess-link"],"family-feud":["fawazeer","horof-bell","alatrash"],"fawazeer":["horof-bell","family-feud","guess-link"],"guess-link":["photos-1","fawazeer","family-feud"],"alatrash":["family-feud","fawazeer","horof-bell"]};
-const ZAMN_RELATED_ARTICLES = {"horof-bell":["how-to-play-horof","ramadan-games-2026"],"horof":["how-to-play-horof","ramadan-games-2026"],"photos-1":["ramadan-games-2026"],"photos-2":["ramadan-games-2026"],"photos-3":["ramadan-games-2026"],"family-feud":["ramadan-games-2026"],"fawazeer":["ramadan-games-2026"],"guess-link":["ramadan-games-2026"],"alatrash":["ramadan-games-2026"]};
-const ZAMN_ARTICLES = [{"slug":"ramadan-games-2026","title":"أفضل ألعاب رمضان 2026 للجمعات العائلية","description":"تعرف على أفضل ألعاب رمضان 2026 المناسبة للجلسات العائلية وتجمعات الأصدقاء، وتعمل مباشرة من المتصفح دون تحميل."},{"slug":"how-to-play-horof","title":"طريقة لعب حروف وألوف","description":"تعرف على طريقة لعب حروف وألوف، وتقسيم الفرق واحتساب النقاط وبدء التحدي مع العائلة والأصدقاء."}];
 
 function renderSeoRelated(game){
   const gamesBox=document.getElementById("seoRelatedGames");
-  const articlesBox=document.getElementById("seoRelatedArticles");
-  if(!gamesBox || !articlesBox || !game)return;
+  const articleBox=document.getElementById("horofBellArticleBox");
+  if(!gamesBox || !game)return;
 
   gamesBox.innerHTML="";
-  articlesBox.innerHTML="";
 
   (ZAMN_RELATED_GAMES[game.slug]||[]).slice(0,3).forEach(slug=>{
     const g=(window.ZAMN_GAMES||[]).find(x=>x.slug===slug);
@@ -21,14 +18,9 @@ function renderSeoRelated(game){
     gamesBox.appendChild(a);
   });
 
-  (ZAMN_RELATED_ARTICLES[game.slug]||[]).slice(0,2).forEach(slug=>{
-    const art=ZAMN_ARTICLES.find(x=>x.slug===slug);
-    if(!art)return;
-    const a=document.createElement("a");
-    a.href="/blog/"+art.slug;
-    a.textContent="اقرأ أيضًا: "+art.title;
-    articlesBox.appendChild(a);
-  });
+  if(articleBox){
+    articleBox.hidden = game.slug !== "horof-bell";
+  }
 }
 
 
