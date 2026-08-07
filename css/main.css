@@ -3301,14 +3301,18 @@ body.horof-bell-mode .horof-bell-hero-visual img{
 
 
 
+
+
+
 /* =====================================================
-   V35 — تواصل معنا مطابق للموقع القديم
+   V36 — تواصل معنا في مكانه الأصلي بدون تداخل
 ===================================================== */
 .footer-contact-old{
-  text-align:right;
+  min-width:0;
+  width:100%;
 }
 
-.footer-contact-old h2{
+.footer-contact-old h3{
   margin:0 0 24px;
   color:#fff;
   font-family:"Tajawal",sans-serif;
@@ -3319,14 +3323,18 @@ body.horof-bell-mode .horof-bell-hero-visual img{
 
 .footer-contact-old-actions{
   display:flex;
-  gap:20px;
   align-items:center;
   justify-content:flex-start;
+  flex-wrap:nowrap;
+  gap:20px;
+  width:100%;
 }
 
 .footer-contact-old-circle{
   width:80px;
   height:80px;
+  min-width:80px;
+  min-height:80px;
   flex:0 0 80px;
 
   display:flex;
@@ -3335,8 +3343,7 @@ body.horof-bell-mode .horof-bell-hero-visual img{
 
   color:#fff;
   background:rgba(255,255,255,.10);
-
-  border-radius:999px;
+  border-radius:50%;
   text-decoration:none;
 
   transition:
@@ -3351,19 +3358,21 @@ body.horof-bell-mode .horof-bell-hero-visual img{
 
 .footer-contact-old-store,
 .footer-contact-old-whatsapp{
+  width:36px;
+  height:36px;
+  flex:0 0 36px;
   display:flex;
   align-items:center;
   justify-content:center;
-  width:36px;
-  height:36px;
-  color:#fff;
 }
 
 .footer-contact-old-store svg,
 .footer-contact-old-whatsapp svg{
+  display:block;
   width:36px;
   height:36px;
-  display:block;
+  max-width:36px;
+  max-height:36px;
 }
 
 @media(max-width:760px){
@@ -3373,5 +3382,25 @@ body.horof-bell-mode .horof-bell-hero-visual img{
 
   .footer-contact-old-actions{
     justify-content:center;
+  }
+}
+
+@media(max-width:420px){
+  .footer-contact-old-circle{
+    width:68px;
+    height:68px;
+    min-width:68px;
+    min-height:68px;
+    flex-basis:68px;
+  }
+
+  .footer-contact-old-store,
+  .footer-contact-old-whatsapp,
+  .footer-contact-old-store svg,
+  .footer-contact-old-whatsapp svg{
+    width:30px;
+    height:30px;
+    max-width:30px;
+    max-height:30px;
   }
 }
