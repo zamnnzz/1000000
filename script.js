@@ -505,8 +505,15 @@ const registerGameEntry = async (game, phone, playerName, entryType) => {
         currentGameName: game.name
     });
 };
-registerSiteVisit().catch(console.error);
-startPresenceTracking();
+const startBackgroundAnalytics = () => {
+  registerSiteVisit().catch(console.error);
+  startPresenceTracking();
+};
+if ("requestIdleCallback" in window) {
+  requestIdleCallback(startBackgroundAnalytics, { timeout: 2500 });
+} else {
+  setTimeout(startBackgroundAnalytics, 1200);
+}
 function App() {
     var _a;
     const [previewImage, setPreviewImage] = React.useState(null);
