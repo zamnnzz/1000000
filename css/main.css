@@ -429,32 +429,37 @@ body:not(.game-mode) .game-btn:active{
 
 
 
-/* V13 — مقاسات البطاقة مطابقة للمرجع */
 
-/* الشبكات كما طلب المستخدم: 2 ثم 3 ثم 4 */
+/* V14 — بطاقة مطابقة للمرجع الأخير */
+
+/* صفوف الألعاب */
 .games-row{
   width:100%;
   display:grid;
-  align-items:stretch;
-  gap:28px;
+  align-items:start;
+  justify-content:center;
+  gap:34px;
 }
+
 .games-row-2{
   grid-template-columns:repeat(2,minmax(0,1fr)) !important;
   max-width:1040px;
   margin-inline:auto;
 }
+
 .games-row-3{
   grid-template-columns:repeat(3,minmax(0,1fr)) !important;
   max-width:1380px;
   margin-inline:auto;
 }
+
 .games-row-4{
   grid-template-columns:repeat(4,minmax(0,1fr)) !important;
   max-width:1540px;
   margin-inline:auto;
 }
 
-/* البطاقة: نفس النسبة تقريباً للصورة المرجعية 487 × 688 */
+/* البطاقة */
 .game-card{
   position:relative;
   width:100%;
@@ -469,46 +474,46 @@ body:not(.game-mode) .game-btn:active{
   text-decoration:none;
   background:#fff;
 
-  border:3px solid #e5e0ea;
+  border:4px solid #c4b5fd;
   border-radius:28px;
 
   box-shadow:
-    10px 12px 0 #d2cbd8,
-    16px 18px 30px rgba(59,7,100,.10);
+    13px 15px 0 rgba(107,91,126,.28),
+    0 22px 42px rgba(76,29,149,.10);
 
   cursor:pointer;
-  transition:transform .2s ease, box-shadow .2s ease;
+  transition:transform .18s ease, box-shadow .18s ease;
 }
 
-/* الإطار الداخلي المتقطع مثل المرجع */
+/* الإطار الداخلي المتقطع */
 .game-card::after{
   content:"";
   position:absolute;
   inset:12px;
   z-index:8;
   pointer-events:none;
+
   border:2px dashed rgba(124,58,237,.14);
-  border-radius:22px;
+  border-radius:20px;
 }
 
 .game-card:hover{
   transform:translateY(-4px);
   box-shadow:
-    10px 16px 0 #cbc3d4,
-    18px 22px 34px rgba(59,7,100,.13);
+    13px 19px 0 rgba(107,91,126,.25),
+    0 27px 46px rgba(76,29,149,.13);
 }
 
-/* الصورة تشغل تقريباً 48% من ارتفاع البطاقة */
+/* صورة اللعبة: تقريباً نصف البطاقة */
 .game-image-box{
   position:relative;
   width:100%;
-  height:48%;
-  min-height:0;
-  flex:0 0 48%;
+  height:50.5%;
+  flex:0 0 50.5%;
   overflow:hidden;
 
-  background:#f3ecff;
-  border-bottom:2px solid #eee8f4;
+  background:#ede9fe;
+  border-bottom:2px solid #ece5f3;
 }
 
 .game-card-image,
@@ -519,7 +524,7 @@ body:not(.game-mode) .game-btn:active{
   object-fit:cover;
 }
 
-/* التقييم مخفي بصرياً */
+/* لا نظهر التقييم في البطاقة */
 .game-rating{
   display:none !important;
 }
@@ -530,31 +535,34 @@ body:not(.game-mode) .game-btn:active{
   z-index:6;
 
   display:flex;
-  flex:1;
   flex-direction:column;
-  min-height:0;
+  flex:1;
   min-width:0;
 
-  padding:22px 24px 26px;
+  padding:24px 22px 22px;
   text-align:center;
 }
 
+/* اسم اللعبة */
 .game-title{
   margin:0 0 22px;
-  min-height:2.7em;
 
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
 
+  min-height:74px;
+
   color:#3b0764;
-  font-size:clamp(20px,2vw,31px);
+  font-size:clamp(25px,2.25vw,36px);
   line-height:1.35;
   font-weight:1000;
-  letter-spacing:-.3px;
+  letter-spacing:-.4px;
+
   overflow-wrap:anywhere;
 }
 
+/* الوصف مخفي من البطاقة */
 .game-desc{
   display:none !important;
 }
@@ -567,12 +575,12 @@ body:not(.game-mode) .game-btn:active{
   align-items:center;
   gap:10px;
 
-  margin:0 0 26px;
+  margin:0 0 22px;
 }
 
 .game-tag{
-  min-height:44px;
-  padding:9px 14px;
+  min-height:46px;
+  padding:10px 16px;
 
   display:inline-flex;
   align-items:center;
@@ -581,21 +589,21 @@ body:not(.game-mode) .game-btn:active{
   color:#554a63;
   background:#f7f4f9;
 
-  border:2px solid #e2dce8;
+  border:3px solid #e1dbe7;
   border-radius:13px;
 
-  font-size:clamp(12px,1.2vw,17px);
+  font-size:clamp(14px,1.3vw,18px);
   line-height:1.2;
   font-weight:900;
 
   box-shadow:3px 4px 0 #d5cedb;
 }
 
-/* الزر أسفل البطاقة */
+/* زر عرض اللعبة */
 .game-btn{
   width:100%;
-  min-height:64px;
-  margin-top:auto;
+  min-height:82px;
+  margin-top:0;
 
   display:flex;
   align-items:center;
@@ -604,75 +612,95 @@ body:not(.game-mode) .game-btn:active{
   color:#fff;
   background:linear-gradient(90deg,#6d28d9,#8b5cf6);
 
-  border:3px solid #4c1d95;
-  border-radius:16px;
+  border:4px solid #4c1d95;
+  border-radius:17px;
 
-  font-size:clamp(20px,1.9vw,29px);
+  font-size:clamp(24px,2vw,32px);
   font-weight:1000;
 
   box-shadow:
-    7px 8px 0 #4c1d95,
-    0 10px 20px rgba(109,40,217,.16);
+    8px 9px 0 #4c1d95,
+    0 10px 20px rgba(109,40,217,.14);
 
   transition:filter .18s ease, transform .18s ease, box-shadow .18s ease;
 }
 
 .game-btn:hover{
-  filter:brightness(1.05);
+  filter:brightness(1.045);
 }
 
 .game-btn:active{
   transform:translate(3px,3px);
   box-shadow:
-    3px 4px 0 #4c1d95,
-    0 6px 12px rgba(109,40,217,.14);
+    4px 5px 0 #4c1d95,
+    0 6px 12px rgba(109,40,217,.12);
 }
 
-/* في التابلت: بطاقتان */
+/* التابلت */
 @media(max-width:1050px){
   .games-row-2,
   .games-row-3,
   .games-row-4{
     grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    max-width:900px;
+    max-width:920px;
   }
 
   .game-content{
-    padding:18px 18px 22px;
+    padding:20px 20px 20px;
+  }
+
+  .game-title{
+    font-size:27px;
+    min-height:66px;
+  }
+
+  .game-tag{
+    font-size:15px;
+  }
+
+  .game-btn{
+    min-height:70px;
+    font-size:25px;
   }
 }
 
-/* في الجوال: بطاقة واحدة وبعرض قريب جداً من المرجع */
+/* الجوال */
 @media(max-width:620px){
   .games-row-2,
   .games-row-3,
   .games-row-4{
     grid-template-columns:1fr !important;
-    gap:26px;
-    max-width:488px;
-    padding-inline:0;
+    max-width:490px;
+    gap:30px;
   }
 
   .game-card{
-    width:min(100%,488px);
+    width:min(100%,490px);
     margin-inline:auto;
     border-radius:28px;
   }
 
   .game-content{
-    padding:20px 22px 24px;
+    padding:22px 22px 24px;
   }
 
   .game-title{
-    font-size:28px;
+    min-height:74px;
+    font-size:30px;
+  }
+
+  .game-tags{
+    gap:10px;
+    margin-bottom:22px;
   }
 
   .game-tag{
+    min-height:46px;
     font-size:16px;
   }
 
   .game-btn{
-    min-height:64px;
-    font-size:27px;
+    min-height:78px;
+    font-size:29px;
   }
 }
