@@ -395,6 +395,7 @@ const getGameSeoDescription = (game) => {
     }
     return `اكتشف ${cleanName} من ألعاب زامن، لعبة جماعية عربية تعمل مباشرة من المتصفح ومناسبة للعائلة والأصدقاء.`;
 };
+// معرّف ثابت للمتصفح لمعرفة الزائر بدون تخزين معلومات حساسة
 const getVisitorId = () => {
     let visitorId = localStorage.getItem("zamnVisitorId");
     if (!visitorId) {
@@ -407,6 +408,7 @@ const getVisitorId = () => {
     }
     return visitorId;
 };
+// معرّف مختلف لكل تبويب/جلسة مفتوحة
 const getSessionId = () => {
     let sessionId = sessionStorage.getItem("zamnSessionId");
     if (!sessionId) {
@@ -422,6 +424,7 @@ const getSessionId = () => {
 const visitorId = getVisitorId();
 const sessionId = getSessionId();
 const presenceRef = db.ref("analytics/online/" + sessionId);
+// تسجيل زيارة واحدة في كل جلسة متصفح
 const registerSiteVisit = async () => {
     if (sessionStorage.getItem("zamnVisitRegistered"))
         return;
@@ -435,11 +438,13 @@ const registerSiteVisit = async () => {
     await db.ref().update(updates);
     sessionStorage.setItem("zamnVisitRegistered", "yes");
 };
+// تسجيل المستخدم ضمن المتصلين الآن
 const startPresenceTracking = () => {
     const connectedRef = db.ref(".info/connected");
     connectedRef.on("value", async (snapshot) => {
         if (snapshot.val() !== true)
             return;
+        // يُحذف المستخدم تلقائياً عند انقطاع الإنترنت أو إغلاق الصفحة
         await presenceRef.onDisconnect().remove();
         await presenceRef.set({
             visitorId,
@@ -550,6 +555,7 @@ function App() {
             observer.disconnect();
         };
     }, [selectedGame, selectedArticle]);
+    // تحديث عنوان الصفحة والوصف والأيقونة وروابط المشاركة
     React.useEffect(() => {
         const ensureMeta = (selector, attrs) => {
             let el = document.querySelector(selector);
@@ -611,6 +617,8 @@ function App() {
             twitterDescription.setAttribute("content", descriptionText);
             twitterImage.setAttribute("content", image);
         };
+        // حذف الأيقونة القديمة وإنشاء أيقونة جديدة
+        // هذه الطريقة تجبر المتصفح على تحديثها
         const setIcon = (iconUrl) => {
             document
                 .querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')
@@ -628,10 +636,12 @@ function App() {
             appleIcon.href = iconUrl;
             document.head.appendChild(appleIcon);
         };
+        // صفحة المقال
         if (selectedArticle && selectedArticle !== "blog-list") {
             const articleUrl = `${siteUrl}/blog/${selectedArticle.slug}`;
             const articleTitle = `${selectedArticle.title} | ألعاب زامن`;
             document.title = articleTitle;
+            // شعار ألعاب زامن
             setIcon(siteIcon);
             description === null || description === void 0 ? void 0 : description.setAttribute("content", selectedArticle.description);
             canonical === null || canonical === void 0 ? void 0 : canonical.setAttribute("href", articleUrl);
@@ -648,10 +658,12 @@ function App() {
             });
             return;
         }
+        // صفحة المدونة
         if (selectedArticle === "blog-list") {
             const blogTitle = "مدونة ألعاب زامن | ألعاب جماعية وأفكار للجمعات";
             const blogDescription = "مقالات وأفكار عن الألعاب الجماعية والجلسات العائلية وتجمعات الأصدقاء من ألعاب زامن.";
             document.title = blogTitle;
+            // شعار ألعاب زامن
             setIcon(siteIcon);
             canonical === null || canonical === void 0 ? void 0 : canonical.setAttribute("href", `${siteUrl}/blog`);
             description === null || description === void 0 ? void 0 : description.setAttribute("content", blogDescription);
@@ -667,12 +679,14 @@ function App() {
             });
             return;
         }
+        // صفحة اللعبة
         if (selectedGame) {
             const gameUrl = `${siteUrl}/game/${selectedGame.slug}`;
             const gameTitle = getGameSeoTitle(selectedGame);
             const gameDescription = getGameSeoDescription(selectedGame);
             const gameIcon = selectedGame.icon || selectedGame.image;
             document.title = gameTitle;
+            // صورة اللعبة في تبويب المتصفح
             setIcon(gameIcon);
             description === null || description === void 0 ? void 0 : description.setAttribute("content", gameDescription);
             canonical === null || canonical === void 0 ? void 0 : canonical.setAttribute("href", gameUrl);
@@ -689,9 +703,11 @@ function App() {
             });
             return;
         }
+        // الصفحة الرئيسية
         const homeTitle = "ألعاب زامن | ألعاب جماعية وحروف وفوازير بدون تحميل";
         const homeDescription = "ألعاب زامن منصة ألعاب جماعية عربية تضم حروف وألوف، فاميلي فيود، الفوازير، تحدي الصور وألعاب الجمعات للعائلة والأصدقاء.";
         document.title = homeTitle;
+        // إعادة شعار ألعاب زامن في الرئيسية
         setIcon(siteIcon);
         canonical === null || canonical === void 0 ? void 0 : canonical.setAttribute("href", `${siteUrl}/`);
         description === null || description === void 0 ? void 0 : description.setAttribute("content", homeDescription);
@@ -706,6 +722,7 @@ function App() {
             image: siteImage
         });
     }, [selectedGame, selectedArticle]);
+    // إضافة Structured Data مناسب لكل نوع صفحة
     React.useEffect(() => {
         var _a;
         (_a = document.getElementById("page-schema")) === null || _a === void 0 ? void 0 : _a.remove();
@@ -785,6 +802,7 @@ function App() {
         document.head.appendChild(script);
         return () => { var _a; return (_a = document.getElementById("page-schema")) === null || _a === void 0 ? void 0 : _a.remove(); };
     }, [selectedGame, selectedArticle]);
+    // إضافة Product Schema و Breadcrumb لصفحة كل لعبة
     React.useEffect(() => {
         var _a, _b;
         (_a = document.getElementById("product-schema")) === null || _a === void 0 ? void 0 : _a.remove();
@@ -1049,6 +1067,7 @@ function App() {
             text: String(text || ""),
             type
         });
+        // رسالة التأكيد لا تُغلق تلقائيًا
         if (type === "confirm") {
             return;
         }
@@ -1429,7 +1448,7 @@ function App() {
                 return (new URL(game.playLink).origin ===
                     new URL(gameFrame).origin);
             }
-            catch {
+            catch (_a) {
                 return false;
             }
         });
@@ -1561,7 +1580,9 @@ function App() {
                         ? '"AA Galaxy", sans-serif'
                         : "inherit"
                 } },
-                selectedGame.slug === "horof-bell" ? (React.createElement("section", { className: "game-details-hero relative overflow-hidden text-white" },
+                selectedGame.slug === "horof-bell" ? (
+                /* واجهة خاصة بلعبة حروف وألوف مع الجرس */
+                React.createElement("section", { className: "game-details-hero relative overflow-hidden text-white" },
                     React.createElement("button", { onClick: closeGameDetails, className: "cairo-btn absolute top-4 right-4 md:top-5 md:right-5 z-20 bg-black/30 hover:bg-black/45 backdrop-blur-md px-4 py-2.5 md:px-5 md:py-3 rounded-2xl font-black flex items-center gap-2 text-white" },
                         React.createElement("i", { className: "fa-solid fa-house text-white" }),
                         React.createElement("span", null, "\u0627\u0644\u0631\u0626\u064A\u0633\u064A\u0629")),
@@ -1585,7 +1606,10 @@ function App() {
                                         React.createElement("i", { className: "fa-solid fa-mobile-screen-button text-yellow-300 text-base md:text-lg" }),
                                         React.createElement("span", { className: "text-[11px] sm:text-xs md:text-sm font-black leading-5" }, "\u0627\u0644\u062C\u0648\u0627\u0644 \u0648\u0627\u0644\u062A\u0644\u0641\u0632\u064A\u0648\u0646")))),
                             React.createElement("div", { className: "flex justify-center lg:justify-start items-center order-1 lg:order-2" },
-                                React.createElement("img", { src: "https://i.postimg.cc/cLs9NqGk/shat.webp", alt: "\u0644\u0639\u0628\u0629 \u062D\u0631\u0648\u0641 \u0648\u0623\u0644\u0648\u0641 \u0645\u0639 \u062C\u0631\u0633 \u0645\u062F\u0645\u062C", width: "440", height: "440", loading: "eager", decoding: "async", className: "w-[230px] sm:w-[280px] md:w-[340px] lg:w-[430px] xl:w-[520px] h-auto object-contain drop-shadow-2xllg:-translate-x-24 xl:-translate-x-28" })))))) : (React.createElement("section", { className: "game-details-hero relative overflow-hidden text-white" },
+                                React.createElement("img", { src: "https://i.postimg.cc/cLs9NqGk/shat.webp", alt: "\u0644\u0639\u0628\u0629 \u062D\u0631\u0648\u0641 \u0648\u0623\u0644\u0648\u0641 \u0645\u0639 \u062C\u0631\u0633 \u0645\u062F\u0645\u062C", width: "440", height: "440", loading: "eager", decoding: "async", className: "w-[230px] sm:w-[280px] md:w-[340px] lg:w-[430px] xl:w-[520px] h-auto object-contain drop-shadow-2xllg:-translate-x-24 xl:-translate-x-28" })))))) : (
+                /* ضع هنا تصميم بقية الألعاب كما هو */
+                /* الواجهة العادية لبقية الألعاب */
+                React.createElement("section", { className: "game-details-hero relative overflow-hidden text-white" },
                     React.createElement("button", { onClick: closeGameDetails, className: "cairo-btn absolute top-4 right-4 md:top-5 md:right-5 z-20 bg-black/30 hover:bg-black/45 backdrop-blur-md px-4 py-2.5 md:px-5 md:py-3 rounded-2xl font-black flex items-center gap-2 text-white" },
                         React.createElement("i", { className: "fa-solid fa-house text-white" }),
                         React.createElement("span", null, "\u0627\u0644\u0631\u0626\u064A\u0633\u064A\u0629")),
