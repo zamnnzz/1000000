@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-  <button class="login-float" type="button">ألعابي <span aria-hidden="true">🎮</span></button>
+  <button id="homeLogin" class="login-float" type="button">ألعابي <span aria-hidden="true">🎮</span></button>
 
-  <header class="hero">
+  <header id="homeHero" class="hero">
     <div class="hero-inner">
       <div class="hero-copy">
         <h1>ألعاب الجمعات</h1>
@@ -35,7 +35,7 @@
     </svg>
   </header>
 
-  <main class="page-bg">
+  <main id="homeMain" class="page-bg">
     <section class="games-intro" aria-labelledby="games-heading">
       <div class="games-intro-pill"><h2 id="games-heading">ألعابنا</h2></div>
       <p>اختر لعبتك المفضلة وابدأ التحدي مع أصدقائك.</p>
@@ -44,7 +44,7 @@
       <section class="game-category" aria-labelledby="cat-1">
         <div class="game-category-heading"><h2 id="cat-1">حروف والوف</h2></div>
         <div class="games-row games-row-2">
-          <article class="game-card empty-card" aria-label="لعبة 1">
+          <article class="game-card empty-card" aria-label="لعبة 1" data-game-id="1" data-game-title="لعبة 1" data-game-icon="🎮" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🎮</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 1</h3>
@@ -53,7 +53,7 @@
               <div class="game-btn">ابدأ اللعبة</div>
             </div>
           </article>
-          <article class="game-card empty-card" aria-label="لعبة 2">
+          <article class="game-card empty-card" aria-label="لعبة 2" data-game-id="2" data-game-title="لعبة 2" data-game-icon="🔤" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🔤</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 2</h3>
@@ -68,7 +68,7 @@
       <section class="game-category" aria-labelledby="cat-2">
         <div class="game-category-heading"><h2 id="cat-2">تحدي الصور</h2></div>
         <div class="games-row games-row-3">
-          <article class="game-card empty-card" aria-label="لعبة 3">
+          <article class="game-card empty-card" aria-label="لعبة 3" data-game-id="3" data-game-title="لعبة 3" data-game-icon="🖼️" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🖼️</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 3</h3>
@@ -77,7 +77,7 @@
               <div class="game-btn">ابدأ اللعبة</div>
             </div>
           </article>
-          <article class="game-card empty-card" aria-label="لعبة 4">
+          <article class="game-card empty-card" aria-label="لعبة 4" data-game-id="4" data-game-title="لعبة 4" data-game-icon="🧩" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🧩</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 4</h3>
@@ -86,7 +86,7 @@
               <div class="game-btn">ابدأ اللعبة</div>
             </div>
           </article>
-          <article class="game-card empty-card" aria-label="لعبة 5">
+          <article class="game-card empty-card" aria-label="لعبة 5" data-game-id="5" data-game-title="لعبة 5" data-game-icon="🏆" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🏆</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 5</h3>
@@ -101,7 +101,7 @@
       <section class="game-category" aria-labelledby="cat-3">
         <div class="game-category-heading"><h2 id="cat-3">ألعاب أخرى</h2></div>
         <div class="games-row games-row-4">
-          <article class="game-card empty-card" aria-label="لعبة 6">
+          <article class="game-card empty-card" aria-label="لعبة 6" data-game-id="6" data-game-title="لعبة 6" data-game-icon="🎲" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🎲</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 6</h3>
@@ -110,7 +110,7 @@
               <div class="game-btn">ابدأ اللعبة</div>
             </div>
           </article>
-          <article class="game-card empty-card" aria-label="لعبة 7">
+          <article class="game-card empty-card" aria-label="لعبة 7" data-game-id="7" data-game-title="لعبة 7" data-game-icon="🧠" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🧠</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 7</h3>
@@ -119,7 +119,7 @@
               <div class="game-btn">ابدأ اللعبة</div>
             </div>
           </article>
-          <article class="game-card empty-card" aria-label="لعبة 8">
+          <article class="game-card empty-card" aria-label="لعبة 8" data-game-id="8" data-game-title="لعبة 8" data-game-icon="🎯" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🎯</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 8</h3>
@@ -128,7 +128,7 @@
               <div class="game-btn">ابدأ اللعبة</div>
             </div>
           </article>
-          <article class="game-card empty-card" aria-label="لعبة 9">
+          <article class="game-card empty-card" aria-label="لعبة 9" data-game-id="9" data-game-title="لعبة 9" data-game-icon="🎉" role="button" tabindex="0">
             <div class="game-image-box"><div class="empty-image">🎉</div><span class="game-rating">★ 5.0</span></div>
             <div class="game-content">
               <h3 class="game-title">لعبة 9</h3>
@@ -195,6 +195,67 @@
     </div>
   </footer>
 
-  <script src="/js/app.js" defer></script>
+  
+  <section id="gameView" class="game-view" hidden aria-live="polite">
+    <div class="game-view-topbar">
+      <button id="gameBackBtn" class="game-back-btn" type="button">← رجوع للألعاب</button>
+      <div class="game-view-brand">ألعاب زامن</div>
+    </div>
+
+    <section class="game-detail-hero">
+      <div class="game-detail-inner">
+        <div class="game-detail-copy">
+          <div class="game-breadcrumb">الرئيسية / الألعاب / <span id="detailBreadcrumb">اللعبة</span></div>
+          <h1 id="detailTitle">اسم اللعبة</h1>
+          <p id="detailDesc">واجهة اللعبة جاهزة. نضيف بيانات اللعبة الحقيقية لاحقًا من ملف مستقل بدون ما نثقل الصفحة الرئيسية.</p>
+          <div class="game-detail-pills">
+            <span>👥 ٢+ لاعبين</span>
+            <span>📱 تعمل على الجوال</span>
+            <span>⚡ لعب فوري</span>
+          </div>
+          <div class="game-detail-rating"><span>★★★★★</span> <b>5.0</b></div>
+          <div class="game-detail-actions">
+            <button class="game-play-btn" type="button">ابدأ اللعبة</button>
+            <button class="game-preview-btn" type="button" data-scroll-target="gameShots">شاهد الصور</button>
+          </div>
+        </div>
+        <div class="game-detail-visual">
+          <div id="detailIcon" class="game-detail-icon">🎮</div>
+          <div class="game-detail-screen-label">صورة اللعبة</div>
+        </div>
+      </div>
+      <svg class="game-detail-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true"><path fill="#f4f0ff" d="M0,80 C250,130 500,130 720,90 C950,50 1200,40 1440,80 L1440,120 L0,120 Z"/></svg>
+    </section>
+
+    <main class="game-detail-page">
+      <section id="gameShots" class="game-detail-section">
+        <div class="game-detail-heading"><h2>صور من داخل اللعبة</h2><p>نضيف صور اللعبة الحقيقية هنا لاحقًا.</p></div>
+        <div class="game-shots-grid">
+          <div class="game-shot-placeholder">📸<span>صورة 1</span></div>
+          <div class="game-shot-placeholder">📸<span>صورة 2</span></div>
+          <div class="game-shot-placeholder">📸<span>صورة 3</span></div>
+        </div>
+      </section>
+
+      <section class="game-detail-section">
+        <div class="game-detail-heading"><h2>عن اللعبة</h2><p>واجهة بنفس هوية الموقع السابق، والمحتوى يجي لاحقًا من ملف اللعبة.</p></div>
+        <div class="game-info-panel">
+          <div><b>🎯 نوع اللعبة</b><span>لعبة جماعية</span></div>
+          <div><b>👥 عدد اللاعبين</b><span>٢+ لاعبين</span></div>
+          <div><b>📱 الأجهزة</b><span>جوال، كمبيوتر، تلفزيون</span></div>
+        </div>
+      </section>
+
+      <section class="game-detail-section">
+        <div class="game-detail-heading"><h2>آراء اللاعبين</h2><p>مكان التقييمات الحقيقية محفوظ من الآن.</p></div>
+        <div class="game-reviews-grid">
+          <article><strong>لاعب زامن</strong><span>★★★★★</span><p>مكان التقييم الأول.</p></article>
+          <article><strong>لاعب زامن</strong><span>★★★★★</span><p>مكان التقييم الثاني.</p></article>
+          <article><strong>لاعب زامن</strong><span>★★★★★</span><p>مكان التقييم الثالث.</p></article>
+        </div>
+      </section>
+    </main>
+  </section>
+<script src="/js/app.js" defer></script>
 </body>
 </html>
