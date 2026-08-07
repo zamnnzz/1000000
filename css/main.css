@@ -1956,3 +1956,283 @@ body.player-open{overflow:hidden}
   .horof-bell-hero-visual img{width:min(78vw,340px)}
   .horof-howto-grid{grid-template-columns:1fr}
 }
+
+
+
+/* =====================================================
+   V21 — اتجاه الهيدر والصور
+===================================================== */
+
+/* الهيدر الرئيسي: النص يمين والصورة/الشعار يسار */
+.home-hero .hero-grid,
+.hero-section .hero-grid,
+.hero .hero-grid{
+  direction:rtl !important;
+}
+
+.home-hero .hero-content,
+.hero-section .hero-content,
+.hero .hero-content,
+.home-hero .hero-copy,
+.hero-section .hero-copy,
+.hero .hero-copy{
+  order:1 !important;
+  text-align:right !important;
+}
+
+.home-hero .hero-visual,
+.hero-section .hero-visual,
+.hero .hero-visual,
+.home-hero .hero-logo-wrap,
+.hero-section .hero-logo-wrap,
+.hero .hero-logo-wrap{
+  order:2 !important;
+}
+
+/* صفحة حروف مع جرس: النص يمين والصورة يسار */
+body.horof-bell-mode .retro-game-hero{
+  direction:rtl !important;
+  grid-template-columns:minmax(0,1fr) minmax(240px,400px) !important;
+}
+
+body.horof-bell-mode .retro-game-content{
+  grid-column:1 !important;
+  order:1 !important;
+  text-align:right !important;
+}
+
+body.horof-bell-mode .horof-bell-hero-visual{
+  grid-column:2 !important;
+  order:2 !important;
+  justify-self:center !important;
+  align-self:center !important;
+}
+
+body.horof-bell-mode .horof-bell-hero-visual img{
+  width:min(100%,390px) !important;
+  max-height:390px !important;
+  object-fit:contain !important;
+}
+
+/* شاشة أصغر: يبقون واضحين ثم ينزلون تحت بعض فقط عند الحاجة */
+@media (max-width:850px){
+  body.horof-bell-mode .retro-game-hero{
+    grid-template-columns:1fr !important;
+  }
+  body.horof-bell-mode .retro-game-content{
+    grid-column:1 !important;
+    grid-row:1 !important;
+    text-align:right !important;
+  }
+  body.horof-bell-mode .horof-bell-hero-visual{
+    grid-column:1 !important;
+    grid-row:2 !important;
+  }
+  body.horof-bell-mode .horof-bell-hero-visual img{
+    width:min(72vw,300px) !important;
+  }
+}
+
+/* =====================================================
+   V21 — صفحة ألعابي / التسجيل: مطابقة أقرب للمشروع القديم
+===================================================== */
+.player-login-overlay{
+  background:#f7f5fb !important;
+}
+
+.player-login-page{
+  max-width:none !important;
+  min-height:100vh !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+.player-login-header{
+  min-height:285px !important;
+  padding:72px 24px 42px !important;
+}
+
+.player-login-header-content{
+  width:100%;
+  max-width:700px;
+}
+
+.player-login-content{
+  width:min(820px,100%) !important;
+  padding:22px 18px 42px !important;
+}
+
+.player-login-card{
+  border-radius:17px !important;
+  border:3px solid #e5e2e8 !important;
+  box-shadow:
+    5px 5px 0 #d3ccd8,
+    11px 11px 24px rgba(0,0,0,.07) !important;
+}
+
+.player-login-main-button{
+  min-height:52px !important;
+  border-radius:10px !important;
+  background:#7c3aed !important;
+  box-shadow:4px 4px 0 #4c1d95 !important;
+}
+
+.player-account-card{
+  border-radius:15px !important;
+}
+
+.player-games-list{
+  gap:14px !important;
+}
+
+.player-library-game{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  padding:12px !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:14px !important;
+  border:2px solid #e5e2e8 !important;
+  border-radius:15px !important;
+  background:#fff !important;
+  box-shadow:
+    5px 5px 0 #d7d4da,
+    0 11px 24px rgba(0,0,0,.06) !important;
+  transition:
+    transform .23s ease,
+    box-shadow .23s ease,
+    border-color .23s ease !important;
+}
+
+.player-library-game:hover{
+  transform:translateY(-3px);
+  border-color:#cfc9d5 !important;
+  box-shadow:
+    6px 6px 0 #cbc7cf,
+    0 16px 28px rgba(0,0,0,.10) !important;
+}
+
+.player-library-image-wrap{
+  flex:0 0 74px !important;
+  height:74px !important;
+}
+
+.player-library-game-info h4{
+  font-size:17px !important;
+}
+
+.player-library-open{
+  min-width:60px !important;
+  padding:10px 12px !important;
+  border:2px solid #4c1d95 !important;
+  border-radius:9px !important;
+  background:#7c3aed !important;
+  color:#fff !important;
+  text-align:center !important;
+  font-size:13px !important;
+  font-weight:900 !important;
+  box-shadow:3px 3px 0 #4c1d95 !important;
+}
+
+/* الجوال كما كان القديم: صفحة كاملة وليس نافذة صغيرة */
+@media (max-width:600px){
+  .player-login-overlay{
+    padding:0 !important;
+    background:#f7f5fb !important;
+  }
+
+  .player-login-page{
+    min-height:100vh !important;
+  }
+
+  .player-login-header{
+    min-height:235px !important;
+    padding:74px 16px 32px !important;
+  }
+
+  .player-login-title{
+    font-size:31px !important;
+  }
+
+  .player-login-icon{
+    width:74px !important;
+    height:74px !important;
+    font-size:41px !important;
+  }
+
+  .player-login-back,
+  .player-login-logout{
+    top:13px !important;
+    min-height:40px !important;
+    padding:8px 11px !important;
+    font-size:12px !important;
+  }
+
+  .player-login-back{right:12px !important}
+  .player-login-logout{left:12px !important}
+
+  .player-login-content{
+    padding:15px 12px 25px !important;
+  }
+
+  .player-login-card{
+    padding:17px 14px !important;
+  }
+
+  .player-phone-row{
+    gap:7px !important;
+  }
+
+  .player-country-wrap{
+    flex-basis:104px !important;
+  }
+
+  .player-country-button{
+    height:55px !important;
+    font-size:12px !important;
+  }
+
+  .player-login-input{
+    height:55px !important;
+    font-size:16px !important;
+    padding-inline:9px !important;
+  }
+
+  .player-account-card{
+    padding:14px !important;
+  }
+
+  .player-account-name{
+    font-size:18px !important;
+  }
+
+  .player-library-heading h3{
+    font-size:20px !important;
+  }
+
+  .player-library-game{
+    padding:9px !important;
+    gap:10px !important;
+  }
+
+  .player-library-image-wrap{
+    flex-basis:62px !important;
+    height:62px !important;
+  }
+
+  .player-library-game-info h4{
+    font-size:14px !important;
+  }
+
+  .player-library-game-info p{
+    font-size:10px !important;
+  }
+
+  .player-library-open{
+    min-width:52px !important;
+    padding:8px 9px !important;
+    font-size:11px !important;
+  }
+}

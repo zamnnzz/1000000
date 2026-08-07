@@ -272,11 +272,18 @@
       const o=document.createElement("option");o.value=i;o.textContent=`${c.flag} ${c.name} +${c.code}`;select.appendChild(o);
     });
 
-    $("homeLogin")?.addEventListener("click",()=>{ if(phone){ renderLibrary();modal("libraryModal",true); } else showLogin(); });
+    $("homeLogin")?.addEventListener("click",()=>{
+      renderLibrary();
+      showLogin();
+    });
     $("loginBtn")?.addEventListener("click",login);
     $("saveNameBtn")?.addEventListener("click",saveName);
     $("logoutBtn")?.addEventListener("click",logout);
-    $("openLibraryBtn")?.addEventListener("click",()=>{modal("accountModal",false);renderLibrary();modal("libraryModal",true);});
+    $("openLibraryBtn")?.addEventListener("click",()=>{
+      renderLibrary();
+      const list=$("ownedGamesInline");
+      if(list) list.scrollIntoView({behavior:"smooth",block:"start"});
+    });
     $("verifyCodeBtn")?.addEventListener("click",verifyCode);
     $("codeBuyBtn")?.addEventListener("click",()=>{ const g=pendingGame||currentGame(); if(g) window.open(g.buyLink,"_blank","noopener"); });
     $("closeGamePlayer")?.addEventListener("click",closePlayer);
