@@ -1,36 +1,10 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/game/:slug",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/blog",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/blog/:slug",
-      "destination": "/index.html"
-    }
+    { "source": "/game/:slug", "destination": "/index.html" }
   ],
   "headers": [
-    {
-      "source": "/screenshots/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/script.js",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
+    { "source": "/screenshots/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/(app.js|data.js|styles.css)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] }
   ]
 }
