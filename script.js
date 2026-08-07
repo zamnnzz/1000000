@@ -783,70 +783,18 @@ function App() {
 
 // تحديث عنوان الصفحة والوصف والأيقونة وروابط المشاركة
 React.useEffect(() => {
-  const ensureMeta = (selector, attrs) => {
-    let el = document.querySelector(selector);
-    if (!el) {
-      el = document.createElement(attrs.tag || "meta");
-      Object.entries(attrs).forEach(([key, value]) => {
-        if (key !== "tag") el.setAttribute(key, value);
-      });
-      document.head.appendChild(el);
-    }
-    return el;
-  };
-
-  const canonical = ensureMeta('link[rel="canonical"]', {
-    tag: "link",
-    rel: "canonical",
-    href: window.location.href
-  });
-  const description = ensureMeta('meta[name="description"]', {
-    name: "description",
-    content: ""
-  });
-  const ogTitle = ensureMeta('meta[property="og:title"]', {
-    property: "og:title",
-    content: ""
-  });
+  const canonical = document.querySelector('link[rel="canonical"]');
+  const description = document.querySelector('meta[name="description"]');
+  const ogTitle = document.querySelector('meta[property="og:title"]');
   const ogDescription = document.querySelector(
     'meta[property="og:description"]'
   );
   const ogUrl = document.querySelector('meta[property="og:url"]');
-  const ogImage = ensureMeta('meta[property="og:image"]', {
-    property: "og:image",
-    content: ""
-  });
-  const ogType = ensureMeta('meta[property="og:type"]', {
-    property: "og:type",
-    content: "website"
-  });
-  const twitterTitle = ensureMeta('meta[name="twitter:title"]', {
-    name: "twitter:title",
-    content: ""
-  });
-  const twitterDescription = ensureMeta('meta[name="twitter:description"]', {
-    name: "twitter:description",
-    content: ""
-  });
-  const twitterImage = ensureMeta('meta[name="twitter:image"]', {
-    name: "twitter:image",
-    content: ""
-  });
+  const ogImage = document.querySelector('meta[property="og:image"]');
 
   const siteUrl = "https://zamn-games.vercel.app";
   const siteIcon = `${siteUrl}/favicon.png?v=10`;
   const siteImage = "https://i.postimg.cc/MKrfPPHy/s.png";
-
-  const setSocialMeta = ({ title, descriptionText, url, image, type = "website" }) => {
-    ogTitle.setAttribute("content", title);
-    ogDescription?.setAttribute("content", descriptionText);
-    ogUrl?.setAttribute("content", url);
-    ogImage.setAttribute("content", image);
-    ogType.setAttribute("content", type);
-    twitterTitle.setAttribute("content", title);
-    twitterDescription.setAttribute("content", descriptionText);
-    twitterImage.setAttribute("content", image);
-  };
 
   // حذف الأيقونة القديمة وإنشاء أيقونة جديدة
   // هذه الطريقة تجبر المتصفح على تحديثها
@@ -915,13 +863,6 @@ React.useEffect(() => {
       "content",
       siteImage
     );
-    setSocialMeta({
-      title: articleTitle,
-      descriptionText: selectedArticle.description,
-      url: articleUrl,
-      image: siteImage,
-      type: "article"
-    });
 
     return;
   }
@@ -992,12 +933,6 @@ React.useEffect(() => {
       "content",
       siteImage
     );
-    setSocialMeta({
-      title: blogTitle,
-      descriptionText: blogDescription,
-      url: `${siteUrl}/blog`,
-      image: siteImage
-    });
 
     return;
   }
@@ -1050,13 +985,6 @@ React.useEffect(() => {
       "content",
       selectedGame.image
     );
-    setSocialMeta({
-      title: gameTitle,
-      descriptionText: gameDescription,
-      url: gameUrl,
-      image: selectedGame.image,
-      type: "product"
-    });
 
     return;
   }
@@ -1102,99 +1030,11 @@ React.useEffect(() => {
     "content",
     siteImage
   );
-  setSocialMeta({
-    title: homeTitle,
-    descriptionText: homeDescription,
-    url: `${siteUrl}/`,
-    image: siteImage
-  });
 }, [selectedGame, selectedArticle]);
 
 
 
 
-
-
-// إضافة Structured Data مناسب لكل نوع صفحة
-React.useEffect(() => {
-  document.getElementById("page-schema")?.remove();
-
-  const siteUrl = "https://zamn-games.vercel.app";
-  let graph = [];
-
-  if (selectedArticle && selectedArticle !== "blog-list") {
-    graph = [{
-      "@type": "Article",
-      headline: selectedArticle.title,
-      description: selectedArticle.description,
-      datePublished: selectedArticle.date,
-      dateModified: selectedArticle.date,
-      inLanguage: "ar-SA",
-      mainEntityOfPage: `${siteUrl}/blog/${selectedArticle.slug}`,
-      author: { "@type": "Organization", name: "ألعاب زامن" },
-      publisher: {
-        "@type": "Organization",
-        name: "ألعاب زامن",
-        logo: { "@type": "ImageObject", url: `${siteUrl}/favicon.png` }
-      }
-    }];
-  } else if (selectedArticle === "blog-list") {
-    graph = [{
-      "@type": "Blog",
-      name: "مدونة ألعاب زامن",
-      url: `${siteUrl}/blog`,
-      description: "مقالات وأفكار عن الألعاب الجماعية والجلسات العائلية.",
-      inLanguage: "ar-SA"
-    }];
-  } else if (!selectedGame) {
-    graph = [
-      {
-        "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        name: "ألعاب زامن",
-        url: `${siteUrl}/`,
-        inLanguage: "ar-SA"
-      },
-      {
-        "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
-        name: "ألعاب زامن",
-        url: `${siteUrl}/`,
-        logo: { "@type": "ImageObject", url: `${siteUrl}/favicon.png` }
-      },
-      {
-        "@type": "ItemList",
-        name: "ألعاب زامن الجماعية",
-        itemListElement: games.map((game, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          url: `${siteUrl}/game/${game.slug}`,
-          name: game.name.trim()
-        }))
-      },
-      {
-        "@type": "FAQPage",
-        mainEntity: faqItems.map(item => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: { "@type": "Answer", text: item.answer }
-        }))
-      }
-    ];
-  }
-
-  if (!graph.length) return;
-  const script = document.createElement("script");
-  script.id = "page-schema";
-  script.type = "application/ld+json";
-  script.textContent = JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": graph
-  });
-  document.head.appendChild(script);
-
-  return () => document.getElementById("page-schema")?.remove();
-}, [selectedGame, selectedArticle]);
 
 
 // إضافة Product Schema و Breadcrumb لصفحة كل لعبة
@@ -1211,14 +1051,20 @@ React.useEffect(() => {
       String(selectedGame.price || "").replace(/[^\d.]/g, "")
     );
 
-  const validReviews = (selectedGame.reviews || []).filter(
+  // جميع التقييمات الظاهرة في صفحة اللعبة تُستخدم لحساب المتوسط والعدد.
+  // المراجعات النصية فقط تُرسل كعناصر Review منفصلة.
+  const allRatings = (selectedGame.reviews || []).filter(
+    review => String(review.name || "").trim() || String(review.stars || "").trim()
+  );
+
+  const validReviews = allRatings.filter(
     review => String(review.comment || "").trim()
   );
 
   const productSchema = {
     "@type": "Product",
     "@id":
-      `https://zamn-games.vercel.app/game/${selectedGame.slug}#product`,
+      `${window.location.origin}/game/${selectedGame.slug}#product`,
 
     name: selectedGame.name.trim(),
 
@@ -1229,7 +1075,7 @@ image: [
   ...(selectedGame.screenshots || [])
 ],
     url:
-      `https://zamn-games.vercel.app/game/${selectedGame.slug}`,
+      `${window.location.origin}/game/${selectedGame.slug}`,
 
     sku: String(selectedGame.id),
 
@@ -1244,7 +1090,7 @@ image: [
       "@type": "Offer",
 
       url:
-        `https://zamn-games.vercel.app/game/${selectedGame.slug}`,
+        `${window.location.origin}/game/${selectedGame.slug}`,
 
       price: numericPrice,
 
@@ -1258,7 +1104,7 @@ image: [
         "https://schema.org/NewCondition"
     },
 
-    ...(validReviews.length > 0
+    ...(allRatings.length > 0
       ? {
           aggregateRating: {
             "@type": "AggregateRating",
@@ -1266,8 +1112,11 @@ image: [
             ratingValue:
               Number(selectedGame.rating),
 
+            ratingCount:
+              allRatings.length,
+
             reviewCount:
-              validReviews.length,
+              allRatings.length,
 
             bestRating: 5,
 
@@ -1313,7 +1162,7 @@ image: [
         name: "الرئيسية",
 
         item:
-          "https://zamn-games.vercel.app/"
+          `${window.location.origin}/`
       },
 
       {
@@ -1325,7 +1174,7 @@ image: [
           selectedGame.name.trim(),
 
         item:
-          `https://zamn-games.vercel.app/game/${selectedGame.slug}`
+          `${window.location.origin}/game/${selectedGame.slug}`
       }
     ]
   };
