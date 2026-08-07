@@ -155,13 +155,5 @@ const registerGameEntry = async (game, phone, playerName, entryType) => {
   });
 };
 
-const startBackgroundAnalytics = () => {
-  registerSiteVisit().catch(console.error);
-  startPresenceTracking();
-};
-
-if ("requestIdleCallback" in window) {
-  window.requestIdleCallback(startBackgroundAnalytics, { timeout: 3000 });
-} else {
-  window.setTimeout(startBackgroundAnalytics, 1500);
-}
+registerSiteVisit().catch(console.error);
+startPresenceTracking();
