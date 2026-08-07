@@ -2692,3 +2692,104 @@ body.horof-bell-mode .horof-bell-hero-visual img{
     justify-content:flex-start !important;
   }
 }
+
+
+
+/* =====================================================
+   V27 — الهيدر الرئيسي النهائي حسب HTML الحالي
+   النص يمين / الصورة يسار
+===================================================== */
+#homeHero .hero-inner{
+  width:min(1180px,calc(100% - 32px)) !important;
+  margin:0 auto !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr) !important;
+  grid-template-areas:"copy logo" !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:46px !important;
+  direction:rtl !important;
+}
+
+#homeHero .hero-copy{
+  grid-area:copy !important;
+  width:100% !important;
+  max-width:650px !important;
+  justify-self:end !important;
+  text-align:right !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+#homeHero .hero-copy h1,
+#homeHero .hero-copy p{
+  width:100% !important;
+  margin-right:0 !important;
+  margin-left:0 !important;
+  text-align:right !important;
+}
+
+#homeHero .hero-tags{
+  width:100% !important;
+  display:flex !important;
+  flex-wrap:wrap !important;
+  justify-content:flex-start !important;
+  align-items:center !important;
+  gap:10px !important;
+  margin-right:0 !important;
+  margin-left:0 !important;
+}
+
+#homeHero .hero-btn{
+  margin-right:0 !important;
+  margin-left:auto !important;
+}
+
+#homeHero .hero-logo-wrap{
+  grid-area:logo !important;
+  justify-self:center !important;
+  align-self:center !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+#homeHero .hero-logo{
+  display:block !important;
+  width:min(100%,288px) !important;
+  height:auto !important;
+  margin:0 auto !important;
+}
+
+/* التابلت والجوال */
+@media(max-width:759px){
+  #homeHero .hero-inner{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    gap:22px !important;
+    direction:rtl !important;
+  }
+
+  #homeHero .hero-copy{
+    order:1 !important;
+    max-width:560px !important;
+    text-align:center !important;
+  }
+
+  #homeHero .hero-copy h1,
+  #homeHero .hero-copy p{
+    text-align:center !important;
+  }
+
+  #homeHero .hero-tags{
+    justify-content:center !important;
+  }
+
+  #homeHero .hero-btn{
+    margin-inline:auto !important;
+  }
+
+  #homeHero .hero-logo-wrap{
+    order:2 !important;
+  }
+}
