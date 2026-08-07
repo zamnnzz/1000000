@@ -1,16 +1,3 @@
-Zamn Design Only
-
-هذه النسخة تحتوي التصميم فقط:
-- بدون ألعاب فعلية
-- بدون Firebase
-- بدون React
-- بدون Babel
-- بدون Tailwind
-
-الملفات:
-index.html
-css/main.css
-js/app.js
-vercel.json
-
-نضيف الألعاب والوظائف لاحقًا واحدًا واحدًا.
+Zamn Ultralight
+صفحات HTML ثابتة بدون React أو Babel أو Tailwind أو Firebase في أول تحميل.
+ارفع محتويات المجلد مباشرة إلى Vercel.
