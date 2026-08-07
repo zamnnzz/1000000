@@ -135,7 +135,7 @@ function openGame(game,push=true){
   setPageIcon(game.icon || game.image);
   if(!game||!gameView)return;
   setText("detailTitle",game.name);
-  setText("detailSubtitle", ({"horof-bell":"تحدي الخلية","horof":"تحدي الحروف","photos-1":"تحدي الصور","photos-2":"تحدي الصور","photos-3":"تحدي الصور","family-feud":"تحدي التخمين","fawazeer":"تحدي الفوازير","guess-link":"تحدي الرابط","alatrash":"تحدي اجتماعي"})[game.slug] || game.badge || game.category || "تحدي جماعي");
+  setText("detailSubtitle", ({"horof-bell":"تحدي الخلية","horof":"تحدي الحروف","photos-1":"تحدي الصور","photos-2":"تحدي الصور أبو عمر","photos-3":"تقدر تجيب الصورة؟","family-feud":"تحدي العائلة","fawazeer":"تحدي الأسئلة","guess-link":"تحدي الرابط","alatrash":"اتحداك تجيب الأطرش"})[game.slug] || game.badge || game.category || "تحدي جماعي");
   setText("detailDesc",game.description);
   setText("detailPlayers",game.players || "٢+ لاعبين");
   setText("detailCategory",game.category || game.badge || "لعبة جماعية");
