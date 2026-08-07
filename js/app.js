@@ -100,6 +100,12 @@ function openGame(game,push=true){
   renderShots(game);
   renderReviews(game);
   renderOtherGames(game);
+
+  const horofBellFaq = document.getElementById("horofBellFaq");
+  const isHorofBell = game.slug === "horof-bell";
+  if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
+  document.body.classList.toggle("horof-bell-mode", isHorofBell);
+
   setSEO(game);
   document.body.classList.add("game-mode");
   gameView.hidden=false;
@@ -107,7 +113,9 @@ function openGame(game,push=true){
   if(push) history.pushState({view:"game",slug:game.slug},"",`/game/${game.slug}`);
 }
 function closeGame(push=true){
-  document.body.classList.remove("game-mode");
+  document.body.classList.remove("game-mode","horof-bell-mode");
+  const horofBellFaq = document.getElementById("horofBellFaq");
+  if(horofBellFaq) horofBellFaq.hidden = true;
   if(gameView) gameView.hidden=true;
   resetSEO();
   window.scrollTo({top:0,behavior:"auto"});

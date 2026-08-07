@@ -875,6 +875,569 @@ body:not(.game-mode) .game-btn:active{
   }
 }
 
-/* patch */
-.game-rating{display:none!important;}
-.game-desc{display:none!important;}
+
+
+/* =====================================================
+   حروف والوف مع جرس — الخط الأصلي من المشروع القديم
+===================================================== */
+@font-face{
+  font-family:"AA Galaxy";
+  src:url("https://raw.githubusercontent.com/zamnnzz/fonts/main/hroffont-B6Zk_0ya.woff2") format("woff2");
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
+
+body.horof-bell-mode #gameView{
+  font-family:"AA Galaxy", sans-serif;
+}
+
+/* زر الرئيسية يبقى مقروءًا بنفس خط الموقع العام */
+body.horof-bell-mode #gameBackBtn{
+  font-family:"Tajawal",sans-serif;
+}
+
+
+/* =====================================================
+   بطاقات الألعاب — من المشروع القديم
+===================================================== */
+body:not(.game-mode) .game-card{
+  position:relative;
+  width:100%;
+  height:300px;
+  margin:auto;
+  overflow:hidden;
+
+  display:flex;
+  flex-direction:column;
+
+  color:inherit;
+  text-decoration:none;
+
+  background:#fff;
+
+  border:3px solid #e5e0ea;
+  border-radius:18px;
+
+  box-shadow:
+    6px 6px 0 #d2cbd8,
+    12px 12px 25px rgba(59,7,100,.10);
+
+  cursor:pointer;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+body:not(.game-mode) .game-card::before{
+  content:"";
+  position:absolute;
+  top:-130%;
+  left:-70%;
+  z-index:5;
+
+  width:55%;
+  height:330%;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,.45),
+      transparent
+    );
+
+  transform:rotate(24deg);
+  transition:left .75s ease;
+}
+
+body:not(.game-mode) .game-card:hover::before{
+  left:135%;
+}
+
+body:not(.game-mode) .game-card::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  z-index:4;
+  pointer-events:none;
+
+  border:1px dashed rgba(124,58,237,.16);
+  border-radius:12px;
+}
+
+body:not(.game-mode) .game-card:hover{
+  transform:translateY(-7px) rotate(-.3deg);
+  border-color:#c4b5fd;
+
+  box-shadow:
+    8px 8px 0 #b8afd0,
+    17px 17px 32px rgba(76,29,149,.16);
+}
+
+body:not(.game-mode) .game-image-box{
+  position:relative;
+  height:145px;
+  overflow:hidden;
+  flex-shrink:0;
+
+  background:#ede9fe;
+  border-bottom:3px solid #e4dff0;
+}
+
+body:not(.game-mode) .game-image-box::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 60%,
+      rgba(59,7,100,.12)
+    );
+}
+
+body:not(.game-mode) .game-image,
+body:not(.game-mode) .game-card-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+
+  transition:
+    transform .4s ease,
+    filter .4s ease;
+}
+
+body:not(.game-mode) .game-card:hover .game-image,
+body:not(.game-mode) .game-card:hover .game-card-image{
+  transform:scale(1.055);
+  filter:saturate(1.08) contrast(1.02);
+}
+
+/* التقييم يبقى غير ظاهر على البطاقة مثل ما اتفقنا */
+body:not(.game-mode) .game-rating{
+  display:none !important;
+}
+
+body:not(.game-mode) .game-content{
+  position:relative;
+  z-index:6;
+
+  display:flex;
+  flex:1;
+  flex-direction:column;
+
+  padding:12px;
+}
+
+body:not(.game-mode) .game-title{
+  margin:0 0 8px;
+
+  color:#3b0764;
+
+  font-size:17px;
+  line-height:1.3;
+  font-weight:900;
+  letter-spacing:-.2px;
+}
+
+body:not(.game-mode) .game-desc{
+  display:none !important;
+}
+
+body:not(.game-mode) .game-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+
+  margin-top:auto;
+  margin-bottom:10px;
+}
+
+body:not(.game-mode) .game-tag{
+  padding:5px 8px;
+
+  color:#554a63;
+  background:#f4f1f7;
+
+  border:2px solid #e2dce8;
+  border-radius:7px;
+
+  font-size:11px;
+  font-weight:900;
+
+  box-shadow:2px 2px 0 #d5cedb;
+}
+
+body:not(.game-mode) .game-btn{
+  width:100%;
+  height:40px;
+  margin-top:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#fff;
+  background:linear-gradient(90deg,#6d28d9,#8b5cf6);
+
+  border:2px solid #4c1d95;
+  border-radius:9px;
+
+  font-size:14px;
+  font-weight:900;
+
+  box-shadow:
+    4px 4px 0 #4c1d95,
+    0 8px 16px rgba(109,40,217,.18);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    filter .2s ease;
+}
+
+body:not(.game-mode) .game-btn:hover{
+  filter:brightness(1.07);
+  transform:translateY(-1px);
+
+  box-shadow:
+    5px 5px 0 #4c1d95,
+    0 10px 20px rgba(109,40,217,.22);
+}
+
+body:not(.game-mode) .game-btn:active{
+  transform:translate(3px,3px);
+
+  box-shadow:
+    1px 1px 0 #4c1d95,
+    0 5px 10px rgba(109,40,217,.16);
+}
+
+/* الكمبيوتر — نفس القديم */
+@media (min-width:560px){
+  body:not(.game-mode) .game-card{
+    width:100%;
+    max-width:300px;
+    height:345px;
+  }
+
+  body:not(.game-mode) .game-image-box{
+    height:175px;
+  }
+
+  body:not(.game-mode) .game-title{
+    font-size:21px;
+  }
+
+  body:not(.game-mode) .game-btn{
+    height:46px;
+    font-size:16px;
+  }
+}
+
+/* الجوال — نفس النسبة التي كانت مستخدمة في القديم */
+@media (max-width:559px){
+  body:not(.game-mode) .games-row{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:10px !important;
+    width:100% !important;
+  }
+
+  body:not(.game-mode) .game-card{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+  }
+
+  body:not(.game-mode) .game-image-box{
+    position:relative !important;
+    width:100% !important;
+    height:auto !important;
+    aspect-ratio:7 / 5 !important;
+    flex:none !important;
+    flex-shrink:0 !important;
+    overflow:hidden !important;
+  }
+
+  body:not(.game-mode) .game-image,
+  body:not(.game-mode) .game-card-image{
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center !important;
+    transform:none;
+  }
+
+  body:not(.game-mode) .game-content{
+    display:flex !important;
+    flex-direction:column !important;
+    flex:1 !important;
+    min-height:0 !important;
+    padding:8px !important;
+  }
+
+  body:not(.game-mode) .game-title{
+    margin:0 0 6px !important;
+    font-size:13px !important;
+    line-height:1.3 !important;
+  }
+
+  body:not(.game-mode) .game-tags{
+    margin:0 0 8px !important;
+    gap:4px !important;
+  }
+
+  body:not(.game-mode) .game-tag{
+    padding:3px 5px !important;
+    font-size:8px !important;
+    line-height:1.3 !important;
+  }
+
+  body:not(.game-mode) .game-btn{
+    width:100% !important;
+    height:36px !important;
+    min-height:36px !important;
+    margin-top:auto !important;
+    font-size:12px !important;
+  }
+}
+
+
+/* =====================================================
+   FAQ حروف والوف مع جرس — من المشروع القديم
+===================================================== */
+#horofBellFaq{
+  width:100%;
+  max-width:950px;
+  margin:35px auto 70px;
+  padding:0 16px;
+}
+
+#horofBellFaq .faq-heading-wrap{
+  display:flex;
+  justify-content:center;
+  margin-bottom:28px;
+}
+
+#horofBellFaq .faq-heading{
+  position:relative;
+  margin:0;
+  padding:14px 46px;
+
+  color:#fff;
+  background:linear-gradient(135deg,#3b0764,#7c3aed);
+
+  border:3px solid #4c1d95;
+  border-radius:15px;
+
+  font-size:28px;
+  font-weight:900;
+  text-align:center;
+
+  box-shadow:
+    6px 6px 0 #4c1d95,
+    0 12px 24px rgba(76,29,149,.18);
+}
+
+#horofBellFaq .faq-heading::after{
+  content:"";
+  position:absolute;
+  right:12px;
+  bottom:8px;
+
+  width:9px;
+  height:9px;
+
+  background:#facc15;
+  box-shadow:-17px 0 0 rgba(255,255,255,.45);
+}
+
+#horofBellFaq .faq-list{
+  display:flex;
+  flex-direction:column;
+  gap:17px;
+}
+
+#horofBellFaq .faq-item{
+  overflow:hidden;
+  background:#fff;
+  border:3px solid #e5e0e8;
+  border-radius:17px;
+
+  box-shadow:
+    5px 5px 0 #d3ccd8,
+    11px 11px 24px rgba(0,0,0,.07);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+#horofBellFaq .faq-item:hover{
+  transform:translateY(-3px);
+  border-color:#cfc4dc;
+  box-shadow:
+    7px 7px 0 #c5bccd,
+    15px 15px 28px rgba(0,0,0,.10);
+}
+
+#horofBellFaq .faq-question{
+  width:100%;
+  min-height:82px;
+  padding:17px 22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+
+  color:inherit;
+  background:#fff;
+  border:0;
+  outline:0;
+  cursor:pointer;
+  text-align:right;
+}
+
+#horofBellFaq .faq-question-text{
+  flex:1;
+  color:#3b2e47;
+  font-size:19px;
+  line-height:1.7;
+  font-weight:900;
+}
+
+#horofBellFaq .faq-icon{
+  position:relative;
+  width:48px;
+  height:48px;
+  min-width:48px;
+  min-height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#62566e;
+  background:#f0ecf3;
+
+  border:2px solid #dcd4e2;
+  border-radius:9px;
+  box-shadow:3px 3px 0 #d2cad8;
+
+  transition:
+    transform .25s ease,
+    color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
+}
+
+#horofBellFaq .faq-icon::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:10px;
+  height:10px;
+
+  border-top:3px solid currentColor;
+  border-left:3px solid currentColor;
+  transform:translate(-50%,-65%) rotate(225deg);
+}
+
+#horofBellFaq .faq-icon.open{
+  color:#fff;
+  background:#7c3aed;
+  border-color:#4c1d95;
+  box-shadow:3px 3px 0 #4c1d95;
+}
+
+#horofBellFaq .faq-icon.open::before{
+  transform:translate(-50%,-30%) rotate(45deg);
+}
+
+#horofBellFaq .faq-answer{
+  display:grid;
+  grid-template-rows:0fr;
+  opacity:0;
+  background:#fcfaff;
+  border-top:0 solid transparent;
+
+  transition:
+    grid-template-rows .28s ease,
+    opacity .22s ease,
+    border-color .22s ease;
+}
+
+#horofBellFaq .faq-answer.open{
+  grid-template-rows:1fr;
+  opacity:1;
+  border-top:2px dashed #e2dbe8;
+}
+
+#horofBellFaq .faq-answer-inner{
+  overflow:hidden;
+}
+
+#horofBellFaq .faq-answer-text{
+  margin:0;
+  padding:20px 24px 24px;
+  color:#706778;
+  font-size:17px;
+  line-height:2;
+  font-weight:700;
+}
+
+@media(max-width:559px){
+  #horofBellFaq{
+    margin:25px auto 50px;
+    padding:0 12px;
+  }
+
+  #horofBellFaq .faq-heading{
+    width:100%;
+    padding:12px 18px;
+    font-size:21px;
+    box-shadow:
+      4px 4px 0 #4c1d95,
+      0 8px 18px rgba(76,29,149,.16);
+  }
+
+  #horofBellFaq .faq-question{
+    min-height:70px;
+    padding:14px;
+    gap:11px;
+  }
+
+  #horofBellFaq .faq-question-text{
+    min-width:0;
+    font-size:15px;
+    line-height:1.6;
+    overflow-wrap:anywhere;
+  }
+
+  #horofBellFaq .faq-icon{
+    width:40px;
+    height:40px;
+    min-width:40px;
+    min-height:40px;
+  }
+
+  #horofBellFaq .faq-answer-text{
+    padding:17px 15px 19px;
+    font-size:14px;
+    line-height:1.9;
+  }
+}
