@@ -1,10 +1,14 @@
 (() => {
   let deferredPrompt = null;
   let closedForCurrentHome = false;
+  const MAX_SESSION_PROMPTS = 3;
+  const COUNT_KEY = "zamnPwaPromptCount";
 
   const promptBox = document.getElementById("pwaInstallPrompt");
   const closeBtn = document.getElementById("pwaInstallClose");
   const actionBtn = document.getElementById("pwaInstallAction");
+  const footerBtn = document.getElementById("pwaFooterInstallBtn");
+
   const helpSheet = document.getElementById("pwaIosSheet");
   const helpClose = document.getElementById("pwaIosClose");
   const helpText = document.getElementById("pwaInstallHelpText");
@@ -38,20 +42,40 @@
     return p === "/";
   };
 
+  const promptCount = () => {
+    const n = Number(sessionStorage.getItem(COUNT_KEY) || "0");
+    return Number.isFinite(n) ? n : 0;
+  };
+
+  const incrementPromptCount = () => {
+    const next = Math.min(MAX_SESSION_PROMPTS, promptCount() + 1);
+    sessionStorage.setItem(COUNT_KEY, String(next));
+    return next;
+  };
+
   const hidePrompt = () => {
     if (promptBox) promptBox.hidden = true;
   };
 
-  const canShow = () => {
+  const installationAvailable = () => isIOS() || !!deferredPrompt;
+
+  const canShowFloatingPrompt = () => {
     if (!promptBox || isStandalone() || !isHome() || closedForCurrentHome) return false;
-    // Android/desktop: only when the browser actually offers install.
-    // iOS: show because installation is manual from the browser share/menu.
-    return isIOS() || !!deferredPrompt;
+    if (!installationAvailable()) return false;
+    return promptCount() < MAX_SESSION_PROMPTS;
   };
 
   const showPrompt = () => {
-    if (canShow()) promptBox.hidden = false;
-    else hidePrompt();
+    if (!canShowFloatingPrompt()) {
+      hidePrompt();
+      return;
+    }
+
+    // لا نحسب التكرار إلا عند ظهور البطاقة فعليًا.
+    if (promptBox.hidden) {
+      promptBox.hidden = false;
+      incrementPromptCount();
+    }
   };
 
   const setBrowserInstructions = () => {
@@ -81,6 +105,21 @@
       `في <strong>${b}</strong> افتح قائمة المتصفح ثم اختر <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong>.`;
   };
 
+  const startInstall = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      try { await deferredPrompt.userChoice; } catch (_) {}
+      deferredPrompt = null;
+      hidePrompt();
+      return;
+    }
+
+    if (isIOS() && helpSheet) {
+      setBrowserInstructions();
+      helpSheet.hidden = false;
+    }
+  };
+
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("/service-worker.js").catch(() => {});
@@ -97,10 +136,18 @@
     deferredPrompt = null;
     hidePrompt();
     localStorage.setItem("zamnPwaInstalled", "1");
+    if (footerBtn) footerBtn.hidden = true;
   });
 
   window.addEventListener("load", () => {
     setBrowserInstructions();
+
+    if (isStandalone()) {
+      hidePrompt();
+      if (footerBtn) footerBtn.hidden = true;
+      return;
+    }
+
     if (isIOS()) showPrompt();
   });
 
@@ -111,24 +158,8 @@
     });
   }
 
-  if (actionBtn) {
-    actionBtn.addEventListener("click", async () => {
-      // Android/Chrome and other supporting browsers: native install prompt.
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        try { await deferredPrompt.userChoice; } catch (_) {}
-        deferredPrompt = null;
-        hidePrompt();
-        return;
-      }
-
-      // iPhone/iPad: browser-specific instructions.
-      if (isIOS() && helpSheet) {
-        setBrowserInstructions();
-        helpSheet.hidden = false;
-      }
-    });
-  }
+  if (actionBtn) actionBtn.addEventListener("click", startInstall);
+  if (footerBtn) footerBtn.addEventListener("click", startInstall);
 
   if (helpClose && helpSheet) {
     helpClose.addEventListener("click", () => helpSheet.hidden = true);
