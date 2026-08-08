@@ -155,8 +155,7 @@ function openGame(game,push=true){
   const horofBellHowTo = document.getElementById("horofBellHowTo");
   const horofBellHeroVisual = document.getElementById("horofBellHeroVisual");
   const isHorofBell = game.slug === "horof-bell";
-
-if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
+  if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
   if(horofBellHowTo) horofBellHowTo.hidden = !isHorofBell;
   if(horofBellHeroVisual) horofBellHeroVisual.hidden = !isHorofBell;
   document.body.classList.toggle("horof-bell-mode", isHorofBell);
@@ -170,7 +169,6 @@ if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
 window.openGame = openGame;
 
 function closeGame(push=true){
-
   window.ZAMN_CURRENT_GAME = null;
   setPageIcon("https://zamn-games.vercel.app/favicon.png?v=10");
   document.body.classList.remove("game-mode","horof-bell-mode");
