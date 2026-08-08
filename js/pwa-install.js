@@ -2,13 +2,17 @@
   let deferredPrompt = null;
 
   const board = document.getElementById("pwaInstallBoard");
+  const mobileCard = document.getElementById("pwaMobileCard");
+  const mobileClose = document.getElementById("pwaMobileClose");
+  const mobileAction = document.getElementById("pwaMobileAction");
+
   const helpSheet = document.getElementById("pwaIosSheet");
   const helpClose = document.getElementById("pwaIosClose");
   const helpText = document.getElementById("pwaInstallHelpText");
   const helpTitle = document.getElementById("pwaIosTitle");
 
   const ua = navigator.userAgent || "";
-
+  const isMobile = () => window.matchMedia("(max-width: 700px)").matches;
   const isIOS = () => /iphone|ipad|ipod/i.test(ua);
 
   const browserName = () => {
@@ -34,17 +38,27 @@
     return p === "/";
   };
 
-  const showBoard = () => {
-    if (!board) return;
-    if (isStandalone() || !isHome()) {
-      board.classList.add("is-pwa-hidden");
-      return;
-    }
-    board.classList.remove("is-pwa-hidden");
+  const setVisible = (el, visible) => {
+    if (!el) return;
+    el.classList.toggle("is-pwa-hidden", !visible);
   };
 
-  const hideBoard = () => {
-    if (board) board.classList.add("is-pwa-hidden");
+  const refreshInstallUI = () => {
+    const shouldShow = !isStandalone() && isHome();
+
+    if (!shouldShow) {
+      setVisible(board, false);
+      setVisible(mobileCard, false);
+      return;
+    }
+
+    if (isMobile()) {
+      setVisible(board, false);
+      setVisible(mobileCard, true);
+    } else {
+      setVisible(mobileCard, false);
+      setVisible(board, true);
+    }
   };
 
   const setBrowserInstructions = () => {
@@ -68,7 +82,7 @@
     }
 
     helpText.innerHTML =
-      `في <strong>${b}</strong> اضغط على <strong>أضف الآن</strong>. إذا لم تظهر نافذة التثبيت، افتح قائمة المتصفح واختر <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong>.`;
+      `في <strong>${b}</strong> إذا لم تظهر نافذة التثبيت، افتح قائمة المتصفح واختر <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong>.`;
   };
 
   const startInstall = async () => {
@@ -94,21 +108,29 @@
   window.addEventListener("beforeinstallprompt", e => {
     e.preventDefault();
     deferredPrompt = e;
-    showBoard();
+    refreshInstallUI();
   });
 
   window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
-    hideBoard();
+    setVisible(board, false);
+    setVisible(mobileCard, false);
     localStorage.setItem("zamnPwaInstalled", "1");
   });
 
   window.addEventListener("load", () => {
     setBrowserInstructions();
-    showBoard();
+    refreshInstallUI();
   });
 
+  window.addEventListener("resize", refreshInstallUI);
+
   if (board) board.addEventListener("click", startInstall);
+  if (mobileAction) mobileAction.addEventListener("click", startInstall);
+
+  if (mobileClose) {
+    mobileClose.addEventListener("click", () => setVisible(mobileCard, false));
+  }
 
   if (helpClose && helpSheet) {
     helpClose.addEventListener("click", () => helpSheet.hidden = true);
@@ -117,20 +139,7 @@
     });
   }
 
-  let lastWasHome = isHome();
-
-  const handleNavigation = () => {
-    const nowHome = isHome();
-
-    if (!nowHome) {
-      hideBoard();
-      lastWasHome = false;
-      return;
-    }
-
-    if (!lastWasHome) showBoard();
-    lastWasHome = true;
-  };
+  const handleNavigation = () => refreshInstallUI();
 
   window.addEventListener("popstate", handleNavigation);
 
@@ -146,5 +155,5 @@
     handleNavigation();
   };
 
-  document.addEventListener("zamn:home", showBoard);
+  document.addEventListener("zamn:home", refreshInstallUI);
 })();
