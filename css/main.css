@@ -3835,3 +3835,21 @@ body.horof-bell-mode .horof-step p{
     font-size:18px;
   }
 }
+
+/* =====================================================
+   V46 — تنبيه PWA بدون شعار + حساس للمتصفح
+===================================================== */
+.pwa-install-prompt{
+  grid-template-columns:minmax(0,1fr) auto !important;
+}
+
+.pwa-install-logo,
+.pwa-ios-logo{
+  display:none !important;
+}
+
+@media(max-width:560px){
+  .pwa-install-prompt{
+    grid-template-columns:minmax(0,1fr) auto !important;
+  }
+}
