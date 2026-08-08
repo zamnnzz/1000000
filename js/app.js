@@ -155,6 +155,22 @@ function openGame(game,push=true){
   const horofBellHowTo = document.getElementById("horofBellHowTo");
   const horofBellHeroVisual = document.getElementById("horofBellHeroVisual");
   const isHorofBell = game.slug === "horof-bell";
+
+  const sallaHorofCheckout = document.getElementById("sallaHorofCheckout");
+  const isHorofSallaProduct = game.slug === "horof";
+
+  if (sallaHorofCheckout) {
+    sallaHorofCheckout.hidden = !isHorofSallaProduct;
+  }
+
+  /*
+    عند توفر شراء سلة للعبة حروف، نخفي زر الشراء العام حتى لا يظهر
+    للمستخدم خياران شراء متضاربان. بقية الألعاب تبقى كما هي.
+  */
+  if (gameBuyBtn) {
+    gameBuyBtn.hidden = isHorofSallaProduct;
+  }
+
   if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
   if(horofBellHowTo) horofBellHowTo.hidden = !isHorofBell;
   if(horofBellHeroVisual) horofBellHeroVisual.hidden = !isHorofBell;

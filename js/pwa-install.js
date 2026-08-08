@@ -44,20 +44,15 @@
   };
 
   const refreshInstallUI = () => {
-    const shouldShow = !isStandalone() && isHome();
+    const mobile = window.matchMedia("(max-width: 700px)").matches;
+    const shouldShowDesktop = !mobile && !isStandalone() && isHome();
 
-    if (!shouldShow) {
-      setVisible(board, false);
-      setVisible(mobileCard, false);
-      return;
+    if (board) {
+      board.classList.toggle("is-pwa-hidden", !shouldShowDesktop);
     }
 
-    if (isMobile()) {
-      setVisible(board, false);
-      setVisible(mobileCard, true);
-    } else {
-      setVisible(mobileCard, false);
-      setVisible(board, true);
+    if (mobileCard) {
+      mobileCard.classList.add("is-pwa-hidden");
     }
   };
 

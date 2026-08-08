@@ -3984,132 +3984,52 @@ header{
   }
 }
 
+
 /* =====================================================
-   V53 — الجوال يرجع تنبيه التثبيت القديم بالشعار
+   V54 — إخفاء إضافة الشاشة الرئيسية على الجوال بالكامل
 ===================================================== */
-.is-pwa-hidden{
-  display:none !important;
-}
-
-.pwa-mobile-card{
-  display:none;
-}
-
 @media(max-width:700px){
-  #homeHero .pwa-install-board{
+  #homeHero .pwa-install-board,
+  .pwa-mobile-card{
     display:none !important;
   }
 
-  .pwa-mobile-card{
-    position:absolute;
-    top:12px;
-    left:50%;
-    z-index:999;
-
-    width:calc(100% - 20px);
-    max-width:410px;
-    min-height:86px;
-    padding:12px;
-
-    display:grid;
-    grid-template-columns:56px minmax(0,1fr) auto;
-    align-items:center;
-    gap:10px;
-
-    transform:translateX(-50%);
-
-    direction:rtl;
-
-    background:#fff;
-    border:3px solid #e5e0ea;
-    border-radius:17px;
-
-    box-shadow:
-      5px 5px 0 #d2cbd8,
-      0 16px 30px rgba(59,7,100,.18);
-  }
-
-  .pwa-mobile-logo{
-    width:56px;
-    height:56px;
-    display:block;
-    object-fit:cover;
-    border-radius:13px;
-  }
-
-  .pwa-mobile-copy{
-    min-width:0;
-    display:flex;
-    flex-direction:column;
-    gap:3px;
-    text-align:right;
-  }
-
-  .pwa-mobile-copy strong{
-    color:#3b0764;
-    font-family:"Tajawal",sans-serif;
-    font-size:13px;
-    line-height:1.35;
-    font-weight:900;
-  }
-
-  .pwa-mobile-copy span{
-    color:#716878;
-    font-family:"Tajawal",sans-serif;
-    font-size:10px;
-    line-height:1.4;
-    font-weight:700;
-  }
-
-  .pwa-mobile-action{
-    min-width:58px;
-    height:38px;
-    padding:0 9px;
-
-    color:#fff;
-    background:linear-gradient(135deg,#6d28d9,#8b5cf6);
-
-    border:2px solid #4c1d95;
-    border-radius:10px;
-
-    font-family:"Tajawal",sans-serif;
-    font-size:12px;
-    font-weight:900;
-
-    box-shadow:3px 3px 0 #4c1d95;
-    cursor:pointer;
-  }
-
-  .pwa-mobile-close{
-    position:absolute;
-    top:-8px;
-    left:-6px;
-
-    width:28px;
-    height:28px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#fff;
-    background:#4c1d95;
-
-    border:2px solid #fff;
-    border-radius:50%;
-
-    font-family:Arial,sans-serif;
-    font-size:18px;
-    line-height:1;
-    font-weight:900;
-
-    box-shadow:2px 2px 0 #2e1065;
-    cursor:pointer;
-  }
-
+  /* رجّع مسافة الهيدر الطبيعية بعد حذف بطاقة الجوال */
   #homeHero{
-    position:relative !important;
-    padding-top:104px !important;
-    overflow:visible !important;
+    padding-top:0 !important;
+  }
+}
+
+/* =====================================================
+   V54 — شراء حروف عبر Salla Mini Checkout
+===================================================== */
+.salla-game-checkout[hidden]{
+  display:none !important;
+}
+
+.salla-game-checkout{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+
+  background:#fff;
+
+  border:3px solid #e5e0ea;
+  border-radius:16px;
+
+  box-shadow:
+    4px 4px 0 #d2cbd8,
+    0 12px 24px rgba(59,7,100,.08);
+}
+
+.salla-game-checkout salla-mini-checkout-widget{
+  display:block;
+  width:100%;
+}
+
+@media(max-width:560px){
+  .salla-game-checkout{
+    padding:9px;
+    border-radius:13px;
   }
 }

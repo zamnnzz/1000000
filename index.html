@@ -40,20 +40,10 @@
 <meta name="apple-mobile-web-app-title" content="ألعاب زامن">
 <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
 
+  <script type="module" src="https://cdn.assets.salla.network/prod/@salla.sa/fast-checkout-widget/v0.0.25/widget.esm.js"></script>
 </head>
 <body>
-
-<div id="pwaMobileCard" class="pwa-mobile-card is-pwa-hidden">
-  <button id="pwaMobileClose" class="pwa-mobile-close" type="button" aria-label="إغلاق">×</button>
-
-  <img class="pwa-mobile-logo" src="/favicon.png" alt="ألعاب زامن" width="58" height="58">
-
-  <div class="pwa-mobile-copy">
-    <strong>أضف ألعاب زامن إلى الصفحة الرئيسية</strong>
-    <span>لوصول أسرع إلى الألعاب</span>
-  </div>
-
-  <button id="pwaMobileAction" class="pwa-mobile-action" type="button">إضافة</button>
+<button id="pwaMobileAction" class="pwa-mobile-action" type="button">إضافة</button>
 </div>
 
 
@@ -436,6 +426,15 @@
       <section class="game-actions-panel" aria-label="خيارات اللعبة">
         <a id="gamePlayBtn" class="action-wide action-play" href="#" rel="noopener">▶ العب الآن</a>
         <a id="gameBuyBtn" class="action-wide action-buy" href="#" rel="noopener">💳 اشتر الآن</a>
+
+<div id="sallaHorofCheckout" class="salla-game-checkout" hidden>
+  <salla-mini-checkout-widget
+    store-id="681606734"
+    products="[769912795]"
+    language="ar"
+  ></salla-mini-checkout-widget>
+</div>
+
         <button id="gameTrialBtn" class="action-wide action-trial" type="button">🎮 جرّب مجاناً 45 ثانية</button>
       </section>
 
