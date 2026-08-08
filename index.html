@@ -43,19 +43,32 @@
 </head>
 <body>
 
-<button id="pwaInstallBtn" class="pwa-install-btn" type="button" hidden aria-label="إضافة ألعاب زامن إلى الشاشة الرئيسية">
-  <span aria-hidden="true">📲</span>
-  <span>أضف الموقع للجوال</span>
-</button>
+<div id="pwaInstallPrompt" class="pwa-install-prompt" hidden>
+  <button id="pwaInstallClose" class="pwa-install-close" type="button" aria-label="إغلاق">×</button>
+
+  <img class="pwa-install-logo" src="/favicon.png" alt="ألعاب زامن" width="72" height="72">
+
+  <div class="pwa-install-copy">
+    <strong>أضف ألعاب زامن لجوالك</strong>
+    <span>افتح ألعابك بسرعة من الشاشة الرئيسية.</span>
+  </div>
+
+  <button id="pwaInstallAction" class="pwa-install-action" type="button">
+    إضافة
+  </button>
+</div>
 
 <div id="pwaIosSheet" class="pwa-ios-sheet" hidden>
   <div class="pwa-ios-card" role="dialog" aria-modal="true" aria-labelledby="pwaIosTitle">
     <button id="pwaIosClose" class="pwa-ios-close" type="button" aria-label="إغلاق">×</button>
-    <div class="pwa-ios-icon">📲</div>
-    <h2 id="pwaIosTitle">أضف ألعاب زامن للشاشة الرئيسية</h2>
-    <p>في Safari اضغط زر <strong>المشاركة</strong> ثم اختر <strong>إضافة إلى الشاشة الرئيسية</strong>.</p>
+    <img class="pwa-ios-logo" src="/favicon.png" alt="ألعاب زامن" width="78" height="78">
+    <h2 id="pwaIosTitle">إضافة ألعاب زامن للآيفون</h2>
+    <p>اضغط زر <strong>المشاركة</strong> في Safari ثم <strong>إضافة إلى الشاشة الرئيسية</strong>.</p>
   </div>
 </div>
+
+
+
 
   <button id="homeLogin" class="login-float" type="button">ألعابي <span aria-hidden="true">🎮</span></button>
 

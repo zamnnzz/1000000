@@ -3599,56 +3599,119 @@ body.horof-bell-mode .horof-step p{
 
 
 
+
+
+
 /* =====================================================
-   V44 — تثبيت ألعاب زامن على الجوال (PWA)
+   V45 — تنبيه إضافة ألعاب زامن للشاشة الرئيسية
 ===================================================== */
-.pwa-install-btn[hidden],
+.pwa-install-prompt[hidden],
 .pwa-ios-sheet[hidden]{
   display:none !important;
 }
 
-.pwa-install-btn{
+.pwa-install-prompt{
   position:fixed;
   left:18px;
   bottom:18px;
-  z-index:9997;
+  z-index:9998;
 
-  min-height:50px;
-  padding:0 16px;
+  width:min(420px,calc(100vw - 36px));
+  min-height:96px;
+  padding:14px 14px 14px 16px;
 
-  display:flex;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
   align-items:center;
-  justify-content:center;
-  gap:8px;
+  gap:12px;
+
+  direction:rtl;
+
+  background:#fff;
+  border:3px solid #e5e0ea;
+  border-radius:20px;
+
+  box-shadow:
+    6px 6px 0 #d2cbd8,
+    0 18px 38px rgba(59,7,100,.18);
+}
+
+.pwa-install-logo{
+  width:64px;
+  height:64px;
+  object-fit:cover;
+  border-radius:15px;
+  flex:0 0 64px;
+}
+
+.pwa-install-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  text-align:right;
+}
+
+.pwa-install-copy strong{
+  color:#3b0764;
+  font-family:"Tajawal",sans-serif;
+  font-size:16px;
+  line-height:1.35;
+  font-weight:900;
+}
+
+.pwa-install-copy span{
+  color:#716878;
+  font-family:"Tajawal",sans-serif;
+  font-size:12px;
+  line-height:1.55;
+  font-weight:700;
+}
+
+.pwa-install-action{
+  min-width:68px;
+  height:42px;
+  padding:0 13px;
 
   color:#fff;
   background:linear-gradient(135deg,#6d28d9,#8b5cf6);
 
   border:2px solid #4c1d95;
-  border-radius:14px;
+  border-radius:11px;
 
   font-family:"Tajawal",sans-serif;
-  font-size:14px;
+  font-size:13px;
   font-weight:900;
 
-  box-shadow:
-    4px 4px 0 #4c1d95,
-    0 12px 26px rgba(76,29,149,.20);
-
+  box-shadow:3px 3px 0 #4c1d95;
   cursor:pointer;
-  transition:transform .2s ease,box-shadow .2s ease;
 }
 
-.pwa-install-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    5px 5px 0 #4c1d95,
-    0 15px 28px rgba(76,29,149,.24);
-}
+.pwa-install-close{
+  position:absolute;
+  top:-9px;
+  left:-9px;
 
-.pwa-install-btn:active{
-  transform:translate(2px,2px);
-  box-shadow:2px 2px 0 #4c1d95;
+  width:30px;
+  height:30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#fff;
+  background:#4c1d95;
+
+  border:2px solid #fff;
+  border-radius:50%;
+
+  font-family:Arial,sans-serif;
+  font-size:20px;
+  line-height:1;
+  font-weight:900;
+
+  box-shadow:2px 2px 0 #2e1065;
+  cursor:pointer;
 }
 
 .pwa-ios-sheet{
@@ -3669,7 +3732,7 @@ body.horof-bell-mode .horof-step p{
 .pwa-ios-card{
   position:relative;
   width:min(100%,470px);
-  padding:30px 24px 26px;
+  padding:28px 24px 26px;
 
   text-align:center;
 
@@ -3684,6 +3747,14 @@ body.horof-bell-mode .horof-step p{
     0 24px 50px rgba(25,10,40,.20);
 }
 
+.pwa-ios-logo{
+  width:78px;
+  height:78px;
+  margin:0 auto 12px;
+  object-fit:cover;
+  border-radius:18px;
+}
+
 .pwa-ios-close{
   position:absolute;
   top:12px;
@@ -3692,8 +3763,8 @@ body.horof-bell-mode .horof-step p{
   width:38px;
   height:38px;
 
-  color:#4c1d95;
-  background:#f3e8ff;
+  color:#fff;
+  background:#4c1d95;
 
   border:0;
   border-radius:50%;
@@ -3703,13 +3774,10 @@ body.horof-bell-mode .horof-step p{
   cursor:pointer;
 }
 
-.pwa-ios-icon{
-  margin-bottom:10px;
-  font-size:44px;
-}
-
 .pwa-ios-card h2{
   margin:0 0 12px;
+  color:#3b0764;
+  font-family:"Tajawal",sans-serif;
   font-size:23px;
   font-weight:900;
 }
@@ -3717,17 +3785,53 @@ body.horof-bell-mode .horof-step p{
 .pwa-ios-card p{
   margin:0;
   color:#665c70;
+  font-family:"Tajawal",sans-serif;
   font-size:15px;
   line-height:1.9;
   font-weight:700;
 }
 
 @media(max-width:560px){
-  .pwa-install-btn{
-    left:12px;
-    bottom:12px;
-    min-height:46px;
-    padding:0 13px;
+  .pwa-install-prompt{
+    left:10px;
+    bottom:10px;
+
+    width:calc(100vw - 20px);
+    min-height:88px;
+    padding:12px;
+
+    grid-template-columns:56px minmax(0,1fr) auto;
+    gap:10px;
+
+    border-radius:17px;
+  }
+
+  .pwa-install-logo{
+    width:56px;
+    height:56px;
+    border-radius:13px;
+  }
+
+  .pwa-install-copy strong{
+    font-size:14px;
+  }
+
+  .pwa-install-copy span{
+    font-size:11px;
+  }
+
+  .pwa-install-action{
+    min-width:60px;
+    height:38px;
+    padding:0 10px;
     font-size:12px;
+  }
+
+  .pwa-install-close{
+    top:-8px;
+    left:-6px;
+    width:28px;
+    height:28px;
+    font-size:18px;
   }
 }
