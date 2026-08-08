@@ -3710,3 +3710,47 @@ body.horof-bell-mode .horof-step p{
     border-radius:12px;
   }
 }
+
+/* =====================================================
+   Full screen mobile — portrait + landscape
+===================================================== */
+html,
+body{
+  width:100%;
+  min-width:100%;
+  min-height:100%;
+  margin:0;
+}
+
+body{
+  min-height:100vh;
+  min-height:100svh;
+  min-height:100dvh;
+}
+
+#app,
+.app-shell,
+main{
+  min-height:100vh;
+  min-height:100svh;
+  min-height:100dvh;
+}
+
+/* عند قلب الجوال، استغل كامل العرض والارتفاع */
+@media (orientation: landscape) and (max-height: 600px){
+  html,
+  body,
+  #app,
+  .app-shell,
+  main{
+    width:100vw;
+    min-width:100vw;
+    min-height:100vh;
+    min-height:100dvh;
+  }
+
+  body{
+    padding-left:env(safe-area-inset-left);
+    padding-right:env(safe-area-inset-right);
+  }
+}
