@@ -156,41 +156,6 @@ function openGame(game,push=true){
   const horofBellHeroVisual = document.getElementById("horofBellHeroVisual");
   const isHorofBell = game.slug === "horof-bell";
 
-  const sallaHorofCheckout = document.getElementById("sallaHorofCheckout");
-  const isHorofSallaProduct = game.slug === "horof";
-
-  if (buy) {
-    buy.hidden = isHorofSallaProduct;
-  }
-
-  if (sallaHorofCheckout) {
-    sallaHorofCheckout.hidden = !isHorofSallaProduct;
-
-    if (isHorofSallaProduct) {
-      const mountSallaWidget = () => {
-        if (!sallaHorofCheckout.querySelector("salla-mini-checkout-widget")) {
-          const widget = document.createElement("salla-mini-checkout-widget");
-          widget.setAttribute("store-id", "681606734");
-          widget.setAttribute("products", "[769912795]");
-          widget.setAttribute("language", "ar");
-          sallaHorofCheckout.replaceChildren(widget);
-        }
-      };
-
-      if (window.customElements && customElements.get("salla-mini-checkout-widget")) {
-        mountSallaWidget();
-      } else if (window.customElements) {
-        customElements.whenDefined("salla-mini-checkout-widget")
-          .then(mountSallaWidget)
-          .catch(() => mountSallaWidget());
-      } else {
-        mountSallaWidget();
-      }
-    } else {
-      sallaHorofCheckout.replaceChildren();
-    }
-  }
-
 if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
   if(horofBellHowTo) horofBellHowTo.hidden = !isHorofBell;
   if(horofBellHeroVisual) horofBellHeroVisual.hidden = !isHorofBell;
@@ -205,14 +170,6 @@ if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
 window.openGame = openGame;
 
 function closeGame(push=true){
-
-  const sallaHorofCheckout = document.getElementById("sallaHorofCheckout");
-  const buy = document.getElementById("gameBuyBtn");
-  if (sallaHorofCheckout) {
-    sallaHorofCheckout.hidden = true;
-    sallaHorofCheckout.replaceChildren();
-  }
-  if (buy) buy.hidden = false;
 
   window.ZAMN_CURRENT_GAME = null;
   setPageIcon("https://zamn-games.vercel.app/favicon.png?v=10");
