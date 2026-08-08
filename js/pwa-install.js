@@ -36,11 +36,15 @@
 
   const showBoard = () => {
     if (!board) return;
-    board.hidden = isStandalone() || !isHome();
+    if (isStandalone() || !isHome()) {
+      board.classList.add("is-pwa-hidden");
+      return;
+    }
+    board.classList.remove("is-pwa-hidden");
   };
 
   const hideBoard = () => {
-    if (board) board.hidden = true;
+    if (board) board.classList.add("is-pwa-hidden");
   };
 
   const setBrowserInstructions = () => {

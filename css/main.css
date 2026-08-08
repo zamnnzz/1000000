@@ -3608,7 +3608,6 @@ body.horof-bell-mode .horof-step p{
 /* =====================================================
    V49 — لوحة "أضف الآن" معلّقة أعلى الشاشة
 ===================================================== */
-.pwa-install-board[hidden],
 .pwa-ios-sheet[hidden]{
   display:none !important;
 }
@@ -3933,5 +3932,54 @@ header{
 
   #homeHero .pwa-board-pin{
     top:-20px !important;
+  }
+}
+
+/* =====================================================
+   V52 — إصلاح نهائي لظهور لوحة التثبيت على الجوال
+===================================================== */
+#homeHero .pwa-install-board{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
+#homeHero .pwa-install-board.is-pwa-hidden{
+  display:none !important;
+}
+
+@media(max-width:700px){
+  #homeHero{
+    position:relative !important;
+    overflow:visible !important;
+    padding-top:78px !important;
+  }
+
+  #homeHero .pwa-install-board{
+    position:absolute !important;
+    top:12px !important;
+    left:50% !important;
+    right:auto !important;
+
+    width:calc(100% - 28px) !important;
+    max-width:380px !important;
+    min-width:0 !important;
+    min-height:56px !important;
+
+    padding:8px 16px 7px !important;
+
+    transform:translateX(-50%) rotate(-1deg) !important;
+    z-index:999 !important;
+  }
+
+  #homeHero .pwa-board-copy strong{
+    font-size:13px !important;
+    line-height:1.35 !important;
+  }
+
+  #homeHero .pwa-board-copy small{
+    font-size:10px !important;
+    line-height:1.3 !important;
   }
 }
