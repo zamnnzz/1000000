@@ -1,14 +1,7 @@
 (() => {
   let deferredPrompt = null;
-  const MAX_SESSION_PROMPTS = 3;
-  const COUNT_KEY = "zamnPwaPromptCountV2";
-  const DISPLAY_LOCK_KEY = "zamnPwaDisplayLockedV2";
 
-  const promptBox = document.getElementById("pwaInstallPrompt");
-  const closeBtn = document.getElementById("pwaInstallClose");
-  const actionBtn = document.getElementById("pwaInstallAction");
-  const footerBtn = document.getElementById("pwaFooterInstallBtn");
-
+  const board = document.getElementById("pwaInstallBoard");
   const helpSheet = document.getElementById("pwaIosSheet");
   const helpClose = document.getElementById("pwaIosClose");
   const helpText = document.getElementById("pwaInstallHelpText");
@@ -41,55 +34,20 @@
     return p === "/";
   };
 
-  const getCount = () => {
-    const n = parseInt(sessionStorage.getItem(COUNT_KEY) || "0", 10);
-    return Number.isFinite(n) ? Math.max(0, Math.min(MAX_SESSION_PROMPTS, n)) : 0;
+  const showBoard = () => {
+    if (!board) return;
+    board.hidden = isStandalone() || !isHome();
   };
 
-  const setCount = (n) => {
-    const value = Math.max(0, Math.min(MAX_SESSION_PROMPTS, n));
-    sessionStorage.setItem(COUNT_KEY, String(value));
-    if (value >= MAX_SESSION_PROMPTS) {
-      sessionStorage.setItem(DISPLAY_LOCK_KEY, "1");
-    }
-  };
-
-  const isLocked = () =>
-    sessionStorage.getItem(DISPLAY_LOCK_KEY) === "1" ||
-    getCount() >= MAX_SESSION_PROMPTS;
-
-  const hidePrompt = () => {
-    if (promptBox) promptBox.hidden = true;
-  };
-
-  const installationAvailable = () => isIOS() || !!deferredPrompt;
-
-  const showPromptOnce = () => {
-    if (!promptBox) return;
-    if (isStandalone() || !isHome() || isLocked() || !installationAvailable()) {
-      hidePrompt();
-      return;
-    }
-
-    // Only count when changing from hidden -> visible.
-    if (promptBox.hidden) {
-      const before = getCount();
-      if (before >= MAX_SESSION_PROMPTS) {
-        sessionStorage.setItem(DISPLAY_LOCK_KEY, "1");
-        hidePrompt();
-        return;
-      }
-
-      promptBox.hidden = false;
-      setCount(before + 1);
-    }
+  const hideBoard = () => {
+    if (board) board.hidden = true;
   };
 
   const setBrowserInstructions = () => {
     if (!helpText || !helpTitle) return;
 
     const b = browserName();
-    helpTitle.textContent = "أضف ألعاب زامن إلى الصفحة الرئيسية";
+    helpTitle.textContent = "إضافة ألعاب زامن إلى الصفحة الرئيسية";
 
     if (isIOS()) {
       if (b === "Safari") {
@@ -106,27 +64,17 @@
     }
 
     helpText.innerHTML =
-      `في <strong>${b}</strong> افتح قائمة المتصفح ثم اختر <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong>.`;
+      `في <strong>${b}</strong> اضغط على <strong>أضف الآن</strong>. إذا لم تظهر نافذة التثبيت، افتح قائمة المتصفح واختر <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong>.`;
   };
 
-  const startInstall = async (event) => {
-    if (event) event.preventDefault();
-
+  const startInstall = async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
       try { await deferredPrompt.userChoice; } catch (_) {}
       deferredPrompt = null;
-      hidePrompt();
       return;
     }
 
-    if (isIOS() && helpSheet) {
-      setBrowserInstructions();
-      helpSheet.hidden = false;
-      return;
-    }
-
-    // Browsers without beforeinstallprompt: give browser-aware fallback instructions.
     if (helpSheet) {
       setBrowserInstructions();
       helpSheet.hidden = false;
@@ -142,35 +90,21 @@
   window.addEventListener("beforeinstallprompt", e => {
     e.preventDefault();
     deferredPrompt = e;
-    showPromptOnce();
+    showBoard();
   });
 
   window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
-    hidePrompt();
+    hideBoard();
     localStorage.setItem("zamnPwaInstalled", "1");
-    if (footerBtn) footerBtn.hidden = true;
   });
 
   window.addEventListener("load", () => {
     setBrowserInstructions();
-
-    if (isStandalone()) {
-      hidePrompt();
-      if (footerBtn) footerBtn.hidden = true;
-      return;
-    }
-
-    // iOS has no beforeinstallprompt.
-    if (isIOS()) showPromptOnce();
+    showBoard();
   });
 
-  if (closeBtn) {
-    closeBtn.addEventListener("click", hidePrompt);
-  }
-
-  if (actionBtn) actionBtn.addEventListener("click", startInstall);
-  if (footerBtn) footerBtn.addEventListener("click", startInstall);
+  if (board) board.addEventListener("click", startInstall);
 
   if (helpClose && helpSheet) {
     helpClose.addEventListener("click", () => helpSheet.hidden = true);
@@ -179,24 +113,18 @@
     });
   }
 
-  // SPA / browser navigation:
-  // Leaving home always hides it.
-  // Returning home can show it only if the hard session cap is still < 3.
   let lastWasHome = isHome();
 
   const handleNavigation = () => {
     const nowHome = isHome();
 
     if (!nowHome) {
-      hidePrompt();
+      hideBoard();
       lastWasHome = false;
       return;
     }
 
-    if (!lastWasHome) {
-      setTimeout(showPromptOnce, 250);
-    }
-
+    if (!lastWasHome) showBoard();
     lastWasHome = true;
   };
 
@@ -214,7 +142,5 @@
     handleNavigation();
   };
 
-  document.addEventListener("zamn:home", () => {
-    setTimeout(showPromptOnce, 150);
-  });
+  document.addEventListener("zamn:home", showBoard);
 })();

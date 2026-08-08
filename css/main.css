@@ -3602,118 +3602,103 @@ body.horof-bell-mode .horof-step p{
 
 
 
+
+
+
 /* =====================================================
-   V45 — تنبيه إضافة ألعاب زامن للشاشة الرئيسية
+   V49 — لوحة "أضف الآن" معلّقة أعلى الشاشة
 ===================================================== */
-.pwa-install-prompt[hidden],
+.pwa-install-board[hidden],
 .pwa-ios-sheet[hidden]{
   display:none !important;
 }
 
-.pwa-install-prompt{
+.pwa-install-board{
   position:fixed;
-  left:18px;
-  bottom:18px;
-  z-index:9998;
+  top:14px;
+  left:50%;
+  z-index:9999;
 
-  width:min(420px,calc(100vw - 36px));
-  min-height:96px;
-  padding:14px 14px 14px 16px;
-
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  align-items:center;
-  gap:12px;
-
-  direction:rtl;
-
-  background:#fff;
-  border:3px solid #e5e0ea;
-  border-radius:20px;
-
-  box-shadow:
-    6px 6px 0 #d2cbd8,
-    0 18px 38px rgba(59,7,100,.18);
-}
-
-.pwa-install-logo{
-  width:64px;
-  height:64px;
-  object-fit:cover;
-  border-radius:15px;
-  flex:0 0 64px;
-}
-
-.pwa-install-copy{
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  text-align:right;
-}
-
-.pwa-install-copy strong{
-  color:#3b0764;
-  font-family:"Tajawal",sans-serif;
-  font-size:16px;
-  line-height:1.35;
-  font-weight:900;
-}
-
-.pwa-install-copy span{
-  color:#716878;
-  font-family:"Tajawal",sans-serif;
-  font-size:12px;
-  line-height:1.55;
-  font-weight:700;
-}
-
-.pwa-install-action{
-  min-width:68px;
-  height:42px;
-  padding:0 13px;
-
-  color:#fff;
-  background:linear-gradient(135deg,#6d28d9,#8b5cf6);
-
-  border:2px solid #4c1d95;
-  border-radius:11px;
-
-  font-family:"Tajawal",sans-serif;
-  font-size:13px;
-  font-weight:900;
-
-  box-shadow:3px 3px 0 #4c1d95;
-  cursor:pointer;
-}
-
-.pwa-install-close{
-  position:absolute;
-  top:-9px;
-  left:-9px;
-
-  width:30px;
-  height:30px;
+  min-width:150px;
+  height:54px;
+  padding:0 24px;
 
   display:flex;
   align-items:center;
   justify-content:center;
 
+  transform:translateX(-50%) rotate(-1deg);
+
   color:#fff;
-  background:#4c1d95;
+  background:linear-gradient(135deg,#6d28d9,#7c3aed);
 
-  border:2px solid #fff;
-  border-radius:50%;
+  border:3px solid #4c1d95;
+  border-radius:8px;
 
-  font-family:Arial,sans-serif;
-  font-size:20px;
-  line-height:1;
+  font-family:"Tajawal",sans-serif;
+  font-size:18px;
   font-weight:900;
 
-  box-shadow:2px 2px 0 #2e1065;
+  box-shadow:
+    4px 5px 0 #3b0764,
+    0 12px 26px rgba(59,7,100,.20);
+
   cursor:pointer;
 }
 
+.pwa-install-board::before,
+.pwa-install-board::after{
+  content:"";
+  position:absolute;
+  top:-19px;
+
+  width:3px;
+  height:20px;
+
+  background:#5b4b68;
+  border-radius:999px;
+}
+
+.pwa-install-board::before{
+  right:30px;
+  transform:rotate(9deg);
+}
+
+.pwa-install-board::after{
+  left:30px;
+  transform:rotate(-9deg);
+}
+
+.pwa-board-pin{
+  position:absolute;
+  top:-23px;
+
+  width:9px;
+  height:9px;
+
+  background:#f59e0b;
+  border:2px solid #fff;
+  border-radius:50%;
+
+  box-shadow:0 1px 0 rgba(0,0,0,.18);
+}
+
+.pwa-board-pin-right{ right:27px; }
+.pwa-board-pin-left{ left:27px; }
+
+.pwa-board-text{
+  pointer-events:none;
+}
+
+.pwa-install-board:hover{
+  transform:translateX(-50%) translateY(-2px) rotate(.5deg);
+}
+
+.pwa-install-board:active{
+  transform:translateX(-50%) translateY(2px) rotate(0deg);
+}
+
+/* شرح التثبيت */
 .pwa-ios-sheet{
   position:fixed;
   inset:0;
@@ -3745,14 +3730,6 @@ body.horof-bell-mode .horof-step p{
   box-shadow:
     7px 7px 0 #d2cbd8,
     0 24px 50px rgba(25,10,40,.20);
-}
-
-.pwa-ios-logo{
-  width:78px;
-  height:78px;
-  margin:0 auto 12px;
-  object-fit:cover;
-  border-radius:18px;
 }
 
 .pwa-ios-close{
@@ -3792,108 +3769,11 @@ body.horof-bell-mode .horof-step p{
 }
 
 @media(max-width:560px){
-  .pwa-install-prompt{
-    left:10px;
-    bottom:10px;
-
-    width:calc(100vw - 20px);
-    min-height:88px;
-    padding:12px;
-
-    grid-template-columns:56px minmax(0,1fr) auto;
-    gap:10px;
-
-    border-radius:17px;
+  .pwa-install-board{
+    top:10px;
+    min-width:132px;
+    height:48px;
+    padding:0 20px;
+    font-size:16px;
   }
-
-  .pwa-install-logo{
-    width:56px;
-    height:56px;
-    border-radius:13px;
-  }
-
-  .pwa-install-copy strong{
-    font-size:14px;
-  }
-
-  .pwa-install-copy span{
-    font-size:11px;
-  }
-
-  .pwa-install-action{
-    min-width:60px;
-    height:38px;
-    padding:0 10px;
-    font-size:12px;
-  }
-
-  .pwa-install-close{
-    top:-8px;
-    left:-6px;
-    width:28px;
-    height:28px;
-    font-size:18px;
-  }
-}
-
-
-
-
-/* =====================================================
-   V47 — رجوع شكل تنبيه PWA بالصورة + 3 مرات فقط
-===================================================== */
-.pwa-install-prompt{
-  grid-template-columns:auto minmax(0,1fr) auto !important;
-}
-
-.pwa-install-logo{
-  display:block !important;
-  width:64px !important;
-  height:64px !important;
-  object-fit:cover !important;
-  border-radius:15px !important;
-}
-
-
-
-@media(max-width:560px){
-  .pwa-install-prompt{
-    grid-template-columns:56px minmax(0,1fr) auto !important;
-  }
-
-  .pwa-install-logo{
-    width:56px !important;
-    height:56px !important;
-    border-radius:13px !important;
-  }
-}
-
-
-
-/* =====================================================
-   V48 — رابط التثبيت مثل عناصر "روابط سريعة"
-===================================================== */
-.footer-links .pwa-footer-install-link{
-  display:flex;
-  align-items:center;
-  gap:8px;
-
-  color:inherit;
-  text-decoration:none;
-
-  background:transparent;
-  border:0;
-  padding:0;
-  margin:0;
-
-  font:inherit;
-  cursor:pointer;
-}
-
-.footer-links .pwa-footer-install-link:hover{
-  color:#fff;
-}
-
-.footer-links .pwa-footer-install-link[hidden]{
-  display:none !important;
 }
