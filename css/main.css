@@ -3655,3 +3655,27 @@ body.horof-bell-mode .horof-step p{
   .home-screen-tip-close{width:44px;height:44px;top:14px;left:14px}
   .home-screen-tip-done{min-height:60px;font-size:22px}
 }
+
+/* تحسين أيقونات المشاركة والإضافة */
+.home-screen-tip-icon{
+  background:#fff;
+  box-shadow:3px 4px 0 #111;
+}
+.home-screen-tip-icon svg{
+  width:29px;
+  height:29px;
+  display:block;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.home-screen-tip-plus svg{
+  width:31px;
+  height:31px;
+  stroke-width:2.4;
+}
+.home-screen-tip-step:hover .home-screen-tip-icon{
+  transform:translateY(-1px) rotate(-2deg);
+}
