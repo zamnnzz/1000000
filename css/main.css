@@ -3854,39 +3854,7 @@ body.horof-bell-mode .horof-step p{
   border-radius:15px !important;
 }
 
-.pwa-footer-install{
-  width:100%;
-  margin-top:10px;
-  padding:7px 0;
 
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:7px;
-
-  color:rgba(255,255,255,.82);
-  background:transparent;
-
-  border:0;
-
-  font-family:"Tajawal",sans-serif;
-  font-size:13px;
-  line-height:1.6;
-  font-weight:800;
-  text-align:right;
-
-  cursor:pointer;
-  transition:color .2s ease,transform .2s ease;
-}
-
-.pwa-footer-install:hover{
-  color:#fff;
-  transform:translateX(-2px);
-}
-
-.pwa-footer-install[hidden]{
-  display:none !important;
-}
 
 @media(max-width:560px){
   .pwa-install-prompt{
@@ -3898,4 +3866,34 @@ body.horof-bell-mode .horof-step p{
     height:56px !important;
     border-radius:13px !important;
   }
+}
+
+
+
+/* =====================================================
+   V48 — رابط التثبيت مثل عناصر "روابط سريعة"
+===================================================== */
+.footer-links .pwa-footer-install-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  color:inherit;
+  text-decoration:none;
+
+  background:transparent;
+  border:0;
+  padding:0;
+  margin:0;
+
+  font:inherit;
+  cursor:pointer;
+}
+
+.footer-links .pwa-footer-install-link:hover{
+  color:#fff;
+}
+
+.footer-links .pwa-footer-install-link[hidden]{
+  display:none !important;
 }

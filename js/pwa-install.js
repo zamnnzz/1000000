@@ -1,8 +1,8 @@
 (() => {
   let deferredPrompt = null;
-  let closedForCurrentHome = false;
   const MAX_SESSION_PROMPTS = 3;
-  const COUNT_KEY = "zamnPwaPromptCount";
+  const COUNT_KEY = "zamnPwaPromptCountV2";
+  const DISPLAY_LOCK_KEY = "zamnPwaDisplayLockedV2";
 
   const promptBox = document.getElementById("pwaInstallPrompt");
   const closeBtn = document.getElementById("pwaInstallClose");
@@ -24,7 +24,6 @@
     if (/EdgiOS/i.test(ua)) return "Edge";
     if (/OPiOS/i.test(ua)) return "Opera";
     if (isIOS() && /Safari/i.test(ua)) return "Safari";
-
     if (/Edg\//i.test(ua)) return "Edge";
     if (/OPR\//i.test(ua)) return "Opera";
     if (/Chrome\//i.test(ua)) return "Chrome";
@@ -42,16 +41,22 @@
     return p === "/";
   };
 
-  const promptCount = () => {
-    const n = Number(sessionStorage.getItem(COUNT_KEY) || "0");
-    return Number.isFinite(n) ? n : 0;
+  const getCount = () => {
+    const n = parseInt(sessionStorage.getItem(COUNT_KEY) || "0", 10);
+    return Number.isFinite(n) ? Math.max(0, Math.min(MAX_SESSION_PROMPTS, n)) : 0;
   };
 
-  const incrementPromptCount = () => {
-    const next = Math.min(MAX_SESSION_PROMPTS, promptCount() + 1);
-    sessionStorage.setItem(COUNT_KEY, String(next));
-    return next;
+  const setCount = (n) => {
+    const value = Math.max(0, Math.min(MAX_SESSION_PROMPTS, n));
+    sessionStorage.setItem(COUNT_KEY, String(value));
+    if (value >= MAX_SESSION_PROMPTS) {
+      sessionStorage.setItem(DISPLAY_LOCK_KEY, "1");
+    }
   };
+
+  const isLocked = () =>
+    sessionStorage.getItem(DISPLAY_LOCK_KEY) === "1" ||
+    getCount() >= MAX_SESSION_PROMPTS;
 
   const hidePrompt = () => {
     if (promptBox) promptBox.hidden = true;
@@ -59,22 +64,24 @@
 
   const installationAvailable = () => isIOS() || !!deferredPrompt;
 
-  const canShowFloatingPrompt = () => {
-    if (!promptBox || isStandalone() || !isHome() || closedForCurrentHome) return false;
-    if (!installationAvailable()) return false;
-    return promptCount() < MAX_SESSION_PROMPTS;
-  };
-
-  const showPrompt = () => {
-    if (!canShowFloatingPrompt()) {
+  const showPromptOnce = () => {
+    if (!promptBox) return;
+    if (isStandalone() || !isHome() || isLocked() || !installationAvailable()) {
       hidePrompt();
       return;
     }
 
-    // لا نحسب التكرار إلا عند ظهور البطاقة فعليًا.
+    // Only count when changing from hidden -> visible.
     if (promptBox.hidden) {
+      const before = getCount();
+      if (before >= MAX_SESSION_PROMPTS) {
+        sessionStorage.setItem(DISPLAY_LOCK_KEY, "1");
+        hidePrompt();
+        return;
+      }
+
       promptBox.hidden = false;
-      incrementPromptCount();
+      setCount(before + 1);
     }
   };
 
@@ -91,9 +98,6 @@
       } else if (b === "Chrome") {
         helpText.innerHTML =
           'في <strong>Chrome</strong> اضغط زر <strong>المشاركة</strong> ثم اختر <strong>إضافة إلى الشاشة الرئيسية</strong>.';
-      } else if (b === "Edge") {
-        helpText.innerHTML =
-          'في <strong>Edge</strong> افتح قائمة المشاركة أو القائمة الرئيسية ثم اختر <strong>إضافة إلى الشاشة الرئيسية</strong> إذا ظهرت.';
       } else {
         helpText.innerHTML =
           `في <strong>${b}</strong> افتح قائمة المشاركة أو خيارات المتصفح ثم اختر <strong>إضافة إلى الشاشة الرئيسية</strong>.`;
@@ -105,7 +109,9 @@
       `في <strong>${b}</strong> افتح قائمة المتصفح ثم اختر <strong>تثبيت التطبيق</strong> أو <strong>إضافة إلى الشاشة الرئيسية</strong>.`;
   };
 
-  const startInstall = async () => {
+  const startInstall = async (event) => {
+    if (event) event.preventDefault();
+
     if (deferredPrompt) {
       deferredPrompt.prompt();
       try { await deferredPrompt.userChoice; } catch (_) {}
@@ -115,6 +121,13 @@
     }
 
     if (isIOS() && helpSheet) {
+      setBrowserInstructions();
+      helpSheet.hidden = false;
+      return;
+    }
+
+    // Browsers without beforeinstallprompt: give browser-aware fallback instructions.
+    if (helpSheet) {
       setBrowserInstructions();
       helpSheet.hidden = false;
     }
@@ -129,7 +142,7 @@
   window.addEventListener("beforeinstallprompt", e => {
     e.preventDefault();
     deferredPrompt = e;
-    showPrompt();
+    showPromptOnce();
   });
 
   window.addEventListener("appinstalled", () => {
@@ -148,14 +161,12 @@
       return;
     }
 
-    if (isIOS()) showPrompt();
+    // iOS has no beforeinstallprompt.
+    if (isIOS()) showPromptOnce();
   });
 
   if (closeBtn) {
-    closeBtn.addEventListener("click", () => {
-      closedForCurrentHome = true;
-      hidePrompt();
-    });
+    closeBtn.addEventListener("click", hidePrompt);
   }
 
   if (actionBtn) actionBtn.addEventListener("click", startInstall);
@@ -168,6 +179,9 @@
     });
   }
 
+  // SPA / browser navigation:
+  // Leaving home always hides it.
+  // Returning home can show it only if the hard session cap is still < 3.
   let lastWasHome = isHome();
 
   const handleNavigation = () => {
@@ -180,10 +194,7 @@
     }
 
     if (!lastWasHome) {
-      closedForCurrentHome = false;
-      setTimeout(showPrompt, 250);
-    } else {
-      showPrompt();
+      setTimeout(showPromptOnce, 250);
     }
 
     lastWasHome = true;
@@ -204,7 +215,6 @@
   };
 
   document.addEventListener("zamn:home", () => {
-    closedForCurrentHome = false;
-    setTimeout(showPrompt, 150);
+    setTimeout(showPromptOnce, 150);
   });
 })();
