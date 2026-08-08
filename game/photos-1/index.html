@@ -23,8 +23,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/main.css">
 <script id="page-schema" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Product","@id":"https://zamn-games.vercel.app/game/photos-1#product","name":"تحدي الصور الجزء الاول","description":"تحدي الصور الجزء الأول لعبة جماعية لاختبار سرعة الملاحظة وتخمين الصور الغامضة مع الأصدقاء والعائلة مباشرة من المتصفح.","image":["https://i.postimg.cc/wMkRQmr5/alawl-bʿd-alatar.webp"],"url":"https://zamn-games.vercel.app/game/photos-1","sku":"3","category":"تحديات","brand":{"@type":"Brand","name":"ألعاب زامن"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.6","ratingCount":4,"bestRating":"5","worstRating":"1"},"offers":{"@type":"Offer","url":"https://zamn-games.vercel.app/game/photos-1","price":4.99,"priceCurrency":"SAR","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://zamn-games.vercel.app/"},{"@type":"ListItem","position":2,"name":"تحدي الصور الجزء الاول","item":"https://zamn-games.vercel.app/game/photos-1"}]},{"@type":"ImageObject","@id":"https://zamn-games.vercel.app/game/photos-1#primaryimage","url":"https://i.postimg.cc/wMkRQmr5/alawl-bʿd-alatar.webp","contentUrl":"https://i.postimg.cc/wMkRQmr5/alawl-bʿd-alatar.webp","caption":"تحدي الصور الجزء الاول"},{"@type":"ItemList","name":"ألعاب مشابهة لـ تحدي الصور الجزء الاول","itemListElement":[{"@type":"ListItem","position":1,"url":"https://zamn-games.vercel.app/game/photos-2","name":"تحدي الصور الجزء الثاني"},{"@type":"ListItem","position":2,"url":"https://zamn-games.vercel.app/game/photos-3","name":"تحدي الصور الجزء الثالث"},{"@type":"ListItem","position":3,"url":"https://zamn-games.vercel.app/game/guess-link","name":"خمن الرابط"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل تعمل اللعبة بدون تحميل؟","acceptedAnswer":{"@type":"Answer","text":"نعم، تعمل اللعبة مباشرة من المتصفح بدون الحاجة إلى تحميل تطبيق."}},{"@type":"Question","name":"كم عدد اللاعبين؟","acceptedAnswer":{"@type":"Answer","text":"٢+ لاعبين"}},{"@type":"Question","name":"هل اللعبة متاحة الآن؟","acceptedAnswer":{"@type":"Answer","text":"متاحة الآن"}}]}]}</script>
 <meta property="og:image:alt" content="تحدي الصور الجزء الاول - ألعاب زامن">
+
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ألعاب زامن">
+<link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
+
 </head>
 <body>
+
+<button id="pwaInstallBtn" class="pwa-install-btn" type="button" hidden aria-label="إضافة ألعاب زامن إلى الشاشة الرئيسية">
+  <span aria-hidden="true">📲</span>
+  <span>أضف الموقع للجوال</span>
+</button>
+
+<div id="pwaIosSheet" class="pwa-ios-sheet" hidden>
+  <div class="pwa-ios-card" role="dialog" aria-modal="true" aria-labelledby="pwaIosTitle">
+    <button id="pwaIosClose" class="pwa-ios-close" type="button" aria-label="إغلاق">×</button>
+    <div class="pwa-ios-icon">📲</div>
+    <h2 id="pwaIosTitle">أضف ألعاب زامن للشاشة الرئيسية</h2>
+    <p>في Safari اضغط زر <strong>المشاركة</strong> ثم اختر <strong>إضافة إلى الشاشة الرئيسية</strong>.</p>
+  </div>
+</div>
+
   <button id="homeLogin" class="login-float" type="button">ألعابي <span aria-hidden="true">🎮</span></button>
 
   <header id="homeHero" class="hero">
@@ -660,5 +683,6 @@
 <script src="/js/games.js"></script>
 <script src="/js/app.js" defer></script>
 <script src="/js/account.js" defer></script>
+<script src="/js/pwa-install.js" defer></script>
 </body>
 </html>
