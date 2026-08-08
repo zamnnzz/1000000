@@ -3777,3 +3777,94 @@ body.horof-bell-mode .horof-step p{
     font-size:16px;
   }
 }
+
+/* =====================================================
+   V50 — لوحة التثبيت داخل الهيدر وليست ثابتة مع التمرير
+===================================================== */
+
+/* الهيدر هو مرجع موضع اللوحة */
+.site-header,
+header{
+  position:relative;
+}
+
+/* نفس شكل اللوحة السابق، لكن داخل الهيدر */
+.pwa-install-board{
+  position:absolute !important;
+  top:10px !important;
+  left:50% !important;
+  bottom:auto !important;
+  right:auto !important;
+
+  width:auto !important;
+  min-width:300px !important;
+  height:auto !important;
+  min-height:58px !important;
+  padding:9px 24px 8px !important;
+
+  transform:translateX(-50%) rotate(-1deg) !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  white-space:normal !important;
+}
+
+.pwa-install-board:hover{
+  transform:translateX(-50%) translateY(-2px) rotate(.5deg) !important;
+}
+
+.pwa-install-board:active{
+  transform:translateX(-50%) translateY(2px) rotate(0deg) !important;
+}
+
+.pwa-board-copy{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+
+  pointer-events:none;
+  text-align:center;
+}
+
+.pwa-board-copy strong{
+  color:#fff;
+  font-family:"Tajawal",sans-serif;
+  font-size:15px;
+  line-height:1.35;
+  font-weight:900;
+}
+
+.pwa-board-copy small{
+  color:rgba(255,255,255,.86);
+  font-family:"Tajawal",sans-serif;
+  font-size:11px;
+  line-height:1.35;
+  font-weight:700;
+}
+
+/* إلغاء أي زر "إضافة" قديم تابع لتنبيه PWA إن بقي في DOM */
+#pwaInstallAction{
+  display:none !important;
+}
+
+@media(max-width:700px){
+  .pwa-install-board{
+    top:8px !important;
+    min-width:245px !important;
+    max-width:calc(100% - 110px) !important;
+    min-height:52px !important;
+    padding:7px 16px 6px !important;
+  }
+
+  .pwa-board-copy strong{
+    font-size:12px;
+  }
+
+  .pwa-board-copy small{
+    font-size:9px;
+  }
+}
