@@ -159,19 +159,39 @@ function openGame(game,push=true){
   const sallaHorofCheckout = document.getElementById("sallaHorofCheckout");
   const isHorofSallaProduct = game.slug === "horof";
 
+  if (buy) {
+    buy.hidden = isHorofSallaProduct;
+  }
+
   if (sallaHorofCheckout) {
     sallaHorofCheckout.hidden = !isHorofSallaProduct;
+
+    if (isHorofSallaProduct) {
+      const mountSallaWidget = () => {
+        if (!sallaHorofCheckout.querySelector("salla-mini-checkout-widget")) {
+          const widget = document.createElement("salla-mini-checkout-widget");
+          widget.setAttribute("store-id", "681606734");
+          widget.setAttribute("products", "[769912795]");
+          widget.setAttribute("language", "ar");
+          sallaHorofCheckout.replaceChildren(widget);
+        }
+      };
+
+      if (window.customElements && customElements.get("salla-mini-checkout-widget")) {
+        mountSallaWidget();
+      } else if (window.customElements) {
+        customElements.whenDefined("salla-mini-checkout-widget")
+          .then(mountSallaWidget)
+          .catch(() => mountSallaWidget());
+      } else {
+        mountSallaWidget();
+      }
+    } else {
+      sallaHorofCheckout.replaceChildren();
+    }
   }
 
-  /*
-    عند توفر شراء سلة للعبة حروف، نخفي زر الشراء العام حتى لا يظهر
-    للمستخدم خياران شراء متضاربان. بقية الألعاب تبقى كما هي.
-  */
-  if (gameBuyBtn) {
-    gameBuyBtn.hidden = isHorofSallaProduct;
-  }
-
-  if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
+if(horofBellFaq) horofBellFaq.hidden = !isHorofBell;
   if(horofBellHowTo) horofBellHowTo.hidden = !isHorofBell;
   if(horofBellHeroVisual) horofBellHeroVisual.hidden = !isHorofBell;
   document.body.classList.toggle("horof-bell-mode", isHorofBell);
@@ -185,6 +205,15 @@ function openGame(game,push=true){
 window.openGame = openGame;
 
 function closeGame(push=true){
+
+  const sallaHorofCheckout = document.getElementById("sallaHorofCheckout");
+  const buy = document.getElementById("gameBuyBtn");
+  if (sallaHorofCheckout) {
+    sallaHorofCheckout.hidden = true;
+    sallaHorofCheckout.replaceChildren();
+  }
+  if (buy) buy.hidden = false;
+
   window.ZAMN_CURRENT_GAME = null;
   setPageIcon("https://zamn-games.vercel.app/favicon.png?v=10");
   document.body.classList.remove("game-mode","horof-bell-mode");

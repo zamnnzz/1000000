@@ -30,8 +30,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ألعاب زامن">
 <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png">
-
-  <script type="module" src="https://cdn.assets.salla.network/prod/@salla.sa/fast-checkout-widget/v0.0.25/widget.esm.js"></script>
 </head>
 <body>
 <button id="pwaMobileAction" class="pwa-mobile-action" type="button">إضافة</button>
@@ -44,19 +42,7 @@
     إضافة
   </button>
 </div>
-
-<div id="pwaIosSheet" class="pwa-ios-sheet" hidden>
-  <div class="pwa-ios-card" role="dialog" aria-modal="true" aria-labelledby="pwaIosTitle">
-    <button id="pwaIosClose" class="pwa-ios-close" type="button" aria-label="إغلاق">×</button>
-<h2 id="pwaIosTitle">إضافة ألعاب زامن إلى الصفحة الرئيسية</h2>
-    <p id="pwaInstallHelpText">اضغط زر المشاركة ثم اختر إضافة إلى الشاشة الرئيسية.</p>
-  </div>
-</div>
-
-
-
-
-  <button id="homeLogin" class="login-float" type="button">ألعابي <span aria-hidden="true">🎮</span></button>
+<button id="homeLogin" class="login-float" type="button">ألعابي <span aria-hidden="true">🎮</span></button>
 
   <header id="homeHero" class="hero">
     <div class="hero-inner">
@@ -78,16 +64,6 @@
     <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
       <path fill="#f4f0ff" d="M0,80 C250,130 500,130 720,90 C950,50 1200,40 1440,80 L1440,120 L0,120 Z"/>
     </svg>
-  
-<button id="pwaInstallBoard" class="pwa-install-board" type="button" aria-label="إضافة ألعاب زامن إلى الصفحة الرئيسية">
-  <span class="pwa-board-pin pwa-board-pin-right" aria-hidden="true"></span>
-  <span class="pwa-board-pin pwa-board-pin-left" aria-hidden="true"></span>
-  <span class="pwa-board-copy">
-    <strong>أضف ألعاب زامن إلى الصفحة الرئيسية</strong>
-    <small>لوصول أسرع إلى الألعاب</small>
-  </span>
-</button>
-
 </header>
 
   <main id="homeMain" class="page-bg">
@@ -418,13 +394,7 @@
         <a id="gamePlayBtn" class="action-wide action-play" href="#" rel="noopener">▶ العب الآن</a>
         <a id="gameBuyBtn" class="action-wide action-buy" href="#" rel="noopener">💳 اشتر الآن</a>
 
-<div id="sallaHorofCheckout" class="salla-game-checkout" hidden>
-  <salla-mini-checkout-widget
-    store-id="681606734"
-    products="[769912795]"
-    language="ar"
-  ></salla-mini-checkout-widget>
-</div>
+<div id="sallaHorofCheckout" class="salla-game-checkout" hidden></div>
 
         <button id="gameTrialBtn" class="action-wide action-trial" type="button">🎮 جرّب مجاناً 45 ثانية</button>
       </section>
@@ -713,6 +683,6 @@
 <script src="/js/games.js"></script>
 <script src="/js/app.js" defer></script>
 <script src="/js/account.js" defer></script>
-<script src="/js/pwa-install.js" defer></script>
+<script type="module" src="https://cdn.assets.salla.network/prod/@salla.sa/fast-checkout-widget/v0.0.25/widget.esm.js"></script>
 </body>
 </html>
