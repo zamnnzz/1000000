@@ -3404,3 +3404,34 @@ body.horof-bell-mode .horof-bell-hero-visual img{
     max-height:30px;
   }
 }
+
+
+
+/* =====================================================
+   V38 — خط حروف على كامل صفحة حروف والوف مع جرس
+   ضع ملف الخط الذي أرسلته باسم:
+   /fonts/hroffont.woff2
+===================================================== */
+@font-face{
+  font-family:"HorofGame";
+  src:url("/fonts/hroffont.woff2") format("woff2");
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+}
+
+/* كامل صفحة حروف مع جرس */
+body.horof-bell-mode,
+body.horof-bell-mode *{
+  font-family:"HorofGame","Tajawal",sans-serif !important;
+}
+
+/* الاستثناءات المطلوبة: العب / اشتر / جرّب */
+body.horof-bell-mode #gamePlayBtn,
+body.horof-bell-mode #gamePlayBtn *,
+body.horof-bell-mode #gameBuyBtn,
+body.horof-bell-mode #gameBuyBtn *,
+body.horof-bell-mode #gameTrialBtn,
+body.horof-bell-mode #gameTrialBtn *{
+  font-family:"Tajawal",sans-serif !important;
+}
