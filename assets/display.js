@@ -61,7 +61,13 @@ function renderGame(g){
  $("name1").textContent=g.team1;$("name2").textContent=g.team2;$("score1").textContent=g.score1||0;$("score2").textContent=g.score2||0;
  $("roundCountText").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("categoryName").textContent=g.currentCategory;
  $("ownerLabel").textContent=`اختيار ${g.currentOwner===1?g.team1:g.team2}`;$("questionText").textContent=g.currentQuestion;
- if(g.activeHint){$("activeHintText").textContent=g.activeHint;$("activeHintBox").classList.remove("hidden")}else{$("activeHintBox").classList.add("hidden")}
+ const activeHints=g.activeHints||[];
+ if(activeHints.length){
+   $("activeHintsList").innerHTML=activeHints.map(h=>`<b>${h.clue||h}</b>`).join("");
+   $("activeHintBox").classList.remove("hidden");
+ }else{
+   $("activeHintBox").classList.add("hidden");
+ }
  $("turnName").textContent=g.answerTurn===1?g.team1:g.team2;$("scoreCard1").classList.toggle("active",g.answerTurn===1);$("scoreCard2").classList.toggle("active",g.answerTurn===2);
  $("answerBoard").innerHTML=(g.currentAnswers||[]).map((a,i)=>`<div class="answer ${a.revealed?"revealed":""}"><span class="n">${i+1}</span><span class="lock">${a.revealed?a.text:""}</span><span class="pts">${a.revealed?a.points:"?"}</span></div>`).join("");
  if(g.revealEvent?.id&&g.revealEvent.id!==lastReveal){lastReveal=g.revealEvent.id;$("revealAnswerText").textContent=g.revealEvent.text;$("revealAnswerPoints").textContent=`+${g.revealEvent.points} نقاط`;$("revealFx").classList.remove("hidden");setTimeout(()=>$("revealFx").classList.add("hidden"),1700)}

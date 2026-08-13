@@ -45,7 +45,7 @@ function chips(a){return a.length?a.map(x=>`<span>${x.category}</span>`).join(""
 $("startGameBtn").onclick=async()=>{await startRound({...state,currentRoundIndex:0,score1:0,score2:0})};
 async function startRound(g){
  const pick=g.picks[g.currentRoundIndex],rd=getRound(pick.category);
- await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,currentHint:rd.hint||"فكروا في أشهر الإجابات.",activeHint:null,hintUseCount:0,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false})),score1:g.score1||0,score2:g.score2||0,hints1:g.hints1||0,hints2:g.hints2||0,streak1:g.streak1||0,streak2:g.streak2||0,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
+ await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,currentHint:rd.hint||"فكروا في أشهر الإجابات.",activeHint:null,activeHints:[],hintUseCount:0,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false})),score1:g.score1||0,score2:g.score2||0,hints1:g.hints1||0,hints2:g.hints2||0,streak1:g.streak1||0,streak2:g.streak2||0,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
 }
 function renderControl(g){
  $("hostRoundLabel").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("hostCategory").textContent=g.currentCategory;$("hostQuestion").textContent=g.currentQuestion;
@@ -53,8 +53,8 @@ function renderControl(g){
  $("controlHost").dataset.turn=String(g.answerTurn||1);
  $("hintTeam1Name").textContent=g.team1;$("hintTeam2Name").textContent=g.team2;
  $("hintCount1").textContent=g.hints1||0;$("hintCount2").textContent=g.hints2||0;
- $("useHint1").disabled=!(g.hints1>0);
- $("useHint2").disabled=!(g.hints2>0);
+ $("useHint1").disabled=!(g.hints1>0)||g.answerTurn!==1;
+ $("useHint2").disabled=!(g.hints2>0)||g.answerTurn!==2;
  $("hostAnswers").innerHTML=(g.currentAnswers||[]).map((a,i)=>`<button class="host-answer ${a.revealed?"used":""}" data-i="${i}"><span class="n">${i+1}</span><b>${a.text}</b><span class="p">${a.points}</span></button>`).join("");
  document.querySelectorAll(".host-answer:not(.used)").forEach(b=>b.onclick=()=>reveal(+b.dataset.i));
  $("nextRoundBtn").classList.toggle("hidden",!(g.currentAnswers||[]).every(a=>a.revealed));
@@ -114,30 +114,66 @@ $("wrongBtn").onclick=async()=>{
  else patch.streak2=0;
  await update(gameRef,patch);
 };
-async function useHint(team){
+let pendingHintTeam=null;
+
+function buildAnswerClue(answer,index){
+ const text=String(answer||"").trim();
+ const first=text.charAt(0)||"؟";
+ const len=text.replace(/\s/g,"").length;
+ const words=text.split(/\s+/).filter(Boolean).length;
+ if(words>1){
+   return `الإجابة رقم ${index+1}: تتكون من ${words} كلمات، وأول حرف هو «${first}».`;
+ }
+ return `الإجابة رقم ${index+1}: تبدأ بحرف «${first}» وعدد حروفها ${len}.`;
+}
+
+function openHintAnswerPicker(team){
  if(!state)return;
+ if(state.answerTurn!==team)return;
 
  const count=team===1?(state.hints1||0):(state.hints2||0);
  if(count<1)return;
 
- const teamName=team===1?state.team1:state.team2;
- const baseHint=state.currentHint||"فكروا في أشهر الإجابات المرتبطة بالسؤال.";
+ pendingHintTeam=team;
+ const answers=state.currentAnswers||[];
 
- // Allow repeated hint use in the same question without changing the page structure.
- // Each press consumes one hint and re-triggers the hint event.
- const useNumber=((state.hintUseCount||0)+1);
- const hintText=useNumber===1
-   ? baseHint
-   : `${baseHint} — تلميح إضافي رقم ${useNumber}`;
+ $("hintAnswerChoices").innerHTML=answers.map((a,i)=>`
+   <button class="hint-answer-choice" data-i="${i}" ${a.revealed?"disabled":""}>
+     <b>${i+1}</b>
+     <small>${a.revealed?"مفتوحة":"اختيار"}</small>
+   </button>
+ `).join("");
+
+ document.querySelectorAll(".hint-answer-choice:not(:disabled)").forEach(btn=>{
+   btn.onclick=()=>useHintOnAnswer(team,+btn.dataset.i);
+ });
+
+ $("hintAnswerModal").classList.remove("hidden");
+}
+
+async function useHintOnAnswer(team,index){
+ if(!state||state.answerTurn!==team)return;
+
+ const count=team===1?(state.hints1||0):(state.hints2||0);
+ if(count<1)return;
+
+ const answer=(state.currentAnswers||[])[index];
+ if(!answer||answer.revealed)return;
+
+ const clue=buildAnswerClue(answer.text,index);
+ const used=[...(state.activeHints||[])];
+ used.push({index,clue,team});
 
  const patch={
-   activeHint:hintText,
-   hintUseCount:useNumber,
+   activeHints:used,
+   activeHint:clue,
+   hintUseCount:(state.hintUseCount||0)+1,
    hintUsedEvent:{
      id:Date.now(),
-     team:teamName,
-     hint:hintText,
-     number:useNumber
+     team:team===1?state.team1:state.team2,
+     hint:clue,
+     answerIndex:index,
+     number:used.length
    },
    updatedAt:Date.now()
  };
@@ -146,9 +182,18 @@ async function useHint(team){
  else patch.hints2=count-1;
 
  await update(gameRef,patch);
+ $("hintAnswerModal").classList.add("hidden");
+}
+
+async function useHint(team){
+ openHintAnswerPicker(team);
 }
 $("useHint1").onclick=()=>useHint(1);
 $("useHint2").onclick=()=>useHint(2);
+$("closeHintAnswer").onclick=()=>$("hintAnswerModal").classList.add("hidden");
+$("hintAnswerModal").addEventListener("click",e=>{
+ if(e.target===$("hintAnswerModal"))$("hintAnswerModal").classList.add("hidden");
+});
 $("nextRoundBtn").onclick=async()=>{
  const next=state.currentRoundIndex+1;
  if(next>=state.roundCount){const w=state.score1>state.score2?state.team1:state.score2>state.score1?state.team2:"تعادل";await update(gameRef,{status:"finished",winner:w,updatedAt:Date.now()});return}
