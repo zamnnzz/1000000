@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Top 10 — شاشة العرض</title>
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="display-body">
+<div class="stars"></div>
+<main class="display-shell">
+
+  <section id="waitingDisplay" class="waiting-display">
+    <div class="mascot">
+      <div class="antenna"><i></i><i></i></div>
+      <div class="mascot-eyes"><i></i><i></i></div>
+      <div class="mascot-smile"></div>
+      <span class="ten">10</span>
+    </div>
+    <div class="logo-title">TOP <span>10</span></div>
+    <h1>ننتظر الهوست...</h1>
+    <p>خل شاشة الهوست تبدأ اللعبة، وكل شيء بيظهر هنا تلقائي.</p>
+    <div class="dots"><i></i><i></i><i></i></div>
+  </section>
+
+  <section id="draftDisplay" class="draft-display hidden">
+    <div class="display-card">
+      <span class="screen-kicker">اختيار الفئات</span>
+      <h1 id="displayDraftTurn">الدور على...</h1>
+      <p>اختاروا فئة للتحدي 🎯</p>
+      <div id="displayPicks" class="display-picks"></div>
+    </div>
+  </section>
+
+  <section id="gameDisplay" class="game-display hidden">
+    <header class="display-scorebar">
+      <div id="displayTeam1Card" class="display-score blue">
+        <span id="displayTeam1">الفريق الأول</span><b id="displayScore1">0</b>
+      </div>
+
+      <div class="display-round">
+        <span id="displayRoundCounter">الجولة 1 من 4</span>
+        <strong id="displayCategory">الفئة</strong>
+      </div>
+
+      <div id="displayTeam2Card" class="display-score pink">
+        <span id="displayTeam2">الفريق الثاني</span><b id="displayScore2">0</b>
+      </div>
+    </header>
+
+    <section class="display-question">
+      <span id="ownerChip" class="owner-chip">اختيار الفريق</span>
+      <h1 id="displayQuestion">السؤال</h1>
+    </section>
+
+    <section id="displayAnswers" class="display-answers"></section>
+
+    <section class="display-turn">
+      <span>الدور على</span><strong id="displayTurn">الفريق</strong>
+    </section>
+
+    <div id="revealFx" class="reveal-fx hidden">
+      <div class="boom">✨</div><b id="revealText"></b><span id="revealPoints"></span>
+    </div>
+    <div id="wrongFx" class="wrong-fx hidden">✕ مو موجودة!</div>
+  </section>
+
+  <section id="finishDisplay" class="finish-display hidden">
+    <div class="confetti">🎉 ✨ 🎊</div>
+    <div class="cup giant">🏆</div>
+    <span class="screen-kicker">النهاية</span>
+    <h1 id="displayWinner"></h1>
+    <p id="displayFinalScore"></p>
+  </section>
+</main>
+
+<script type="module" src="/assets/display.js"></script>
+</body></html>

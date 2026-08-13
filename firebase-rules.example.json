@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "top10": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
