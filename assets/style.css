@@ -483,25 +483,26 @@ body[data-theme] .display-score{
 }
 
 
-
-
-/* ===== Simple hint system ===== */
-.hint-control{
-  position:relative;
+/* ===== Accumulating streak hints ===== */
+.active-hints-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  justify-content:center;
+  margin-top:7px;
 }
-.hint-team.current-hint-team{
-  border-color:color-mix(in srgb,var(--accent) 58%,var(--border));
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent);
+.active-hints-list b{
+  display:inline-block;
+  padding:6px 9px;
+  border-radius:9px;
+  background:color-mix(in srgb,var(--accent-warm) 14%,var(--surface-solid));
+  border:1px solid color-mix(in srgb,var(--accent-warm) 30%,var(--border));
+  color:var(--text-main);
+  font-size:12px;
 }
 .hint-btn:not(:disabled){
-  box-shadow:0 5px 0 color-mix(in srgb,var(--accent-warm) 55%,#000);
+  animation:hintGlow 1.7s ease-in-out infinite;
 }
-.hint-use-flash{
-  animation:hintPulse .45s ease;
-}
-@keyframes hintPulse{
-  50%{transform:scale(1.03)}
-}
-.hint-note{
-  line-height:1.5;
+@keyframes hintGlow{
+  50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--accent-warm) 15%,transparent)}
 }
