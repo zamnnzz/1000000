@@ -1,161 +1,139 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0d1020">
-  <title>توب 10</title>
-  <link rel="stylesheet" href="/assets/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Top 10</title>
+<link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-<div class="noise"></div>
+<div class="bg"></div>
 
-<main id="setupView" class="view">
-  <section class="setup-shell">
-    <div class="brand-lockup">
-      <div class="logo-badge">10</div>
-      <div>
-        <span class="kicker">لعبة تحدّي الفرق</span>
-        <h1>توب <em>10</em></h1>
-        <p>اختار الفئات، افتح الأرقام، واضرب زر السرعة قبل الكل.</p>
+<main id="app">
+
+  <!-- 1) أسماء الفريقين -->
+  <section id="teamsScreen" class="screen active">
+    <div class="panel">
+      <div class="logo">TOP <span>10</span></div>
+      <h1>اكتب أسماء الفريقين</h1>
+      <p class="sub">فريقين فقط، وبعدها تختار الفئة وتبدأ الجولة.</p>
+
+      <div class="teams-grid">
+        <label class="team-card blue">
+          <b>الفريق الأول</b>
+          <input id="team1Input" maxlength="18" placeholder="مثال: الصقور">
+        </label>
+
+        <label class="team-card purple">
+          <b>الفريق الثاني</b>
+          <input id="team2Input" maxlength="18" placeholder="مثال: الذئاب">
+        </label>
       </div>
-    </div>
 
-    <div class="setup-grid">
-      <section class="card">
-        <div class="section-title">
-          <span>01</span>
-          <div><h2>الفرق</h2><p>أضف من فريقين إلى 8 فرق.</p></div>
+      <button id="nextToCategories" class="main-btn">التالي ←</button>
+    </div>
+  </section>
+
+  <!-- 2) اختيار الفئة -->
+  <section id="categoryScreen" class="screen">
+    <div class="panel wide">
+      <button class="back" data-go="teamsScreen">→ رجوع</button>
+      <div class="head-center">
+        <h1>اختر موضوعاً لبدء التحدي</h1>
+        <p class="sub">اختر فئة واحدة.</p>
+      </div>
+
+      <div id="categoryGrid" class="category-grid"></div>
+
+      <button id="startGame" class="main-btn center" disabled>ابدأ اللعب ◁</button>
+    </div>
+  </section>
+
+  <!-- 3) اللعبة -->
+  <section id="gameScreen" class="screen">
+    <div class="game-shell">
+
+      <header class="scorebar">
+        <div id="team1ScoreCard" class="score-card blue active-turn">
+          <span id="team1Name">الفريق الأول</span>
+          <b id="team1Score">0</b>
         </div>
-        <form id="teamForm" class="inline-form">
-          <input id="teamInput" maxlength="20" placeholder="اسم الفريق">
-          <button class="btn primary" type="submit">+ إضافة</button>
-        </form>
-        <div id="teamsSetup" class="pill-list"></div>
+
+        <div class="round-info">
+          <span id="categoryName">الفئة</span>
+          <small>الجولة الحالية</small>
+        </div>
+
+        <div id="team2ScoreCard" class="score-card purple">
+          <span id="team2Name">الفريق الثاني</span>
+          <b id="team2Score">0</b>
+        </div>
+      </header>
+
+      <section class="question-area">
+        <span class="question-label">السؤال</span>
+        <h1 id="questionText">...</h1>
       </section>
 
-      <section class="card">
-        <div class="section-title">
-          <span>02</span>
-          <div><h2>الفئات</h2><p>اختر الجاهز أو أضف فئة خاصة.</p></div>
+      <section id="answersBoard" class="answers-board"></section>
+
+      <section class="answer-console">
+        <div class="turn-pill">
+          الدور على: <strong id="turnTeamName">الفريق الأول</strong>
         </div>
 
-        <div id="presetCategories" class="category-picks"></div>
-
-        <form id="categoryForm" class="inline-form category-add">
-          <input id="categoryInput" maxlength="24" placeholder="فئة جديدة">
-          <button class="btn secondary" type="submit">+ فئة</button>
-        </form>
+        <button id="answerButton" class="answer-button">
+          <span>⚡</span>
+          <div>
+            <b>إجابة</b>
+            <small>اضغط ثم اكتب جواب الفريق</small>
+          </div>
+        </button>
       </section>
     </div>
-
-    <section class="card start-card">
-      <div>
-        <span class="kicker">نظام النقاط</span>
-        <h3>رقم السؤال = نقاطه</h3>
-        <p>السؤال رقم 1 = نقطة واحدة، والسؤال رقم 10 = 10 نقاط.</p>
-      </div>
-      <button id="startGame" class="btn primary big" disabled>ابدأ اللعبة ←</button>
-    </section>
   </section>
 </main>
 
-<main id="gameView" class="view hidden">
-  <header class="game-header">
-    <div class="mini-brand"><span>10</span><strong>توب 10</strong></div>
-
-    <button id="buzzerBtn" class="buzzer">
-      <span class="buzzer-dot"></span>
-      <strong>زر السرعة</strong>
-      <small>اضغط عند أول إجابة</small>
-    </button>
-
-    <div class="header-actions">
-      <button id="fullscreenBtn" class="icon-btn" title="ملء الشاشة">⛶</button>
-      <button id="resetBtn" class="icon-btn danger" title="إنهاء اللعبة">↺</button>
-    </div>
-  </header>
-
-  <section id="scoreboard" class="scoreboard"></section>
-
-  <section class="board-wrap">
-    <div class="board-top">
-      <div>
-        <span class="kicker">لوحة الأسئلة</span>
-        <h2>اختار رقم وافتح السؤال</h2>
-      </div>
-      <div class="legend">
-        <span><i class="easy"></i> 1–3</span>
-        <span><i class="medium"></i> 4–7</span>
-        <span><i class="hard"></i> 8–10</span>
-      </div>
-    </div>
-
-    <div id="categoryTabs" class="category-tabs"></div>
-    <div id="questionGrid" class="question-grid"></div>
-  </section>
-</main>
-
-<!-- سؤال -->
-<div id="questionModal" class="modal hidden">
-  <div class="modal-card question-card">
-    <button class="modal-x" data-close="questionModal">×</button>
-    <div class="question-meta">
-      <span id="modalCategory"></span>
-      <b id="modalPoints"></b>
-    </div>
-    <div class="number-hero" id="modalNumber">10</div>
-    <h2 id="modalQuestion">السؤال</h2>
-    <div id="answerReveal" class="answer-reveal hidden">
-      <span>الإجابة</span>
-      <strong id="modalAnswer"></strong>
-    </div>
-    <div class="modal-actions">
-      <button id="revealAnswer" class="btn secondary wide">أظهر الإجابة</button>
-      <button id="openJudge" class="btn primary wide">تسجيل النتيجة</button>
-    </div>
+<!-- إدخال إجابة الهوست -->
+<div id="answerModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="close" data-close="answerModal">×</button>
+    <span class="tag">إجابة الفريق</span>
+    <h2 id="answeringTeamTitle">الفريق الأول</h2>
+    <input id="hostAnswerInput" autocomplete="off" placeholder="اكتب إجابة الفريق هنا">
+    <button id="submitHostAnswer" class="main-btn">تحقق من الإجابة</button>
   </div>
 </div>
 
-<!-- البازر -->
-<div id="buzzerModal" class="modal hidden">
-  <div class="modal-card buzzer-card">
-    <button class="modal-x" data-close="buzzerModal">×</button>
-    <span class="kicker">من ضغط أول؟</span>
-    <h2>اختَر الفريق الأسرع</h2>
-    <div id="buzzerTeams" class="buzzer-teams"></div>
-    <p class="shortcut-hint">اختصار لوحة المفاتيح: الأرقام 1–8</p>
+<!-- التشويق -->
+<div id="suspenseModal" class="modal hidden">
+  <div class="modal-card suspense-card">
+    <div class="spinner"></div>
+    <span class="tag">لحظة...</span>
+    <h2 id="suspenseText">نشوف الإجابة 👀</h2>
   </div>
 </div>
 
-<!-- التحكيم -->
-<div id="judgeModal" class="modal hidden">
-  <div class="modal-card judge-card">
-    <button class="modal-x" data-close="judgeModal">×</button>
-    <span class="kicker">تسجيل الإجابة</span>
-    <h2 id="judgeTitle">من جاوب؟</h2>
-    <div id="judgeTeams" class="judge-teams"></div>
-    <div id="judgeDecision" class="decision hidden">
-      <div class="selected-team" id="selectedTeamName"></div>
-      <div class="decision-buttons">
-        <button id="wrongBtn" class="decision-btn wrong">✕ خطأ</button>
-        <button id="correctBtn" class="decision-btn correct">✓ صحيح</button>
-      </div>
+<!-- نتيجة خطأ -->
+<div id="wrongModal" class="modal hidden">
+  <div class="modal-card result-card wrong">
+    <div class="result-icon">✕</div>
+    <h2>إجابة غير موجودة</h2>
+    <p>ينتقل الدور للفريق الثاني.</p>
+    <button id="continueWrong" class="main-btn">كمل الجولة</button>
+  </div>
+</div>
+
+<!-- نهاية الجولة -->
+<div id="finishModal" class="modal hidden">
+  <div class="modal-card result-card">
+    <div class="result-icon trophy">🏆</div>
+    <span class="tag">انتهت الجولة</span>
+    <h2 id="winnerText"></h2>
+    <div class="finish-actions">
+      <button id="newRoundBtn" class="main-btn">فئة جديدة</button>
+      <button id="restartBtn" class="secondary-btn">ابدأ من جديد</button>
     </div>
-  </div>
-</div>
-
-<!-- تخصيص السؤال -->
-<div id="editQuestionModal" class="modal hidden">
-  <div class="modal-card edit-card">
-    <button class="modal-x" data-close="editQuestionModal">×</button>
-    <span class="kicker">تعديل السؤال</span>
-    <h2 id="editTitle">السؤال رقم 1</h2>
-    <label>السؤال</label>
-    <textarea id="editQuestionText" rows="4"></textarea>
-    <label>الإجابة</label>
-    <input id="editAnswerText">
-    <button id="saveQuestion" class="btn primary wide">حفظ</button>
   </div>
 </div>
 
