@@ -1767,3 +1767,27 @@ body[data-theme] .host-redraft-category:hover:not(:disabled){
 .top10-exit-btn:hover{
   transform:translateY(-1px);
 }
+
+
+/* Exit button on setup screen */
+.setup-exit-btn{
+  position:fixed;
+  top:16px;
+  left:16px;
+  z-index:10000;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:78px;
+  height:42px;
+  padding:0 16px;
+  border-radius:12px;
+  border:1px solid color-mix(in srgb,var(--text,#fff) 18%,transparent);
+  background:color-mix(in srgb,var(--panel-soft,#202a43) 90%,transparent);
+  color:var(--text,#fff);
+  text-decoration:none;
+  font-weight:900;
+  font-size:13px;
+  box-shadow:0 8px 22px rgba(0,0,0,.16);
+}
+.setup-exit-btn:hover{transform:translateY(-1px)}
