@@ -45,10 +45,18 @@ function chips(a){return a.length?a.map(x=>`<span>${x.category}</span>`).join(""
 $("startGameBtn").onclick=async()=>{await startRound({...state,currentRoundIndex:0,score1:0,score2:0})};
 async function startRound(g){
  const pick=g.picks[g.currentRoundIndex],rd=getRound(pick.category);
- const reservations=g.hintReservations||{};
- const reserved=reservations[String(g.currentRoundIndex)]||null;
- const activeHint=reserved?.hint||null;
- const hintUsedEvent=reserved?{id:Date.now(),team:reserved.teamName,hint:reserved.hint,reserved:true}:null;
+
+ // Every two completed rounds, each team receives one hint.
+ // Round indexes are 0-based, so before round 3, 5, 7... we grant one new hint.
+ let hints1=g.hints1||0,hints2=g.hints2||0;
+ const shouldGrantHint = g.currentRoundIndex>0 && g.currentRoundIndex%2===0;
+ const alreadyGrantedForRound = g.lastHintGrantRound===g.currentRoundIndex;
+
+ if(shouldGrantHint && !alreadyGrantedForRound){
+   hints1++;
+   hints2++;
+ }
+
  await update(gameRef,{
    status:"game",
    currentRoundIndex:g.currentRoundIndex,
@@ -56,14 +64,20 @@ async function startRound(g){
    currentOwner:pick.owner,
    currentQuestion:rd.question,
    currentHint:rd.hint||"فكروا في أشهر الإجابات.",
-   activeHint,
+   activeHint:null,
    currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false})),
-   score1:g.score1||0,score2:g.score2||0,
-   hints1:g.hints1||0,hints2:g.hints2||0,
-   streak1:g.streak1||0,streak2:g.streak2||0,
-   hintReservations:reservations,
+   score1:g.score1||0,
+   score2:g.score2||0,
+   hints1,hints2,
    answerTurn:pick.owner,
-   revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent,
+   lastHintGrantRound:shouldGrantHint ? g.currentRoundIndex : (g.lastHintGrantRound ?? -1),
+   revealEvent:null,
+   wrongEvent:null,
+   hintEarnedEvent:shouldGrantHint && !alreadyGrantedForRound ? {
+     id:Date.now(),
+     team:"الفريقان"
+   } : null,
+   hintUsedEvent:null,
    updatedAt:Date.now()
  });
 }
@@ -73,135 +87,67 @@ function renderControl(g){
  $("controlHost").dataset.turn=String(g.answerTurn||1);
  $("hintTeam1Name").textContent=g.team1;$("hintTeam2Name").textContent=g.team2;
  $("hintCount1").textContent=g.hints1||0;$("hintCount2").textContent=g.hints2||0;
+ document.querySelectorAll(".hint-team").forEach((el,i)=>el.classList.toggle("current-hint-team",(i+1)===g.answerTurn));
  $("useHint1").disabled=!(g.hints1>0);
  $("useHint2").disabled=!(g.hints2>0);
- renderHintReservations(g);
  $("hostAnswers").innerHTML=(g.currentAnswers||[]).map((a,i)=>`<button class="host-answer ${a.revealed?"used":""}" data-i="${i}"><span class="n">${i+1}</span><b>${a.text}</b><span class="p">${a.points}</span></button>`).join("");
  document.querySelectorAll(".host-answer:not(.used)").forEach(b=>b.onclick=()=>reveal(+b.dataset.i));
  $("nextRoundBtn").classList.toggle("hidden",!(g.currentAnswers||[]).every(a=>a.revealed));
 }
 async function reveal(i){
- const a=[...(state.currentAnswers||[])];if(!a[i]||a[i].revealed)return;a[i]={...a[i],revealed:true};
- const pts=a[i].points,team=state.answerTurn,newTurn=team===1?2:1;
- const patch={
+ const a=[...(state.currentAnswers||[])];
+ if(!a[i]||a[i].revealed)return;
+
+ a[i]={...a[i],revealed:true};
+ const pts=a[i].points;
+ const team=state.answerTurn;
+ const newTurn=team===1?2:1;
+
+ await update(gameRef,{
    currentAnswers:a,
    score1:(state.score1||0)+(team===1?pts:0),
    score2:(state.score2||0)+(team===2?pts:0),
-   answerTurn:newTurn,revealEvent:{id:Date.now(),text:a[i].text,points:pts},
-   wrongEvent:null,updatedAt:Date.now()
- };
- if(team===1){
-   let streak=(state.streak1||0)+1,hints=state.hints1||0;
-   if(streak>=2){hints++;streak=0;patch.hintEarnedEvent={id:Date.now(),team:state.team1}}
-   patch.streak1=streak;patch.hints1=hints;
- }else{
-   let streak=(state.streak2||0)+1,hints=state.hints2||0;
-   if(streak>=2){hints++;streak=0;patch.hintEarnedEvent={id:Date.now(),team:state.team2}}
-   patch.streak2=streak;patch.hints2=hints;
- }
- await update(gameRef,patch);
+   answerTurn:newTurn,
+   revealEvent:{id:Date.now(),text:a[i].text,points:pts},
+   wrongEvent:null,
+   updatedAt:Date.now()
+ });
 }
 $("wrongBtn").onclick=async()=>{
- const team=state.answerTurn,patch={answerTurn:team===1?2:1,wrongEvent:{id:Date.now()},revealEvent:null,updatedAt:Date.now()};
- if(team===1)patch.streak1=0;else patch.streak2=0;
- await update(gameRef,patch);
+ const team=state.answerTurn;
+ await update(gameRef,{
+   answerTurn:team===1?2:1,
+   wrongEvent:{id:Date.now()},
+   revealEvent:null,
+   updatedAt:Date.now()
+ });
 };
-let pendingHintTeam=null;
+async function useHint(team){
+ if(!state)return;
+ const count=team===1?(state.hints1||0):(state.hints2||0);
+ if(count<1)return;
 
-function renderHintReservations(g){
-  document.querySelectorAll(".hint-reservations").forEach(x=>x.remove());
-  const reservations=g.hintReservations||{};
-  const byTeam=(team)=>Object.entries(reservations)
-    .filter(([_,r])=>r.team===team)
-    .map(([idx,r])=>`<span class="hint-reservation-chip">💡 الجولة ${Number(idx)+1}: ${r.category}</span>`)
-    .join("");
-  const c1=byTeam(1),c2=byTeam(2);
-  const teams=document.querySelectorAll(".hint-team");
-  if(teams[0]&&c1)teams[0].insertAdjacentHTML("beforeend",`<div class="hint-reservations">${c1}</div>`);
-  if(teams[1]&&c2)teams[1].insertAdjacentHTML("beforeend",`<div class="hint-reservations">${c2}</div>`);
+ const teamName=team===1?state.team1:state.team2;
+ const hint=state.currentHint||"فكروا في أشهر الإجابات المرتبطة بالسؤال.";
+
+ const patch={
+   activeHint:hint,
+   hintUsedEvent:{
+     id:Date.now(),
+     team:teamName,
+     hint
+   },
+   updatedAt:Date.now()
+ };
+
+ if(team===1)patch.hints1=count-1;
+ else patch.hints2=count-1;
+
+ await update(gameRef,patch);
 }
 
-function openHintTargetPicker(team){
-  if(!state)return;
-  const count=team===1?(state.hints1||0):(state.hints2||0);
-  if(count<1)return;
-  pendingHintTeam=team;
-  const reservations=state.hintReservations||{};
-  const current=state.currentRoundIndex||0;
-  const items=(state.picks||[]).map((pick,idx)=>{
-    if(idx<current)return null;
-    const rd=getRound(pick.category);
-    const reserved=reservations[String(idx)];
-    const isCurrent=idx===current;
-    return {
-      idx,
-      category:pick.category,
-      question:rd.question,
-      reserved,
-      isCurrent
-    };
-  }).filter(Boolean);
-
-  $("hintTargetList").innerHTML=items.map(item=>{
-    const disabled=!!item.reserved;
-    const status=item.reserved
-      ? `محجوز لـ ${item.reserved.teamName}`
-      : item.isCurrent
-        ? "السؤال الحالي"
-        : "سؤال لاحق";
-    return `<button class="hint-target-option" data-round="${item.idx}" ${disabled?"disabled":""}>
-      <span class="hint-target-num">${item.idx+1}</span>
-      <span class="hint-target-copy"><b>${item.category}</b><span>${item.question}</span></span>
-      <span class="hint-target-status">${status}</span>
-    </button>`;
-  }).join("");
-
-  document.querySelectorAll(".hint-target-option:not(:disabled)").forEach(b=>{
-    b.onclick=()=>reserveHintForRound(team,+b.dataset.round);
-  });
-  $("hintTargetModal").classList.remove("hidden");
-}
-
-async function reserveHintForRound(team,roundIndex){
-  if(!state)return;
-  const count=team===1?(state.hints1||0):(state.hints2||0);
-  if(count<1)return;
-  const reservations={...(state.hintReservations||{})};
-  if(reservations[String(roundIndex)])return;
-  const pick=state.picks[roundIndex];
-  const rd=getRound(pick.category);
-  const teamName=team===1?state.team1:state.team2;
-
-  reservations[String(roundIndex)]={
-    team,
-    teamName,
-    category:pick.category,
-    hint:rd.hint||`فكروا بأشهر الأشياء المرتبطة بفئة ${pick.category}.`,
-    reservedAt:Date.now()
-  };
-
-  const patch={hintReservations:reservations,updatedAt:Date.now()};
-  if(team===1)patch.hints1=count-1;else patch.hints2=count-1;
-
-  // If they selected the current question, show the hint immediately.
-  if(roundIndex===(state.currentRoundIndex||0)){
-    patch.activeHint=reservations[String(roundIndex)].hint;
-    patch.hintUsedEvent={
-      id:Date.now(),
-      team:teamName,
-      hint:reservations[String(roundIndex)].hint,
-      reserved:false
-    };
-  }
-
-  await update(gameRef,patch);
-  $("hintTargetModal").classList.add("hidden");
-}
-
-$("useHint1").onclick=()=>openHintTargetPicker(1);
-$("useHint2").onclick=()=>openHintTargetPicker(2);
-$("closeHintTarget").onclick=()=>$("hintTargetModal").classList.add("hidden");
-$("hintTargetModal").addEventListener("click",e=>{if(e.target===$("hintTargetModal"))$("hintTargetModal").classList.add("hidden")});
+$("useHint1").onclick=()=>useHint(1);
+$("useHint2").onclick=()=>useHint(2);
 $("nextRoundBtn").onclick=async()=>{
  const next=state.currentRoundIndex+1;
  if(next>=state.roundCount){const w=state.score1>state.score2?state.team1:state.score2>state.score1?state.team2:"تعادل";await update(gameRef,{status:"finished",winner:w,updatedAt:Date.now()});return}

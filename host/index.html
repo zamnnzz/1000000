@@ -53,7 +53,7 @@
         <div><b id="hintTeam2Name">الفريق الثاني</b><span>💡 <strong id="hintCount2">0</strong> تلميح</span></div>
         <button id="useHint2" class="hint-btn" disabled>استخدام تلميح</button>
       </div>
-      <p class="hint-note">كل فريق يحصل على تلميح بعد إجابتين صحيحتين متتاليتين له. الفريق يقرر متى يستخدمه.</p>
+      <p class="hint-note">كل فريق يحصل على تلميح جديد بعد كل جولتين. التلميح يستخدم على السؤال الحالي فقط، ويمكن استخدام أكثر من تلميح في نفس السؤال.</p>
     </section>
 
     <h3>اضغط الإجابة التي قالها الفريق</h3>
@@ -73,16 +73,6 @@
 </main>
 
 <script type="module" src="/assets/host.js"></script>
-
-<div id="hintTargetModal" class="modal hidden">
-  <div class="modal-card hint-target-card">
-    <button class="close" id="closeHintTarget">×</button>
-    <span class="eyebrow">استخدام تلميح</span>
-    <h2>اختر السؤال اللي تبي تستخدم عليه التلميح</h2>
-    <p class="muted">تقدر تختار السؤال الحالي أو أي سؤال باقي. إذا اخترت سؤال لاحق، ينحجز التلميح له ويظهر تلقائياً عند وصولكم للجولة.</p>
-    <div id="hintTargetList" class="hint-target-list"></div>
-  </div>
-</div>
 
 </body>
 </html>

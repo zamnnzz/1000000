@@ -68,7 +68,7 @@ function renderGame(g){
  if(g.wrongEvent?.id&&g.wrongEvent.id!==lastWrong){lastWrong=g.wrongEvent.id;$("wrongFx").classList.remove("hidden");setTimeout(()=>$("wrongFx").classList.add("hidden"),1200)}
  if(g.hintEarnedEvent?.id&&g.hintEarnedEvent.id!==lastHintEarned){
    lastHintEarned=g.hintEarnedEvent.id;
-   $("hintEarnedTeam").textContent=g.hintEarnedEvent.team;
+   $("hintEarnedTeam").textContent=g.hintEarnedEvent.team==="الفريقان"?"كل فريق حصل على تلميح جديد":g.hintEarnedEvent.team;
    $("hintEarnedFx").classList.remove("hidden");
    setTimeout(()=>$("hintEarnedFx").classList.add("hidden"),1800);
  }
