@@ -867,3 +867,14 @@ body[data-theme="mint"] #hintAnswerModal.modal{
 .game-panel .answer{
   direction:rtl;
 }
+
+
+/* ===== Final answer order: #1 top-right, #10 bottom-left ===== */
+#controlHost .host-answers,
+.game-panel .answers{
+  direction:rtl;
+}
+#controlHost .host-answer,
+.game-panel .answer{
+  direction:rtl;
+}
