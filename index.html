@@ -1,23 +1,53 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>تلفزيون خربان</title>
-  <link rel="stylesheet" href="/style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تلفزيون خربان</title><meta name="theme-color" content="#6e4cff">
+<link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
-  <main class="shell">
-    <section class="card hero">
-      <div class="logo">📺</div>
-      <h1>تلفزيون خربان</h1>
-      <p>اكتب، ارسم، خمّن… وشوف كيف تخرب السالفة 😄</p>
-      <div class="actions">
-        <button id="createRoom" class="primary">إنشاء غرفة</button>
-        <button id="joinRoom" class="secondary">دخول غرفة</button>
+<body class="home">
+<div class="grain"></div>
+<main class="home-wrap">
+  <section class="hero-copy">
+    <span class="eyebrow">لعبة جماعية للرسم والتخمين</span>
+    <h1>تلفزيون<br><span>خربان</span></h1>
+    <p>اكتب سالفة، مرّرها، ارسمها، وخلك جاهز تشوف كيف تخرب بالكامل.</p>
+    <div class="hero-actions">
+      <a class="btn btn-main xl" href="/room/">ابدأ اللعب <b>←</b></a>
+      <button class="btn btn-ghost" id="howBtn">كيف تلعب؟</button>
+    </div>
+    <div class="chips"><span>👥 3–8 لاعبين</span><span>📱 بدون تسجيل</span><span>🎨 رسم + تخمين</span></div>
+  </section>
+
+  <section class="tv-stage" aria-label="تلفزيون كرتوني">
+    <div class="float-card fc1">✏️ اكتبها</div>
+    <div class="float-card fc2">🤔 خمّنها</div>
+    <div class="float-card fc3">😂 انفضحت</div>
+    <div class="tv">
+      <div class="antenna"><i></i><i></i></div>
+      <div class="tv-body">
+        <div class="screen">
+          <div class="scanlines"></div>
+          <div class="face"><span class="eye"></span><span class="eye"></span><span class="mouth"></span></div>
+          <div class="screen-copy">وش شايف؟</div>
+        </div>
+        <div class="tv-controls"><span></span><span></span><div class="speaker">••••<br>••••<br>••••</div></div>
       </div>
-    </section>
-  </main>
-  <script src="/app.js"></script>
-</body>
-</html>
+      <div class="legs"><i></i><i></i></div>
+    </div>
+  </section>
+</main>
+
+<div class="modal hidden" id="howModal">
+ <div class="modal-card">
+   <button class="x" id="closeHow">×</button>
+   <span class="eyebrow">الطريقة</span><h2>ثلاث خطوات وتبدأ الفوضى</h2>
+   <div class="steps">
+     <div><b>1</b><h3>اكتب</h3><p>كل لاعب يكتب جملة من راسه.</p></div>
+     <div><b>2</b><h3>ارسم</h3><p>اللاعب اللي بعده يرسم الجملة بدون كلام.</p></div>
+     <div><b>3</b><h3>خمّن</h3><p>اللي بعده يشوف الرسم ويكتب وش فهم.</p></div>
+   </div>
+ </div>
+</div>
+<script src="/assets/app.js"></script>
+</body></html>

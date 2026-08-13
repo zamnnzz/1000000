@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>جهّز الجلسة | تلفزيون خربان</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+<div class="grain"></div>
+<header class="topbar"><a class="brand" href="/">📺 <span>تلفزيون خربان</span></a><span class="room-badge">جلسة محلية</span></header>
+<main class="center-page">
+<section class="panel setup-panel">
+  <div class="section-head"><span class="eyebrow">قبل نبدأ</span><h1>مين معنا الليلة؟</h1><p>أضف من 3 إلى 8 لاعبين. الجوال بيتنقل بينهم دور بدور.</p></div>
+  <form id="playerForm" class="add-player">
+    <input id="playerInput" maxlength="16" autocomplete="off" placeholder="اسم اللاعب">
+    <button class="btn btn-main" type="submit">+ إضافة</button>
+  </form>
+  <div id="playersList" class="players-list"></div>
+  <div class="setup-bottom">
+    <div><strong id="playerCount">0</strong><span>/ 8 لاعبين</span></div>
+    <button id="startBtn" class="btn btn-main xl" disabled>ابدأ الجولة ←</button>
+  </div>
+</section>
+</main>
+<script src="/assets/app.js"></script>
+</body></html>
