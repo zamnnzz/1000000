@@ -856,3 +856,14 @@ body[data-theme="mint"] #hintAnswerModal.modal{
     font-size:11px;
   }
 }
+
+
+/* ===== Answer order: #1 starts top-left ===== */
+#controlHost .host-answers,
+.game-panel .answers{
+  direction:ltr;
+}
+#controlHost .host-answer,
+.game-panel .answer{
+  direction:rtl;
+}
