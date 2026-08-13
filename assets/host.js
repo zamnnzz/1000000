@@ -20,11 +20,17 @@ function getRound(cat,usedQuestions={}){
    return {question:`اذكر 10 أشياء مرتبطة بفئة ${cat}`,answers:Array.from({length:10},(_,i)=>[`إجابة ${i+1}`,10-i])};
  }
 
- const used=Array.isArray(usedQuestions?.[cat])?usedQuestions[cat]:[];
+ const usedRaw=Array.isArray(usedQuestions?.[cat])?usedQuestions[cat]:[];
+ const used=[...new Set(usedRaw.filter(Boolean))];
  let available=list.filter(q=>!used.includes(q.question));
 
- // إذا استُخدمت أسئلة الفئة الخمسة كلها، يبدأ تدوير جديد لهذه الفئة فقط.
- if(!available.length)available=list;
+ // لا يتكرر أي سؤال حتى تنتهي أسئلة الفئة كلها.
+ // وعند بدء دورة جديدة لا نعيد آخر سؤال ظهر مباشرة.
+ if(!available.length){
+   const lastQuestion=usedRaw.length?usedRaw[usedRaw.length-1]:null;
+   available=lastQuestion?list.filter(q=>q.question!==lastQuestion):list;
+   if(!available.length)available=list;
+ }
 
  return structuredClone(available[Math.floor(Math.random()*available.length)]);
 }
@@ -135,6 +141,39 @@ async function startRound(g){
 
  await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,usedQuestions,currentHint:"",activeHint:null,activeHints:[],hintUseCount:0,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false,claimedBy:null})),score1:g.score1||0,score2:g.score2||0,hints1:0,hints2:0,streak1:0,streak2:0,wrong1:0,wrong2:0,locked1:false,locked2:false,roundClosed:false,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
 }
+
+let localActionLockUntil=0;
+let actionUnlockTimer=null;
+
+function actionLockRemaining(g){
+ const eventTime=Math.max(
+   Number(g?.revealEvent?.id)||0,
+   Number(g?.wrongEvent?.id)||0,
+   localActionLockUntil-5000
+ );
+ return Math.max(0,eventTime+5000-Date.now(),localActionLockUntil-Date.now());
+}
+
+function beginActionLock(){
+ localActionLockUntil=Date.now()+5000;
+ clearTimeout(actionUnlockTimer);
+ actionUnlockTimer=setTimeout(()=>{
+   localActionLockUntil=0;
+   if(state?.status==="game")renderControl(state);
+ },5050);
+}
+
+function scheduleActionUnlock(g){
+ const remaining=actionLockRemaining(g);
+ clearTimeout(actionUnlockTimer);
+ if(remaining>0){
+   actionUnlockTimer=setTimeout(()=>{
+     if(state?.status==="game")renderControl(state);
+   },remaining+60);
+ }
+ return remaining>0;
+}
+
 function renderControl(g){
  $("hostRoundLabel").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("hostCategory").textContent=g.currentCategory;$("hostQuestion").textContent=g.currentQuestion;
  $("hostName1").textContent=g.team1;$("hostName2").textContent=g.team2;$("hostScore1").textContent=g.score1||0;$("hostScore2").textContent=g.score2||0;$("hostTurnName").textContent=g.roundClosed?"انتهت المحاولات":(g.answerTurn===1?g.team1:g.team2);
@@ -152,11 +191,15 @@ function renderControl(g){
    const ownerClass=a.claimedBy===1?"claimed-team1":a.claimedBy===2?"claimed-team2":a.revealed?"claimed-none":"";
    return `<button class="host-answer ${a.revealed?"used":""} ${ownerClass}" data-i="${i}"><span class="n">${i+1}</span><b>${a.text}</b><span class="p">${a.points}</span></button>`;
  }).join("");
- document.querySelectorAll(".host-answer:not(.used)").forEach(b=>b.onclick=()=>reveal(+b.dataset.i));
+ const interactionLocked=scheduleActionUnlock(g);
+ document.querySelectorAll(".host-answer:not(.used)").forEach(b=>{
+   b.disabled=interactionLocked;
+   b.onclick=()=>reveal(+b.dataset.i);
+ });
  const allOpened=(g.currentAnswers||[]).every(a=>a.revealed);
  const noTeamCanAnswer=!!g.locked1&&!!g.locked2;
  $("nextRoundBtn").classList.toggle("hidden",!(allOpened||noTeamCanAnswer));
- $("wrongBtn").disabled=(g.answerTurn===1?!!g.locked1:!!g.locked2)||noTeamCanAnswer;
+ $("wrongBtn").disabled=interactionLocked||allOpened||(g.answerTurn===1?!!g.locked1:!!g.locked2)||noTeamCanAnswer;
 }
 function nextAvailableTurn(current,g){
  const other=current===1?2:1;
@@ -168,6 +211,7 @@ function nextAvailableTurn(current,g){
 }
 
 async function reveal(i){
+ if(actionLockRemaining(state)>0)return;
  const a=[...(state.currentAnswers||[])];
  if(!a[i]||a[i].revealed)return;
 
@@ -198,9 +242,13 @@ async function reveal(i){
 
  const merged={...state,...patch};
  patch.answerTurn=nextAvailableTurn(team,merged);
+ beginActionLock();
+ renderControl(state);
  await update(gameRef,patch);
 }
 $("wrongBtn").onclick=async()=>{
+ if(actionLockRemaining(state)>0)return;
+ if((state.currentAnswers||[]).every(a=>a.revealed))return;
  const team=state.answerTurn;
  if((team===1&&state.locked1)||(team===2&&state.locked2))return;
 
@@ -235,6 +283,8 @@ $("wrongBtn").onclick=async()=>{
    patch.answerTurn=nextAvailableTurn(team,merged);
  }
 
+ beginActionLock();
+ renderControl(state);
  await update(gameRef,patch);
 };
 let pendingHintTeam=null;
