@@ -530,3 +530,123 @@ body[data-theme] .display-score{
 @media(max-width:650px){
   .hint-answer-choices{grid-template-columns:repeat(2,1fr)}
 }
+
+
+/* ===== Fullscreen host hint picker ===== */
+#hintAnswerModal.modal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:rgba(5,9,17,.94);
+  backdrop-filter:blur(14px);
+}
+#hintAnswerModal.modal.hidden{
+  display:none!important;
+}
+#hintAnswerModal .hint-answer-card{
+  position:relative;
+  width:min(980px,100%);
+  max-height:calc(100vh - 44px);
+  overflow:auto;
+  padding:34px;
+  border-radius:28px;
+  background:var(--surface);
+  border:2px solid color-mix(in srgb,var(--accent) 42%,var(--border));
+  box-shadow:0 35px 110px rgba(0,0,0,.48);
+}
+#hintAnswerModal .close{
+  position:absolute;
+  top:18px;
+  left:18px;
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--surface-soft);
+  color:var(--text-main);
+  font-size:28px;
+  line-height:1;
+}
+#hintAnswerModal .hint-answer-card h2{
+  text-align:center;
+  font-size:34px;
+  margin:10px 0 4px;
+}
+#hintAnswerModal .hint-answer-card>p{
+  text-align:center;
+  max-width:650px;
+  margin:0 auto 24px;
+  line-height:1.6;
+}
+#hintAnswerModal .hint-answer-choices{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:14px;
+}
+#hintAnswerModal .hint-answer-choice{
+  min-height:118px;
+  border-radius:20px;
+  border:2px solid var(--border);
+  background:var(--surface-soft);
+  color:var(--text-main);
+  transition:.16s ease;
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+#hintAnswerModal .hint-answer-choice:hover{
+  transform:translateY(-3px) scale(1.02);
+  border-color:var(--accent);
+  background:var(--surface-strong);
+}
+#hintAnswerModal .hint-answer-choice b{
+  font-size:38px;
+  color:var(--accent-warm);
+}
+#hintAnswerModal .hint-answer-choice small{
+  font-size:13px;
+  font-weight:800;
+  color:var(--text-soft);
+}
+#hintAnswerModal .hint-answer-choice:disabled{
+  opacity:.22;
+  transform:none;
+}
+body[data-theme="sunset"] #hintAnswerModal.modal{
+  background:rgba(75,48,24,.82);
+}
+body[data-theme="mint"] #hintAnswerModal.modal{
+  background:rgba(19,61,63,.82);
+}
+@media(max-width:700px){
+  #hintAnswerModal.modal{padding:10px}
+  #hintAnswerModal .hint-answer-card{
+    max-height:calc(100vh - 20px);
+    padding:26px 14px 18px;
+    border-radius:22px;
+  }
+  #hintAnswerModal .hint-answer-card h2{
+    font-size:27px;
+    padding:0 44px;
+  }
+  #hintAnswerModal .hint-answer-card>p{
+    font-size:12px;
+    margin-bottom:15px;
+  }
+  #hintAnswerModal .hint-answer-choices{
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+  }
+  #hintAnswerModal .hint-answer-choice{
+    min-height:76px;
+    border-radius:14px;
+  }
+  #hintAnswerModal .hint-answer-choice b{
+    font-size:28px;
+  }
+  #hintAnswerModal .close{
+    top:12px;left:12px;width:38px;height:38px;
+  }
+}
