@@ -4,10 +4,18 @@ import { firebaseConfig } from "./firebase-config.js";
 const app=initializeApp(firebaseConfig),db=getDatabase(app),$=id=>document.getElementById(id);
 
 const cats=[
-["ثقافة عامة","🧠"],["السعودية","💚"],["تاريخ","📜"],["سيارات","🚗"],["حيوانات","🐶"],["كرة قدم","⚽"],
-["كأس العالم","🏆"],["جغرافيا","🌍"],["أديان وإسلاميات","☪️"],["أفلام ومسلسلات","🎬"],["أكل وطبخ","🍕"],
-["تقنية","💻"],["ألعاب فيديو","🎮"],["مدرسة","🏫"],["أنمي","🍥"],["رياضة","🏃"],["موسيقى","🎵"],
-["طب وصحة","🩺"],["ENGLISH","🔤"],["مشاهير","🎤"]
+["ثقافة عامة","🧠"],
+["السعودية","💚"],
+["سيارات","🚗"],
+["كرة قدم","⚽"],
+["جغرافيا","🌍"],
+["أديان وإسلاميات","☪️"],
+["أفلام ومسلسلات","🎬"],
+["أكل وطبخ","🍕"],
+["تقنية","💻"],
+["ألعاب فيديو","🎮"],
+["مشاهير سعوديين","🌟"],
+["حيوانات","🐾"]
 ];
 let s={team1:"",team2:"",roundCount:4,picks:[],pickTurn:1,theme:"night"};
 let sessionId=null,gameRef=null,lastReveal=null,lastWrong=null,lastHintEarned=null,lastHintUsed=null;
@@ -41,7 +49,7 @@ function makeCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
 $("finishSetup").onclick=async()=>{
  sessionId=makeCode();
  gameRef=ref(db,`top10/sessions/${sessionId}`);
- await set(gameRef,{...s,status:"pairing",hostConnected:false,currentRoundIndex:0,score1:0,score2:0,hints1:0,hints2:0,streak1:0,streak2:0,activeHint:null,createdAt:Date.now()});
+ await set(gameRef,{...s,status:"pairing",hostConnected:false,currentRoundIndex:0,score1:0,score2:0,hints1:0,hints2:0,streak1:0,streak2:0,wrong1:0,wrong2:0,locked1:false,locked2:false,activeHint:null,createdAt:Date.now()});
  const hostUrl=`${location.origin}/host/#session=${sessionId}`;
  $("sessionCode").textContent=sessionId;$("hostLink").textContent=hostUrl;
  $("qr").innerHTML="";
@@ -68,7 +76,11 @@ function renderGame(g){
  }else{
    $("activeHintBox").classList.add("hidden");
  }
- $("turnName").textContent=g.answerTurn===1?g.team1:g.team2;$("scoreCard1").classList.toggle("active",g.answerTurn===1);$("scoreCard2").classList.toggle("active",g.answerTurn===2);
+ $("turnName").textContent=g.answerTurn===1?g.team1:g.team2;
+ if($("strikes1")) $("strikes1").textContent=`${g.wrong1||0}/3`;
+ if($("strikes2")) $("strikes2").textContent=`${g.wrong2||0}/3`;
+ $("scoreCard1").classList.toggle("team-locked",!!g.locked1);
+ $("scoreCard2").classList.toggle("team-locked",!!g.locked2);$("scoreCard1").classList.toggle("active",g.answerTurn===1);$("scoreCard2").classList.toggle("active",g.answerTurn===2);
  $("answerBoard").innerHTML=(g.currentAnswers||[]).map((a,i)=>`<div class="answer ${a.revealed?"revealed":""}"><span class="n">${i+1}</span><span class="lock">${a.revealed?a.text:""}</span><span class="pts">${a.revealed?a.points:"?"}</span></div>`).join("");
  if(g.revealEvent?.id&&g.revealEvent.id!==lastReveal){lastReveal=g.revealEvent.id;$("revealAnswerText").textContent=g.revealEvent.text;$("revealAnswerPoints").textContent=`+${g.revealEvent.points} نقاط`;$("revealFx").classList.remove("hidden");setTimeout(()=>$("revealFx").classList.add("hidden"),1700)}
  if(g.wrongEvent?.id&&g.wrongEvent.id!==lastWrong){lastWrong=g.wrongEvent.id;$("wrongFx").classList.remove("hidden");setTimeout(()=>$("wrongFx").classList.add("hidden"),1200)}

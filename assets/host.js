@@ -45,11 +45,16 @@ function chips(a){return a.length?a.map(x=>`<span>${x.category}</span>`).join(""
 $("startGameBtn").onclick=async()=>{await startRound({...state,currentRoundIndex:0,score1:0,score2:0})};
 async function startRound(g){
  const pick=g.picks[g.currentRoundIndex],rd=getRound(pick.category);
- await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,currentHint:rd.hint||"فكروا في أشهر الإجابات.",activeHint:null,activeHints:[],hintUseCount:0,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false})),score1:g.score1||0,score2:g.score2||0,hints1:g.hints1||0,hints2:g.hints2||0,streak1:g.streak1||0,streak2:g.streak2||0,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
+ await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,currentHint:rd.hint||"فكروا في أشهر الإجابات.",activeHint:null,activeHints:[],hintUseCount:0,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false})),score1:g.score1||0,score2:g.score2||0,hints1:g.hints1||0,hints2:g.hints2||0,streak1:g.streak1||0,streak2:g.streak2||0,wrong1:0,wrong2:0,locked1:false,locked2:false,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
 }
 function renderControl(g){
  $("hostRoundLabel").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("hostCategory").textContent=g.currentCategory;$("hostQuestion").textContent=g.currentQuestion;
  $("hostName1").textContent=g.team1;$("hostName2").textContent=g.team2;$("hostScore1").textContent=g.score1||0;$("hostScore2").textContent=g.score2||0;$("hostTurnName").textContent=g.answerTurn===1?g.team1:g.team2;
+ $("hostWrong1").textContent=`${g.wrong1||0}/3`;
+ $("hostWrong2").textContent=`${g.wrong2||0}/3`;
+ $("hostTeamCard1").classList.toggle("locked-team",!!g.locked1);
+ $("hostTeamCard2").classList.toggle("locked-team",!!g.locked2);
+
  $("controlHost").dataset.turn=String(g.answerTurn||1);
  $("hintTeam1Name").textContent=g.team1;$("hintTeam2Name").textContent=g.team2;
  $("hintCount1").textContent=g.hints1||0;$("hintCount2").textContent=g.hints2||0;
@@ -57,25 +62,36 @@ function renderControl(g){
  $("useHint2").disabled=!(g.hints2>0)||g.answerTurn!==2;
  $("hostAnswers").innerHTML=(g.currentAnswers||[]).map((a,i)=>`<button class="host-answer ${a.revealed?"used":""}" data-i="${i}"><span class="n">${i+1}</span><b>${a.text}</b><span class="p">${a.points}</span></button>`).join("");
  document.querySelectorAll(".host-answer:not(.used)").forEach(b=>b.onclick=()=>reveal(+b.dataset.i));
- $("nextRoundBtn").classList.toggle("hidden",!(g.currentAnswers||[]).every(a=>a.revealed));
+ const allOpened=(g.currentAnswers||[]).every(a=>a.revealed);
+ const noTeamCanAnswer=!!g.locked1&&!!g.locked2;
+ $("nextRoundBtn").classList.toggle("hidden",!(allOpened||noTeamCanAnswer));
+ $("wrongBtn").disabled=(g.answerTurn===1?!!g.locked1:!!g.locked2)||noTeamCanAnswer;
 }
+function nextAvailableTurn(current,g){
+ const other=current===1?2:1;
+ const otherLocked=other===1?g.locked1:g.locked2;
+ const currentLocked=current===1?g.locked1:g.locked2;
+ if(!otherLocked)return other;
+ if(!currentLocked)return current;
+ return current;
+}
+
 async function reveal(i){
  const a=[...(state.currentAnswers||[])];
  if(!a[i]||a[i].revealed)return;
 
+ const team=state.answerTurn;
+ if((team===1&&state.locked1)||(team===2&&state.locked2))return;
+
  a[i]={...a[i],revealed:true};
  const pts=a[i].points;
- const team=state.answerTurn;
- const newTurn=team===1?2:1;
 
  const patch={
    currentAnswers:a,
    score1:(state.score1||0)+(team===1?pts:0),
    score2:(state.score2||0)+(team===2?pts:0),
-   answerTurn:newTurn,
    revealEvent:{id:Date.now(),text:a[i].text,points:pts},
    wrongEvent:null,
-   // التلميح يظل ظاهرًا فقط إلى أن تُفتح إجابة واحدة.
    activeHint:null,
    activeHints:[],
    hintUseCount:0,
@@ -104,18 +120,34 @@ async function reveal(i){
    patch.hints2=hints;
  }
 
+ const merged={...state,...patch};
+ patch.answerTurn=nextAvailableTurn(team,merged);
  await update(gameRef,patch);
 }
 $("wrongBtn").onclick=async()=>{
  const team=state.answerTurn;
+ if((team===1&&state.locked1)||(team===2&&state.locked2))return;
+
  const patch={
-   answerTurn:team===1?2:1,
    wrongEvent:{id:Date.now()},
    revealEvent:null,
    updatedAt:Date.now()
  };
- if(team===1)patch.streak1=0;
- else patch.streak2=0;
+
+ if(team===1){
+   const wrong=Math.min(3,(state.wrong1||0)+1);
+   patch.wrong1=wrong;
+   patch.locked1=wrong>=3;
+   patch.streak1=0;
+ }else{
+   const wrong=Math.min(3,(state.wrong2||0)+1);
+   patch.wrong2=wrong;
+   patch.locked2=wrong>=3;
+   patch.streak2=0;
+ }
+
+ const merged={...state,...patch};
+ patch.answerTurn=nextAvailableTurn(team,merged);
  await update(gameRef,patch);
 };
 let pendingHintTeam=null;
@@ -134,6 +166,7 @@ function buildAnswerClue(answer,index){
 function openHintAnswerPicker(team){
  if(!state)return;
  if(state.answerTurn!==team)return;
+ if((team===1&&state.locked1)||(team===2&&state.locked2))return;
 
  const count=team===1?(state.hints1||0):(state.hints2||0);
  if(count<1)return;

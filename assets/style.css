@@ -878,3 +878,14 @@ body[data-theme="mint"] #hintAnswerModal.modal{
 .game-panel .answer{
   direction:rtl;
 }
+
+
+/* ===== 3 strikes per team ===== */
+.strike-mini{display:block;margin-top:2px;color:var(--text-soft);font-size:10px}
+.strike-mini strong{color:var(--red)}
+.host-scores span small{display:block;margin-top:2px;font-size:9px;color:var(--text-soft)}
+.host-scores span small i{font-style:normal;color:var(--red);font-weight:900}
+.locked-team,.team-locked{opacity:.46;filter:saturate(.55)}
+.locked-team::after{content:"متوقف";display:block;margin-top:3px;font-size:8px;font-weight:900;color:var(--red)}
+.team-locked::after{content:"توقف عن الإجابة";display:block;margin-top:2px;font-size:8px;font-weight:900;color:var(--red)}
+#wrongBtn:disabled{opacity:.35;cursor:not-allowed}
