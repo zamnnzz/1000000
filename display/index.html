@@ -16,7 +16,25 @@
       <div class="logo-small">TOP <span>10</span></div>
       <span class="eyebrow">التجهيز</span>
       <h1>جهّز اللعبة</h1>
-      <p class="muted">اكتب أسماء الفريقين وحدد عدد الجولات.</p>
+      <p class="muted">اكتب أسماء الفريقين، اختر الثيم، وحدد عدد الجولات.</p>
+
+      <section class="theme-picker">
+        <div class="theme-title"><b>اختر شكل اللعبة</b><small>الثيم ينتقل تلقائياً لشاشة الهوست</small></div>
+        <div id="themeChoices" class="theme-choices">
+          <button class="theme-choice active" data-theme="night">
+            <span class="theme-preview night-preview"><i></i><i></i><i></i></span>
+            <b>ليلي بنفسجي</b>
+          </button>
+          <button class="theme-choice" data-theme="sunset">
+            <span class="theme-preview sunset-preview"><i></i><i></i><i></i></span>
+            <b>بيج وبرتقالي</b>
+          </button>
+          <button class="theme-choice" data-theme="mint">
+            <span class="theme-preview mint-preview"><i></i><i></i><i></i></span>
+            <b>نعناعي سماوي</b>
+          </button>
+        </div>
+      </section>
 
       <div class="team-grid">
         <label class="team-box blue">
@@ -108,6 +126,10 @@
       <section class="question-area">
         <span id="ownerLabel" class="owner-label"></span>
         <h1 id="questionText"></h1>
+        <div id="activeHintBox" class="active-hint hidden">
+          <span>💡 تلميح</span>
+          <strong id="activeHintText"></strong>
+        </div>
       </section>
 
       <section id="answerBoard" class="answers"></section>
@@ -120,6 +142,16 @@
         <span id="revealAnswerPoints"></span>
       </div>
       <div id="wrongFx" class="wrong-fx hidden">✕ مو موجودة!</div>
+      <div id="hintEarnedFx" class="hint-earned-fx hidden">
+        <div class="hint-bulb">💡</div>
+        <b>تم الحصول على تلميح!</b>
+        <span id="hintEarnedTeam"></span>
+      </div>
+      <div id="hintUsedFx" class="hint-used-fx hidden">
+        <div class="hint-bulb">💡</div>
+        <b>التلميح</b>
+        <span id="hintUsedText"></span>
+      </div>
     </div>
   </section>
 

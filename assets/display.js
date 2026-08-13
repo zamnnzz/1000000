@@ -9,9 +9,15 @@ const cats=[
 ["تقنية","💻"],["ألعاب فيديو","🎮"],["مدرسة","🏫"],["أنمي","🍥"],["رياضة","🏃"],["موسيقى","🎵"],
 ["طب وصحة","🩺"],["ENGLISH","🔤"],["مشاهير","🎤"]
 ];
-let s={team1:"",team2:"",roundCount:4,picks:[],pickTurn:1};
-let sessionId=null,gameRef=null,lastReveal=null,lastWrong=null;
+let s={team1:"",team2:"",roundCount:4,picks:[],pickTurn:1,theme:"night"};
+let sessionId=null,gameRef=null,lastReveal=null,lastWrong=null,lastHintEarned=null,lastHintUsed=null;
 const screens=["setupScreen","categoryScreen","pairScreen","gameScreen","finishScreen"];
+function applyTheme(theme){document.body.dataset.theme=theme||"night"}
+applyTheme(s.theme);
+document.querySelectorAll("#themeChoices .theme-choice").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#themeChoices .theme-choice").forEach(x=>x.classList.remove("active"));
+  b.classList.add("active");s.theme=b.dataset.theme;applyTheme(s.theme);
+});
 function show(id){screens.forEach(x=>$(x).classList.remove("active"));$(id).classList.add("active")}
 document.querySelectorAll("#roundBtns button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#roundBtns button").forEach(x=>x.classList.remove("active"));b.classList.add("active");s.roundCount=+b.dataset.n});
 $("toCategories").onclick=()=>{s.team1=$("team1").value.trim();s.team2=$("team2").value.trim();if(!s.team1||!s.team2)return alert("اكتب اسم الفريقين");s.picks=[];s.pickTurn=1;$("p1Title").textContent=s.team1;$("p2Title").textContent=s.team2;renderDraft();show("categoryScreen")};
@@ -31,7 +37,7 @@ function makeCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
 $("finishSetup").onclick=async()=>{
  sessionId=makeCode();
  gameRef=ref(db,`top10/sessions/${sessionId}`);
- await set(gameRef,{...s,status:"pairing",hostConnected:false,currentRoundIndex:0,score1:0,score2:0,createdAt:Date.now()});
+ await set(gameRef,{...s,status:"pairing",hostConnected:false,currentRoundIndex:0,score1:0,score2:0,hints1:0,hints2:0,streak1:0,streak2:0,activeHint:null,createdAt:Date.now()});
  const hostUrl=`${location.origin}/host/#session=${sessionId}`;
  $("sessionCode").textContent=sessionId;$("hostLink").textContent=hostUrl;
  $("qr").innerHTML="";
@@ -41,7 +47,7 @@ $("finishSetup").onclick=async()=>{
 };
 function listen(){
  onValue(gameRef,snap=>{
-  const g=snap.val();if(!g)return;
+  const g=snap.val();if(!g)return;applyTheme(g.theme);
   if(g.hostConnected&&g.status==="pairing"){$("pairStatus").textContent="✓ تم ربط الهوست — جاهز للبدء";$("pairStatus").classList.add("connected")}
   if(g.status==="game"){show("gameScreen");renderGame(g)}
   if(g.status==="finished"){show("finishScreen");$("winnerText").textContent=g.winner==="تعادل"?"تعادل!":`${g.winner} يفوز!`;$("finalScore").textContent=`${g.team1}: ${g.score1} — ${g.team2}: ${g.score2}`}
@@ -51,8 +57,21 @@ function renderGame(g){
  $("name1").textContent=g.team1;$("name2").textContent=g.team2;$("score1").textContent=g.score1||0;$("score2").textContent=g.score2||0;
  $("roundCountText").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("categoryName").textContent=g.currentCategory;
  $("ownerLabel").textContent=`اختيار ${g.currentOwner===1?g.team1:g.team2}`;$("questionText").textContent=g.currentQuestion;
+ if(g.activeHint){$("activeHintText").textContent=g.activeHint;$("activeHintBox").classList.remove("hidden")}else{$("activeHintBox").classList.add("hidden")}
  $("turnName").textContent=g.answerTurn===1?g.team1:g.team2;$("scoreCard1").classList.toggle("active",g.answerTurn===1);$("scoreCard2").classList.toggle("active",g.answerTurn===2);
  $("answerBoard").innerHTML=(g.currentAnswers||[]).map((a,i)=>`<div class="answer ${a.revealed?"revealed":""}"><span class="n">${i+1}</span><span class="lock">${a.revealed?a.text:""}</span><span class="pts">${a.revealed?a.points:"?"}</span></div>`).join("");
  if(g.revealEvent?.id&&g.revealEvent.id!==lastReveal){lastReveal=g.revealEvent.id;$("revealAnswerText").textContent=g.revealEvent.text;$("revealAnswerPoints").textContent=`+${g.revealEvent.points} نقاط`;$("revealFx").classList.remove("hidden");setTimeout(()=>$("revealFx").classList.add("hidden"),1700)}
  if(g.wrongEvent?.id&&g.wrongEvent.id!==lastWrong){lastWrong=g.wrongEvent.id;$("wrongFx").classList.remove("hidden");setTimeout(()=>$("wrongFx").classList.add("hidden"),1200)}
+ if(g.hintEarnedEvent?.id&&g.hintEarnedEvent.id!==lastHintEarned){
+   lastHintEarned=g.hintEarnedEvent.id;
+   $("hintEarnedTeam").textContent=g.hintEarnedEvent.team;
+   $("hintEarnedFx").classList.remove("hidden");
+   setTimeout(()=>$("hintEarnedFx").classList.add("hidden"),1800);
+ }
+ if(g.hintUsedEvent?.id&&g.hintUsedEvent.id!==lastHintUsed){
+   lastHintUsed=g.hintUsedEvent.id;
+   $("hintUsedText").textContent=g.hintUsedEvent.hint;
+   $("hintUsedFx").classList.remove("hidden");
+   setTimeout(()=>$("hintUsedFx").classList.add("hidden"),2600);
+ }
 }

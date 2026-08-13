@@ -41,6 +41,18 @@
 
     <div class="host-turn">الدور: <strong id="hostTurnName"></strong></div>
 
+    <section class="hint-control">
+      <div class="hint-team">
+        <div><b id="hintTeam1Name">الفريق الأول</b><span>💡 <strong id="hintCount1">0</strong> تلميح</span></div>
+        <button id="useHint1" class="hint-btn" disabled>استخدام تلميح</button>
+      </div>
+      <div class="hint-team">
+        <div><b id="hintTeam2Name">الفريق الثاني</b><span>💡 <strong id="hintCount2">0</strong> تلميح</span></div>
+        <button id="useHint2" class="hint-btn" disabled>استخدام تلميح</button>
+      </div>
+      <p class="hint-note">كل فريق يحصل على تلميح بعد إجابتين صحيحتين متتاليتين له. الفريق يقرر متى يستخدمه.</p>
+    </section>
+
     <h3>اضغط الإجابة التي قالها الفريق</h3>
     <div id="hostAnswers" class="host-answers"></div>
 
