@@ -65,10 +65,38 @@
     </div>
   </section>
 
-  <section id="finishHost" class="host-card hidden">
-    <div class="trophy small">🏆</div>
+  <section id="finishHost" class="host-card hidden host-winner-card">
+    <div class="host-winner-confetti" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i>
+    </div>
+
+    <div class="host-winner-trophy">🏆</div>
+    <span class="host-winner-kicker">انتهت اللعبة</span>
     <h1 id="hostWinner"></h1>
-    <p id="hostFinalScore" class="muted"></p>
+    <p id="hostWinnerSubtitle" class="host-winner-subtitle">مبروك للفريق الفائز!</p>
+
+    <div class="host-winner-scores">
+      <div id="hostFinalTeam1Card" class="host-final-team team-one">
+        <small>الفريق الأول</small>
+        <b id="hostFinalTeam1Name"></b>
+        <strong id="hostFinalTeam1Score">0</strong>
+        <span>نقطة</span>
+      </div>
+
+      <div class="host-final-vs">VS</div>
+
+      <div id="hostFinalTeam2Card" class="host-final-team team-two">
+        <small>الفريق الثاني</small>
+        <b id="hostFinalTeam2Name"></b>
+        <strong id="hostFinalTeam2Score">0</strong>
+        <span>نقطة</span>
+      </div>
+    </div>
+
+    <p id="hostFinalScore" class="host-final-score-line"></p>
+    <button id="newGameBtn" class="primary host-new-game-btn">ابدأ لعبة جديدة ↻</button>
+    <small class="host-new-game-note">بنفس الفرق والفئات — والأسئلة ما تتكرر</small>
   </section>
 </main>
 
