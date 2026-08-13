@@ -45,7 +45,27 @@ function chips(a){return a.length?a.map(x=>`<span>${x.category}</span>`).join(""
 $("startGameBtn").onclick=async()=>{await startRound({...state,currentRoundIndex:0,score1:0,score2:0})};
 async function startRound(g){
  const pick=g.picks[g.currentRoundIndex],rd=getRound(pick.category);
- await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,currentHint:rd.hint||"فكروا في أشهر الإجابات.",activeHint:null,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false})),score1:g.score1||0,score2:g.score2||0,hints1:g.hints1||0,hints2:g.hints2||0,streak1:g.streak1||0,streak2:g.streak2||0,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
+ const reservations=g.hintReservations||{};
+ const reserved=reservations[String(g.currentRoundIndex)]||null;
+ const activeHint=reserved?.hint||null;
+ const hintUsedEvent=reserved?{id:Date.now(),team:reserved.teamName,hint:reserved.hint,reserved:true}:null;
+ await update(gameRef,{
+   status:"game",
+   currentRoundIndex:g.currentRoundIndex,
+   currentCategory:pick.category,
+   currentOwner:pick.owner,
+   currentQuestion:rd.question,
+   currentHint:rd.hint||"فكروا في أشهر الإجابات.",
+   activeHint,
+   currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false})),
+   score1:g.score1||0,score2:g.score2||0,
+   hints1:g.hints1||0,hints2:g.hints2||0,
+   streak1:g.streak1||0,streak2:g.streak2||0,
+   hintReservations:reservations,
+   answerTurn:pick.owner,
+   revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent,
+   updatedAt:Date.now()
+ });
 }
 function renderControl(g){
  $("hostRoundLabel").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("hostCategory").textContent=g.currentCategory;$("hostQuestion").textContent=g.currentQuestion;
@@ -53,8 +73,9 @@ function renderControl(g){
  $("controlHost").dataset.turn=String(g.answerTurn||1);
  $("hintTeam1Name").textContent=g.team1;$("hintTeam2Name").textContent=g.team2;
  $("hintCount1").textContent=g.hints1||0;$("hintCount2").textContent=g.hints2||0;
- $("useHint1").disabled=!(g.hints1>0)||!!g.activeHint;
- $("useHint2").disabled=!(g.hints2>0)||!!g.activeHint;
+ $("useHint1").disabled=!(g.hints1>0);
+ $("useHint2").disabled=!(g.hints2>0);
+ renderHintReservations(g);
  $("hostAnswers").innerHTML=(g.currentAnswers||[]).map((a,i)=>`<button class="host-answer ${a.revealed?"used":""}" data-i="${i}"><span class="n">${i+1}</span><b>${a.text}</b><span class="p">${a.points}</span></button>`).join("");
  document.querySelectorAll(".host-answer:not(.used)").forEach(b=>b.onclick=()=>reveal(+b.dataset.i));
  $("nextRoundBtn").classList.toggle("hidden",!(g.currentAnswers||[]).every(a=>a.revealed));
@@ -85,16 +106,102 @@ $("wrongBtn").onclick=async()=>{
  if(team===1)patch.streak1=0;else patch.streak2=0;
  await update(gameRef,patch);
 };
-async function useHint(team){
- if(!state||state.activeHint)return;
- const count=team===1?(state.hints1||0):(state.hints2||0);if(count<1)return;
- const hint=state.currentHint||"فكروا بأشهر الإجابات المرتبطة بالسؤال.";
- const patch={activeHint:hint,hintUsedEvent:{id:Date.now(),team:team===1?state.team1:state.team2,hint},updatedAt:Date.now()};
- if(team===1)patch.hints1=count-1;else patch.hints2=count-1;
- await update(gameRef,patch);
+let pendingHintTeam=null;
+
+function renderHintReservations(g){
+  document.querySelectorAll(".hint-reservations").forEach(x=>x.remove());
+  const reservations=g.hintReservations||{};
+  const byTeam=(team)=>Object.entries(reservations)
+    .filter(([_,r])=>r.team===team)
+    .map(([idx,r])=>`<span class="hint-reservation-chip">💡 الجولة ${Number(idx)+1}: ${r.category}</span>`)
+    .join("");
+  const c1=byTeam(1),c2=byTeam(2);
+  const teams=document.querySelectorAll(".hint-team");
+  if(teams[0]&&c1)teams[0].insertAdjacentHTML("beforeend",`<div class="hint-reservations">${c1}</div>`);
+  if(teams[1]&&c2)teams[1].insertAdjacentHTML("beforeend",`<div class="hint-reservations">${c2}</div>`);
 }
-$("useHint1").onclick=()=>useHint(1);
-$("useHint2").onclick=()=>useHint(2);
+
+function openHintTargetPicker(team){
+  if(!state)return;
+  const count=team===1?(state.hints1||0):(state.hints2||0);
+  if(count<1)return;
+  pendingHintTeam=team;
+  const reservations=state.hintReservations||{};
+  const current=state.currentRoundIndex||0;
+  const items=(state.picks||[]).map((pick,idx)=>{
+    if(idx<current)return null;
+    const rd=getRound(pick.category);
+    const reserved=reservations[String(idx)];
+    const isCurrent=idx===current;
+    return {
+      idx,
+      category:pick.category,
+      question:rd.question,
+      reserved,
+      isCurrent
+    };
+  }).filter(Boolean);
+
+  $("hintTargetList").innerHTML=items.map(item=>{
+    const disabled=!!item.reserved;
+    const status=item.reserved
+      ? `محجوز لـ ${item.reserved.teamName}`
+      : item.isCurrent
+        ? "السؤال الحالي"
+        : "سؤال لاحق";
+    return `<button class="hint-target-option" data-round="${item.idx}" ${disabled?"disabled":""}>
+      <span class="hint-target-num">${item.idx+1}</span>
+      <span class="hint-target-copy"><b>${item.category}</b><span>${item.question}</span></span>
+      <span class="hint-target-status">${status}</span>
+    </button>`;
+  }).join("");
+
+  document.querySelectorAll(".hint-target-option:not(:disabled)").forEach(b=>{
+    b.onclick=()=>reserveHintForRound(team,+b.dataset.round);
+  });
+  $("hintTargetModal").classList.remove("hidden");
+}
+
+async function reserveHintForRound(team,roundIndex){
+  if(!state)return;
+  const count=team===1?(state.hints1||0):(state.hints2||0);
+  if(count<1)return;
+  const reservations={...(state.hintReservations||{})};
+  if(reservations[String(roundIndex)])return;
+  const pick=state.picks[roundIndex];
+  const rd=getRound(pick.category);
+  const teamName=team===1?state.team1:state.team2;
+
+  reservations[String(roundIndex)]={
+    team,
+    teamName,
+    category:pick.category,
+    hint:rd.hint||`فكروا بأشهر الأشياء المرتبطة بفئة ${pick.category}.`,
+    reservedAt:Date.now()
+  };
+
+  const patch={hintReservations:reservations,updatedAt:Date.now()};
+  if(team===1)patch.hints1=count-1;else patch.hints2=count-1;
+
+  // If they selected the current question, show the hint immediately.
+  if(roundIndex===(state.currentRoundIndex||0)){
+    patch.activeHint=reservations[String(roundIndex)].hint;
+    patch.hintUsedEvent={
+      id:Date.now(),
+      team:teamName,
+      hint:reservations[String(roundIndex)].hint,
+      reserved:false
+    };
+  }
+
+  await update(gameRef,patch);
+  $("hintTargetModal").classList.add("hidden");
+}
+
+$("useHint1").onclick=()=>openHintTargetPicker(1);
+$("useHint2").onclick=()=>openHintTargetPicker(2);
+$("closeHintTarget").onclick=()=>$("hintTargetModal").classList.add("hidden");
+$("hintTargetModal").addEventListener("click",e=>{if(e.target===$("hintTargetModal"))$("hintTargetModal").classList.add("hidden")});
 $("nextRoundBtn").onclick=async()=>{
  const next=state.currentRoundIndex+1;
  if(next>=state.roundCount){const w=state.score1>state.score2?state.team1:state.score2>state.score1?state.team2:"تعادل";await update(gameRef,{status:"finished",winner:w,updatedAt:Date.now()});return}
