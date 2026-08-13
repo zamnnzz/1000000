@@ -133,7 +133,7 @@ async function startRound(g){
  const cycleWasFull=categoryBank.length>0 && before.length>=categoryBank.length;
  usedQuestions[pick.category]=cycleWasFull?[rd.question]:[...before,rd.question];
 
- await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,usedQuestions,currentHint:"",activeHint:null,activeHints:[],hintUseCount:0,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false,claimedBy:null})),score1:g.score1||0,score2:g.score2||0,hints1:g.hints1||0,hints2:g.hints2||0,streak1:g.streak1||0,streak2:g.streak2||0,wrong1:0,wrong2:0,locked1:false,locked2:false,roundClosed:false,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
+ await update(gameRef,{status:"game",currentRoundIndex:g.currentRoundIndex,currentCategory:pick.category,currentOwner:pick.owner,currentQuestion:rd.question,usedQuestions,currentHint:"",activeHint:null,activeHints:[],hintUseCount:0,currentAnswers:rd.answers.map(([text,points],i)=>({text,points,index:i,revealed:false,claimedBy:null})),score1:g.score1||0,score2:g.score2||0,hints1:0,hints2:0,streak1:0,streak2:0,wrong1:0,wrong2:0,locked1:false,locked2:false,roundClosed:false,answerTurn:pick.owner,revealEvent:null,wrongEvent:null,hintEarnedEvent:null,hintUsedEvent:null,updatedAt:Date.now()});
 }
 function renderControl(g){
  $("hostRoundLabel").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("hostCategory").textContent=g.currentCategory;$("hostQuestion").textContent=g.currentQuestion;
@@ -145,9 +145,9 @@ function renderControl(g){
 
  $("controlHost").dataset.turn=String(g.answerTurn||1);
  $("hintTeam1Name").textContent=g.team1;$("hintTeam2Name").textContent=g.team2;
- $("hintCount1").textContent=g.hints1||0;$("hintCount2").textContent=g.hints2||0;
- $("useHint1").disabled=!(g.hints1>0)||g.answerTurn!==1;
- $("useHint2").disabled=!(g.hints2>0)||g.answerTurn!==2;
+ $("hintCount1").textContent="0";$("hintCount2").textContent="0";
+ $("useHint1").disabled=true;
+ $("useHint2").disabled=true;
  $("hostAnswers").innerHTML=(g.currentAnswers||[]).map((a,i)=>{
    const ownerClass=a.claimedBy===1?"claimed-team1":a.claimedBy===2?"claimed-team2":a.revealed?"claimed-none":"";
    return `<button class="host-answer ${a.revealed?"used":""} ${ownerClass}" data-i="${i}"><span class="n">${i+1}</span><b>${a.text}</b><span class="p">${a.points}</span></button>`;
@@ -189,27 +189,12 @@ async function reveal(i){
    updatedAt:Date.now()
  };
 
- if(team===1){
-   let streak=(state.streak1||0)+1;
-   let hints=state.hints1||0;
-   if(streak>=2){
-     hints+=1;
-     streak=0;
-     patch.hintEarnedEvent={id:Date.now(),team:state.team1};
-   }
-   patch.streak1=streak;
-   patch.hints1=hints;
- }else{
-   let streak=(state.streak2||0)+1;
-   let hints=state.hints2||0;
-   if(streak>=2){
-     hints+=1;
-     streak=0;
-     patch.hintEarnedEvent={id:Date.now(),team:state.team2};
-   }
-   patch.streak2=streak;
-   patch.hints2=hints;
- }
+ patch.streak1=0;
+ patch.streak2=0;
+ patch.hints1=0;
+ patch.hints2=0;
+ patch.hintEarnedEvent=null;
+ patch.hintUsedEvent=null;
 
  const merged={...state,...patch};
  patch.answerTurn=nextAvailableTurn(team,merged);
@@ -266,62 +251,11 @@ function buildAnswerClue(answer,index){
 }
 
 function openHintAnswerPicker(team){
- if(!state)return;
- if(state.answerTurn!==team)return;
- if((team===1&&state.locked1)||(team===2&&state.locked2))return;
-
- const count=team===1?(state.hints1||0):(state.hints2||0);
- if(count<1)return;
-
- pendingHintTeam=team;
- const answers=state.currentAnswers||[];
-
- $("hintAnswerChoices").innerHTML=answers.map((a,i)=>`
-   <button class="hint-answer-choice" data-i="${i}" ${a.revealed?"disabled":""}>
-     <b>${i+1}</b>
-     <small>${a.revealed?"مفتوحة":"اختيار"}</small>
-   </button>
- `).join("");
-
- document.querySelectorAll(".hint-answer-choice:not(:disabled)").forEach(btn=>{
-   btn.onclick=()=>useHintOnAnswer(team,+btn.dataset.i);
- });
-
- $("hintAnswerModal").classList.remove("hidden");
+ return;
 }
 
 async function useHintOnAnswer(team,index){
- if(!state||state.answerTurn!==team)return;
-
- const count=team===1?(state.hints1||0):(state.hints2||0);
- if(count<1)return;
-
- const answer=(state.currentAnswers||[])[index];
- if(!answer||answer.revealed)return;
-
- const clue=buildAnswerClue(answer.text,index);
- const used=[...(state.activeHints||[])];
- used.push({index,clue,team});
-
- const patch={
-   activeHints:used,
-   activeHint:clue,
-   hintUseCount:(state.hintUseCount||0)+1,
-   hintUsedEvent:{
-     id:Date.now(),
-     team:team===1?state.team1:state.team2,
-     hint:clue,
-     answerIndex:index,
-     number:used.length
-   },
-   updatedAt:Date.now()
- };
-
- if(team===1)patch.hints1=count-1;
- else patch.hints2=count-1;
-
- await update(gameRef,patch);
- $("hintAnswerModal").classList.add("hidden");
+ return;
 }
 
 async function useHint(team){

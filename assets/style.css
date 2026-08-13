@@ -2200,3 +2200,13 @@ body[data-theme="sunset"] .qr-shell,
 body[data-theme="mint"] .qr-shell{
   box-shadow:0 10px 34px color-mix(in srgb,var(--text) 13%,transparent);
 }
+
+
+/* Hint system disabled */
+.hint-control,
+.active-hint,
+.hint-earned-fx,
+.hint-used-fx,
+#hintAnswerModal{
+  display:none!important;
+}
