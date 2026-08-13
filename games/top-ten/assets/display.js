@@ -129,7 +129,7 @@ $("finishSetup").onclick=async()=>{
  sessionId=makeCode();
  gameRef=ref(db,`top10/sessions/${sessionId}`);
  await set(gameRef,{...s,status:"pairing",hostConnected:false,currentRoundIndex:0,score1:0,score2:0,hints1:0,hints2:0,streak1:0,streak2:0,wrong1:0,wrong2:0,locked1:false,locked2:false,activeHint:null,createdAt:Date.now()});
- const hostUrl=`${location.origin}/host/#session=${sessionId}`;
+ const hostUrl=`${new URL("../host/", location.href).href}#session=${sessionId}`;
  $("sessionCode").textContent=sessionId;$("hostLink").textContent=hostUrl;
  $("qr").innerHTML="";
  new QRCode($("qr"),{text:hostUrl,width:260,height:260,colorDark:"#111111",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
