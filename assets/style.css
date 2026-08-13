@@ -889,3 +889,74 @@ body[data-theme="mint"] #hintAnswerModal.modal{
 .locked-team::after{content:"متوقف";display:block;margin-top:3px;font-size:8px;font-weight:900;color:var(--red)}
 .team-locked::after{content:"توقف عن الإجابة";display:block;margin-top:2px;font-size:8px;font-weight:900;color:var(--red)}
 #wrongBtn:disabled{opacity:.35;cursor:not-allowed}
+
+
+/* ===== Final team colors & answer ownership ===== */
+:root{
+  --team1-color:#4f7cff;
+  --team1-soft:rgba(79,124,255,.22);
+  --team2-color:#31c98b;
+  --team2-soft:rgba(49,201,139,.22);
+  --neutral-answer:#7c8493;
+  --neutral-answer-soft:rgba(124,132,147,.24);
+}
+
+/* Team 1 = blue, Team 2 = green */
+.team-box.blue{border-color:color-mix(in srgb,var(--team1-color) 40%,var(--border))}
+.team-box.blue input:focus{border-color:var(--team1-color)!important}
+.team-box.green{border-color:color-mix(in srgb,var(--team2-color) 40%,var(--border))}
+.team-box.green input:focus{border-color:var(--team2-color)!important}
+.score-card.blue{box-shadow:inset 0 4px 0 var(--team1-color)}
+.score-card.green{box-shadow:inset 0 4px 0 var(--team2-color)}
+#hostTeamCard1{box-shadow:inset 0 4px 0 var(--team1-color)}
+#hostTeamCard2{box-shadow:inset 0 4px 0 var(--team2-color)}
+#controlHost[data-turn="1"] .host-turn{box-shadow:inset 5px 0 0 var(--team1-color)}
+#controlHost[data-turn="2"] .host-turn{box-shadow:inset 5px 0 0 var(--team2-color)}
+
+/* Correct answer claimed by team 1 */
+.answer.revealed.claimed-team1,
+.host-answer.used.claimed-team1{
+  background:linear-gradient(90deg,var(--team1-soft),color-mix(in srgb,var(--team1-color) 8%,var(--surface-soft)))!important;
+  border-color:var(--team1-color)!important;
+  opacity:1!important;
+  filter:none!important;
+}
+.answer.revealed.claimed-team1 .n,
+.answer.revealed.claimed-team1 .pts,
+.host-answer.used.claimed-team1 .n,
+.host-answer.used.claimed-team1 .p{
+  background:var(--team1-color)!important;
+  color:white!important;
+}
+
+/* Correct answer claimed by team 2 */
+.answer.revealed.claimed-team2,
+.host-answer.used.claimed-team2{
+  background:linear-gradient(90deg,var(--team2-soft),color-mix(in srgb,var(--team2-color) 8%,var(--surface-soft)))!important;
+  border-color:var(--team2-color)!important;
+  opacity:1!important;
+  filter:none!important;
+}
+.answer.revealed.claimed-team2 .n,
+.answer.revealed.claimed-team2 .pts,
+.host-answer.used.claimed-team2 .n,
+.host-answer.used.claimed-team2 .p{
+  background:var(--team2-color)!important;
+  color:white!important;
+}
+
+/* Automatically exposed because both teams used all 3 mistakes */
+.answer.revealed.claimed-none,
+.host-answer.used.claimed-none{
+  background:linear-gradient(90deg,var(--neutral-answer-soft),color-mix(in srgb,var(--neutral-answer) 8%,var(--surface-soft)))!important;
+  border-color:var(--neutral-answer)!important;
+  opacity:1!important;
+  filter:none!important;
+}
+.answer.revealed.claimed-none .n,
+.answer.revealed.claimed-none .pts,
+.host-answer.used.claimed-none .n,
+.host-answer.used.claimed-none .p{
+  background:var(--neutral-answer)!important;
+  color:white!important;
+}
