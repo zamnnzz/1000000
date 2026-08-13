@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>اللعبة | تلفزيون خربان</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="card">
+      <div class="topline">
+        <span id="stepLabel" class="pill"></span>
+        <span id="turnLabel" class="muted"></span>
+      </div>
+
+      <div id="promptArea" class="stack"></div>
+
+      <div id="textStage" class="hidden stack">
+        <h1 id="textTitle">اكتب جملة</h1>
+        <textarea id="textInput" maxlength="120" placeholder="مثال: قرد يسوق سيارة"></textarea>
+        <button id="submitText" class="primary">إرسال</button>
+      </div>
+
+      <div id="drawStage" class="hidden stack">
+        <h1>ارسم اللي فهمته</h1>
+        <canvas id="board" width="900" height="520"></canvas>
+        <div class="drawbar">
+          <input id="brushSize" type="range" min="2" max="24" value="6">
+          <button id="undoBtn" class="secondary">تراجع</button>
+          <button id="clearBtn" class="secondary">مسح</button>
+        </div>
+        <button id="submitDrawing" class="primary">إرسال الرسم</button>
+      </div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
