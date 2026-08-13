@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جرس الفريق</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#4b237c;
+      --bg2:#6d44a6;
+      --card:#7c5aa8;
+      --card2:#6f4f98;
+      --line:rgba(255,255,255,0.15);
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.8);
+      --yellow:#ffd400;
+      --team1:#e67e22;
+      --team2:#7b61ff;
+      --input:#5e437f;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:'Cairo',sans-serif;
+      color:var(--text);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0)),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:20px 12px 40px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:460px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:22px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.18);
+      margin-bottom:18px;
+    }
+
+    .hero{
+      text-align:center;
+      padding-top:26px;
+      padding-bottom:26px;
+    }
+
+    .hero .title1{
+      font-size:52px;
+      font-weight:900;
+      color:var(--yellow);
+      line-height:0.9;
+      text-shadow:0 6px 0 rgba(0,0,0,0.28);
+    }
+
+    .hero .title2{
+      font-size:44px;
+      font-weight:900;
+      color:#5fd1c8;
+      line-height:0.9;
+      margin-top:-4px;
+      text-shadow:0 6px 0 rgba(0,0,0,0.28);
+    }
+
+    .hero .title3{
+      font-size:40px;
+      font-weight:900;
+      color:#ff5b62;
+      line-height:1;
+      margin-top:2px;
+      text-shadow:0 6px 0 rgba(0,0,0,0.28);
+    }
+
+    .hero .subtitle{
+      margin-top:14px;
+      font-size:20px;
+      font-weight:900;
+      color:var(--yellow);
+    }
+
+    .hero .desc{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.8;
+    }
+
+    .session-pill{
+      display:inline-block;
+      margin-top:16px;
+      padding:10px 20px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      font-weight:800;
+      color:#fff;
+    }
+
+    .bell-icon{
+      width:78px;
+      height:78px;
+      margin:6px auto 18px;
+      border-radius:22px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg, rgba(108,142,255,0.28), rgba(255,255,255,0.08));
+      border:1px solid rgba(255,255,255,0.18);
+      font-size:34px;
+    }
+
+    .label{
+      font-size:16px;
+      font-weight:800;
+      margin-bottom:10px;
+      text-align:right;
+    }
+
+    .input{
+      width:100%;
+      border:none;
+      outline:none;
+      border-radius:20px;
+      padding:18px 16px;
+      background:var(--input);
+      color:#fff;
+      font-size:18px;
+      font-family:'Cairo',sans-serif;
+      margin-bottom:18px;
+    }
+
+    .input::placeholder{
+      color:rgba(255,255,255,0.55);
+    }
+
+    .team-option{
+      border-radius:24px;
+      padding:18px;
+      margin-bottom:14px;
+      border:2px solid transparent;
+      background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      cursor:pointer;
+      transition:0.2s;
+      position:relative;
+    }
+
+    .team-option.active{
+      border-color:rgba(255,255,255,0.28);
+      box-shadow:0 0 0 2px rgba(255,255,255,0.06) inset;
+    }
+
+    .team-dot{
+      position:absolute;
+      top:18px;
+      left:18px;
+      width:20px;
+      height:20px;
+      border-radius:50%;
+    }
+
+    .team-title{
+      font-size:20px;
+      font-weight:900;
+      margin-bottom:4px;
+    }
+
+    .team-sub{
+      font-size:15px;
+      color:rgba(255,255,255,0.78);
+    }
+
+    .save-btn{
+      width:100%;
+      border:none;
+      border-radius:22px;
+      padding:16px;
+      margin-top:10px;
+      font-size:20px;
+      font-weight:900;
+      font-family:'Cairo',sans-serif;
+      cursor:pointer;
+      background:#fff;
+      color:#5d3c86;
+      box-shadow:0 8px 0 rgba(0,0,0,0.18);
+    }
+
+    .save-btn:active{
+      transform:translateY(3px);
+      box-shadow:0 3px 0 rgba(0,0,0,0.18);
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    .top-mini{
+      text-align:center;
+      margin-bottom:18px;
+    }
+
+    .top-mini .host{
+      font-size:34px;
+      font-weight:900;
+      color:var(--yellow);
+      line-height:1.1;
+      text-shadow:0 5px 0 rgba(0,0,0,0.25);
+    }
+
+    .top-mini .meta{
+      margin-top:8px;
+      color:rgba(255,255,255,0.85);
+      font-size:15px;
+    }
+
+    .buzz-card{
+      text-align:center;
+      padding:26px 20px 30px;
+    }
+
+    .player-badge{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:10px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      font-weight:800;
+      font-size:15px;
+    }
+
+    .buzz-btn{
+      width:230px;
+      height:230px;
+      border-radius:50%;
+      border:none;
+      cursor:pointer;
+      font-size:28px;
+      font-weight:900;
+      font-family:'Cairo',sans-serif;
+      color:#fff;
+      background:linear-gradient(180deg,#ff5a5f,#d83d48);
+      box-shadow:0 14px 0 #a92b34, 0 20px 40px rgba(0,0,0,0.28);
+      margin:14px auto 18px;
+      display:block;
+      transition:0.15s;
+    }
+
+    .buzz-btn:active{
+      transform:translateY(6px);
+      box-shadow:0 8px 0 #a92b34, 0 14px 24px rgba(0,0,0,0.28);
+    }
+
+    .buzz-btn:disabled{
+      cursor:not-allowed;
+      background:linear-gradient(180deg,#8c8c98,#73737d);
+      box-shadow:0 10px 0 #595963, 0 18px 30px rgba(0,0,0,0.2);
+    }
+
+    .status{
+      min-height:32px;
+      font-size:18px;
+      font-weight:800;
+      color:#fff;
+    }
+
+    .change-btn{
+      margin-top:16px;
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.2);
+      color:#fff;
+      border-radius:16px;
+      padding:10px 14px;
+      font-family:'Cairo',sans-serif;
+      font-weight:700;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="card hero">
+      <div class="title1">حروف</div>
+      <div class="title2">مع</div>
+      <div class="title3" id="hostNameTop">المقدم</div>
+
+      <div class="subtitle">جرس الفريق</div>
+      <div class="desc">ادخل اسمك، اختر فريقك، ثم احفظ للدخول إلى صفحة الزر</div>
+      <div class="session-pill" id="sessionBox">جلسة ...</div>
+    </div>
+
+    <!-- شاشة الدخول -->
+    <div class="card" id="setupScreen">
+      <div class="bell-icon">🔔</div>
+
+      <div class="label">اسم اللاعب</div>
+      <input id="playerName" class="input" type="text" placeholder="اكتب اسمك هنا" maxlength="20">
+
+      <div class="label">اختر الفريق</div>
+
+      <div class="team-option active" data-team="c1" onclick="selectTeam('c1', this)">
+        <div class="team-dot" style="background:var(--team1)"></div>
+        <div class="team-title" id="team1CardName">الفريق الأول</div>
+        <div class="team-sub">فريق 1</div>
+      </div>
+
+      <div class="team-option" data-team="c2" onclick="selectTeam('c2', this)">
+        <div class="team-dot" style="background:var(--team2)"></div>
+        <div class="team-title" id="team2CardName">الفريق الثاني</div>
+        <div class="team-sub">فريق 2</div>
+      </div>
+
+      <button class="save-btn" onclick="savePlayerData()">حفظ</button>
+    </div>
+
+    <!-- شاشة الزر -->
+    <div class="card buzz-card hidden" id="buzzScreen">
+      <div class="top-mini">
+        <div class="host" id="hostNameBuzz">المقدم</div>
+        <div class="meta">جرس الفريق</div>
+      </div>
+
+      <div class="player-badge" id="playerSummary">اللاعب / الفريق</div>
+
+      <button id="buzzBtn" class="buzz-btn" onclick="pressBuzzer()">اضغط الآن!</button>
+
+      <div class="status" id="statusMsg">⏳ انتظر فتح الجرس...</div>
+
+      <button class="change-btn" onclick="backToSetup()">تعديل الاسم أو الفريق</button>
+    </div>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCgwvqKj2BQ4nepbUk1gJ9Yb4o3hJWUwOs",
+      authDomain: "horof-game-9934e.firebaseapp.com",
+      databaseURL: "https://horof-game-9934e-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "horof-game-9934e",
+      appId: "1:44896634225:web:62a672d8c94be6e0d762d0"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const session = urlParams.get("session") || "default";
+
+    let selectedTeam = "c1";
+    let playerData = {
+      name: "",
+      team: "c1"
+    };
+
+    document.getElementById("sessionBox").innerText = "جلسة " + session.toUpperCase();
+
+    function selectTeam(team, el){
+      selectedTeam = team;
+      document.querySelectorAll(".team-option").forEach(card => card.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    function savePlayerData(){
+      const name = document.getElementById("playerName").value.trim();
+
+      if(!name){
+        alert("اكتب اسمك أولاً");
+        return;
+      }
+
+      playerData.name = name;
+      playerData.team = selectedTeam;
+
+      localStorage.setItem("horofPlayer_" + session, JSON.stringify(playerData));
+
+      document.getElementById("setupScreen").classList.add("hidden");
+      document.getElementById("buzzScreen").classList.remove("hidden");
+
+      updatePlayerSummary();
+    }
+
+    function backToSetup(){
+      document.getElementById("buzzScreen").classList.add("hidden");
+      document.getElementById("setupScreen").classList.remove("hidden");
+    }
+
+    function updatePlayerSummary(){
+      const teamName =
+        playerData.team === "c1"
+          ? document.getElementById("team1CardName").innerText
+          : document.getElementById("team2CardName").innerText;
+
+     document.getElementById("playerSummary").innerText =
+"👤 " + playerData.name + " |  " + teamName;
+    }
+
+    function loadSavedPlayer(){
+      const saved = localStorage.getItem("horofPlayer_" + session);
+      if(!saved) return;
+
+      try{
+        const data = JSON.parse(saved);
+        if(data && data.name && data.team){
+          playerData = data;
+          selectedTeam = data.team;
+          document.getElementById("playerName").value = data.name;
+
+          const teamCard = document.querySelector('.team-option[data-team="' + data.team + '"]');
+          if(teamCard){
+            document.querySelectorAll(".team-option").forEach(card => card.classList.remove("active"));
+            teamCard.classList.add("active");
+          }
+
+          document.getElementById("setupScreen").classList.add("hidden");
+          document.getElementById("buzzScreen").classList.remove("hidden");
+          updatePlayerSummary();
+        }
+      }catch(e){}
+    }
+
+    function pressBuzzer(){
+      if(!playerData.name){
+        alert("احفظ بياناتك أولاً");
+        return;
+      }
+
+      const btn = document.getElementById("buzzBtn");
+      const status = document.getElementById("statusMsg");
+
+      const buzzerRef = db.ref("games/" + session + "/buzzer");
+
+      buzzerRef.transaction(current => {
+        if(current === null){
+          return {
+            name: playerData.name,
+            team: playerData.team,
+            time: Date.now()
+          };
+        }
+        return;
+      }).then(result => {
+        if(result.committed){
+          btn.disabled = true;
+          btn.innerText = "تم الإرسال!";
+          status.innerText = "✅ وصل اسمك للمقدم";
+          status.style.color = "#7CFFB2";
+          if(navigator.vibrate) navigator.vibrate(150);
+        }else{
+          status.innerText = "⌛ سبقك لاعب آخر";
+          status.style.color = "#FFD166";
+        }
+      });
+    }
+
+    function applyHostData(data){
+      const hostName = (data && data.hostName) ? data.hostName : "المقدم";
+      const team1 = (data && data.teamNames && data.teamNames.c1) ? data.teamNames.c1 : "الفريق الأول";
+      const team2 = (data && data.teamNames && data.teamNames.c2) ? data.teamNames.c2 : "الفريق الثاني";
+      const team1Color = (data && data.teamColors && data.teamColors.c1) ? data.teamColors.c1 : "#e67e22";
+      const team2Color = (data && data.teamColors && data.teamColors.c2) ? data.teamColors.c2 : "#7b61ff";
+
+
+document.getElementById("hostNameTop").innerText = hostName;
+document.getElementById("hostNameBuzz").innerText = hostName;
+
+document.getElementById("team1CardName").innerText = team1;
+document.getElementById("team2CardName").innerText = team2;
+
+      document.documentElement.style.setProperty("--team1", team1Color);
+      document.documentElement.style.setProperty("--team2", team2Color);
+
+      updatePlayerSummary();
+    }
+
+    db.ref("games/" + session + "/settings").on("value", snap => {
+      applyHostData(snap.val());
+    });
+
+    db.ref("games/" + session + "/status").on("value", snap => {
+      const data = snap.val();
+      const btn = document.getElementById("buzzBtn");
+      const status = document.getElementById("statusMsg");
+
+    if(!data){
+  btn.disabled = false;
+  btn.innerText = "اضغط الآن!";
+  status.innerText = "🚀 الجرس مفتوح";
+  status.style.color = "#7CFFB2";
+  return;
+}
+
+      if(data.locked === false){
+        btn.disabled = false;
+        btn.innerText = "اضغط الآن!";
+        status.innerText = "🚀 الجرس مفتوح";
+        status.style.color = "#7CFFB2";
+      }else{
+        btn.disabled = true;
+        btn.innerText = "مغلق";
+        status.innerText = "⏳ انتظر فتح الجرس...";
+        status.style.color = "#ffffff";
+      }
+    });
+
+    loadSavedPlayer();
+  </script>
+</body>
+</html
