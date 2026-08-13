@@ -11,57 +11,91 @@
 
 <main id="app">
 
-  <!-- 1) أسماء الفريقين -->
+  <!-- 1. TEAM NAMES + ROUND COUNT -->
   <section id="teamsScreen" class="screen active">
     <div class="panel">
       <div class="logo">TOP <span>10</span></div>
-      <h1>اكتب أسماء الفريقين</h1>
-      <p class="sub">فريقين فقط، وبعدها تختار الفئة وتبدأ الجولة.</p>
+      <h1>جهّز الفرق</h1>
+      <p class="sub">اكتب اسم الفريقين وحدد عدد الجولات.</p>
 
       <div class="teams-grid">
         <label class="team-card blue">
           <b>الفريق الأول</b>
           <input id="team1Input" maxlength="18" placeholder="مثال: الصقور">
         </label>
-
         <label class="team-card purple">
           <b>الفريق الثاني</b>
           <input id="team2Input" maxlength="18" placeholder="مثال: الذئاب">
         </label>
       </div>
 
-      <button id="nextToCategories" class="main-btn">التالي ←</button>
+      <div class="rounds-box">
+        <div>
+          <span class="tiny-label">عدد الجولات</span>
+          <h2>كم جولة تبغون؟</h2>
+          <p>كل جولة = كاتقري واحد يختاره أحد الفريقين.</p>
+        </div>
+        <div class="round-buttons" id="roundButtons">
+          <button data-rounds="2">2</button>
+          <button data-rounds="4" class="active">4</button>
+          <button data-rounds="6">6</button>
+          <button data-rounds="8">8</button>
+        </div>
+      </div>
+
+      <button id="nextToCategories" class="main-btn">التالي: اختيار الكاتقري ←</button>
     </div>
   </section>
 
-  <!-- 2) اختيار الفئة -->
+  <!-- 2. CATEGORY DRAFT -->
   <section id="categoryScreen" class="screen">
     <div class="panel wide">
       <button class="back" data-go="teamsScreen">→ رجوع</button>
-      <div class="head-center">
-        <h1>اختر موضوعاً لبدء التحدي</h1>
-        <p class="sub">اختر فئة واحدة.</p>
+
+      <div class="draft-head">
+        <span class="tiny-label">اختيار الجولات</span>
+        <h1 id="draftTitle">الدور على الفريق</h1>
+        <p id="draftSub" class="sub">اختر كاتقري للجولة.</p>
+      </div>
+
+      <div class="draft-progress-wrap">
+        <div id="draftProgressText" class="draft-progress-text"></div>
+        <div class="draft-progress"><i id="draftProgressBar"></i></div>
       </div>
 
       <div id="categoryGrid" class="category-grid"></div>
 
-      <button id="startGame" class="main-btn center" disabled>ابدأ اللعب ◁</button>
+      <section class="picked-section">
+        <h3>الاختيارات</h3>
+        <div class="picked-columns">
+          <div>
+            <strong id="pickedTeam1Title">الفريق الأول</strong>
+            <div id="pickedTeam1" class="picked-list"></div>
+          </div>
+          <div>
+            <strong id="pickedTeam2Title">الفريق الثاني</strong>
+            <div id="pickedTeam2" class="picked-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <button id="beginGameBtn" class="main-btn center hidden">ابدأ اللعب ◁</button>
     </div>
   </section>
 
-  <!-- 3) اللعبة -->
+  <!-- 3. GAME -->
   <section id="gameScreen" class="screen">
     <div class="game-shell">
 
       <header class="scorebar">
-        <div id="team1ScoreCard" class="score-card blue active-turn">
+        <div id="team1ScoreCard" class="score-card blue">
           <span id="team1Name">الفريق الأول</span>
           <b id="team1Score">0</b>
         </div>
 
         <div class="round-info">
-          <span id="categoryName">الفئة</span>
-          <small>الجولة الحالية</small>
+          <span id="roundCounter">الجولة 1</span>
+          <small id="categoryName">الفئة</small>
         </div>
 
         <div id="team2ScoreCard" class="score-card purple">
@@ -71,7 +105,7 @@
       </header>
 
       <section class="question-area">
-        <span class="question-label">السؤال</span>
+        <span class="question-label" id="roundOwnerLabel">اختيار الفريق</span>
         <h1 id="questionText">...</h1>
       </section>
 
@@ -92,47 +126,59 @@
       </section>
     </div>
   </section>
+
 </main>
 
-<!-- إدخال إجابة الهوست -->
+<!-- HOST ANSWER -->
 <div id="answerModal" class="modal hidden">
   <div class="modal-card">
     <button class="close" data-close="answerModal">×</button>
     <span class="tag">إجابة الفريق</span>
-    <h2 id="answeringTeamTitle">الفريق الأول</h2>
+    <h2 id="answeringTeamTitle"></h2>
     <input id="hostAnswerInput" autocomplete="off" placeholder="اكتب إجابة الفريق هنا">
     <button id="submitHostAnswer" class="main-btn">تحقق من الإجابة</button>
   </div>
 </div>
 
-<!-- التشويق -->
+<!-- SUSPENSE -->
 <div id="suspenseModal" class="modal hidden">
   <div class="modal-card suspense-card">
     <div class="spinner"></div>
     <span class="tag">لحظة...</span>
-    <h2 id="suspenseText">نشوف الإجابة 👀</h2>
+    <h2 id="suspenseText">هل هي ضمن التوب 10؟ 👀</h2>
   </div>
 </div>
 
-<!-- نتيجة خطأ -->
+<!-- WRONG -->
 <div id="wrongModal" class="modal hidden">
   <div class="modal-card result-card wrong">
     <div class="result-icon">✕</div>
-    <h2>إجابة غير موجودة</h2>
+    <h2>مو موجودة</h2>
     <p>ينتقل الدور للفريق الثاني.</p>
     <button id="continueWrong" class="main-btn">كمل الجولة</button>
   </div>
 </div>
 
-<!-- نهاية الجولة -->
+<!-- ROUND COMPLETE -->
+<div id="roundDoneModal" class="modal hidden">
+  <div class="modal-card result-card">
+    <div class="result-icon">✓</div>
+    <span class="tag">انتهت الجولة</span>
+    <h2 id="roundDoneTitle"></h2>
+    <button id="nextRoundBtn" class="main-btn">الجولة التالية ←</button>
+  </div>
+</div>
+
+<!-- GAME COMPLETE -->
 <div id="finishModal" class="modal hidden">
   <div class="modal-card result-card">
     <div class="result-icon trophy">🏆</div>
-    <span class="tag">انتهت الجولة</span>
+    <span class="tag">انتهت اللعبة</span>
     <h2 id="winnerText"></h2>
+    <p id="finalScoreText" class="sub"></p>
     <div class="finish-actions">
-      <button id="newRoundBtn" class="main-btn">فئة جديدة</button>
-      <button id="restartBtn" class="secondary-btn">ابدأ من جديد</button>
+      <button id="playAgainBtn" class="main-btn">إعادة بنفس الفرق</button>
+      <button id="restartBtn" class="secondary-btn">من البداية</button>
     </div>
   </div>
 </div>
