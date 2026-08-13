@@ -62,7 +62,21 @@ function listen(){
   const g=snap.val();if(!g)return;applyTheme(g.theme);
   if(g.hostConnected&&g.status==="pairing"){$("pairStatus").textContent="✓ تم ربط الهوست — جاهز للبدء";$("pairStatus").classList.add("connected")}
   if(g.status==="game"){show("gameScreen");renderGame(g)}
-  if(g.status==="finished"){show("finishScreen");$("winnerText").textContent=g.winner==="تعادل"?"تعادل!":`${g.winner} يفوز!`;$("finalScore").textContent=`${g.team1}: ${g.score1} — ${g.team2}: ${g.score2}`}
+  if(g.status==="finished"){
+   show("finishScreen");
+   const draw=g.winner==="تعادل";
+   $("winnerText").textContent=draw?"تعادل!":`${g.winner} يفوز!`;
+   $("winnerSubtitle").textContent=draw?"مباراة قوية وانتهت بالتعادل":"مبروك للفريق الفائز!";
+   $("winnerCrown").classList.toggle("hidden",draw);
+   $("finalTeam1Name").textContent=g.team1;
+   $("finalTeam2Name").textContent=g.team2;
+   $("finalTeam1Score").textContent=g.score1||0;
+   $("finalTeam2Score").textContent=g.score2||0;
+   $("finalScore").textContent=`${g.team1} ${g.score1||0} — ${g.score2||0} ${g.team2}`;
+   $("finalTeam1Card").classList.toggle("winner",!draw&&g.winner===g.team1);
+   $("finalTeam2Card").classList.toggle("winner",!draw&&g.winner===g.team2);
+   $("finishScreen").classList.toggle("is-draw",draw);
+ }
  });
 }
 function renderGame(g){

@@ -158,11 +158,45 @@
   </section>
 
   <section id="finishScreen" class="screen">
-    <div class="finish-panel">
-      <div class="trophy">🏆</div>
-      <span class="eyebrow">انتهت اللعبة</span>
-      <h1 id="winnerText"></h1>
-      <p id="finalScore" class="muted"></p>
+    <div class="finish-panel winner-panel">
+      <div class="winner-confetti" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+
+      <div class="winner-top">
+        <span class="winner-kicker">انتهت اللعبة</span>
+        <div class="winner-trophy-wrap">
+          <span class="winner-rays"></span>
+          <div class="trophy winner-trophy">🏆</div>
+        </div>
+        <div id="winnerCrown" class="winner-crown">👑</div>
+        <h1 id="winnerText"></h1>
+        <p id="winnerSubtitle" class="winner-subtitle">مبروك للفريق الفائز!</p>
+      </div>
+
+      <div class="winner-scoreboard">
+        <div id="finalTeam1Card" class="winner-team-card team-one">
+          <span class="winner-team-label">الفريق الأول</span>
+          <b id="finalTeam1Name"></b>
+          <strong id="finalTeam1Score">0</strong>
+          <small>نقطة</small>
+        </div>
+
+        <div class="winner-vs">
+          <span>النتيجة النهائية</span>
+          <b>VS</b>
+        </div>
+
+        <div id="finalTeam2Card" class="winner-team-card team-two">
+          <span class="winner-team-label">الفريق الثاني</span>
+          <b id="finalTeam2Name"></b>
+          <strong id="finalTeam2Score">0</strong>
+          <small>نقطة</small>
+        </div>
+      </div>
+
+      <p id="finalScore" class="winner-score-text"></p>
     </div>
   </section>
 </main>

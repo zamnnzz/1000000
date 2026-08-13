@@ -960,3 +960,346 @@ body[data-theme="mint"] #hintAnswerModal.modal{
   background:var(--neutral-answer)!important;
   color:white!important;
 }
+
+
+/* ===== Polished winner page only ===== */
+#finishScreen{
+  overflow:hidden;
+  padding:18px;
+}
+
+.winner-panel{
+  position:relative;
+  isolation:isolate;
+  width:min(980px,100%);
+  min-height:min(690px,calc(100vh - 36px));
+  padding:34px 42px 38px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  text-align:center;
+  border-color:rgba(255,255,255,.82);
+  background:
+    radial-gradient(circle at 50% 8%,rgba(255,216,77,.18),transparent 26%),
+    radial-gradient(circle at 12% 90%,var(--team1-soft),transparent 28%),
+    radial-gradient(circle at 88% 90%,var(--team2-soft),transparent 28%),
+    rgba(23,31,52,.97);
+}
+
+.winner-panel::before,
+.winner-panel::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  filter:blur(12px);
+  opacity:.32;
+}
+.winner-panel::before{
+  right:-150px;
+  top:-130px;
+  background:var(--team2-color);
+}
+.winner-panel::after{
+  left:-150px;
+  bottom:-150px;
+  background:var(--team1-color);
+}
+
+.winner-top{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.winner-kicker{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:30px;
+  padding:0 15px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  color:var(--cyan);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.2px;
+}
+
+.winner-trophy-wrap{
+  position:relative;
+  width:150px;
+  height:132px;
+  display:grid;
+  place-items:center;
+  margin:8px 0 -2px;
+}
+
+.winner-rays{
+  position:absolute;
+  inset:8px;
+  border-radius:50%;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(255,216,77,.0) 0deg 11deg,
+      rgba(255,216,77,.2) 11deg 16deg
+    );
+  animation:winnerSpin 16s linear infinite;
+  mask:radial-gradient(circle,transparent 0 26%,#000 27% 100%);
+}
+
+.winner-trophy{
+  position:relative;
+  z-index:1;
+  font-size:78px;
+  line-height:1;
+  filter:drop-shadow(0 12px 24px rgba(255,199,44,.25));
+  animation:winnerFloat 2.6s ease-in-out infinite;
+}
+
+.winner-crown{
+  position:absolute;
+  top:104px;
+  transform:rotate(-8deg);
+  font-size:31px;
+  filter:drop-shadow(0 5px 8px rgba(0,0,0,.25));
+  animation:crownPop .75s cubic-bezier(.2,.9,.25,1.4) both;
+}
+
+.winner-panel #winnerText{
+  margin:0;
+  max-width:760px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:-1.5px;
+  text-shadow:0 8px 28px rgba(0,0,0,.25);
+}
+
+.winner-subtitle{
+  margin:9px 0 24px;
+  color:var(--muted);
+  font-size:17px;
+  font-weight:700;
+}
+
+.winner-scoreboard{
+  position:relative;
+  z-index:2;
+  width:min(760px,100%);
+  display:grid;
+  grid-template-columns:1fr 112px 1fr;
+  align-items:stretch;
+  gap:14px;
+}
+
+.winner-team-card{
+  position:relative;
+  min-height:175px;
+  padding:20px 18px 17px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:25px;
+  background:rgba(255,255,255,.055);
+  overflow:hidden;
+  transition:.25s ease;
+}
+
+.winner-team-card::before{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:5px;
+  opacity:.9;
+}
+.winner-team-card.team-one::before{background:var(--team1-color)}
+.winner-team-card.team-two::before{background:var(--team2-color)}
+
+.winner-team-card.winner{
+  transform:translateY(-8px) scale(1.025);
+  border-color:rgba(255,216,77,.7);
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.24),
+    0 0 0 3px rgba(255,216,77,.10);
+  background:
+    linear-gradient(180deg,rgba(255,216,77,.10),rgba(255,255,255,.055));
+}
+
+.winner-team-card.winner::after{
+  content:"🏆 الفائز";
+  position:absolute;
+  top:10px;
+  left:10px;
+  padding:5px 9px;
+  border-radius:999px;
+  background:var(--yellow);
+  color:#282109;
+  font-size:10px;
+  font-weight:900;
+}
+
+.winner-team-label{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+}
+.winner-team-card b{
+  margin-top:4px;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:24px;
+  font-weight:900;
+}
+.winner-team-card strong{
+  margin-top:5px;
+  font-size:56px;
+  line-height:.95;
+  font-weight:900;
+}
+.winner-team-card.team-one strong{color:var(--team1-color)}
+.winner-team-card.team-two strong{color:var(--team2-color)}
+.winner-team-card small{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+}
+
+.winner-vs{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:7px;
+  color:var(--muted);
+}
+.winner-vs span{
+  font-size:10px;
+  font-weight:800;
+}
+.winner-vs b{
+  width:66px;
+  height:66px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(145deg,var(--violet2),var(--violet));
+  box-shadow:0 10px 26px rgba(0,0,0,.24);
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+  direction:ltr;
+}
+
+.winner-score-text{
+  position:relative;
+  z-index:2;
+  margin:19px 0 0;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:800;
+}
+
+.winner-confetti{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.winner-confetti i{
+  position:absolute;
+  top:-30px;
+  width:10px;
+  height:18px;
+  border-radius:3px;
+  background:var(--yellow);
+  animation:confettiFall 4.8s linear infinite;
+  opacity:.78;
+}
+.winner-confetti i:nth-child(3n+1){background:var(--team1-color)}
+.winner-confetti i:nth-child(3n+2){background:var(--team2-color)}
+.winner-confetti i:nth-child(1){left:5%;animation-delay:-1.1s}
+.winner-confetti i:nth-child(2){left:11%;animation-delay:-3.7s}
+.winner-confetti i:nth-child(3){left:17%;animation-delay:-2.2s}
+.winner-confetti i:nth-child(4){left:24%;animation-delay:-4.2s}
+.winner-confetti i:nth-child(5){left:31%;animation-delay:-.4s}
+.winner-confetti i:nth-child(6){left:38%;animation-delay:-2.8s}
+.winner-confetti i:nth-child(7){left:44%;animation-delay:-4.5s}
+.winner-confetti i:nth-child(8){left:51%;animation-delay:-1.9s}
+.winner-confetti i:nth-child(9){left:58%;animation-delay:-3.3s}
+.winner-confetti i:nth-child(10){left:64%;animation-delay:-.8s}
+.winner-confetti i:nth-child(11){left:70%;animation-delay:-4.1s}
+.winner-confetti i:nth-child(12){left:77%;animation-delay:-2.5s}
+.winner-confetti i:nth-child(13){left:83%;animation-delay:-.1s}
+.winner-confetti i:nth-child(14){left:88%;animation-delay:-3.5s}
+.winner-confetti i:nth-child(15){left:93%;animation-delay:-1.5s}
+.winner-confetti i:nth-child(16){left:97%;animation-delay:-2.9s}
+
+#finishScreen.is-draw .winner-team-card{
+  transform:none;
+  border-color:rgba(255,255,255,.18);
+}
+#finishScreen.is-draw .winner-trophy{
+  filter:grayscale(.15) drop-shadow(0 12px 24px rgba(255,199,44,.18));
+}
+
+@keyframes winnerSpin{to{transform:rotate(360deg)}}
+@keyframes winnerFloat{
+  0%,100%{transform:translateY(0) rotate(-2deg)}
+  50%{transform:translateY(-7px) rotate(2deg)}
+}
+@keyframes crownPop{
+  from{opacity:0;transform:translateY(10px) scale(.5) rotate(-18deg)}
+  to{opacity:1;transform:translateY(0) scale(1) rotate(-8deg)}
+}
+@keyframes confettiFall{
+  0%{transform:translateY(-30px) rotate(0deg);opacity:0}
+  8%{opacity:.85}
+  100%{transform:translateY(760px) rotate(720deg);opacity:.15}
+}
+
+@media (max-width:700px){
+  .winner-panel{
+    min-height:calc(100vh - 28px);
+    padding:24px 14px 28px;
+    border-radius:24px;
+  }
+  .winner-trophy-wrap{width:120px;height:108px}
+  .winner-trophy{font-size:64px}
+  .winner-crown{top:91px;font-size:26px}
+  .winner-panel #winnerText{font-size:clamp(34px,11vw,52px)}
+  .winner-subtitle{font-size:14px;margin-bottom:18px}
+  .winner-scoreboard{
+    grid-template-columns:1fr 62px 1fr;
+    gap:7px;
+  }
+  .winner-team-card{
+    min-height:155px;
+    padding:17px 8px 14px;
+    border-radius:18px;
+  }
+  .winner-team-card b{font-size:17px}
+  .winner-team-card strong{font-size:44px}
+  .winner-team-card.winner::after{
+    top:7px;left:7px;font-size:8px;padding:4px 6px
+  }
+  .winner-vs b{width:48px;height:48px;font-size:15px}
+  .winner-vs span{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .winner-rays,.winner-trophy,.winner-crown,.winner-confetti i{animation:none!important}
+}
