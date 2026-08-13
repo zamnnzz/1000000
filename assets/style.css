@@ -2210,3 +2210,147 @@ body[data-theme="mint"] .qr-shell{
 #hintAnswerModal{
   display:none!important;
 }
+
+
+/* ===== Active team emphasis ===== */
+.score-card{
+  position:relative;
+  transition:box-shadow .22s ease,transform .22s ease,border-color .22s ease;
+}
+.score-card.active{
+  transform:translateY(-2px);
+}
+.score-card.blue.active{
+  border-color:var(--team1-color)!important;
+  box-shadow:
+    0 3px 0 color-mix(in srgb,var(--team1-color) 72%,transparent),
+    0 18px 30px -10px color-mix(in srgb,var(--team1-color) 72%,transparent)!important;
+}
+.score-card.green.active{
+  border-color:var(--team2-color)!important;
+  box-shadow:
+    0 3px 0 color-mix(in srgb,var(--team2-color) 72%,transparent),
+    0 18px 30px -10px color-mix(in srgb,var(--team2-color) 72%,transparent)!important;
+}
+
+/* ===== 3-second points suspense + 2-second result ===== */
+.suspense-fx{
+  position:absolute;
+  inset:0;
+  z-index:30;
+  border-radius:28px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:color-mix(in srgb,var(--panel-bg) 94%,transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.suspense-fx::before{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  border:2px solid color-mix(in srgb,var(--accent) 28%,transparent);
+  box-shadow:
+    0 0 0 42px color-mix(in srgb,var(--accent) 6%,transparent),
+    0 0 90px color-mix(in srgb,var(--accent) 24%,transparent);
+  animation:suspensePulse 1s ease-in-out infinite alternate;
+}
+.suspense-stage,
+.suspense-result{
+  position:relative;
+  z-index:2;
+  min-width:340px;
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.suspense-stage.hidden,
+.suspense-result.hidden{
+  display:none!important;
+}
+.suspense-label{
+  font-size:24px;
+  font-weight:900;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.suspense-stage strong{
+  width:150px;
+  height:150px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size:88px;
+  line-height:1;
+  color:var(--text);
+  background:var(--panel-solid);
+  border:3px solid var(--accent);
+  box-shadow:0 18px 50px color-mix(in srgb,var(--accent) 35%,transparent);
+  animation:suspenseNumberPop .16s ease-out infinite alternate;
+}
+.suspense-stage small{
+  margin-top:10px;
+  font-size:35px;
+  letter-spacing:8px;
+  color:var(--accent-warm);
+  font-weight:900;
+}
+.suspense-result-icon{
+  width:110px;
+  height:110px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size:62px;
+  font-weight:1000;
+  margin-bottom:18px;
+  color:#fff;
+}
+.suspense-result b{
+  max-width:780px;
+  padding:0 22px;
+  font-size:50px;
+  line-height:1.25;
+  color:var(--text);
+}
+.suspense-result span{
+  margin-top:15px;
+  padding:8px 18px;
+  border-radius:16px;
+  font-size:27px;
+  font-weight:1000;
+}
+.suspense-fx.is-correct .suspense-result-icon{
+  background:var(--green);
+  box-shadow:0 14px 40px color-mix(in srgb,var(--green) 42%,transparent);
+}
+.suspense-fx.is-correct .suspense-result span{
+  background:var(--accent-warm);
+  color:#2d2206;
+}
+.suspense-fx.is-wrong .suspense-result-icon{
+  background:var(--red);
+  box-shadow:0 14px 40px color-mix(in srgb,var(--red) 42%,transparent);
+}
+.suspense-fx.is-wrong .suspense-result b{
+  color:var(--red);
+}
+@keyframes suspensePulse{
+  from{transform:scale(.96);opacity:.65}
+  to{transform:scale(1.04);opacity:1}
+}
+@keyframes suspenseNumberPop{
+  from{transform:scale(.94)}
+  to{transform:scale(1.04)}
+}
+@media (max-width:700px){
+  .suspense-stage,.suspense-result{min-width:250px;min-height:250px}
+  .suspense-stage strong{width:122px;height:122px;font-size:70px}
+  .suspense-result b{font-size:35px}
+}

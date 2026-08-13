@@ -161,6 +161,19 @@
 
       <div class="turn-line">الدور على: <strong id="turnName"></strong></div>
 
+      <div id="suspenseFx" class="suspense-fx hidden" aria-live="polite">
+        <div id="suspenseStage" class="suspense-stage">
+          <span class="suspense-label">كم نقطة؟</span>
+          <strong id="suspenseNumber">1</strong>
+          <small>...</small>
+        </div>
+        <div id="suspenseResult" class="suspense-result hidden">
+          <div id="suspenseResultIcon" class="suspense-result-icon">✓</div>
+          <b id="suspenseResultText"></b>
+          <span id="suspenseResultPoints"></span>
+        </div>
+      </div>
+
       <div id="revealFx" class="reveal-fx hidden">
         <div class="spark">✨</div>
         <b id="revealAnswerText"></b>

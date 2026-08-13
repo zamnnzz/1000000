@@ -20,6 +20,62 @@ const cats=[
 let s={team1:"",team2:"",roundCount:4,picks:[],pickTurn:1,theme:"night"};
 let sessionId=null,gameRef=null,lastReveal=null,lastWrong=null,lastHintEarned=null,lastHintUsed=null,reuseExistingSession=false;
 const screens=["setupScreen","categoryScreen","pairScreen","gameScreen","finishScreen"];
+
+let suspenseInterval=null;
+let suspenseStageTimer=null;
+let suspenseHideTimer=null;
+
+function playSuspenseResult(result){
+ const fx=$("suspenseFx");
+ if(!fx)return;
+
+ clearInterval(suspenseInterval);
+ clearTimeout(suspenseStageTimer);
+ clearTimeout(suspenseHideTimer);
+
+ $("revealFx")?.classList.add("hidden");
+ $("wrongFx")?.classList.add("hidden");
+
+ fx.classList.remove("hidden","is-correct","is-wrong");
+ $("suspenseStage").classList.remove("hidden");
+ $("suspenseResult").classList.add("hidden");
+
+ let current=0;
+ const spin=()=>{
+   let next=current;
+   while(next===current) next=1+Math.floor(Math.random()*10);
+   current=next;
+   $("suspenseNumber").textContent=String(next);
+ };
+ spin();
+ suspenseInterval=setInterval(spin,105);
+
+ suspenseStageTimer=setTimeout(()=>{
+   clearInterval(suspenseInterval);
+   suspenseInterval=null;
+
+   $("suspenseStage").classList.add("hidden");
+   $("suspenseResult").classList.remove("hidden");
+
+   if(result.type==="correct"){
+     fx.classList.add("is-correct");
+     $("suspenseResultIcon").textContent="✓";
+     $("suspenseResultText").textContent=result.text;
+     $("suspenseResultPoints").textContent=`+${result.points} نقاط`;
+   }else{
+     fx.classList.add("is-wrong");
+     $("suspenseResultIcon").textContent="✕";
+     $("suspenseResultText").textContent="إجابة خطأ!";
+     $("suspenseResultPoints").textContent="";
+   }
+
+   suspenseHideTimer=setTimeout(()=>{
+     fx.classList.add("hidden");
+     fx.classList.remove("is-correct","is-wrong");
+   },2000);
+ },3000);
+}
+
 function applyTheme(theme){
   const t=theme||"night";
   document.body.dataset.theme=t;
@@ -158,8 +214,8 @@ function renderGame(g){
    const ownerClass=a.claimedBy===1?"claimed-team1":a.claimedBy===2?"claimed-team2":a.revealed?"claimed-none":"";
    return `<div class="answer ${a.revealed?"revealed":""} ${ownerClass}"><span class="n">${i+1}</span><span class="lock">${a.revealed?a.text:""}</span><span class="pts">${a.revealed?a.points:"?"}</span></div>`;
  }).join("");
- if(g.revealEvent?.id&&g.revealEvent.id!==lastReveal){lastReveal=g.revealEvent.id;$("revealAnswerText").textContent=g.revealEvent.text;$("revealAnswerPoints").textContent=`+${g.revealEvent.points} نقاط`;$("revealFx").classList.remove("hidden");setTimeout(()=>$("revealFx").classList.add("hidden"),1700)}
- if(g.wrongEvent?.id&&g.wrongEvent.id!==lastWrong){lastWrong=g.wrongEvent.id;$("wrongFx").classList.remove("hidden");setTimeout(()=>$("wrongFx").classList.add("hidden"),1200)}
+ if(g.revealEvent?.id&&g.revealEvent.id!==lastReveal){lastReveal=g.revealEvent.id;playSuspenseResult({type:"correct",text:g.revealEvent.text,points:g.revealEvent.points})}
+ if(g.wrongEvent?.id&&g.wrongEvent.id!==lastWrong){lastWrong=g.wrongEvent.id;playSuspenseResult({type:"wrong"})}
  if(g.hintEarnedEvent?.id&&g.hintEarnedEvent.id!==lastHintEarned){
    lastHintEarned=g.hintEarnedEvent.id;
    $("hintEarnedTeam").textContent=g.hintEarnedEvent.team;
