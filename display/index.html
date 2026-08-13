@@ -104,6 +104,28 @@
 
       <button id="copyHostLink" class="copy-btn">📋 نسخ رابط الهوست</button>
       <div id="pairStatus" class="pair-status">ننتظر دخول الهوست...</div>
+
+      <section id="liveRedraftView" class="live-redraft-view hidden">
+        <span class="live-redraft-kicker">اختيار الفئات للجولة الجديدة</span>
+        <h2 id="liveRedraftTurn"></h2>
+        <p id="liveRedraftProgress" class="muted"></p>
+
+        <div class="live-redraft-teams">
+          <div class="live-redraft-team team-one">
+            <b id="liveRedraftTeam1Name"></b>
+            <div id="liveRedraftTeam1Picks" class="live-redraft-picks"></div>
+          </div>
+          <div class="live-redraft-team team-two">
+            <b id="liveRedraftTeam2Name"></b>
+            <div id="liveRedraftTeam2Picks" class="live-redraft-picks"></div>
+          </div>
+        </div>
+
+        <div id="liveLatestPick" class="live-latest-pick hidden">
+          <span>آخر اختيار</span>
+          <strong id="liveLatestPickText"></strong>
+        </div>
+      </section>
     </div>
   </section>
 

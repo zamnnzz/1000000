@@ -83,13 +83,41 @@ $("finishSetup").onclick=async()=>{
 function listen(){
  onValue(gameRef,snap=>{
   const g=snap.val();if(!g)return;applyTheme(g.theme);
-  if(g.hostConnected&&g.status==="pairing"){$("pairStatus").textContent="✓ تم ربط الهوست — جاهز للبدء";$("pairStatus").classList.add("connected")}
+  if(g.hostConnected&&g.status==="pairing"){
+   $("liveRedraftView").classList.add("hidden");
+   $("pairStatus").textContent="✓ تم ربط الهوست — جاهز للبدء";
+   $("pairStatus").classList.add("connected");
+  }
   if(g.status==="redraft"){
    reuseExistingSession=true;
    s.team1=g.team1;s.team2=g.team2;s.roundCount=g.roundCount||4;s.theme=g.theme||s.theme;
+
+   const picks=g.picks||[];
+   const turn=g.pickTurn||1;
+   const who=turn===1?g.team1:g.team2;
+   const p1=picks.filter(p=>p.owner===1);
+   const p2=picks.filter(p=>p.owner===2);
+   const latest=picks[picks.length-1];
+
    $("pairStatus").textContent="الهوست يختار الفئات للجولة الجديدة…";
    $("pairStatus").classList.remove("connected");
    $("sessionCode").textContent=sessionId||"";
+
+   $("liveRedraftView").classList.remove("hidden");
+   $("liveRedraftTurn").textContent=`${who} يختار الآن`;
+   $("liveRedraftProgress").textContent=`تم اختيار ${picks.length} من ${g.roundCount}`;
+   $("liveRedraftTeam1Name").textContent=g.team1;
+   $("liveRedraftTeam2Name").textContent=g.team2;
+   $("liveRedraftTeam1Picks").innerHTML=p1.length?p1.map(p=>`<span>${p.category}</span>`).join(""):"<small>ما اختار شيء إلى الآن</small>";
+   $("liveRedraftTeam2Picks").innerHTML=p2.length?p2.map(p=>`<span>${p.category}</span>`).join(""):"<small>ما اختار شيء إلى الآن</small>";
+
+   if(latest){
+     $("liveLatestPick").classList.remove("hidden");
+     $("liveLatestPickText").textContent=`${latest.owner===1?g.team1:g.team2}: ${latest.category}`;
+   }else{
+     $("liveLatestPick").classList.add("hidden");
+   }
+
    show("pairScreen");
   }
   if(g.status==="game"){show("gameScreen");renderGame(g)}

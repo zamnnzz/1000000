@@ -1635,3 +1635,109 @@ body[data-theme] .host-redraft-category:hover:not(:disabled){
   .host-redraft-categories{grid-template-columns:repeat(2,1fr)}
   .host-redraft-category{min-height:48px;font-size:12px}
 }
+
+
+/* ===== Live category-pick status on player display ===== */
+.live-redraft-view{
+  width:min(820px,100%);
+  margin:18px auto 0;
+  padding:22px;
+  border-radius:22px;
+  border:1px solid color-mix(in srgb,var(--text) 15%,transparent);
+  background:color-mix(in srgb,var(--panel-soft) 90%,transparent);
+  text-align:center;
+}
+.live-redraft-kicker{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:0 12px;
+  border-radius:999px;
+  background:color-mix(in srgb,var(--accent) 13%,transparent);
+  color:var(--accent);
+  font-size:11px;
+  font-weight:900;
+}
+.live-redraft-view h2{
+  margin:10px 0 4px;
+  font-size:clamp(26px,4vw,42px);
+}
+.live-redraft-teams{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
+.live-redraft-team{
+  min-height:135px;
+  padding:15px;
+  border-radius:18px;
+  border:1px solid color-mix(in srgb,var(--text) 11%,transparent);
+  background:color-mix(in srgb,var(--panel-solid) 84%,transparent);
+}
+.live-redraft-team.team-one{
+  box-shadow:inset 0 4px 0 var(--team1-color);
+}
+.live-redraft-team.team-two{
+  box-shadow:inset 0 4px 0 var(--team2-color);
+}
+.live-redraft-team>b{
+  display:block;
+  margin-bottom:10px;
+  font-size:18px;
+}
+.live-redraft-picks{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:7px;
+}
+.live-redraft-picks span{
+  display:inline-flex;
+  align-items:center;
+  min-height:31px;
+  padding:0 11px;
+  border-radius:999px;
+  background:color-mix(in srgb,var(--accent) 12%,var(--panel-soft));
+  border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);
+  color:var(--text);
+  font-size:11px;
+  font-weight:900;
+}
+.live-redraft-picks small{
+  color:var(--muted);
+  font-size:11px;
+}
+.live-latest-pick{
+  width:max-content;
+  max-width:100%;
+  margin:14px auto 0;
+  padding:10px 15px;
+  border-radius:14px;
+  background:color-mix(in srgb,var(--accent-warm) 13%,var(--panel-soft));
+  border:1px solid color-mix(in srgb,var(--accent-warm) 38%,transparent);
+}
+.live-latest-pick span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+.live-latest-pick strong{
+  display:block;
+  margin-top:2px;
+  color:var(--text);
+  font-size:15px;
+}
+@media(max-width:650px){
+  .live-redraft-view{padding:15px}
+  .live-redraft-teams{grid-template-columns:1fr}
+  .live-redraft-team{min-height:105px}
+}
+
+/* TOP 10 in host header is now a static logo, not a home/back link */
+.host-logo-static{
+  cursor:default;
+  user-select:none;
+  pointer-events:none;
+}
