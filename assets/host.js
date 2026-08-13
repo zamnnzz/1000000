@@ -75,6 +75,10 @@ async function reveal(i){
    answerTurn:newTurn,
    revealEvent:{id:Date.now(),text:a[i].text,points:pts},
    wrongEvent:null,
+   // التلميح يظل ظاهرًا فقط إلى أن تُفتح إجابة واحدة.
+   activeHint:null,
+   activeHints:[],
+   hintUseCount:0,
    updatedAt:Date.now()
  };
 
