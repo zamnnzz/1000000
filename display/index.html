@@ -4,74 +4,135 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Top 10 — شاشة العرض</title>
 <link rel="stylesheet" href="/assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
-<body class="display-body">
+<body>
 <div class="stars"></div>
-<main class="display-shell">
 
-  <section id="waitingDisplay" class="waiting-display">
-    <div class="mascot">
-      <div class="antenna"><i></i><i></i></div>
-      <div class="mascot-eyes"><i></i><i></i></div>
-      <div class="mascot-smile"></div>
-      <span class="ten">10</span>
-    </div>
-    <div class="logo-title">TOP <span>10</span></div>
-    <h1>ننتظر الهوست...</h1>
-    <p>خل شاشة الهوست تبدأ اللعبة، وكل شيء بيظهر هنا تلقائي.</p>
-    <div class="dots"><i></i><i></i><i></i></div>
-  </section>
+<main class="display-app">
+  <!-- 1 setup -->
+  <section id="setupScreen" class="screen active">
+    <div class="panel setup-panel">
+      <div class="logo-small">TOP <span>10</span></div>
+      <span class="eyebrow">التجهيز</span>
+      <h1>جهّز اللعبة</h1>
+      <p class="muted">اكتب أسماء الفريقين وحدد عدد الجولات.</p>
 
-  <section id="draftDisplay" class="draft-display hidden">
-    <div class="display-card">
-      <span class="screen-kicker">اختيار الفئات</span>
-      <h1 id="displayDraftTurn">الدور على...</h1>
-      <p>اختاروا فئة للتحدي 🎯</p>
-      <div id="displayPicks" class="display-picks"></div>
-    </div>
-  </section>
-
-  <section id="gameDisplay" class="game-display hidden">
-    <header class="display-scorebar">
-      <div id="displayTeam1Card" class="display-score blue">
-        <span id="displayTeam1">الفريق الأول</span><b id="displayScore1">0</b>
+      <div class="team-grid">
+        <label class="team-box blue">
+          <b>الفريق الأول</b>
+          <input id="team1" maxlength="18" placeholder="مثال: الصقور">
+        </label>
+        <label class="team-box pink">
+          <b>الفريق الثاني</b>
+          <input id="team2" maxlength="18" placeholder="مثال: الذئاب">
+        </label>
       </div>
 
-      <div class="display-round">
-        <span id="displayRoundCounter">الجولة 1 من 4</span>
-        <strong id="displayCategory">الفئة</strong>
+      <div class="round-box">
+        <div><b>عدد الجولات</b><small>كل جولة = فئة واحدة</small></div>
+        <div id="roundBtns" class="round-btns">
+          <button data-n="2">2</button>
+          <button data-n="4" class="active">4</button>
+          <button data-n="6">6</button>
+          <button data-n="8">8</button>
+        </div>
       </div>
 
-      <div id="displayTeam2Card" class="display-score pink">
-        <span id="displayTeam2">الفريق الثاني</span><b id="displayScore2">0</b>
-      </div>
-    </header>
-
-    <section class="display-question">
-      <span id="ownerChip" class="owner-chip">اختيار الفريق</span>
-      <h1 id="displayQuestion">السؤال</h1>
-    </section>
-
-    <section id="displayAnswers" class="display-answers"></section>
-
-    <section class="display-turn">
-      <span>الدور على</span><strong id="displayTurn">الفريق</strong>
-    </section>
-
-    <div id="revealFx" class="reveal-fx hidden">
-      <div class="boom">✨</div><b id="revealText"></b><span id="revealPoints"></span>
+      <button id="toCategories" class="primary">التالي: اختيار الفئات ←</button>
     </div>
-    <div id="wrongFx" class="wrong-fx hidden">✕ مو موجودة!</div>
   </section>
 
-  <section id="finishDisplay" class="finish-display hidden">
-    <div class="confetti">🎉 ✨ 🎊</div>
-    <div class="cup giant">🏆</div>
-    <span class="screen-kicker">النهاية</span>
-    <h1 id="displayWinner"></h1>
-    <p id="displayFinalScore"></p>
+  <!-- 2 draft categories -->
+  <section id="categoryScreen" class="screen">
+    <div class="panel wide">
+      <span class="eyebrow">اختيار الجولات</span>
+      <h1 id="pickTitle">الدور على الفريق</h1>
+      <p id="pickHint" class="muted"></p>
+
+      <div class="progress"><i id="pickProgress"></i></div>
+      <div id="categories" class="category-grid"></div>
+
+      <div class="picks-area">
+        <div>
+          <b id="p1Title"></b>
+          <div id="p1Picks" class="chips"></div>
+        </div>
+        <div>
+          <b id="p2Title"></b>
+          <div id="p2Picks" class="chips"></div>
+        </div>
+      </div>
+
+      <button id="finishSetup" class="primary center hidden">إنهاء التجهيز وإظهار الهوست ←</button>
+    </div>
+  </section>
+
+  <!-- 3 pairing host -->
+  <section id="pairScreen" class="screen">
+    <div class="pair-panel">
+      <span class="eyebrow">ربط جهاز التحكم</span>
+      <h1>امسح الباركود من جهاز الهوست</h1>
+      <p class="muted">كل شيء جاهز. افتح الرابط في جوال أو لابتوب المقدم، وبعدها يبدأ اللعب من هناك.</p>
+
+      <div class="qr-shell"><div id="qr"></div></div>
+
+      <div class="session-code">كود الجلسة: <strong id="sessionCode"></strong></div>
+
+      <div class="link-box">
+        <span>رابط الهوست</span>
+        <code id="hostLink"></code>
+      </div>
+
+      <button id="copyHostLink" class="copy-btn">📋 نسخ رابط الهوست</button>
+      <div id="pairStatus" class="pair-status">ننتظر دخول الهوست...</div>
+    </div>
+  </section>
+
+  <!-- 4 actual game -->
+  <section id="gameScreen" class="screen">
+    <div class="game-panel">
+      <header class="scorebar">
+        <div id="scoreCard1" class="score-card blue">
+          <span id="name1"></span><b id="score1">0</b>
+        </div>
+        <div class="round-center">
+          <span id="roundCountText"></span>
+          <strong id="categoryName"></strong>
+        </div>
+        <div id="scoreCard2" class="score-card pink">
+          <span id="name2"></span><b id="score2">0</b>
+        </div>
+      </header>
+
+      <section class="question-area">
+        <span id="ownerLabel" class="owner-label"></span>
+        <h1 id="questionText"></h1>
+      </section>
+
+      <section id="answerBoard" class="answers"></section>
+
+      <div class="turn-line">الدور على: <strong id="turnName"></strong></div>
+
+      <div id="revealFx" class="reveal-fx hidden">
+        <div class="spark">✨</div>
+        <b id="revealAnswerText"></b>
+        <span id="revealAnswerPoints"></span>
+      </div>
+      <div id="wrongFx" class="wrong-fx hidden">✕ مو موجودة!</div>
+    </div>
+  </section>
+
+  <section id="finishScreen" class="screen">
+    <div class="finish-panel">
+      <div class="trophy">🏆</div>
+      <span class="eyebrow">انتهت اللعبة</span>
+      <h1 id="winnerText"></h1>
+      <p id="finalScore" class="muted"></p>
+    </div>
   </section>
 </main>
 
 <script type="module" src="/assets/display.js"></script>
-</body></html>
+</body>
+</html>

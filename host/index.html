@@ -5,88 +5,58 @@
 <title>Top 10 — الهوست</title>
 <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body class="host-body">
+<body class="host-page">
 <div class="stars"></div>
-<header class="host-topbar">
-  <a href="/" class="brand-small">TOP <span>10</span></a>
-  <div class="live-pill"><i></i> متصل بالشاشة</div>
-  <a class="open-display" href="/display/" target="_blank">فتح شاشة العرض ↗</a>
+<header class="host-header">
+  <a href="/" class="logo-small">TOP <span>10</span></a>
+  <div id="connectionBadge" class="connection-badge">جاري الاتصال...</div>
 </header>
 
-<main class="host-shell">
-
-  <section id="setupStep" class="host-card">
-    <span class="step-kicker">الخطوة 1</span>
-    <h1>سمّوا الفريقين</h1>
-    <p class="muted">وبعدها اختر عدد الجولات.</p>
-
-    <div class="host-team-grid">
-      <label class="host-team-input blue">
-        <span>الفريق الأول</span><input id="team1" maxlength="18" placeholder="الصقور">
-      </label>
-      <label class="host-team-input pink">
-        <span>الفريق الثاني</span><input id="team2" maxlength="18" placeholder="الذئاب">
-      </label>
-    </div>
-
-    <div class="round-chooser">
-      <div><b>عدد الجولات</b><small>كل جولة = فئة واحدة</small></div>
-      <div id="roundBtns" class="round-btns">
-        <button data-n="2">2</button><button class="active" data-n="4">4</button>
-        <button data-n="6">6</button><button data-n="8">8</button>
-      </div>
-    </div>
-    <button id="toDraft" class="cta">التالي: اختيار الفئات ←</button>
+<main class="host-wrap">
+  <section id="badSession" class="host-card hidden">
+    <h1>الرابط غير صحيح</h1>
+    <p class="muted">افتح رابط الهوست الذي ظهر على شاشة العرض.</p>
   </section>
 
-  <section id="draftStep" class="host-card hidden">
-    <span class="step-kicker">الخطوة 2</span>
-    <h1 id="draftTurnTitle">الدور على الفريق</h1>
-    <p id="draftHint" class="muted"></p>
-
-    <div class="draft-meter"><i id="draftMeter"></i></div>
-    <div id="hostCategories" class="host-category-grid"></div>
-
-    <div class="draft-picks">
-      <div><b id="p1name">الفريق الأول</b><div id="p1picks"></div></div>
-      <div><b id="p2name">الفريق الثاني</b><div id="p2picks"></div></div>
-    </div>
-
-    <button id="startGame" class="cta hidden">ابدأ اللعب ▶</button>
+  <section id="readyHost" class="host-card hidden">
+    <span class="eyebrow">الجلسة جاهزة</span>
+    <h1 id="readyTitle">جاهز تبدأ؟</h1>
+    <p class="muted">راجع الاختيارات ثم ابدأ اللعب.</p>
+    <div id="readyPicks" class="ready-picks"></div>
+    <button id="startGameBtn" class="primary">ابدأ اللعب ▶</button>
   </section>
 
-  <section id="controlStep" class="host-card control-card hidden">
-    <div class="control-head">
+  <section id="controlHost" class="host-card hidden">
+    <div class="host-control-head">
       <div>
-        <span class="step-kicker" id="hostRoundCounter">الجولة 1</span>
-        <h1 id="hostCategory">الفئة</h1>
-        <p id="hostQuestion" class="question-host"></p>
+        <span class="eyebrow" id="hostRoundLabel"></span>
+        <h1 id="hostCategory"></h1>
+        <p id="hostQuestion"></p>
       </div>
-      <div class="mini-scores">
-        <span class="score-a"><b id="hostTeam1">فريق 1</b><strong id="hostScore1">0</strong></span>
-        <span class="score-b"><b id="hostTeam2">فريق 2</b><strong id="hostScore2">0</strong></span>
+      <div class="host-scores">
+        <span><b id="hostName1"></b><strong id="hostScore1">0</strong></span>
+        <span><b id="hostName2"></b><strong id="hostScore2">0</strong></span>
       </div>
     </div>
 
-    <div class="host-turn-banner">الدور: <strong id="hostTurn">—</strong></div>
+    <div class="host-turn">الدور: <strong id="hostTurnName"></strong></div>
 
-    <h3 class="answer-title">اضغط الإجابة التي قالها الفريق</h3>
-    <div id="hostAnswers" class="host-answer-grid"></div>
+    <h3>اضغط الإجابة التي قالها الفريق</h3>
+    <div id="hostAnswers" class="host-answers"></div>
 
     <div class="host-actions">
-      <button id="wrongBtn" class="wrong-host">✕ إجابة خطأ</button>
-      <button id="nextRoundBtn" class="next-host hidden">الجولة التالية ←</button>
+      <button id="wrongBtn" class="wrong-btn">✕ إجابة خطأ</button>
+      <button id="nextRoundBtn" class="next-btn hidden">الجولة التالية ←</button>
     </div>
   </section>
 
-  <section id="finishStep" class="host-card finish-host hidden">
-    <div class="cup">🏆</div>
-    <span class="step-kicker">انتهت اللعبة</span>
+  <section id="finishHost" class="host-card hidden">
+    <div class="trophy small">🏆</div>
     <h1 id="hostWinner"></h1>
     <p id="hostFinalScore" class="muted"></p>
-    <button id="restartHost" class="cta">لعبة جديدة ↻</button>
   </section>
 </main>
 
 <script type="module" src="/assets/host.js"></script>
-</body></html>
+</body>
+</html>

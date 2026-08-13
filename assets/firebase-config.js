@@ -5,5 +5,3 @@ export const firebaseConfig = {
   projectId: "horof-game-9934e",
   appId: "1:44896634225:web:62a672d8c94be6e0d762d0"
 };
-
-export const GAME_PATH = "top10/current";

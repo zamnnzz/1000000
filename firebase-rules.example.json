@@ -1,8 +1,12 @@
 {
   "rules": {
     "top10": {
-      ".read": true,
-      ".write": true
+      "sessions": {
+        "$session": {
+          ".read": true,
+          ".write": true
+        }
+      }
     }
   }
 }
