@@ -4,7 +4,12 @@ import { firebaseConfig } from "./firebase-config.js";
 const app=initializeApp(firebaseConfig),db=getDatabase(app),$=id=>document.getElementById(id);
 const session=new URLSearchParams(location.hash.slice(1)).get("session");
 let gameRef=null,state=null;
-function applyTheme(theme){document.body.dataset.theme=theme||"night"}
+function applyTheme(theme){
+  const t=theme||"night";
+  document.body.dataset.theme=t;
+  const names={night:"ليلي بنفسجي",sunset:"بيج وبرتقالي",mint:"نعناعي سماوي"};
+  if($("themeSyncBadge")) $("themeSyncBadge").innerHTML=`<i></i><span>${names[t]||"الثيم متزامن"}</span>`;
+}
 const bank={
 "سيارات":{question:"اذكر أشهر ماركات السيارات اليابانية",hint:"فكروا بالشركات التي تنتشر سياراتها بكثرة في الخليج واليابان.",answers:[["تويوتا",10],["نيسان",9],["هوندا",8],["مازدا",7],["سوبارو",6],["ميتسوبيشي",5],["سوزوكي",4],["لكزس",3],["إنفينيتي",2],["أكيورا",1]]},
 "كرة قدم":{question:"اذكر أندية كرة قدم أوروبية مشهورة",hint:"ركزوا على أندية إنجلترا وإسبانيا وإيطاليا وألمانيا وفرنسا.",answers:[["ريال مدريد",10],["برشلونة",9],["مانشستر يونايتد",8],["ليفربول",7],["بايرن ميونخ",6],["مانشستر سيتي",5],["ميلان",4],["إنتر ميلان",3],["أرسنال",2],["باريس سان جيرمان",1]]},
@@ -45,6 +50,7 @@ async function startRound(g){
 function renderControl(g){
  $("hostRoundLabel").textContent=`الجولة ${g.currentRoundIndex+1} من ${g.roundCount}`;$("hostCategory").textContent=g.currentCategory;$("hostQuestion").textContent=g.currentQuestion;
  $("hostName1").textContent=g.team1;$("hostName2").textContent=g.team2;$("hostScore1").textContent=g.score1||0;$("hostScore2").textContent=g.score2||0;$("hostTurnName").textContent=g.answerTurn===1?g.team1:g.team2;
+ $("controlHost").dataset.turn=String(g.answerTurn||1);
  $("hintTeam1Name").textContent=g.team1;$("hintTeam2Name").textContent=g.team2;
  $("hintCount1").textContent=g.hints1||0;$("hintCount2").textContent=g.hints2||0;
  $("useHint1").disabled=!(g.hints1>0)||!!g.activeHint;

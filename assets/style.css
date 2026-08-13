@@ -134,3 +134,350 @@ body[data-theme="mint"] .link-box code{color:#246c74}
   .hint-control{grid-template-columns:1fr}
   .hint-note{grid-column:1}
 }
+
+
+/* ===== FULL THEME CONSISTENCY + HOST POLISH ===== */
+
+/* Global theme inheritance */
+body[data-theme]{
+  --surface:var(--panel-bg);
+  --surface-solid:var(--panel-solid);
+  --surface-soft:var(--panel-soft);
+  --surface-strong:color-mix(in srgb,var(--panel-solid) 82%,var(--accent) 18%);
+  --border:var(--line);
+  --shadow:color-mix(in srgb,var(--accent) 18%,transparent);
+  --text-main:var(--text);
+  --text-soft:var(--muted);
+}
+
+/* Force common UI to follow theme */
+body[data-theme] .panel,
+body[data-theme] .pair-panel,
+body[data-theme] .game-panel,
+body[data-theme] .finish-panel,
+body[data-theme] .host-card{
+  background:var(--surface);
+  color:var(--text-main);
+  border-color:color-mix(in srgb,var(--text-main) 55%,transparent);
+  box-shadow:0 28px 90px rgba(0,0,0,.18),0 0 0 1px var(--shadow);
+}
+body[data-theme] .team-box,
+body[data-theme] .round-box,
+body[data-theme] .picks-area>div,
+body[data-theme] .link-box,
+body[data-theme] .ready-picks>div,
+body[data-theme] .host-scores span,
+body[data-theme] .host-answer,
+body[data-theme] .answer,
+body[data-theme] .category,
+body[data-theme] .host-turn,
+body[data-theme] .hint-team,
+body[data-theme] .hint-control,
+body[data-theme] .score-card,
+body[data-theme] .connection-badge,
+body[data-theme] .round-btns button,
+body[data-theme] .owner-label,
+body[data-theme] .theme-choice{
+  background:var(--surface-soft);
+  color:var(--text-main);
+  border-color:var(--border);
+}
+body[data-theme] .team-box input,
+body[data-theme] .host-team-input input,
+body[data-theme] .modal-card,
+body[data-theme] .host-answer .n,
+body[data-theme] .host-answer .p,
+body[data-theme] .answer .n,
+body[data-theme] .answer .pts{
+  background:var(--surface-solid);
+  color:var(--text-main);
+  border-color:var(--border);
+}
+body[data-theme] .muted,
+body[data-theme] .team-box small,
+body[data-theme] .round-box small,
+body[data-theme] .host-scores b,
+body[data-theme] .turn-line,
+body[data-theme] .connection-badge,
+body[data-theme] .theme-title small{
+  color:var(--text-soft);
+}
+body[data-theme] .eyebrow,
+body[data-theme] .screen-kicker,
+body[data-theme] .round-center span,
+body[data-theme] .step-kicker{
+  color:var(--cyan);
+}
+body[data-theme] .score-card b,
+body[data-theme] .display-score b,
+body[data-theme] .host-scores strong,
+body[data-theme] .turn-line strong,
+body[data-theme] .host-turn strong,
+body[data-theme] .session-code strong{
+  color:var(--accent-warm);
+}
+body[data-theme] .category:hover,
+body[data-theme] .host-answer:hover{
+  background:var(--surface-strong);
+  border-color:color-mix(in srgb,var(--accent) 58%,var(--border));
+}
+body[data-theme] .round-btns button.active,
+body[data-theme] .theme-choice.active{
+  background:var(--accent);
+  color:var(--accent-text);
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent);
+}
+body[data-theme] .progress i,
+body[data-theme] .draft-meter i{
+  background:linear-gradient(90deg,var(--accent),var(--cyan));
+}
+body[data-theme] .copy-btn{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cyan) 75%,white),var(--cyan));
+  color:color-mix(in srgb,var(--text-main) 25%,#000);
+  box-shadow:0 6px 0 color-mix(in srgb,var(--cyan) 55%,#000);
+}
+body[data-theme] .wrong-btn,
+body[data-theme] .wrong-host{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--red) 90%,white),var(--red));
+}
+body[data-theme] .next-btn,
+body[data-theme] .next-host{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--green) 88%,white),var(--green));
+}
+body[data-theme] .hint-btn{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--accent-warm) 86%,white),var(--accent-warm));
+  color:#33270a;
+}
+body[data-theme] .answer .pts,
+body[data-theme] .host-answer .p{
+  background:var(--accent-warm);
+  color:#33270a;
+}
+body[data-theme] .answer.revealed,
+body[data-theme] .display-answer.revealed{
+  background:linear-gradient(90deg,color-mix(in srgb,var(--green) 18%,var(--surface-soft)),var(--surface-soft));
+  border-color:color-mix(in srgb,var(--green) 55%,transparent);
+}
+body[data-theme] .answer.revealed .n,
+body[data-theme] .answer.revealed .pts,
+body[data-theme] .display-answer.revealed .n,
+body[data-theme] .display-answer.revealed .pts{
+  background:var(--green);
+  color:#062116;
+}
+
+/* Beige theme: avoid dark leftovers */
+body[data-theme="sunset"] .logo-small,
+body[data-theme="sunset"] .brand-small,
+body[data-theme="sunset"] .host-header a,
+body[data-theme="sunset"] .host-card,
+body[data-theme="sunset"] .host-card h1,
+body[data-theme="sunset"] .host-card h2,
+body[data-theme="sunset"] .host-card h3,
+body[data-theme="sunset"] .panel,
+body[data-theme="sunset"] .pair-panel,
+body[data-theme="sunset"] .game-panel,
+body[data-theme="sunset"] .finish-panel{
+  color:#2d241b;
+}
+body[data-theme="sunset"] .logo-small span,
+body[data-theme="sunset"] .brand-small span{
+  color:#2a1a05;
+}
+body[data-theme="sunset"] .live-pill,
+body[data-theme="sunset"] .connection-badge.ok{
+  background:rgba(46,170,117,.12);
+  color:#217651;
+  border-color:rgba(46,170,117,.25);
+}
+body[data-theme="sunset"] .open-display{color:#9d5122}
+body[data-theme="sunset"] .link-box code{color:#8a4b1f}
+body[data-theme="sunset"] .owner-label{color:#5a4632}
+body[data-theme="sunset"] .answer .lock:not(:empty),
+body[data-theme="sunset"] .host-answer b{color:#2d241b}
+
+/* Mint theme: avoid dark leftovers */
+body[data-theme="mint"] .logo-small,
+body[data-theme="mint"] .brand-small,
+body[data-theme="mint"] .host-header a,
+body[data-theme="mint"] .host-card,
+body[data-theme="mint"] .host-card h1,
+body[data-theme="mint"] .host-card h2,
+body[data-theme="mint"] .host-card h3,
+body[data-theme="mint"] .panel,
+body[data-theme="mint"] .pair-panel,
+body[data-theme="mint"] .game-panel,
+body[data-theme="mint"] .finish-panel{
+  color:#173334;
+}
+body[data-theme="mint"] .live-pill,
+body[data-theme="mint"] .connection-badge.ok{
+  background:rgba(46,167,120,.12);
+  color:#1c6a52;
+  border-color:rgba(46,167,120,.25);
+}
+body[data-theme="mint"] .open-display{color:#246c74}
+body[data-theme="mint"] .link-box code{color:#246c74}
+body[data-theme="mint"] .owner-label{color:#375c60}
+body[data-theme="mint"] .answer .lock:not(:empty),
+body[data-theme="mint"] .host-answer b{color:#173334}
+
+/* Host page layout polish */
+.host-page{
+  min-height:100vh;
+}
+.host-header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  width:min(1080px,calc(100% - 24px));
+  height:72px;
+  margin:auto;
+  padding:0 4px;
+  backdrop-filter:blur(10px);
+}
+.host-wrap{
+  width:min(980px,calc(100% - 24px));
+  margin:18px auto 48px;
+}
+.host-card{
+  border-radius:26px;
+  padding:26px;
+}
+.readyHost{}
+.ready-picks{
+  margin:18px 0 22px;
+}
+.ready-picks>div{
+  border:1px solid var(--border);
+}
+.ready-picks b{
+  display:block;
+  font-size:15px;
+  margin-bottom:8px;
+}
+.ready-picks span{
+  background:var(--surface-strong);
+  color:var(--text-main);
+}
+.host-control-head{
+  align-items:start;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.host-control-head h1{
+  margin:5px 0 7px;
+}
+.host-control-head p{
+  margin:0;
+  color:var(--text-main);
+}
+.host-scores span{
+  border:1px solid var(--border);
+}
+.host-turn{
+  margin:14px 0 10px;
+  border:1px solid var(--border);
+}
+.hint-control{
+  margin:10px 0 14px;
+}
+.hint-team{
+  min-height:58px;
+}
+.host-card h3{
+  margin:16px 0 10px;
+}
+.host-answers{
+  gap:9px;
+}
+.host-answer{
+  min-height:58px;
+  border-radius:13px;
+}
+.host-answer b{
+  font-size:14px;
+  line-height:1.35;
+}
+.host-actions{
+  position:sticky;
+  bottom:10px;
+  padding-top:10px;
+  background:linear-gradient(180deg,transparent,var(--surface) 35%);
+}
+.host-actions button{
+  min-height:54px;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+/* Host visual emphasis by current team */
+.host-card[data-turn="1"] .host-turn{
+  box-shadow:inset 5px 0 0 var(--blue);
+}
+.host-card[data-turn="2"] .host-turn{
+  box-shadow:inset 5px 0 0 var(--pink);
+}
+
+/* Theme synced badge */
+.theme-sync-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:var(--surface-soft);
+  border:1px solid var(--border);
+  font-size:11px;
+  color:var(--text-soft);
+}
+.theme-sync-badge i{
+  width:10px;height:10px;border-radius:50%;background:var(--accent);
+}
+
+/* Display pairing polish per theme */
+body[data-theme] .pair-panel{
+  background:var(--surface);
+}
+body[data-theme] .qr-shell{
+  border-color:color-mix(in srgb,var(--text-main) 80%,#000);
+  background:#fff;
+}
+body[data-theme] .session-code,
+body[data-theme] .pair-status{
+  color:var(--text-soft);
+}
+
+/* Ensure old fixed dark colors in display answer board adapt */
+body[data-theme] .display-answer{
+  background:var(--surface-soft);
+  border-color:var(--border);
+}
+body[data-theme] .display-answer .n{
+  background:var(--surface-strong);
+  color:var(--text-main);
+}
+body[data-theme] .display-answer .lock{
+  background:color-mix(in srgb,var(--text-soft) 34%,transparent);
+}
+body[data-theme] .display-answer.revealed .lock{
+  background:transparent;
+  color:var(--text-main);
+}
+body[data-theme] .display-score{
+  background:var(--surface-soft);
+  border-color:var(--border);
+}
+
+/* Responsive host cleanup */
+@media(max-width:700px){
+  .host-header{height:62px}
+  .host-wrap{margin-top:10px}
+  .host-card{padding:18px 14px;border-radius:20px}
+  .host-control-head{grid-template-columns:1fr}
+  .host-scores{width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .host-scores span{min-width:0}
+  .hint-team{gap:6px}
+  .hint-btn{padding:7px 8px}
+  .host-actions{grid-template-columns:1fr;bottom:4px}
+}

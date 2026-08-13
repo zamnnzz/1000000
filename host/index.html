@@ -9,7 +9,10 @@
 <div class="stars"></div>
 <header class="host-header">
   <a href="/" class="logo-small">TOP <span>10</span></a>
-  <div id="connectionBadge" class="connection-badge">جاري الاتصال...</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div id="themeSyncBadge" class="theme-sync-badge"><i></i><span>الثيم متزامن</span></div>
+    <div id="connectionBadge" class="connection-badge">جاري الاتصال...</div>
+  </div>
 </header>
 
 <main class="host-wrap">
@@ -26,7 +29,7 @@
     <button id="startGameBtn" class="primary">ابدأ اللعب ▶</button>
   </section>
 
-  <section id="controlHost" class="host-card hidden">
+  <section id="controlHost" class="host-card hidden" data-turn="1">
     <div class="host-control-head">
       <div>
         <span class="eyebrow" id="hostRoundLabel"></span>

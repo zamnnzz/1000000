@@ -12,7 +12,11 @@ const cats=[
 let s={team1:"",team2:"",roundCount:4,picks:[],pickTurn:1,theme:"night"};
 let sessionId=null,gameRef=null,lastReveal=null,lastWrong=null,lastHintEarned=null,lastHintUsed=null;
 const screens=["setupScreen","categoryScreen","pairScreen","gameScreen","finishScreen"];
-function applyTheme(theme){document.body.dataset.theme=theme||"night"}
+function applyTheme(theme){
+  const t=theme||"night";
+  document.body.dataset.theme=t;
+  document.querySelectorAll("#themeChoices .theme-choice").forEach(b=>b.classList.toggle("active",b.dataset.theme===t));
+}
 applyTheme(s.theme);
 document.querySelectorAll("#themeChoices .theme-choice").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#themeChoices .theme-choice").forEach(x=>x.classList.remove("active"));
