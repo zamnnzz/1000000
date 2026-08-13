@@ -481,28 +481,3 @@ body[data-theme] .display-score{
   .hint-btn{padding:7px 8px}
   .host-actions{grid-template-columns:1fr;bottom:4px}
 }
-
-
-/* ===== Accumulating streak hints ===== */
-.active-hints-list{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  justify-content:center;
-  margin-top:7px;
-}
-.active-hints-list b{
-  display:inline-block;
-  padding:6px 9px;
-  border-radius:9px;
-  background:color-mix(in srgb,var(--accent-warm) 14%,var(--surface-solid));
-  border:1px solid color-mix(in srgb,var(--accent-warm) 30%,var(--border));
-  color:var(--text-main);
-  font-size:12px;
-}
-.hint-btn:not(:disabled){
-  animation:hintGlow 1.7s ease-in-out infinite;
-}
-@keyframes hintGlow{
-  50%{box-shadow:0 0 0 5px color-mix(in srgb,var(--accent-warm) 15%,transparent)}
-}
