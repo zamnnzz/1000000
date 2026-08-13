@@ -18,7 +18,7 @@ const cats=[
 ["حيوانات","🐾"]
 ];
 let s={team1:"",team2:"",roundCount:4,picks:[],pickTurn:1,theme:"night"};
-let sessionId=null,gameRef=null,lastReveal=null,lastWrong=null,lastHintEarned=null,lastHintUsed=null;
+let sessionId=null,gameRef=null,lastReveal=null,lastWrong=null,lastHintEarned=null,lastHintUsed=null,reuseExistingSession=false;
 const screens=["setupScreen","categoryScreen","pairScreen","gameScreen","finishScreen"];
 function applyTheme(theme){
   const t=theme||"night";
@@ -47,6 +47,29 @@ function renderDraft(){
 function chips(a){return a.length?a.map(p=>`<span>${p.category}</span>`).join(""):"<span>—</span>"}
 function makeCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
 $("finishSetup").onclick=async()=>{
+ if(reuseExistingSession&&gameRef&&sessionId){
+   await update(gameRef,{
+     ...s,
+     status:"pairing",
+     hostConnected:true,
+     currentRoundIndex:0,
+     score1:0,score2:0,
+     hints1:0,hints2:0,
+     streak1:0,streak2:0,
+     wrong1:0,wrong2:0,
+     locked1:false,locked2:false,
+     roundClosed:false,
+     activeHint:null,activeHints:[],
+     winner:null,
+     updatedAt:Date.now()
+   });
+   reuseExistingSession=false;
+   $("pairStatus").textContent="✓ تم اختيار الفئات — الهوست متصل وجاهز";
+   $("pairStatus").classList.add("connected");
+   show("pairScreen");
+   return;
+ }
+
  sessionId=makeCode();
  gameRef=ref(db,`top10/sessions/${sessionId}`);
  await set(gameRef,{...s,status:"pairing",hostConnected:false,currentRoundIndex:0,score1:0,score2:0,hints1:0,hints2:0,streak1:0,streak2:0,wrong1:0,wrong2:0,locked1:false,locked2:false,activeHint:null,createdAt:Date.now()});
@@ -61,6 +84,14 @@ function listen(){
  onValue(gameRef,snap=>{
   const g=snap.val();if(!g)return;applyTheme(g.theme);
   if(g.hostConnected&&g.status==="pairing"){$("pairStatus").textContent="✓ تم ربط الهوست — جاهز للبدء";$("pairStatus").classList.add("connected")}
+  if(g.status==="redraft"){
+   reuseExistingSession=true;
+   s.team1=g.team1;s.team2=g.team2;s.roundCount=g.roundCount||4;s.theme=g.theme||s.theme;
+   $("pairStatus").textContent="الهوست يختار الفئات للجولة الجديدة…";
+   $("pairStatus").classList.remove("connected");
+   $("sessionCode").textContent=sessionId||"";
+   show("pairScreen");
+  }
   if(g.status==="game"){show("gameScreen");renderGame(g)}
   if(g.status==="finished"){
    show("finishScreen");

@@ -26,6 +26,15 @@
     <h1 id="readyTitle">جاهز تبدأ؟</h1>
     <p class="muted">راجع الاختيارات ثم ابدأ اللعب.</p>
     <div id="readyPicks" class="ready-picks"></div>
+
+    <section id="hostRedraftPicker" class="host-redraft-picker hidden">
+      <div class="host-redraft-head">
+        <b id="hostRedraftTurn"></b>
+        <small id="hostRedraftProgress"></small>
+      </div>
+      <div id="hostRedraftCategories" class="host-redraft-categories"></div>
+    </section>
+
     <button id="startGameBtn" class="primary">ابدأ اللعب ▶</button>
   </section>
 
@@ -95,8 +104,8 @@
     </div>
 
     <p id="hostFinalScore" class="host-final-score-line"></p>
-    <button id="newGameBtn" class="primary host-new-game-btn">ابدأ لعبة جديدة ↻</button>
-    <small class="host-new-game-note">بنفس الفرق والفئات — والأسئلة ما تتكرر</small>
+    <button id="newGameBtn" class="primary host-new-game-btn">ابدأ جولة جديدة ↻</button>
+    <small class="host-new-game-note">ترجع لاختيار الفئات — والأسئلة السابقة ما تتكرر</small>
   </section>
 </main>
 

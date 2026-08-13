@@ -1320,10 +1320,12 @@ body[data-theme="mint"] #hintAnswerModal.modal{
   justify-content:center;
   text-align:center;
   background:
-    radial-gradient(circle at 50% 4%,rgba(255,216,77,.18),transparent 25%),
+    radial-gradient(circle at 50% 4%,color-mix(in srgb,var(--accent-warm) 24%,transparent),transparent 25%),
     radial-gradient(circle at 5% 96%,var(--team1-soft),transparent 28%),
     radial-gradient(circle at 95% 96%,var(--team2-soft),transparent 28%),
-    rgba(23,31,52,.97)!important;
+    var(--panel-bg)!important;
+  color:var(--text)!important;
+  border-color:color-mix(in srgb,var(--text) 62%,transparent)!important;
 }
 
 .host-winner-card::before,
@@ -1528,4 +1530,108 @@ body[data-theme="mint"] #hintAnswerModal.modal{
 
 @media(prefers-reduced-motion:reduce){
   .host-winner-trophy,.host-winner-confetti i{animation:none!important}
+}
+
+
+/* Host winner follows the selected game theme */
+body[data-theme] .host-winner-card{
+  background:
+    radial-gradient(circle at 50% 4%,color-mix(in srgb,var(--accent-warm) 24%,transparent),transparent 25%),
+    radial-gradient(circle at 8% 92%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 30%),
+    radial-gradient(circle at 92% 92%,color-mix(in srgb,var(--cyan) 14%,transparent),transparent 30%),
+    var(--panel-bg)!important;
+  color:var(--text)!important;
+  border-color:color-mix(in srgb,var(--text) 58%,transparent)!important;
+}
+body[data-theme] .host-winner-kicker{
+  background:color-mix(in srgb,var(--panel-soft) 76%,transparent);
+  border-color:color-mix(in srgb,var(--text) 15%,transparent);
+  color:var(--cyan);
+}
+body[data-theme] .host-final-team{
+  background:color-mix(in srgb,var(--panel-soft) 82%,transparent);
+  border-color:color-mix(in srgb,var(--text) 14%,transparent);
+  color:var(--text);
+}
+body[data-theme] .host-final-team.winner{
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb,var(--accent-warm) 14%,var(--panel-soft)),
+      color-mix(in srgb,var(--panel-soft) 88%,transparent)
+    );
+  border-color:color-mix(in srgb,var(--accent-warm) 72%,transparent);
+}
+body[data-theme] .host-final-vs{
+  background:linear-gradient(145deg,var(--accent-2),var(--accent));
+  color:var(--accent-text,#fff);
+}
+body[data-theme] .host-winner-trophy{
+  filter:drop-shadow(0 12px 22px color-mix(in srgb,var(--accent-warm) 34%,transparent));
+}
+body[data-theme] .host-final-team.winner::after{
+  background:var(--accent-warm);
+  color:#2a2209;
+}
+
+
+/* ===== Host-only category selection for new games ===== */
+.host-redraft-picker{
+  width:100%;
+  margin:14px 0 16px;
+}
+.host-redraft-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  background:color-mix(in srgb,var(--panel-soft) 88%,transparent);
+  border:1px solid color-mix(in srgb,var(--text) 10%,transparent);
+}
+.host-redraft-head b{
+  color:var(--text);
+  font-size:13px;
+}
+.host-redraft-head small{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+}
+.host-redraft-categories{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.host-redraft-category{
+  min-height:54px;
+  padding:8px 10px;
+  border-radius:14px;
+  border:1px solid color-mix(in srgb,var(--text) 12%,transparent);
+  background:color-mix(in srgb,var(--panel-soft) 86%,transparent);
+  color:var(--text);
+  font-weight:900;
+}
+.host-redraft-category:hover:not(:disabled){
+  border-color:var(--accent);
+  transform:translateY(-1px);
+}
+.host-redraft-category.used,
+.host-redraft-category:disabled{
+  opacity:.32;
+  cursor:not-allowed;
+}
+body[data-theme] .host-redraft-category{
+  background:color-mix(in srgb,var(--panel-soft) 88%,transparent);
+  color:var(--text);
+}
+body[data-theme] .host-redraft-category:hover:not(:disabled){
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent);
+}
+@media(max-width:620px){
+  .host-redraft-categories{grid-template-columns:repeat(2,1fr)}
+  .host-redraft-category{min-height:48px;font-size:12px}
 }
