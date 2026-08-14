@@ -64,5 +64,22 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/game/horof",
+      "destination": "/game/horof-bell",
+      "permanent": true
+    },
+    {
+      "source": "/game/photos-2",
+      "destination": "/game/photos-1",
+      "permanent": true
+    },
+    {
+      "source": "/game/photos-3",
+      "destination": "/game/photos-1",
+      "permanent": true
+    }
   ]
 }
