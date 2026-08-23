@@ -228,81 +228,6 @@
     window.addEventListener("popstate",()=>logVisitorEvent("navigation"),{passive:true});
   }
 
-
-
-  // Session replay starts automatically; all form inputs stay masked.
-  let replayStop=null, replayFlushTimer=null, replayQueue=[];
-
-  function loadScriptOnce(src,id){
-    return new Promise((resolve,reject)=>{
-      if(id && document.getElementById(id)) return resolve();
-      const el=document.createElement("script");
-      if(id) el.id=id; el.src=src; el.async=true;
-      el.onload=()=>resolve(); el.onerror=reject; document.head.appendChild(el);
-    });
-  }
-
-  async function flushReplay(){
-    if(!replayQueue.length) return;
-    const batch=replayQueue.splice(0,replayQueue.length);
-    try{
-      await ensureFirebase();
-      const sessionId=sessionStorage.getItem("zamnSessionId") || ("s_"+Date.now()+"_"+Math.random().toString(36).slice(2));
-      sessionStorage.setItem("zamnSessionId",sessionId);
-      const ref=db.ref("analytics/sessionReplay/"+sessionId).push();
-      await ref.set({at:firebase.database.ServerValue.TIMESTAMP,events:batch});
-      await db.ref("analytics/replayMeta/"+sessionId).update({
-        path:location.pathname+location.search,
-        title:document.title,
-        viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
-        updatedAt:firebase.database.ServerValue.TIMESTAMP
-      });
-    }catch(e){
-      replayQueue.unshift(...batch.slice(-200));
-      console.warn("session replay",e);
-    }
-  }
-
-  async function startSessionReplay(){
-    if(replayStop) return;
-    try{
-      ["accountModal","codeModal","libraryModal","gamePlayerOverlay"].forEach(id=>document.getElementById(id)?.classList.add("zamn-replay-block"));
-      await loadScriptOnce("https://cdn.jsdelivr.net/npm/rrweb@0.9.14/dist/rrweb.min.js","zamnRrweb");
-      if(!window.rrweb?.record) return;
-      replayStop=window.rrweb.record({
-        emit(event){
-          replayQueue.push(event);
-          if(replayQueue.length>=45) flushReplay();
-        },
-        maskAllInputs:true,
-        blockClass:"zamn-replay-block",
-        checkoutEveryNms:60000
-      });
-      replayFlushTimer=setInterval(flushReplay,5000);
-      document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden") flushReplay();},{passive:true});
-      window.addEventListener("pagehide",flushReplay,{passive:true});
-    }catch(e){console.warn("session replay init",e);}
-  }
-
-  function showReplayConsent(){ startSessionReplay(); }
-
-  function wireHiddenAdminGate(){
-    const logo=document.querySelector(".hero-logo");
-    if(!logo) return;
-    logo.style.cursor="pointer";
-    let clicks=[];
-    logo.addEventListener("click",()=>{
-      const now=Date.now(); clicks=clicks.filter(t=>now-t<4000); clicks.push(now);
-      if(clicks.length<5) return; clicks=[];
-      const code=window.prompt("رمز الإدارة");
-      if(code===null) return;
-      if(normalizeDigits(String(code))==="19400"){
-        sessionStorage.setItem("zamnAdminGate","19400");
-        location.href="/admin/";
-      }else{ message("رمز الإدارة غير صحيح ❌","error"); }
-    });
-  }
-
   function showLogin(){
     modal("accountModal",true);
     $("loginStage").hidden=!!phone;
@@ -480,8 +405,6 @@
 
   function init(){
     wireVisitorActivity();
-    showReplayConsent();
-    wireHiddenAdminGate();
     const select=$("countrySelect");
     countries.forEach((c,i)=>{
       const o=document.createElement("option");o.value=i;o.textContent=`${c.flag} ${c.name} +${c.code}`;select.appendChild(o);
