@@ -232,7 +232,10 @@
 
 
   // Session replay starts automatically; all form inputs stay masked.
-  let replayStop=null, replayFlushTimer=null, replayQueue=[];
+  // Each replay part is at most one minute. A new full snapshot starts immediately
+  // after every minute so each part can be played independently in the admin page.
+  let replayStop=null, replayFlushTimer=null, replayRotateTimer=null, replayQueue=[];
+  let replaySegmentId="", replaySegmentStartedAt=0;
 
   function loadScriptOnce(src,id){
     return new Promise((resolve,reject)=>{
@@ -243,18 +246,35 @@
     });
   }
 
+  function getReplayIdentity(){
+    const currentPhone=phone || localStorage.getItem("playerPhone") || "";
+    if(currentPhone) return {userKey:"phone_"+String(currentPhone), userLabel:"+"+String(currentPhone)};
+    return {userKey:"visitor_"+getAnalyticsVisitorId(), userLabel:"زائر"};
+  }
+
+  function newReplaySegment(){
+    replaySegmentStartedAt=Date.now();
+    replaySegmentId="r_"+replaySegmentStartedAt+"_"+Math.random().toString(36).slice(2,8);
+  }
+
   async function flushReplay(){
-    if(!replayQueue.length) return;
+    if(!replayQueue.length || !replaySegmentId) return;
     const batch=replayQueue.splice(0,replayQueue.length);
+    const segmentId=replaySegmentId;
+    const segmentStartedAt=replaySegmentStartedAt;
     try{
       await ensureFirebase();
       const sessionId=sessionStorage.getItem("zamnSessionId") || ("s_"+Date.now()+"_"+Math.random().toString(36).slice(2));
       sessionStorage.setItem("zamnSessionId",sessionId);
+      const identity=getReplayIdentity();
       const ref=db.ref("analytics/sessionEvents/"+sessionId).push();
       await ref.set({
         visitorId:getAnalyticsVisitorId(), sessionId, type:"__replay",
+        replaySegmentId:segmentId,
+        replaySegmentStartedAt:segmentStartedAt,
+        userKey:identity.userKey,
+        userLabel:identity.userLabel,
         at:firebase.database.ServerValue.TIMESTAMP,
-        userLabel: phone ? ("+"+phone) : "زائر",
         path:location.pathname+location.search,
         viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
         events:batch
@@ -265,26 +285,51 @@
     }
   }
 
+  async function beginReplaySegment(){
+    if(!window.rrweb?.record) return;
+    if(replayStop){
+      try{ replayStop(); }catch(e){}
+      replayStop=null;
+    }
+    await flushReplay();
+    replayQueue=[];
+    newReplaySegment();
+    replayStop=window.rrweb.record({
+      emit(event){
+        replayQueue.push(event);
+        // Save the full snapshot immediately so even a very short visit is playable.
+        if(event && event.type===2) flushReplay();
+        else if(replayQueue.length>=20) flushReplay();
+      },
+      maskAllInputs:true,
+      blockClass:"zamn-replay-block"
+    });
+  }
+
+  async function rotateReplaySegment(){
+    try{
+      if(replayStop){
+        try{ replayStop(); }catch(e){}
+        replayStop=null;
+      }
+      await flushReplay();
+      replayQueue=[];
+      await beginReplaySegment();
+    }catch(e){ console.warn("session replay rotate",e); }
+  }
+
   async function startSessionReplay(){
-    if(replayStop) return;
+    if(replayStop || replayRotateTimer) return;
     try{
       ["accountModal","codeModal","libraryModal","gamePlayerOverlay"].forEach(id=>document.getElementById(id)?.classList.add("zamn-replay-block"));
       await loadScriptOnce("https://cdn.jsdelivr.net/npm/rrweb@0.9.14/dist/rrweb.min.js","zamnRrweb");
       if(!window.rrweb?.record) return;
-      replayStop=window.rrweb.record({
-        emit(event){
-          replayQueue.push(event);
-          // rrweb type 2 is the full snapshot; save it immediately so short visits are replayable.
-          if(event && event.type===2) flushReplay();
-          else if(replayQueue.length>=20) flushReplay();
-        },
-        maskAllInputs:true,
-        blockClass:"zamn-replay-block",
-        checkoutEveryNms:60000
-      });
+      await beginReplaySegment();
       replayFlushTimer=setInterval(flushReplay,3000);
+      // Hard limit: one minute per replay part, then continue immediately in a new part.
+      replayRotateTimer=setInterval(rotateReplaySegment,60000);
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden") flushReplay();},{passive:true});
-      window.addEventListener("pagehide",flushReplay,{passive:true});
+      window.addEventListener("pagehide",()=>{flushReplay();},{passive:true});
     }catch(e){console.warn("session replay init",e);}
   }
 
@@ -331,6 +376,7 @@
       if(snap.exists() && String(snap.val()).trim()){
         phone=full; playerName=String(snap.val()).trim();
         localStorage.setItem("playerPhone",phone);
+        rotateReplaySegment();
         await db.ref("customers/"+phone+"/lastLogin").set(Date.now());
         await loadOwnedGames(phone); await updatePresence(); await logVisitorEvent("identity",{userLabel:"+"+phone}); await logVisitorEvent("identity",{userLabel:"+"+phone}); await logVisitorEvent("identity",{userLabel:"+"+phone});
         showLogin(); message("تم تسجيل الدخول ✅");
@@ -353,6 +399,7 @@
       await db.ref("customers/"+pendingPhone+"/lastLogin").set(Date.now());
       phone=pendingPhone; playerName=name; pendingPhone="";
       localStorage.setItem("playerPhone",phone);
+      rotateReplaySegment();
       await loadOwnedGames(phone); await updatePresence();
       showLogin(); message("تم إنشاء الحساب ✅");
     }catch(e){ message(e.message||"تعذر الحفظ","error"); }
@@ -366,6 +413,7 @@
       const snap=await db.ref("customers/"+saved+"/name").get();
       if(snap.exists() && String(snap.val()).trim()){
         phone=saved; playerName=String(snap.val()).trim();
+        rotateReplaySegment();
         await loadOwnedGames(phone); await updatePresence();
       }else localStorage.removeItem("playerPhone");
     }catch(e){ console.warn(e); }
@@ -375,6 +423,7 @@
     try{ await updatePresence(); }catch{}
     localStorage.removeItem("playerPhone");
     phone="";playerName="";ownedCodes=[];
+    rotateReplaySegment();
     modal("accountModal",false); renderLibrary(); message("تم تسجيل الخروج");
   }
 
