@@ -239,11 +239,34 @@
 
   function loadScriptOnce(src,id){
     return new Promise((resolve,reject)=>{
-      if(id && document.getElementById(id)) return resolve();
+      const existing=id?document.getElementById(id):null;
+      if(existing){
+        if(existing.dataset.loaded==="1") return resolve();
+        existing.addEventListener("load",()=>resolve(),{once:true});
+        existing.addEventListener("error",()=>reject(new Error("تعذر تحميل "+src)),{once:true});
+        return;
+      }
       const el=document.createElement("script");
       if(id) el.id=id; el.src=src; el.async=true;
-      el.onload=()=>resolve(); el.onerror=reject; document.head.appendChild(el);
+      el.onload=()=>{el.dataset.loaded="1";resolve();};
+      el.onerror=()=>{try{el.remove();}catch(e){} reject(new Error("تعذر تحميل "+src));};
+      document.head.appendChild(el);
     });
+  }
+
+  async function loadReplayLibrary(){
+    if(window.rrweb?.record) return true;
+    const sources=[
+      "https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js",
+      "https://unpkg.com/rrweb@latest/dist/rrweb.min.js"
+    ];
+    for(let i=0;i<sources.length;i++){
+      try{
+        await loadScriptOnce(sources[i],"zamnRrweb"+(i||""));
+        if(window.rrweb?.record) return true;
+      }catch(e){ console.warn("rrweb source failed",sources[i],e); }
+    }
+    return false;
   }
 
   function getReplayIdentity(){
@@ -322,8 +345,11 @@
     if(replayStop || replayRotateTimer) return;
     try{
       ["accountModal","codeModal","libraryModal","gamePlayerOverlay"].forEach(id=>document.getElementById(id)?.classList.add("zamn-replay-block"));
-      await loadScriptOnce("https://cdn.jsdelivr.net/npm/rrweb@0.9.14/dist/rrweb.min.js","zamnRrweb");
-      if(!window.rrweb?.record) return;
+      const replayReady=await loadReplayLibrary();
+      if(!replayReady){
+        try{ await logVisitorEvent("replay_error",{reason:"rrweb_not_loaded"}); }catch(e){}
+        return;
+      }
       await beginReplaySegment();
       replayFlushTimer=setInterval(flushReplay,3000);
       // Hard limit: one minute per replay part, then continue immediately in a new part.
