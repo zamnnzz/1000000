@@ -207,6 +207,7 @@
         title:document.title,
         viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
         at:firebase.database.ServerValue.TIMESTAMP,
+        userLabel: phone ? ("+"+phone) : "زائر",
         ...extra
       });
     }catch(e){ console.warn("visitor event",e); }
@@ -249,13 +250,14 @@
       await ensureFirebase();
       const sessionId=sessionStorage.getItem("zamnSessionId") || ("s_"+Date.now()+"_"+Math.random().toString(36).slice(2));
       sessionStorage.setItem("zamnSessionId",sessionId);
-      const ref=db.ref("analytics/sessionReplay/"+sessionId).push();
-      await ref.set({at:firebase.database.ServerValue.TIMESTAMP,events:batch});
-      await db.ref("analytics/replayMeta/"+sessionId).update({
+      const ref=db.ref("analytics/sessionEvents/"+sessionId).push();
+      await ref.set({
+        visitorId:getAnalyticsVisitorId(), sessionId, type:"__replay",
+        at:firebase.database.ServerValue.TIMESTAMP,
+        userLabel: phone ? ("+"+phone) : "زائر",
         path:location.pathname+location.search,
-        title:document.title,
         viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
-        updatedAt:firebase.database.ServerValue.TIMESTAMP
+        events:batch
       });
     }catch(e){
       replayQueue.unshift(...batch.slice(-200));
@@ -272,13 +274,15 @@
       replayStop=window.rrweb.record({
         emit(event){
           replayQueue.push(event);
-          if(replayQueue.length>=45) flushReplay();
+          // rrweb type 2 is the full snapshot; save it immediately so short visits are replayable.
+          if(event && event.type===2) flushReplay();
+          else if(replayQueue.length>=20) flushReplay();
         },
         maskAllInputs:true,
         blockClass:"zamn-replay-block",
         checkoutEveryNms:60000
       });
-      replayFlushTimer=setInterval(flushReplay,5000);
+      replayFlushTimer=setInterval(flushReplay,3000);
       document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden") flushReplay();},{passive:true});
       window.addEventListener("pagehide",flushReplay,{passive:true});
     }catch(e){console.warn("session replay init",e);}
@@ -328,7 +332,7 @@
         phone=full; playerName=String(snap.val()).trim();
         localStorage.setItem("playerPhone",phone);
         await db.ref("customers/"+phone+"/lastLogin").set(Date.now());
-        await loadOwnedGames(phone); await updatePresence();
+        await loadOwnedGames(phone); await updatePresence(); await logVisitorEvent("identity",{userLabel:"+"+phone}); await logVisitorEvent("identity",{userLabel:"+"+phone}); await logVisitorEvent("identity",{userLabel:"+"+phone});
         showLogin(); message("تم تسجيل الدخول ✅");
       }else{
         pendingPhone=full;

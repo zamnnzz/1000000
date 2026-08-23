@@ -45,10 +45,10 @@
   let activePlayer=null;
   async function openReplay(sessionId){
     try{
-      const snap=await db.ref('analytics/sessionReplay/'+sessionId).get();
-      const chunks=snap.val()||{};
-      const events=Object.values(chunks).sort((a,b)=>(a.at||0)-(b.at||0)).flatMap(c=>Array.isArray(c.events)?c.events:[]);
-      if(!events.length){alert('لا يوجد تسجيل مرئي محفوظ لهذه الجلسة.');return;}
+      const snap=await db.ref('analytics/sessionEvents/'+sessionId).get();
+      const chunks=Object.values(snap.val()||{}).filter(x=>x && x.type==='__replay');
+      const events=chunks.sort((a,b)=>(a.at||0)-(b.at||0)).flatMap(c=>Array.isArray(c.events)?c.events:[]);
+      if(!events.length){alert('لا يوجد تسجيل محفوظ لهذه الجلسة حتى الآن. افتح جلسة جديدة وانتظر عدة ثوانٍ ثم حدّث الإدارة.');return;}
       $('replayTarget').innerHTML=''; $('replayModal').classList.remove('hidden');
       if(typeof rrwebPlayer!=='function'){alert('تعذر تحميل مشغل التسجيل.');return;}
       activePlayer=new rrwebPlayer({target:$('replayTarget'),props:{events,width:Math.min(980,window.innerWidth-70),autoPlay:true,showController:true}});
@@ -59,14 +59,17 @@
     const snap=await db.ref('analytics/sessionEvents').limitToLast(lim).get();
     const data=snap.val()||{};
     const sessions=Object.entries(data).map(([id,eventsObj])=>{
-      const events=Object.values(eventsObj||{}).sort((a,b)=>(a.at||0)-(b.at||0));
-      return {id,events,last:events.at(-1)?.at||0};
+      const all=Object.values(eventsObj||{}).sort((a,b)=>(a.at||0)-(b.at||0));
+      const events=all.filter(e=>e && e.type!=='__replay');
+      const replayCount=all.filter(e=>e && e.type==='__replay').length;
+      const label=[...all].reverse().find(e=>e && e.userLabel && e.userLabel!=='زائر')?.userLabel || 'زائر';
+      return {id,events,replayCount,label,last:all.at(-1)?.at||0};
     }).sort((a,b)=>b.last-a.last);
     let clicks=0,pages=0;
     $('sessions').innerHTML=sessions.map(s=>{
       s.events.forEach(e=>{if(e.type==='click')clicks++; if(e.type==='pageview')pages++;});
       const first=s.events[0]||{};
-      return `<article class="session"><div><b>جلسة ${esc(s.id.slice(-8))}</b> <span class="muted">${esc(fmt(s.last))}</span></div><div class="muted">زائر: ${esc((first.visitorId||'').slice(-10))}</div><button class="replay-btn" type="button" data-replay-session="${esc(s.id)}">▶ تشغيل تسجيل الشاشة</button><div class="events">${s.events.map(e=>`<div class="event"><b>${esc(e.type==='click'?'ضغطة':e.type==='pageview'?'فتح صفحة':'تنقل')}</b> — ${esc(e.path||'')} ${e.target?`<br><small>${esc(e.target)}</small>`:''}<br><small>${esc(fmt(e.at))} ${esc(e.viewport||'')}</small></div>`).join('')}</div></article>`;
+      return `<article class="session"><div><b>جلسة ${esc(s.id.slice(-8))}</b> <span class="muted">${esc(fmt(s.last))}</span></div><div class="muted"><b>${s.label==='زائر'?'زائر':'رقم الجوال: '+esc(s.label)}</b> · المعرّف: ${esc((first.visitorId||'').slice(-10))}</div><button class="replay-btn" type="button" data-replay-session="${esc(s.id)}">▶ مشاهدة الجلسة${s.replayCount?'':' (قيد الحفظ)'}</button><div class="events">${s.events.map(e=>`<div class="event"><b>${esc(e.type==='click'?'ضغطة':e.type==='pageview'?'فتح صفحة':'تنقل')}</b> — ${esc(e.path||'')} ${e.target?`<br><small>${esc(e.target)}</small>`:''}<br><small>${esc(fmt(e.at))} ${esc(e.viewport||'')}</small></div>`).join('')}</div></article>`;
     }).join('') || '<div class="card muted">لا توجد بيانات جلسات حتى الآن.</div>';
     $('sessionCount').textContent=sessions.length; $('clickCount').textContent=clicks; $('pageCount').textContent=pages;
   }
