@@ -230,8 +230,7 @@
 
 
 
-  // Privacy-safe session replay: runs only after visitor consent.
-  const REPLAY_CONSENT_KEY="zamnReplayConsent";
+  // Session replay starts automatically; all form inputs stay masked.
   let replayStop=null, replayFlushTimer=null, replayQueue=[];
 
   function loadScriptOnce(src,id){
@@ -265,7 +264,7 @@
   }
 
   async function startSessionReplay(){
-    if(replayStop || localStorage.getItem(REPLAY_CONSENT_KEY)!=="yes") return;
+    if(replayStop) return;
     try{
       ["accountModal","codeModal","libraryModal","gamePlayerOverlay"].forEach(id=>document.getElementById(id)?.classList.add("zamn-replay-block"));
       await loadScriptOnce("https://cdn.jsdelivr.net/npm/rrweb@0.9.14/dist/rrweb.min.js","zamnRrweb");
@@ -285,20 +284,7 @@
     }catch(e){console.warn("session replay init",e);}
   }
 
-  function showReplayConsent(){
-    const saved=localStorage.getItem(REPLAY_CONSENT_KEY);
-    if(saved==="yes"){startSessionReplay(); return;}
-    if(saved==="no") return;
-    const bar=document.createElement("div");
-    bar.id="zamnReplayConsent";
-    bar.style.cssText="position:fixed;left:12px;right:12px;bottom:12px;z-index:2147483000;max-width:680px;margin:auto;background:#fff;color:#3b0764;border:1px solid #e9d5ff;border-radius:16px;padding:12px 14px;box-shadow:0 12px 35px rgba(30,10,60,.22);font-family:Tajawal,system-ui,sans-serif;font-size:13px;line-height:1.6";
-    bar.innerHTML='<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1;min-width:220px">نستخدم إعادة جلسة مجهولة لتحسين الموقع. لا نسجل الحقول أو أرقام الجوال أو رموز الألعاب.</span><button type="button" data-replay="yes" style="border:0;background:#6d28d9;color:#fff;padding:8px 13px;border-radius:10px;font:inherit;font-weight:800;cursor:pointer">موافق</button><button type="button" data-replay="no" style="border:1px solid #d8b4fe;background:#fff;color:#6d28d9;padding:8px 13px;border-radius:10px;font:inherit;font-weight:800;cursor:pointer">لا</button></div>';
-    bar.addEventListener("click",e=>{
-      const v=e.target?.dataset?.replay; if(!v) return;
-      localStorage.setItem(REPLAY_CONSENT_KEY,v); bar.remove(); if(v==="yes") startSessionReplay();
-    });
-    document.body.appendChild(bar);
-  }
+  function showReplayConsent(){ startSessionReplay(); }
 
   function wireHiddenAdminGate(){
     const logo=document.querySelector(".hero-logo");

@@ -16,13 +16,8 @@
 <body>
 <div class="wrap">
   <h1>نشاط الزوار</h1>
-  <div class="card warn">تعرض هذه الصفحة مسار الجلسات والضغطات وإعادة جلسة مرئية للزوار الذين وافقوا عليها. الحقول وبيانات الحساب ورموز الألعاب محجوبة من التسجيل.</div>
-  <section id="loginCard" class="card">
-    <h2>دخول الإدارة</h2>
-    <div class="row"><input id="email" type="email" placeholder="بريد مدير Firebase"><input id="password" type="password" placeholder="كلمة المرور"><button id="login">دخول</button></div>
-    <p id="loginMsg" class="muted">يتطلب تفعيل Firebase Authentication (Email/Password) وحساب مدير، مع قواعد Database تمنع قراءة analytics لغير المدير.</p>
-  </section>
-  <section id="dashboard" class="hidden">
+  <div class="card warn">تعرض هذه الصفحة مسار الجلسات والضغطات وإعادة الجلسة المرئية. حقول الإدخال تبقى محجوبة من التسجيل.</div>
+  <section id="dashboard">
     <div class="row" style="justify-content:space-between"><div><h2>آخر الجلسات</h2><p class="muted">تحديث مباشر من Firebase</p></div><button id="logout">خروج</button></div>
     <div class="card stats"><div class="stat"><span>الجلسات المعروضة</span><b id="sessionCount">0</b></div><div class="stat"><span>الضغطات</span><b id="clickCount">0</b></div><div class="stat"><span>مشاهدات الصفحات</span><b id="pageCount">0</b></div></div>
     <div class="card"><div class="row"><label>عدد الجلسات <select id="limit"><option>20</option><option>50</option><option>100</option></select></label><button id="refresh">تحديث</button></div></div>
@@ -36,7 +31,6 @@
   </div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="/js/games.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
@@ -44,7 +38,7 @@
 (function(){
   const cfg=window.ZAMN_FIREBASE_CONFIG||{};
   if(!firebase.apps.length) firebase.initializeApp(cfg);
-  const auth=firebase.auth(), db=firebase.database();
+  const db=firebase.database();
   const $=id=>document.getElementById(id);
   const fmt=t=>t?new Date(t).toLocaleString('ar-SA'):'';
   function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -76,12 +70,11 @@
     }).join('') || '<div class="card muted">لا توجد بيانات جلسات حتى الآن.</div>';
     $('sessionCount').textContent=sessions.length; $('clickCount').textContent=clicks; $('pageCount').textContent=pages;
   }
-  $('login').onclick=async()=>{try{await auth.signInWithEmailAndPassword($('email').value.trim(),$('password').value);$('loginMsg').textContent='تم الدخول';}catch(e){$('loginMsg').textContent=e.message||'تعذر الدخول';}};
-  $('logout').onclick=()=>auth.signOut(); $('refresh').onclick=()=>load().catch(e=>alert(e.message||e));
+  $('logout').onclick=()=>{sessionStorage.removeItem('zamnAdminGate');location.href='/';}; $('refresh').onclick=()=>load().catch(e=>alert(e.message||e));
   $('sessions').addEventListener('click',e=>{const b=e.target.closest('[data-replay-session]');if(b)openReplay(b.dataset.replaySession);});
   $('closeReplay').onclick=()=>{$('replayModal').classList.add('hidden');$('replayTarget').innerHTML='';activePlayer=null;};
   $('replayModal').addEventListener('click',e=>{if(e.target===$('replayModal'))$('closeReplay').click();});
-  auth.onAuthStateChanged(user=>{ $('loginCard').classList.toggle('hidden',!!user); $('dashboard').classList.toggle('hidden',!user); if(user) load().catch(e=>alert('تعذر قراءة analytics. تأكد من قواعد Firebase: '+(e.message||e))); });
+  load().catch(e=>alert('تعذر قراءة analytics من Firebase: '+(e.message||e)));
 })();
 </script>
 </body>
