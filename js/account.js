@@ -207,7 +207,6 @@
         title:document.title,
         viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
         at:firebase.database.ServerValue.TIMESTAMP,
-        userLabel: phone ? ("+"+phone) : "زائر",
         ...extra
       });
     }catch(e){ console.warn("visitor event",e); }
@@ -227,180 +226,6 @@
       logVisitorEvent("click",payload);
     },{passive:true});
     window.addEventListener("popstate",()=>logVisitorEvent("navigation"),{passive:true});
-  }
-
-
-
-  // Session replay starts automatically; all form inputs stay masked.
-  // Each replay part is at most one minute. A new full snapshot starts immediately
-  // after every minute so each part can be played independently in the admin page.
-  let replayStop=null, replayFlushTimer=null, replayRotateTimer=null, replayQueue=[];
-  let replaySegmentId="", replaySegmentStartedAt=0;
-
-  function loadScriptOnce(src,id){
-    return new Promise((resolve,reject)=>{
-      const existing=id?document.getElementById(id):null;
-      if(existing){
-        if(existing.dataset.loaded==="1") return resolve();
-        existing.addEventListener("load",()=>resolve(),{once:true});
-        existing.addEventListener("error",()=>reject(new Error("تعذر تحميل "+src)),{once:true});
-        return;
-      }
-      const el=document.createElement("script");
-      if(id) el.id=id; el.src=src; el.async=true;
-      el.onload=()=>{el.dataset.loaded="1";resolve();};
-      el.onerror=()=>{try{el.remove();}catch(e){} reject(new Error("تعذر تحميل "+src));};
-      document.head.appendChild(el);
-    });
-  }
-
-  function getReplayRecord(){
-    // rrweb 2.x UMD exposes `rrwebRecord`, not `rrweb`. Keep the old global
-    // fallback for compatibility with any cached 1.x build.
-    if(typeof window.rrwebRecord?.record === "function") return window.rrwebRecord.record;
-    if(typeof window.rrweb?.record === "function") return window.rrweb.record;
-    return null;
-  }
-
-  async function loadReplayLibrary(){
-    if(getReplayRecord()) return true;
-    const sources=[
-      "https://cdn.rrweb.com/record/current/dist/record.umd.cjs",
-      "https://cdn.jsdelivr.net/npm/@rrweb/record@2.1.1/dist/record.umd.cjs"
-    ];
-    for(let i=0;i<sources.length;i++){
-      try{
-        await loadScriptOnce(sources[i],"zamnRrwebRecorder"+(i||""));
-        if(getReplayRecord()) return true;
-      }catch(e){ console.warn("rrweb recorder source failed",sources[i],e); }
-    }
-    return false;
-  }
-
-  function getReplayIdentity(){
-    const currentPhone=phone || localStorage.getItem("playerPhone") || "";
-    if(currentPhone) return {userKey:"phone_"+String(currentPhone), userLabel:"+"+String(currentPhone)};
-    return {userKey:"visitor_"+getAnalyticsVisitorId(), userLabel:"زائر"};
-  }
-
-  function newReplaySegment(){
-    replaySegmentStartedAt=Date.now();
-    replaySegmentId="r_"+replaySegmentStartedAt+"_"+Math.random().toString(36).slice(2,8);
-  }
-
-  function sanitizeReplayEvents(events){
-    // Firebase Realtime Database rejects any nested `undefined` value.
-    // rrweb 2.x can emit optional DOM/SVG fields as undefined, so clone the
-    // event batch through JSON before writing it. This removes undefined
-    // object properties while preserving the event structure/order.
-    try{ return JSON.parse(JSON.stringify(events)); }
-    catch(e){ console.warn("session replay sanitize failed",e); return []; }
-  }
-
-  async function flushReplay(){
-    if(!replayQueue.length || !replaySegmentId) return;
-    const batch=replayQueue.splice(0,replayQueue.length);
-    const cleanBatch=sanitizeReplayEvents(batch);
-    if(!cleanBatch.length) return;
-    const segmentId=replaySegmentId;
-    const segmentStartedAt=replaySegmentStartedAt;
-    try{
-      await ensureFirebase();
-      const sessionId=sessionStorage.getItem("zamnSessionId") || ("s_"+Date.now()+"_"+Math.random().toString(36).slice(2));
-      sessionStorage.setItem("zamnSessionId",sessionId);
-      const identity=getReplayIdentity();
-      const ref=db.ref("analytics/sessionEvents/"+sessionId).push();
-      await ref.set({
-        visitorId:getAnalyticsVisitorId(), sessionId, type:"__replay",
-        replaySegmentId:segmentId,
-        replaySegmentStartedAt:segmentStartedAt,
-        userKey:identity.userKey,
-        userLabel:identity.userLabel,
-        at:firebase.database.ServerValue.TIMESTAMP,
-        path:location.pathname+location.search,
-        viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
-        // Store rrweb events as a JSON string so Firebase does not reject
-        // deeply nested DOM snapshots (Realtime Database has a max depth).
-        eventsJson:JSON.stringify(cleanBatch)
-      });
-    }catch(e){
-      replayQueue.unshift(...batch.slice(-200));
-      console.warn("session replay",e);
-    }
-  }
-
-  async function beginReplaySegment(){
-    const record=getReplayRecord();
-    if(!record) return;
-    if(replayStop){
-      try{ replayStop(); }catch(e){}
-      replayStop=null;
-    }
-    await flushReplay();
-    replayQueue=[];
-    newReplaySegment();
-    replayStop=record({
-      emit(event){
-        replayQueue.push(event);
-        // Save the full snapshot immediately so even a very short visit is playable.
-        if(event && event.type===2) flushReplay();
-        else if(replayQueue.length>=20) flushReplay();
-      },
-      maskAllInputs:true,
-      blockClass:"zamn-replay-block",
-      // Force a fresh FullSnapshot before the one-minute segment boundary.
-      // This keeps each saved recording independently replayable.
-      checkoutEveryNms:55000
-    });
-  }
-
-  async function rotateReplaySegment(){
-    try{
-      if(replayStop){
-        try{ replayStop(); }catch(e){}
-        replayStop=null;
-      }
-      await flushReplay();
-      replayQueue=[];
-      await beginReplaySegment();
-    }catch(e){ console.warn("session replay rotate",e); }
-  }
-
-  async function startSessionReplay(){
-    if(replayStop || replayRotateTimer) return;
-    try{
-      ["accountModal","codeModal","libraryModal","gamePlayerOverlay"].forEach(id=>document.getElementById(id)?.classList.add("zamn-replay-block"));
-      const replayReady=await loadReplayLibrary();
-      if(!replayReady){
-        try{ await logVisitorEvent("replay_error",{reason:"rrweb_not_loaded"}); }catch(e){}
-        return;
-      }
-      await beginReplaySegment();
-      replayFlushTimer=setInterval(flushReplay,3000);
-      // Hard limit: one minute per replay part, then continue immediately in a new part.
-      replayRotateTimer=setInterval(rotateReplaySegment,60000);
-      document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden") flushReplay();},{passive:true});
-      window.addEventListener("pagehide",()=>{flushReplay();},{passive:true});
-    }catch(e){console.warn("session replay init",e);}
-  }
-
-  function showReplayConsent(){ startSessionReplay(); }
-
-  function wireHiddenAdminGate(){
-    const logo=document.querySelector(".hero-logo");
-    if(!logo) return;
-    logo.style.cursor="pointer";
-    let clicks=[];
-    logo.addEventListener("click",()=>{
-      const now=Date.now(); clicks=clicks.filter(t=>now-t<4000); clicks.push(now);
-      if(clicks.length<5) return; clicks=[];
-      const code=window.prompt("رمز الإدارة");
-      if(code===null) return;
-      if(normalizeDigits(String(code))==="19400"){
-        sessionStorage.setItem("zamnAdminGate","19400");
-        location.href="/admin/";
-      }else{ message("رمز الإدارة غير صحيح ❌","error"); }
-    });
   }
 
   function showLogin(){
@@ -427,9 +252,8 @@
       if(snap.exists() && String(snap.val()).trim()){
         phone=full; playerName=String(snap.val()).trim();
         localStorage.setItem("playerPhone",phone);
-        rotateReplaySegment();
         await db.ref("customers/"+phone+"/lastLogin").set(Date.now());
-        await loadOwnedGames(phone); await updatePresence(); await logVisitorEvent("identity",{userLabel:"+"+phone}); await logVisitorEvent("identity",{userLabel:"+"+phone}); await logVisitorEvent("identity",{userLabel:"+"+phone});
+        await loadOwnedGames(phone); await updatePresence();
         showLogin(); message("تم تسجيل الدخول ✅");
       }else{
         pendingPhone=full;
@@ -450,7 +274,6 @@
       await db.ref("customers/"+pendingPhone+"/lastLogin").set(Date.now());
       phone=pendingPhone; playerName=name; pendingPhone="";
       localStorage.setItem("playerPhone",phone);
-      rotateReplaySegment();
       await loadOwnedGames(phone); await updatePresence();
       showLogin(); message("تم إنشاء الحساب ✅");
     }catch(e){ message(e.message||"تعذر الحفظ","error"); }
@@ -464,7 +287,6 @@
       const snap=await db.ref("customers/"+saved+"/name").get();
       if(snap.exists() && String(snap.val()).trim()){
         phone=saved; playerName=String(snap.val()).trim();
-        rotateReplaySegment();
         await loadOwnedGames(phone); await updatePresence();
       }else localStorage.removeItem("playerPhone");
     }catch(e){ console.warn(e); }
@@ -474,7 +296,6 @@
     try{ await updatePresence(); }catch{}
     localStorage.removeItem("playerPhone");
     phone="";playerName="";ownedCodes=[];
-    rotateReplaySegment();
     modal("accountModal",false); renderLibrary(); message("تم تسجيل الخروج");
   }
 
@@ -584,8 +405,6 @@
 
   function init(){
     wireVisitorActivity();
-    showReplayConsent();
-    wireHiddenAdminGate();
     const select=$("countrySelect");
     countries.forEach((c,i)=>{
       const o=document.createElement("option");o.value=i;o.textContent=`${c.flag} ${c.name} +${c.code}`;select.appendChild(o);
