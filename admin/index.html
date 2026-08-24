@@ -74,15 +74,33 @@
     try{
       const snap=await db.ref('analytics/sessionEvents/'+sessionId).get();
       const chunks=Object.values(snap.val()||{}).filter(x=>x && x.type==='__replay' && replayKey(x,sessionId)===segmentId);
-      const events=chunks.sort((a,b)=>(a.at||0)-(b.at||0)).flatMap(c=>{
+      let events=chunks.flatMap(c=>{
         if(Array.isArray(c.events)) return c.events; // legacy recordings
         if(typeof c.eventsJson==='string'){
           try{ const parsed=JSON.parse(c.eventsJson); return Array.isArray(parsed)?parsed:[]; }
           catch(e){ console.warn('replay parse failed',e); return []; }
         }
         return [];
-      }).sort((a,b)=>(a.timestamp||0)-(b.timestamp||0));
-      if(!events.length){alert('لا يوجد تسجيل محفوظ لهذا الجزء.');return;}
+      }).filter(e=>e && typeof e==='object' && Number.isFinite(Number(e.timestamp)))
+        .sort((a,b)=>Number(a.timestamp)-Number(b.timestamp));
+
+      // rrweb cannot rebuild a page from incremental events alone. A playable
+      // stream must contain a FullSnapshot (type 2), normally preceded by Meta
+      // (type 4). Start from the Meta belonging to the first FullSnapshot and
+      // discard any orphan events that may have arrived before it.
+      const fullIndex=events.findIndex(e=>Number(e.type)===2);
+      if(fullIndex<0){
+        alert('هذا التسجيل لا يحتوي على لقطة كاملة للصفحة، لذلك لا يمكن عرضه. جرّب تسجيلًا أحدث.');
+        return;
+      }
+      let startIndex=fullIndex;
+      for(let i=fullIndex-1;i>=0;i--){
+        if(Number(events[i].type)===4){ startIndex=i; break; }
+        if(Number(events[i].type)===2) break;
+      }
+      events=events.slice(startIndex);
+      if(events.length<2){alert('التسجيل غير مكتمل ولا يمكن تشغيله.');return;}
+
       $('replayTarget').innerHTML=''; $('replayModal').classList.remove('hidden');
       const Player=await ensureRrwebPlayer();
       activePlayer=new Player({target:$('replayTarget'),props:{events,width:Math.min(980,window.innerWidth-70),autoPlay:true,showController:true}});

@@ -347,7 +347,10 @@
         else if(replayQueue.length>=20) flushReplay();
       },
       maskAllInputs:true,
-      blockClass:"zamn-replay-block"
+      blockClass:"zamn-replay-block",
+      // Force a fresh FullSnapshot before the one-minute segment boundary.
+      // This keeps each saved recording independently replayable.
+      checkoutEveryNms:55000
     });
   }
 
