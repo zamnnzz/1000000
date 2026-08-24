@@ -257,8 +257,8 @@
   async function loadReplayLibrary(){
     if(window.rrweb?.record) return true;
     const sources=[
-      "https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.js",
-      "https://unpkg.com/rrweb@latest/dist/rrweb.min.js"
+      "https://cdn.jsdelivr.net/npm/rrweb@2.1.1/umd/rrweb.min.js",
+      "https://unpkg.com/rrweb@2.1.1/umd/rrweb.min.js"
     ];
     for(let i=0;i<sources.length;i++){
       try{
