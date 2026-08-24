@@ -288,9 +288,20 @@
     replaySegmentId="r_"+replaySegmentStartedAt+"_"+Math.random().toString(36).slice(2,8);
   }
 
+  function sanitizeReplayEvents(events){
+    // Firebase Realtime Database rejects any nested `undefined` value.
+    // rrweb 2.x can emit optional DOM/SVG fields as undefined, so clone the
+    // event batch through JSON before writing it. This removes undefined
+    // object properties while preserving the event structure/order.
+    try{ return JSON.parse(JSON.stringify(events)); }
+    catch(e){ console.warn("session replay sanitize failed",e); return []; }
+  }
+
   async function flushReplay(){
     if(!replayQueue.length || !replaySegmentId) return;
     const batch=replayQueue.splice(0,replayQueue.length);
+    const cleanBatch=sanitizeReplayEvents(batch);
+    if(!cleanBatch.length) return;
     const segmentId=replaySegmentId;
     const segmentStartedAt=replaySegmentStartedAt;
     try{
@@ -308,7 +319,7 @@
         at:firebase.database.ServerValue.TIMESTAMP,
         path:location.pathname+location.search,
         viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
-        events:batch
+        events:cleanBatch
       });
     }catch(e){
       replayQueue.unshift(...batch.slice(-200));
