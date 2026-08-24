@@ -254,17 +254,25 @@
     });
   }
 
+  function getReplayRecord(){
+    // rrweb 2.x UMD exposes `rrwebRecord`, not `rrweb`. Keep the old global
+    // fallback for compatibility with any cached 1.x build.
+    if(typeof window.rrwebRecord?.record === "function") return window.rrwebRecord.record;
+    if(typeof window.rrweb?.record === "function") return window.rrweb.record;
+    return null;
+  }
+
   async function loadReplayLibrary(){
-    if(window.rrweb?.record) return true;
+    if(getReplayRecord()) return true;
     const sources=[
-      "https://cdn.jsdelivr.net/npm/rrweb@2.1.1/umd/rrweb.min.js",
-      "https://unpkg.com/rrweb@2.1.1/umd/rrweb.min.js"
+      "https://cdn.rrweb.com/record/current/dist/record.umd.cjs",
+      "https://cdn.jsdelivr.net/npm/@rrweb/record@2.1.1/dist/record.umd.cjs"
     ];
     for(let i=0;i<sources.length;i++){
       try{
-        await loadScriptOnce(sources[i],"zamnRrweb"+(i||""));
-        if(window.rrweb?.record) return true;
-      }catch(e){ console.warn("rrweb source failed",sources[i],e); }
+        await loadScriptOnce(sources[i],"zamnRrwebRecorder"+(i||""));
+        if(getReplayRecord()) return true;
+      }catch(e){ console.warn("rrweb recorder source failed",sources[i],e); }
     }
     return false;
   }
@@ -309,7 +317,8 @@
   }
 
   async function beginReplaySegment(){
-    if(!window.rrweb?.record) return;
+    const record=getReplayRecord();
+    if(!record) return;
     if(replayStop){
       try{ replayStop(); }catch(e){}
       replayStop=null;
@@ -317,7 +326,7 @@
     await flushReplay();
     replayQueue=[];
     newReplaySegment();
-    replayStop=window.rrweb.record({
+    replayStop=record({
       emit(event){
         replayQueue.push(event);
         // Save the full snapshot immediately so even a very short visit is playable.
