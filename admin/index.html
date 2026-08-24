@@ -11,7 +11,7 @@
 
 .replay-modal{position:fixed;inset:0;background:rgba(18,7,33,.72);z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px}.replay-modal.hidden{display:none}.replay-box{width:min(1100px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;padding:14px}.replay-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.replay-target{min-height:420px;direction:ltr}.replay-btn{margin-top:10px} 
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rrweb-player@2.1.1/dist/style.min.css">
+<link rel="stylesheet" href="https://cdn.rrweb.com/rrweb-player/2.1.1/style.css">
 </head>
 <body>
 <div class="wrap">
@@ -33,7 +33,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="/js/games.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/rrweb-player@2.1.1/umd/rrweb-player.min.js"></script>
 <script>
 (function(){
   const cfg=window.ZAMN_FIREBASE_CONFIG||{};
@@ -43,6 +42,24 @@
   const fmt=t=>t?new Date(t).toLocaleString('ar-SA'):'';
   function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
   let activePlayer=null;
+  let rrwebPlayerCtor=null;
+  async function ensureRrwebPlayer(){
+    if(typeof rrwebPlayerCtor==='function') return rrwebPlayerCtor;
+    const sources=[
+      'https://cdn.rrweb.com/rrweb-player/2.1.1/rrweb-player.js',
+      'https://cdn.jsdelivr.net/npm/rrweb-player@2.1.1/+esm'
+    ];
+    let lastError=null;
+    for(const src of sources){
+      try{
+        const mod=await import(src);
+        const ctor=mod?.default || mod?.rrwebPlayer || mod;
+        if(typeof ctor==='function'){ rrwebPlayerCtor=ctor; return ctor; }
+        lastError=new Error('المشغل المحمل ليس دالة');
+      }catch(e){ lastError=e; console.warn('rrweb-player source failed',src,e); }
+    }
+    throw lastError || new Error('تعذر تحميل مشغل التسجيل');
+  }
 
   function replayKey(e,sessionId){
     return e?.replaySegmentId || ('legacy_'+sessionId);
@@ -67,8 +84,8 @@
       }).sort((a,b)=>(a.timestamp||0)-(b.timestamp||0));
       if(!events.length){alert('لا يوجد تسجيل محفوظ لهذا الجزء.');return;}
       $('replayTarget').innerHTML=''; $('replayModal').classList.remove('hidden');
-      if(typeof rrwebPlayer!=='function'){alert('تعذر تحميل مشغل التسجيل.');return;}
-      activePlayer=new rrwebPlayer({target:$('replayTarget'),props:{events,width:Math.min(980,window.innerWidth-70),autoPlay:true,showController:true}});
+      const Player=await ensureRrwebPlayer();
+      activePlayer=new Player({target:$('replayTarget'),props:{events,width:Math.min(980,window.innerWidth-70),autoPlay:true,showController:true}});
     }catch(e){alert('تعذر تحميل التسجيل: '+(e.message||e));}
   }
 
@@ -110,7 +127,11 @@
         const u=users.get(identity.key);
         u.sessions.add(sessionId);
         u.last=Math.max(u.last,seg.last||seg.start||0);
-        const rrEvents=seg.chunks.flatMap(c=>Array.isArray(c.events)?c.events:[]);
+        const rrEvents=seg.chunks.flatMap(c=>{
+          if(Array.isArray(c.events)) return c.events;
+          if(typeof c.eventsJson==='string'){ try{ const v=JSON.parse(c.eventsJson); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+          return [];
+        });
         const ts=rrEvents.map(e=>Number(e?.timestamp)||0).filter(Boolean).sort((a,b)=>a-b);
         const duration=ts.length>1?Math.min(60,Math.max(1,Math.round((ts.at(-1)-ts[0])/1000))):0;
         u.segments.push({...seg,duration});
