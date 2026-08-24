@@ -57,7 +57,14 @@
     try{
       const snap=await db.ref('analytics/sessionEvents/'+sessionId).get();
       const chunks=Object.values(snap.val()||{}).filter(x=>x && x.type==='__replay' && replayKey(x,sessionId)===segmentId);
-      const events=chunks.sort((a,b)=>(a.at||0)-(b.at||0)).flatMap(c=>Array.isArray(c.events)?c.events:[]).sort((a,b)=>(a.timestamp||0)-(b.timestamp||0));
+      const events=chunks.sort((a,b)=>(a.at||0)-(b.at||0)).flatMap(c=>{
+        if(Array.isArray(c.events)) return c.events; // legacy recordings
+        if(typeof c.eventsJson==='string'){
+          try{ const parsed=JSON.parse(c.eventsJson); return Array.isArray(parsed)?parsed:[]; }
+          catch(e){ console.warn('replay parse failed',e); return []; }
+        }
+        return [];
+      }).sort((a,b)=>(a.timestamp||0)-(b.timestamp||0));
       if(!events.length){alert('لا يوجد تسجيل محفوظ لهذا الجزء.');return;}
       $('replayTarget').innerHTML=''; $('replayModal').classList.remove('hidden');
       if(typeof rrwebPlayer!=='function'){alert('تعذر تحميل مشغل التسجيل.');return;}

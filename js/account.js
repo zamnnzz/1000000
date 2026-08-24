@@ -319,7 +319,9 @@
         at:firebase.database.ServerValue.TIMESTAMP,
         path:location.pathname+location.search,
         viewport:Math.round(window.innerWidth||0)+"x"+Math.round(window.innerHeight||0),
-        events:cleanBatch
+        // Store rrweb events as a JSON string so Firebase does not reject
+        // deeply nested DOM snapshots (Realtime Database has a max depth).
+        eventsJson:JSON.stringify(cleanBatch)
       });
     }catch(e){
       replayQueue.unshift(...batch.slice(-200));
