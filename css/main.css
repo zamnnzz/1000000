@@ -4444,3 +4444,83 @@ body.game-mode .game-seo-faq{
 .new-game-announcement-cta{margin-inline-start:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);font-size:12px;font-weight:900;white-space:nowrap}
 .game-new-badge{position:absolute;top:10px;left:10px;z-index:5;background:#dc2626;color:#fff;padding:6px 13px;border:3px solid #fff;border-radius:999px;font-size:12px;font-weight:900;line-height:1;box-shadow:0 5px 12px rgba(127,29,29,.28);transform:rotate(-7deg)}
 @media(max-width:560px){.new-game-announcement{min-height:58px;gap:9px;padding:6px 10px}.new-game-announcement img{width:42px;height:42px;border-radius:10px}.new-game-announcement-copy small{font-size:10px}.new-game-announcement-copy strong{font-size:14px}.new-game-announcement-cta{font-size:10px;padding:6px 9px;margin-inline-start:2px}.game-new-badge{top:8px;left:8px;padding:5px 10px;font-size:11px}}
+
+/* ===== 2026-08-25 Responsive hardening: all screens/orientations ===== */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-height:100svh}
+.hero-inner,.games-section,.packages-grid,.why-section,.footer-inner,.game-shell,.game-seo-content{width:min(100%,1152px)}
+.hero-inner,.games-section,.why-section,.footer-inner{padding-inline:clamp(16px,3vw,32px)}
+.hero-copy h1{font-size:clamp(34px,4.4vw,52px)}
+.hero-copy p{font-size:clamp(16px,1.7vw,20px)}
+.hero-logo{width:clamp(180px,25vw,288px);height:auto;aspect-ratio:1}
+.games-grid{grid-template-columns:repeat(auto-fit,minmax(min(245px,100%),300px));gap:clamp(16px,2.2vw,28px)}
+.game-card{height:auto;min-height:345px}
+.game-image-box{height:auto;aspect-ratio:12/7}
+.packages-section,.why-section{padding-block:clamp(42px,6vw,80px)}
+.package-card,.feature-card{padding:clamp(20px,3vw,32px)}
+.center-heading h2{font-size:clamp(28px,3.5vw,40px)}
+.why-title h2{font-size:clamp(23px,2.8vw,30px)}
+.footer-grid{gap:clamp(22px,3vw,40px)}
+
+/* الشاشات العريضة جداً: نحافظ على مساحة جانبية مريحة بدل تمدد المحتوى */
+@media(min-width:1440px){
+  .hero-inner,.games-section,.packages-grid,.why-section,.footer-inner{max-width:1280px}
+  .hero-inner{padding-block:54px 66px;gap:64px}
+  .games-section{padding-top:54px;padding-bottom:92px}
+  .games-grid{grid-template-columns:repeat(auto-fit,minmax(270px,300px));gap:30px}
+}
+@media(min-width:1900px){
+  .hero-inner,.games-section,.packages-grid,.why-section,.footer-inner{max-width:1400px}
+  .page-bg{background-position:center top;background-size:cover}
+}
+
+/* تابلت */
+@media(max-width:900px){
+  .hero-inner{gap:24px}
+  .packages-grid,.features-grid{gap:20px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-grid>*:first-child{grid-column:1/-1}
+}
+
+/* جوال */
+@media(max-width:760px){
+  .hero-inner{padding-inline:clamp(14px,5vw,22px)}
+  .games-section,.why-section,.footer-inner{padding-inline:clamp(12px,4vw,20px)}
+  .games-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,3vw,16px)}
+  .game-card{max-width:none;min-width:0;min-height:0}
+  .game-title{font-size:clamp(16px,4.8vw,20px)}
+  .game-desc{font-size:clamp(12px,3.5vw,14px)}
+  .packages-grid,.features-grid,.footer-grid{grid-template-columns:1fr}
+  .footer-grid>*:first-child{grid-column:auto}
+  .category-heading span,.faq-heading{max-width:calc(100vw - 32px);font-size:clamp(20px,6vw,25px);padding-inline:clamp(18px,7vw,34px)}
+}
+
+/* أجهزة صغيرة جداً */
+@media(max-width:390px){
+  .games-grid{grid-template-columns:1fr}
+  .game-card{width:min(100%,320px)}
+  .hero-tags span{font-size:12px;padding:7px 11px}
+  .new-game-announcement{flex-wrap:wrap;text-align:center;padding-block:8px}
+  .new-game-announcement-copy{text-align:center}
+}
+
+/* الوضع الأفقي للجوال: منع تزاحم الهيرو والعناصر */
+@media(max-height:520px) and (orientation:landscape){
+  .hero-inner{grid-template-columns:minmax(0,1.25fr) minmax(150px,.75fr);padding-block:22px 28px;gap:24px}
+  .hero-copy{text-align:right;order:initial}
+  .hero-logo-wrap{order:initial}
+  .hero-logo{width:min(30vh,180px);min-width:120px}
+  .hero-copy h1{font-size:clamp(28px,5vw,40px);margin-bottom:8px}
+  .hero-copy p{font-size:14px;line-height:1.65;margin-bottom:10px}
+  .hero-tags{margin-bottom:10px}
+  .hero-wave{height:45px;margin-top:-8px}
+  .games-section{padding-top:24px}
+}
+
+/* دعم الشاشات ذات النتوءات مثل iPhone */
+@supports(padding:max(0px)){
+  .new-game-announcement,.hero-inner,.games-section,.footer-inner{
+    padding-left:max(var(--safe-left,0px),env(safe-area-inset-left));
+    padding-right:max(var(--safe-right,0px),env(safe-area-inset-right));
+  }
+}
