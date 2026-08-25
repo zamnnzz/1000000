@@ -34,6 +34,20 @@ button{font:inherit;cursor:pointer}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px} select.btn{appearance:auto}
 .x2note{font-size:12px;color:#6e765c;margin-top:7px}
 @media(max-width:700px){.roundTabs,.grid2,.answers{grid-template-columns:1fr}.scorebar{grid-template-columns:1fr 76px 1fr}.teamName{font-size:13px}.score{font-size:36px}.logo{font-size:42px}}
+
+.team-award-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.team-award{
+  border:4px solid var(--ink);border-radius:16px;padding:18px 14px;
+  color:var(--ink);font-weight:1000;cursor:pointer;
+  box-shadow:0 5px 0 #9fac9e;transition:.15s transform,.15s outline;
+}
+.team-award.team-one{background:var(--team1)}
+.team-award.team-two{background:var(--team2)}
+.team-award.selected{outline:5px solid #ffbf3f;transform:translateY(-2px)}
+.team-award-name{font-size:18px}
+.team-award-score{font-size:34px;line-height:1;margin-top:4px}
+@media(max-width:700px){.team-award-grid{grid-template-columns:1fr 1fr}.team-award-name{font-size:14px}.team-award-score{font-size:28px}}
+
 </style>
 </head>
 <body>
@@ -90,24 +104,30 @@ button{font:inherit;cursor:pointer}
 
   <div class="card">
     <div class="hostHeader">
-      <span class="badge">اعتماد الإجابة</span>
+      <span class="badge">إعطاء النقاط</span>
       <span id="questionPoints" class="small muted">نقاط السؤال: 0</span>
     </div>
 
-    <div id="answeredInfo" class="status" style="margin-bottom:12px">السؤال لم يُحسم بعد</div>
+    <div id="answeredInfo" class="status" style="margin-bottom:14px">السؤال لم يُحسم بعد</div>
 
-    <div class="grid2">
-      <div>
-        <label class="small muted" style="display:block;margin-bottom:6px">من جاوب؟</label>
-        <select id="answeredBySelect" class="btn" style="width:100%;background:#fff"></select>
-      </div>
-      <div style="display:flex;align-items:end">
-        <button id="approveAnswerBtn" class="btn green" style="width:100%" onclick="approveAnswer()">اعتماد الإجابة وإضافة النقاط</button>
-      </div>
+    <div class="team-award-grid">
+      <button id="awardTeam1" class="team-award team-one" onclick="selectAwardTeam(1)">
+        <div id="awardTeam1Name" class="team-award-name">الفريق الأول</div>
+        <div id="awardTeam1Score" class="team-award-score">0</div>
+      </button>
+
+      <button id="awardTeam2" class="team-award team-two" onclick="selectAwardTeam(2)">
+        <div id="awardTeam2Name" class="team-award-name">الفريق الثاني</div>
+        <div id="awardTeam2Score" class="team-award-score">0</div>
+      </button>
     </div>
 
+    <button id="givePointsBtn" class="btn green" style="width:100%;margin-top:14px;font-size:18px" onclick="givePointsAndNext()" disabled>
+      إعطاء النقاط والانتقال للسؤال التالي
+    </button>
+
     <div class="x2note" style="margin-top:10px">
-      النقاط تُضاف تلقائيًا لفريق اللاعب المختار. إذا كان x2 مفعّل للفريق، تتضاعف نقاط هذا السؤال تلقائيًا.
+      اختر الفريق الذي أجاب بشكل صحيح. نقاط السؤال تُضاف تلقائيًا، وإذا كان x2 مفعّلًا تتضاعف مرة واحدة.
     </div>
   </div>
 </div>
@@ -200,28 +220,24 @@ function render(){
   const pts=Number(state?.question?.points||0);
   el("questionPoints").textContent=`نقاط السؤال: ${pts}`;
 
-  const players=state?.players||{};
-  const select=el("answeredBySelect");
-  const currentValue=select.value;
-  const entries=Object.entries(players)
-    .filter(([id,p])=>p?.name && (Number(p.team)===1 || Number(p.team)===2))
-    .sort((a,b)=>String(a[1].name).localeCompare(String(b[1].name),"ar"));
+  el("awardTeam1Name").textContent=t1.name||"الفريق الأول";
+  el("awardTeam2Name").textContent=t2.name||"الفريق الثاني";
+  el("awardTeam1Score").textContent=Number(t1.score||0);
+  el("awardTeam2Score").textContent=Number(t2.score||0);
 
-  select.innerHTML='<option value="">اختر اللاعب</option>'+entries.map(([id,p])=>{
-    const tn=Number(p.team)===1?(t1.name||"الفريق الأول"):(t2.name||"الفريق الثاني");
-    return `<option value="${id}">${p.name} — ${tn}</option>`;
-  }).join("");
-  if(entries.some(([id])=>id===currentValue)) select.value=currentValue;
+  el("awardTeam1").classList.toggle("selected",selectedAwardTeam===1);
+  el("awardTeam2").classList.toggle("selected",selectedAwardTeam===2);
 
-  if(state?.question?.answeredBy){
+  if(state?.question?.answeredTeam){
     const teamName=Number(state.question.answeredTeam)===1?(t1.name||"الفريق الأول"):(t2.name||"الفريق الثاني");
-    el("answeredInfo").textContent=`جابها: ${state.question.answeredByName} — ${teamName} — +${Number(state.question.awardedPoints||0)} نقطة`;
+    const who=state.question.answeredByName?` — ${state.question.answeredByName}`:"";
+    el("answeredInfo").textContent=`جابها: ${teamName}${who} — +${Number(state.question.awardedPoints||0)} نقطة`;
     el("answeredInfo").style.background="#bcebb4";
-    el("approveAnswerBtn").disabled=true;
+    el("givePointsBtn").disabled=true;
   }else{
     el("answeredInfo").textContent="السؤال لم يُحسم بعد";
     el("answeredInfo").style.background="#fff";
-    el("approveAnswerBtn").disabled=false;
+    el("givePointsBtn").disabled=(selectedAwardTeam===0);
   }
 }
 
@@ -241,6 +257,7 @@ window.setRound=async n=>{
 };
 
 window.nextQuestion=async()=>{
+  selectedAwardTeam=0;
   const r=Number(state?.round||1);
   const list=rounds[r];
   const idx=((Number(state?.qIndex??-1)+1)%list.length);
@@ -276,17 +293,22 @@ window.openBuzzer=()=>set(ref(db,"mn_ana/buzzer"),{open:true,winner:null,pressed
 window.closeBuzzer=()=>update(ref(db,"mn_ana/buzzer"),{open:false});
 window.resetBuzzer=()=>set(ref(db,"mn_ana/buzzer"),{open:false,winner:null,pressedAt:null});
 
-window.approveAnswer=async()=>{
+let selectedAwardTeam=0;
+
+window.selectAwardTeam=(team)=>{
+  if(state?.question?.answeredTeam) return;
+  selectedAwardTeam=Number(team);
+  el("awardTeam1").classList.toggle("selected",selectedAwardTeam===1);
+  el("awardTeam2").classList.toggle("selected",selectedAwardTeam===2);
+  el("givePointsBtn").disabled=false;
+};
+
+window.givePointsAndNext=async()=>{
   if(!state?.question?.historyKey) return alert("ابدأ سؤالًا أولًا.");
-  if(state?.question?.answeredBy) return alert("هذا السؤال محسوب بالفعل.");
+  if(state?.question?.answeredTeam) return alert("هذا السؤال محسوب بالفعل.");
+  if(selectedAwardTeam!==1 && selectedAwardTeam!==2) return alert("اختر الفريق أولًا.");
 
-  const playerId=document.getElementById("answeredBySelect").value;
-  if(!playerId) return alert("اختر من جاوب.");
-
-  const player=state?.players?.[playerId];
-  if(!player) return alert("اللاعب غير موجود أو غير متصل.");
-
-  const team=Number(player.team);
+  const team=selectedAwardTeam;
   const basePoints=Number(state.question.points||1);
   const teamRef=ref(db,`mn_ana/teams/${team}`);
   let awarded=basePoints;
@@ -302,10 +324,14 @@ window.approveAnswer=async()=>{
     return current;
   });
 
+  const winnerPlayerId=state?.buzzer?.winnerPlayerId||null;
+  const winnerPlayerName=state?.buzzer?.winnerPlayerName||"";
+  const teamName=(team===1?(teamData(1).name||"الفريق الأول"):(teamData(2).name||"الفريق الثاني"));
   const historyKey=state.question.historyKey;
+
   const record={
-    answeredBy:playerId,
-    answeredByName:player.name,
+    answeredBy:winnerPlayerId,
+    answeredByName:winnerPlayerName,
     answeredTeam:team,
     awardedPoints:awarded,
     basePoints,
@@ -314,12 +340,15 @@ window.approveAnswer=async()=>{
 
   await update(gameRef,{
     [`history/${historyKey}`]:record,
-    "question/answeredBy":playerId,
-    "question/answeredByName":player.name,
+    "question/answeredBy":winnerPlayerId,
+    "question/answeredByName":winnerPlayerName,
     "question/answeredTeam":team,
     "question/awardedPoints":awarded,
     "buzzer/open":false
   });
+
+  selectedAwardTeam=0;
+  await nextQuestion();
 };
 </script>
 </body>

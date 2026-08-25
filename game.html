@@ -342,9 +342,9 @@ onValue(ref(db,"mn_ana"),snap=>{
   }
 
   const answeredMarker=document.getElementById("answeredMarker");
-  if(s.question?.answeredBy){
+  if(s.question?.answeredTeam){
     const t=s.teams?.[s.question.answeredTeam]||s.teams?.[String(s.question.answeredTeam)];
-    answeredMarker.textContent=`جابها: ${s.question.answeredByName} — ${t?.name||"الفريق"} — +${Number(s.question.awardedPoints||0)} نقطة`;
+    answeredMarker.textContent=`جابها: ${t?.name||"الفريق"}${s.question.answeredByName?(" — "+s.question.answeredByName):""} — +${Number(s.question.awardedPoints||0)} نقطة`;
     answeredMarker.classList.remove("hidden");
   }else{
     answeredMarker.classList.add("hidden");
