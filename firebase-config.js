@@ -1,9 +1,10 @@
-// Firebase Web configuration
-// ملاحظة: إذا كان apiKey في النسخة المرسلة مختصرًا بـ xxxxx، استبدله بالقيمة الحقيقية.
+// Firebase Web configuration for mn-ana-game-19256
 window.firebaseConfig = {
-  apiKey: "AIzaSyxxxxxxxxxxxxxxxxxxxx",
-  authDomain: "horof-game-9934e.firebaseapp.com",
-  databaseURL: "https://horof-game-9934e-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "horof-game-9934e",
-  appId: "1:44896634225:web:62a672d8c94be6e0d762d0"
+  apiKey: "AIzaSyCcdd_dQrYeSzprt3vJEdYJc74fsVoqtVM",
+  authDomain: "mn-ana-game-19256.firebaseapp.com",
+  databaseURL: "https://mn-ana-game-19256-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "mn-ana-game-19256",
+  storageBucket: "mn-ana-game-19256.firebasestorage.app",
+  messagingSenderId: "229828779546",
+  appId: "1:229828779546:web:66fe61f97b915196a9bba3"
 };
