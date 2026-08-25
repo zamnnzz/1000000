@@ -221,46 +221,7 @@ body{overflow-x:hidden}
   .games-row .game-image-box{height:170px}
   .games-row .game-card:hover{transform:none}
 }
-
-
-/* =====================================================
-   V6 - واجهة اللعبة داخل نفس المشروع
-===================================================== */
-.game-card.empty-card{cursor:pointer}
-.game-card.empty-card:focus-visible{outline:4px solid rgba(124,58,237,.35);outline-offset:5px}
-.game-view[hidden]{display:none!important}
-.game-view{min-height:100vh;background:#f4f0ff;color:#3b0764}
-.game-view-topbar{position:absolute;top:0;left:0;right:0;z-index:40;max-width:1240px;margin:auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;color:#fff}
-.game-back-btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.13);color:#fff;padding:11px 17px;border-radius:12px;font-weight:900;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 7px 20px rgba(30,5,50,.12)}
-.game-view-brand{font-size:17px;font-weight:900}
-.game-detail-hero{position:relative;overflow:hidden;min-height:565px;color:#fff;background:radial-gradient(circle at 14% 20%,rgba(255,255,255,.12),transparent 24%),radial-gradient(circle at 88% 18%,rgba(139,92,246,.28),transparent 28%),linear-gradient(120deg,#39005d 0%,#5b0fb7 43%,#7c3aed 100%);border-top:4px solid #2e0747}
-.game-detail-inner{max-width:1180px;min-height:500px;margin:auto;padding:92px 42px 90px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);gap:66px;align-items:center}
-.game-detail-copy{text-align:right}
-.game-breadcrumb{font-size:13px;font-weight:700;color:rgba(255,255,255,.66);margin-bottom:13px}
-.game-detail-copy h1{margin:0 0 16px;font-size:56px;line-height:1.08;font-weight:900;letter-spacing:-1px}
-.game-detail-copy>p{margin:0 0 20px;max-width:650px;color:rgba(255,255,255,.79);font-size:18px;line-height:1.9;font-weight:700}
-.game-detail-pills{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 17px}
-.game-detail-pills span{padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);font-size:12px;font-weight:900}
-.game-detail-rating{display:flex;gap:8px;align-items:center;margin-bottom:22px;font-size:14px}.game-detail-rating span{color:#fde047;letter-spacing:2px}.game-detail-rating b{color:#fff}
-.game-detail-actions{display:flex;flex-wrap:wrap;gap:12px}
-.game-play-btn,.game-preview-btn{min-height:48px;padding:0 24px;border-radius:13px;font-family:inherit;font-weight:900;font-size:15px;cursor:pointer}
-.game-play-btn{border:3px solid #c2410c;background:#ff7417;color:#fff;box-shadow:4px 4px 0 #9a3412}
-.game-preview-btn{border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff}
-.game-detail-visual{position:relative;min-height:335px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.22);border-radius:28px;background:rgba(255,255,255,.12);box-shadow:0 24px 60px rgba(20,5,40,.28);backdrop-filter:blur(10px)}
-.game-detail-icon{font-size:122px;line-height:1;filter:drop-shadow(0 12px 20px rgba(25,0,50,.2))}
-.game-detail-screen-label{margin-top:24px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.14);font-size:12px;font-weight:900}
-.game-detail-wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:100px;display:block}
-.game-detail-page{max-width:1180px;margin:0 auto;padding:34px 24px 80px}
-.game-detail-section{padding:38px 0}
-.game-detail-heading{text-align:center;margin-bottom:27px}.game-detail-heading h2{margin:0 0 8px;font-size:30px;font-weight:900}.game-detail-heading p{margin:0;color:#746c7d;font-size:15px;font-weight:700}
-.game-shots-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.game-shot-placeholder{aspect-ratio:16/9;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;background:linear-gradient(145deg,#ede9fe,#fff);border:3px solid #e5e0e8;border-radius:20px;box-shadow:5px 5px 0 #d3ccd8;color:#6d28d9;font-size:42px;font-weight:900;overflow:hidden}.game-shot-placeholder span{font-size:12px;color:#746c7d}
-.game-info-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.game-info-panel>div{display:flex;flex-direction:column;gap:8px;padding:22px;background:#fff;border:3px solid #e5e0e8;border-radius:18px;box-shadow:5px 5px 0 #d3ccd8}.game-info-panel b{font-size:16px}.game-info-panel span{color:#746c7d;font-size:14px;font-weight:700}
-.game-reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.game-reviews-grid article{padding:22px;background:#fff;border:3px solid #e5e0e8;border-radius:18px;box-shadow:5px 5px 0 #d3ccd8}.game-reviews-grid strong{display:block;margin-bottom:7px}.game-reviews-grid span{color:#f59e0b;letter-spacing:1px}.game-reviews-grid p{margin:10px 0 0;color:#746c7d;font-size:14px}
-body.game-mode{background:#f4f0ff}body.game-mode #homeLogin,body.game-mode #homeHero,body.game-mode #homeMain{display:none!important}
-@media(max-width:900px){.game-detail-inner{grid-template-columns:1fr;padding:88px 22px 90px;gap:28px}.game-detail-copy{text-align:center}.game-detail-copy>p{margin-inline:auto}.game-detail-pills,.game-detail-actions{justify-content:center}.game-detail-visual{min-height:280px;max-width:580px;width:100%;margin:auto}.game-detail-copy h1{font-size:43px}.game-shots-grid,.game-info-panel,.game-reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.game-view-topbar{padding:12px}.game-view-brand{display:none}.game-back-btn{font-size:12px;padding:9px 12px}.game-detail-inner{padding:72px 14px 76px}.game-detail-copy h1{font-size:36px}.game-detail-copy>p{font-size:14px}.game-detail-pills{gap:6px}.game-detail-pills span{font-size:10px;padding:7px 10px}.game-detail-actions{display:grid}.game-play-btn,.game-preview-btn{width:100%}.game-detail-visual{min-height:235px}.game-detail-icon{font-size:92px}.game-detail-page{padding:22px 14px 60px}.game-detail-section{padding:28px 0}.game-detail-heading h2{font-size:24px}.game-shots-grid,.game-info-panel,.game-reviews-grid{grid-template-columns:1fr}.game-detail-wave{height:70px}}
-
+\n\n/* =====================================================\n   V6 - واجهة اللعبة داخل نفس المشروع\n===================================================== */\n.game-card.empty-card{cursor:pointer}\n.game-card.empty-card:focus-visible{outline:4px solid rgba(124,58,237,.35);outline-offset:5px}\n.game-view[hidden]{display:none!important}\n.game-view{min-height:100vh;background:#f4f0ff;color:#3b0764}\n.game-view-topbar{position:absolute;top:0;left:0;right:0;z-index:40;max-width:1240px;margin:auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;color:#fff}\n.game-back-btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.13);color:#fff;padding:11px 17px;border-radius:12px;font-weight:900;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 7px 20px rgba(30,5,50,.12)}\n.game-view-brand{font-size:17px;font-weight:900}\n.game-detail-hero{position:relative;overflow:hidden;min-height:565px;color:#fff;background:radial-gradient(circle at 14% 20%,rgba(255,255,255,.12),transparent 24%),radial-gradient(circle at 88% 18%,rgba(139,92,246,.28),transparent 28%),linear-gradient(120deg,#39005d 0%,#5b0fb7 43%,#7c3aed 100%);border-top:4px solid #2e0747}\n.game-detail-inner{max-width:1180px;min-height:500px;margin:auto;padding:92px 42px 90px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);gap:66px;align-items:center}\n.game-detail-copy{text-align:right}\n.game-breadcrumb{font-size:13px;font-weight:700;color:rgba(255,255,255,.66);margin-bottom:13px}\n.game-detail-copy h1{margin:0 0 16px;font-size:56px;line-height:1.08;font-weight:900;letter-spacing:-1px}\n.game-detail-copy>p{margin:0 0 20px;max-width:650px;color:rgba(255,255,255,.79);font-size:18px;line-height:1.9;font-weight:700}\n.game-detail-pills{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 17px}\n.game-detail-pills span{padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);font-size:12px;font-weight:900}\n.game-detail-rating{display:flex;gap:8px;align-items:center;margin-bottom:22px;font-size:14px}.game-detail-rating span{color:#fde047;letter-spacing:2px}.game-detail-rating b{color:#fff}\n.game-detail-actions{display:flex;flex-wrap:wrap;gap:12px}\n.game-play-btn,.game-preview-btn{min-height:48px;padding:0 24px;border-radius:13px;font-family:inherit;font-weight:900;font-size:15px;cursor:pointer}\n.game-play-btn{border:3px solid #c2410c;background:#ff7417;color:#fff;box-shadow:4px 4px 0 #9a3412}\n.game-preview-btn{border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff}\n.game-detail-visual{position:relative;min-height:335px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.22);border-radius:28px;background:rgba(255,255,255,.12);box-shadow:0 24px 60px rgba(20,5,40,.28);backdrop-filter:blur(10px)}\n.game-detail-icon{font-size:122px;line-height:1;filter:drop-shadow(0 12px 20px rgba(25,0,50,.2))}\n.game-detail-screen-label{margin-top:24px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.14);font-size:12px;font-weight:900}\n.game-detail-wave{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:100px;display:block}\n.game-detail-page{max-width:1180px;margin:0 auto;padding:34px 24px 80px}\n.game-detail-section{padding:38px 0}\n.game-detail-heading{text-align:center;margin-bottom:27px}.game-detail-heading h2{margin:0 0 8px;font-size:30px;font-weight:900}.game-detail-heading p{margin:0;color:#746c7d;font-size:15px;font-weight:700}\n.game-shots-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}\n.game-shot-placeholder{aspect-ratio:16/9;display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;background:linear-gradient(145deg,#ede9fe,#fff);border:3px solid #e5e0e8;border-radius:20px;box-shadow:5px 5px 0 #d3ccd8;color:#6d28d9;font-size:42px;font-weight:900;overflow:hidden}.game-shot-placeholder span{font-size:12px;color:#746c7d}\n.game-info-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.game-info-panel>div{display:flex;flex-direction:column;gap:8px;padding:22px;background:#fff;border:3px solid #e5e0e8;border-radius:18px;box-shadow:5px 5px 0 #d3ccd8}.game-info-panel b{font-size:16px}.game-info-panel span{color:#746c7d;font-size:14px;font-weight:700}\n.game-reviews-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.game-reviews-grid article{padding:22px;background:#fff;border:3px solid #e5e0e8;border-radius:18px;box-shadow:5px 5px 0 #d3ccd8}.game-reviews-grid strong{display:block;margin-bottom:7px}.game-reviews-grid span{color:#f59e0b;letter-spacing:1px}.game-reviews-grid p{margin:10px 0 0;color:#746c7d;font-size:14px}\nbody.game-mode{background:#f4f0ff}body.game-mode #homeLogin,body.game-mode #homeHero,body.game-mode #homeMain{display:none!important}\n@media(max-width:900px){.game-detail-inner{grid-template-columns:1fr;padding:88px 22px 90px;gap:28px}.game-detail-copy{text-align:center}.game-detail-copy>p{margin-inline:auto}.game-detail-pills,.game-detail-actions{justify-content:center}.game-detail-visual{min-height:280px;max-width:580px;width:100%;margin:auto}.game-detail-copy h1{font-size:43px}.game-shots-grid,.game-info-panel,.game-reviews-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}\n@media(max-width:600px){.game-view-topbar{padding:12px}.game-view-brand{display:none}.game-back-btn{font-size:12px;padding:9px 12px}.game-detail-inner{padding:72px 14px 76px}.game-detail-copy h1{font-size:36px}.game-detail-copy>p{font-size:14px}.game-detail-pills{gap:6px}.game-detail-pills span{font-size:10px;padding:7px 10px}.game-detail-actions{display:grid}.game-play-btn,.game-preview-btn{width:100%}.game-detail-visual{min-height:235px}.game-detail-icon{font-size:92px}.game-detail-page{padding:22px 14px 60px}.game-detail-section{padding:28px 0}.game-detail-heading h2{font-size:24px}.game-shots-grid,.game-info-panel,.game-reviews-grid{grid-template-columns:1fr}.game-detail-wave{height:70px}}\n
 
 /* =====================================================
    V7 - صفحة اللعبة حسب التصميم المرجعي
@@ -4483,49 +4444,3 @@ body.game-mode .game-seo-faq{
 .new-game-announcement-cta{margin-inline-start:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);font-size:12px;font-weight:900;white-space:nowrap}
 .game-new-badge{position:absolute;top:10px;left:10px;z-index:5;background:#dc2626;color:#fff;padding:6px 13px;border:3px solid #fff;border-radius:999px;font-size:12px;font-weight:900;line-height:1;box-shadow:0 5px 12px rgba(127,29,29,.28);transform:rotate(-7deg)}
 @media(max-width:560px){.new-game-announcement{min-height:58px;gap:9px;padding:6px 10px}.new-game-announcement img{width:42px;height:42px;border-radius:10px}.new-game-announcement-copy small{font-size:10px}.new-game-announcement-copy strong{font-size:14px}.new-game-announcement-cta{font-size:10px;padding:6px 9px;margin-inline-start:2px}.game-new-badge{top:8px;left:8px;padding:5px 10px;font-size:11px}}
-
-
-/* =====================================================
-   ZAMN responsive compatibility hardening — 2026-08
-   Fluid layout for Chrome/Safari/PWA without changing visual identity
-===================================================== */
-*,*::before,*::after{box-sizing:border-box}
-html{width:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{width:100%;max-width:100%;overflow-x:hidden;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
-img,svg,video,canvas{max-width:100%;height:auto}
-iframe{max-width:100%}
-button,a,input,select,textarea{font:inherit}
-
-/* Prevent flex/grid children and long Arabic text from forcing horizontal overflow. */
-.hero-inner,.games-section,.game-category,.games-row,.game-card,.game-content,
-.retro-game-shell,.retro-game-header,.game-view-content,.game-detail-inner,
-.game-detail-page,.player-login-card,.account-panel,.account-content{min-width:0;max-width:100%}
-.game-title,.game-desc,.new-game-announcement-copy,.hero-copy{overflow-wrap:anywhere}
-
-/* Fluid cards: preserve desktop columns but collapse before they collide. */
-@media (min-width:901px) and (max-width:1100px){
-  .games-section{padding-inline:20px}
-  .games-row-4{grid-template-columns:repeat(2,minmax(0,1fr));max-width:760px}
-}
-@media (min-width:601px) and (max-width:900px){
-  .games-row-2,.games-row-3,.games-row-4{grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:720px}
-}
-@media (max-width:600px){
-  body{padding-top:0;padding-bottom:0}
-  .games-section{width:100%;padding-inline:max(12px,env(safe-area-inset-left,0px));}
-  .games-row,.games-row-2,.games-row-3,.games-row-4{width:100%;max-width:420px;grid-template-columns:minmax(0,1fr)}
-  .games-row .game-card{width:100%;min-width:0}
-  .hero-copy > h2.seo-home-heading{font-size:clamp(30px,9vw,40px)}
-  .new-game-announcement{flex-wrap:wrap;height:auto}
-}
-
-/* Landscape phones / installed PWA: keep controls clear of browser/notch areas. */
-@media (orientation:landscape) and (max-height:600px){
-  body:not(.player-open){padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
-  .games-section{padding-top:24px;padding-bottom:42px}
-  .retro-game-hero{min-height:100dvh}
-}
-
-/* Fullscreen player must own the viewport; safe-area padding belongs to its controls only. */
-html.player-open,body.player-open{padding:0!important;max-width:none!important}
-body.player-open .game-player-overlay{max-width:none!important}
