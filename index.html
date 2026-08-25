@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>من أنا؟ — شاشة اللعبة</title>
+<style>
+
+:root{
+  --ink:#18384c;
+  --bg:#f1f7e3;
+  --dot:#dbe9c8;
+  --panel:#e9f8cf;
+  --team1:#bfd5b9;
+  --team2:#cfedda;
+  --green:#57cd78;
+  --blue:#6ed3ef;
+  --orange:#ff7d31;
+  --white:#fffefa;
+  --shadow:#b7c6a8;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+body{
+  background-color:var(--bg);
+  background-image:radial-gradient(circle,var(--dot) 2px,transparent 2.2px);
+  background-size:16px 16px;
+}
+button,input{font:inherit}
+.hidden{display:none!important}
+
+html,body{width:100%;height:100%;overflow:hidden}
+body{display:flex;flex-direction:column}
+.topbar{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) clamp(82px,7vw,112px) minmax(0,1fr);
+  border:clamp(2px,.22vw,4px) solid var(--ink);
+  background:white;
+  flex:0 0 auto;
+}
+.team{
+  min-height:clamp(92px,15vh,150px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:900;text-align:center;padding:clamp(8px,1.2vw,16px)
+}
+.team.one{background:var(--team1)}
+.team.two{background:var(--team2)}
+.team .name{font-size:clamp(14px,1.15vw,21px);margin-bottom:4px;max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team .score{font-size:clamp(36px,4.3vw,62px);line-height:1}
+.center{
+  background:#edf7cf;border-left:2px solid #9ab59a;border-right:2px solid #9ab59a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px
+}
+.mini-logo{font-size:clamp(20px,2.1vw,32px);font-weight:1000;line-height:.85;text-align:center}
+.stars{font-size:clamp(12px,1.3vw,20px);letter-spacing:2px;margin:4px 0}
+.options{
+  background:var(--ink);color:#fff;border:0;border-radius:10px;
+  padding:clamp(6px,.7vw,9px) clamp(8px,.8vw,12px);font-weight:800;
+  font-size:clamp(10px,.8vw,13px)
+}
+.game-area{
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(18px,4vh,48px) clamp(10px,3vw,32px);
+  overflow:auto;
+}
+.qbox{
+  width:min(760px,92vw);
+  max-height:calc(100vh - clamp(120px,18vh,180px) - 30px);
+  position:relative;background:#e8f9d3;border:clamp(2px,.22vw,4px) solid var(--ink);
+  border-radius:clamp(14px,1.3vw,20px);
+  box-shadow:0 clamp(5px,.7vw,9px) 0 #b6c5a8;
+  padding:clamp(28px,3.5vw,38px) clamp(16px,2.5vw,28px) clamp(18px,2vw,26px);
+}
+.qnum{
+  position:absolute;top:clamp(-22px,-1.6vw,-16px);left:clamp(18px,3vw,30px);
+  background:var(--ink);color:#fff;border-radius:16px;padding:7px 13px;
+  font-weight:900;font-size:clamp(11px,.9vw,15px)
+}
+.sticker{
+  position:absolute;right:clamp(16px,3vw,28px);top:clamp(-30px,-2vw,-24px);
+  padding:clamp(9px,1vw,13px) clamp(13px,1.6vw,20px);
+  border:clamp(2px,.22vw,4px) solid var(--ink);border-radius:12px;
+  font-size:clamp(17px,1.7vw,25px);font-weight:900;transform:rotate(4deg);
+  box-shadow:0 5px 0 rgba(24,56,76,.18)
+}
+.sticker.blue{background:var(--blue)}
+.sticker.green{background:#2d6b69;color:#fff}
+.question{
+  background:#f7f8e8;border:clamp(2px,.22vw,4px) solid var(--ink);
+  border-radius:clamp(14px,1.3vw,20px);
+  padding:clamp(16px,2vw,24px);
+  text-align:center;font-size:clamp(18px,2vw,29px);
+  line-height:1.55;font-weight:900;box-shadow:0 5px 0 #9faa9b;
+}
+.pause{color:#65cde8;font-size:clamp(20px,2vw,28px);line-height:1;margin-bottom:4px}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1vw,14px);margin-top:clamp(10px,1.2vw,16px)}
+.ans{
+  background:white;border:clamp(2px,.22vw,4px) solid var(--ink);border-radius:13px;
+  padding:clamp(9px,1vw,12px) clamp(10px,1.2vw,16px);
+  min-height:clamp(50px,6vh,62px);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:0 4px 0 #9faa9b;font-size:clamp(15px,1.3vw,20px);font-weight:800
+}
+.letter{
+  flex:0 0 clamp(30px,2.8vw,38px);height:clamp(30px,2.8vw,38px);
+  border-radius:50%;display:grid;place-items:center;background:var(--orange);
+  border:2px solid var(--ink);font-weight:900
+}
+.free-text{
+  background:#bcebb4;border:clamp(2px,.22vw,4px) solid var(--ink);border-radius:18px;
+  padding:clamp(18px,2.2vw,28px);font-size:clamp(18px,1.9vw,27px);
+  line-height:1.7;font-weight:900;text-align:center;box-shadow:0 5px 0 #9faa9b
+}
+.buzz-state{
+  margin-top:clamp(10px,1.3vw,16px);text-align:center;font-weight:900;
+  font-size:clamp(14px,1.25vw,19px)
+}
+@media(max-width:700px){
+  html,body{overflow:auto}
+  .topbar{grid-template-columns:1fr 74px 1fr}
+  .team{min-height:96px}
+  .game-area{align-items:flex-start;padding-top:70px}
+  .qbox{width:95vw;max-height:none}
+  .answers{grid-template-columns:1fr}
+}
+@media(max-height:650px) and (orientation:landscape){
+  .team{min-height:78px}
+  .team .score{font-size:36px}
+  .mini-logo{font-size:19px}
+  .stars{margin:2px 0}
+  .game-area{padding:26px 16px}
+  .qbox{width:min(700px,88vw);padding-top:28px}
+  .question{font-size:18px;padding:14px}
+  .ans{min-height:44px;padding:8px 10px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="team two">
+    <div id="team2Name" class="name">الفريق الثاني</div>
+    <div id="team2Score" class="score">0</div>
+  </div>
+  <div class="center">
+    <div class="mini-logo">من<br>أنا</div>
+    <div class="stars">☆ ★ ☆</div>
+    <div class="options">اللعبة</div>
+  </div>
+  <div class="team one">
+    <div id="team1Name" class="name">الفريق الأول</div>
+    <div id="team1Score" class="score">0</div>
+  </div>
+</div>
+
+<main class="game-area">
+  <section class="qbox">
+    <div class="qnum">السؤال <span id="qnum">1</span></div>
+    <div id="sticker" class="sticker blue">من القائل؟</div>
+
+    <div id="mcqView">
+      <div class="question">
+        <div class="pause">Ⅱ</div>
+        <div id="questionText">بانتظار المقدم لبدء السؤال.</div>
+      </div>
+      <div id="answers" class="answers"></div>
+    </div>
+
+    <div id="freeView" class="hidden">
+      <div id="freeText" class="free-text">بانتظار المقدم لبدء السؤال.</div>
+    </div>
+
+    <div id="buzzState" class="buzz-state">الجرس مغلق</div>
+  </section>
+</main>
+
+<script src="./firebase-config.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+const app=initializeApp(window.firebaseConfig);
+const db=getDatabase(app);
+
+onValue(ref(db,"mn_ana"),snap=>{
+  if(!snap.exists()) return;
+  const s=snap.val();
+  const t1=s.teams?.[1]||s.teams?.["1"]||{name:"الفريق الأول",score:0};
+  const t2=s.teams?.[2]||s.teams?.["2"]||{name:"الفريق الثاني",score:0};
+  document.getElementById("team1Name").textContent=t1.name||"الفريق الأول";
+  document.getElementById("team2Name").textContent=t2.name||"الفريق الثاني";
+  document.getElementById("team1Score").textContent=t1.score||0;
+  document.getElementById("team2Score").textContent=t2.score||0;
+  document.getElementById("qnum").textContent=Math.max(1,(Number(s.qIndex??0)+1));
+
+  const round=Number(s.round||1);
+  const sticker=document.getElementById("sticker");
+  if(round===1){
+    sticker.textContent="اقرأ بدون نقاط";
+    sticker.className="sticker green";
+    document.getElementById("mcqView").classList.add("hidden");
+    document.getElementById("freeView").classList.remove("hidden");
+    document.getElementById("freeText").textContent=s.question?.text||"بانتظار السؤال";
+  }else{
+    sticker.textContent=round===2?"من أنا؟":"من القائل؟";
+    sticker.className="sticker blue";
+    document.getElementById("mcqView").classList.remove("hidden");
+    document.getElementById("freeView").classList.add("hidden");
+    document.getElementById("questionText").textContent=s.question?.text||"بانتظار السؤال";
+    const choices=s.question?.choices||[];
+    const letters=["أ","ب","ج","د"];
+    document.getElementById("answers").innerHTML=choices.map((x,i)=>`
+      <div class="ans"><span>${x}</span><span class="letter">${letters[i]||""}</span></div>
+    `).join("");
+  }
+
+  const bz=s.buzzer||{open:false,winner:null};
+  const buzzState=document.getElementById("buzzState");
+  if(bz.winner){
+    const wt=s.teams?.[bz.winner]||s.teams?.[String(bz.winner)];
+    buzzState.textContent="الأسرع: "+(wt?.name||"أحد الفرق");
+  }else{
+    buzzState.textContent=bz.open?"الجرس مفتوح":"الجرس مغلق";
+  }
+});
+</script>
+</body>
+</html>
