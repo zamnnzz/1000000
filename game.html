@@ -153,6 +153,44 @@ body{
   .answer{min-height:46px;padding:7px 10px;font-size:15px}
   .letter{width:30px;height:30px;flex-basis:30px}
 }
+
+.modal.hidden{display:none!important}
+.modal{
+  position:fixed;inset:0;z-index:60;background:rgba(24,56,76,.35);
+  display:flex;align-items:center;justify-content:center;padding:20px
+}
+.modal-card{
+  width:min(720px,94vw);max-height:90vh;overflow:auto;
+  background:var(--panel);border:3px solid var(--navy);border-radius:20px;
+  box-shadow:0 9px 0 rgba(24,56,76,.25);padding:22px
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.modal-head h2{margin:0}
+.close-btn{
+  border:3px solid var(--navy);background:#fff;color:var(--navy);
+  width:40px;height:40px;border-radius:10px;font-weight:1000;cursor:pointer
+}
+.menu-btn{
+  width:100%;border:3px solid var(--navy);background:#fff;color:var(--navy);
+  border-radius:13px;padding:14px;font-weight:900;cursor:pointer;margin-top:10px
+}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.qr-card{
+  background:#f7f8e8;border:3px solid var(--navy);border-radius:16px;padding:16px;text-align:center
+}
+.qr-card h3{margin:0 0 8px}
+.qr-settings-box{
+  width:190px;height:190px;margin:10px auto;background:#fff;
+  border:2px solid var(--navy);border-radius:14px;display:grid;place-items:center;padding:9px
+}
+.qr-settings-box img,.qr-settings-box canvas{max-width:100%!important;max-height:100%!important}
+.qr-url{font-size:10px;color:#63766b;overflow-wrap:anywhere}
+.back-btn{
+  border:3px solid var(--navy);background:#fff;color:var(--navy);
+  border-radius:12px;padding:10px 14px;font-weight:900;cursor:pointer
+}
+@media(max-width:650px){.qr-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -165,7 +203,7 @@ body{
     <section class="center">
       <div class="logo-mini">من<br>أنا</div>
       <div class="stars">☆★☆</div>
-      <button class="options">▼ الخيارات</button>
+      <button id="optionsBtn" class="options">▼ الخيارات</button>
     </section>
     <section class="team right">
       <div id="team1Name" class="team-name">الفريق الأول</div>
@@ -194,6 +232,37 @@ body{
     </section>
   </main>
 </div>
+
+
+<div id="optionsModal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2 id="modalTitle">الخيارات</h2>
+      <button id="closeModal" class="close-btn">×</button>
+    </div>
+
+    <div id="optionsMenu">
+      <button id="settingsBtn" class="menu-btn">⚙ الإعدادات</button>
+    </div>
+
+    <div id="settingsView" class="hidden">
+      <button id="backOptions" class="back-btn">← رجوع</button>
+      <div class="qr-grid" style="margin-top:16px">
+        <div class="qr-card">
+          <h3>باركود المقدم</h3>
+          <div id="settingsHostQr" class="qr-settings-box"></div>
+          <div id="settingsHostUrl" class="qr-url"></div>
+        </div>
+        <div class="qr-card">
+          <h3>باركود الجرس</h3>
+          <div id="settingsBuzzerQr" class="qr-settings-box"></div>
+          <div id="settingsBuzzerUrl" class="qr-url"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script src="./firebase-config.js"></script>
 <script type="module">
@@ -254,6 +323,48 @@ onValue(ref(db,"mn_ana"),snap=>{
     buzzerState.textContent="الجرس مغلق";
   }
 });
+
+const optionsModal = document.getElementById("optionsModal");
+const optionsMenu = document.getElementById("optionsMenu");
+const settingsView = document.getElementById("settingsView");
+const modalTitle = document.getElementById("modalTitle");
+
+const baseRoot = location.origin + location.pathname.replace(/\/[^/]*$/, "/");
+const settingsHostLink = new URL("host.html", baseRoot).href;
+const settingsBuzzerLink = new URL("buzzer.html", baseRoot).href;
+
+function renderSettingsQr(){
+  const h = document.getElementById("settingsHostQr");
+  const b = document.getElementById("settingsBuzzerQr");
+  h.innerHTML=""; b.innerHTML="";
+  if(window.QRCode){
+    new QRCode(h,{text:settingsHostLink,width:165,height:165,correctLevel:QRCode.CorrectLevel.M});
+    new QRCode(b,{text:settingsBuzzerLink,width:165,height:165,correctLevel:QRCode.CorrectLevel.M});
+  }
+  document.getElementById("settingsHostUrl").textContent=settingsHostLink;
+  document.getElementById("settingsBuzzerUrl").textContent=settingsBuzzerLink;
+}
+
+document.getElementById("optionsBtn").addEventListener("click",()=>{
+  optionsMenu.classList.remove("hidden");
+  settingsView.classList.add("hidden");
+  modalTitle.textContent="الخيارات";
+  optionsModal.classList.remove("hidden");
+});
+document.getElementById("closeModal").addEventListener("click",()=>optionsModal.classList.add("hidden"));
+optionsModal.addEventListener("click",(e)=>{if(e.target===optionsModal)optionsModal.classList.add("hidden")});
+document.getElementById("settingsBtn").addEventListener("click",()=>{
+  optionsMenu.classList.add("hidden");
+  settingsView.classList.remove("hidden");
+  modalTitle.textContent="الإعدادات";
+  renderSettingsQr();
+});
+document.getElementById("backOptions").addEventListener("click",()=>{
+  settingsView.classList.add("hidden");
+  optionsMenu.classList.remove("hidden");
+  modalTitle.textContent="الخيارات";
+});
+
 </script>
 </body>
 </html>
