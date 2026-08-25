@@ -58,6 +58,18 @@ button{font:inherit;cursor:pointer}
   margin-top:12px;background:#ffe277;border:3px solid var(--ink);
   border-radius:13px;padding:10px 14px;text-align:center;font-weight:1000
 }
+
+.hidden{display:none!important}
+.transition-host{
+  margin-top:14px;background:#eef6dc;border:3px solid var(--ink);
+  border-radius:16px;padding:16px;text-align:center;
+  animation:popIn .45s ease both;
+}
+.transition-host-title{font-size:26px;font-weight:1000;margin-bottom:10px}
+@keyframes popIn{
+  from{opacity:0;transform:translateY(12px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
 </style>
 </head>
 <body>
@@ -70,17 +82,7 @@ button{font:inherit;cursor:pointer}
     <div class="teamBox t1"><div id="team1Name" class="teamName">الفريق الأول</div><div id="team1Score" class="score">0</div></div>
   </div>
 
-  <div class="card">
-    <div class="hostHeader">
-      <span class="badge">الجولة</span>
-      <span id="connection" class="small muted">جاري الاتصال…</span>
-    </div>
-    <div class="roundTabs">
-      <button id="r1" class="btn roundBtn" onclick="setRound(1)">1 — بدون نقاط</button>
-      <button id="r2" class="btn roundBtn" onclick="setRound(2)">2 — من أنا؟</button>
-      <button id="r3" class="btn roundBtn" onclick="setRound(3)">3 — من القائل؟</button>
-    </div>
-  </div>
+  
 
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
@@ -99,8 +101,12 @@ button{font:inherit;cursor:pointer}
       <div id="hostAnswer">—</div>
     </div>
 
+    <div id="transitionHostBox" class="transition-host hidden">
+      <div id="transitionHostTitle" class="transition-host-title"></div>
+      <button class="btn green" onclick="startSectionQuestions()">ابدأ الفقرة</button>
+    </div>
     <div class="controls">
-      <button class="btn blue" onclick="nextQuestion()">السؤال التالي</button>
+      <button id="nextBtn" class="btn blue" onclick="nextQuestion()">السؤال التالي</button>
       <button id="showAnswerBtn" class="btn green" onclick="showAnswerOnGame()">إظهار الإجابة على شاشة اللعبة</button>
       <button class="btn" onclick="hideAnswerOnGame()">إخفاء الإجابة</button>
     </div>
@@ -236,7 +242,6 @@ function render(){
   el("team2Score").textContent=Number(t2.score||0);
 
   const r=Number(state?.round||1);
-  [1,2,3].forEach(n=>el("r"+n).classList.toggle("active",n===r));
   el("roundTitle").textContent=r===1?"الجولة الأولى — بدون نقاط":r===2?"الجولة الثانية — من أنا؟":"الجولة الثالثة — من القائل؟";
 
   el("questionText").textContent=state?.question?.text||"";
@@ -244,6 +249,20 @@ function render(){
 
   el("hostQnum").textContent=Math.max(1,Number(state?.qIndex??0)+1);
   el("hostQpoints").textContent=Number(state?.question?.points||0);
+
+  const transitionBox=el("transitionHostBox");
+  const transitionTitle=el("transitionHostTitle");
+  const nextBtn=el("nextBtn");
+
+  if(state?.transition?.active){
+    transitionBox.classList.remove("hidden");
+    const tr=Number(state.transition.round||1);
+    transitionTitle.textContent=tr===1?"الفقرة الأولى: بدون نقاط":tr===2?"الفقرة الثانية: من أنا؟":tr===3?"الفقرة الثالثة: من القائل؟":"انتهت اللعبة";
+    nextBtn.disabled=true;
+  }else{
+    transitionBox.classList.add("hidden");
+    nextBtn.disabled=false;
+  }
 
   const qx2=state?.question?.x2Team;
   const qx2El=el("questionX2");
@@ -296,26 +315,64 @@ function render(){
 }
 
 
-window.setRound=async n=>{
-  await update(gameRef,{
-    round:n,qIndex:-1,
-    question:{text:"اضغط «السؤال التالي» لبدء الجولة.",answer:"",choices:[],points:0,revealed:false,answeredBy:null,answeredByName:"",answeredTeam:null,awardedPoints:0,historyKey:"",x2Team:null,x2Consumed:false},
-    "buzzer/open":false,"buzzer/winner":null,"buzzer/pressedAt":null
-  });
-};
 
 window.nextQuestion=async()=>{
   selectedAwardTeam=0;
-  const r=Number(state?.round||1);
-  const list=rounds[r];
-  const idx=((Number(state?.qIndex??-1)+1)%list.length);
-  const item=list[idx];
+
+  const currentRound=Number(state?.round||1);
+  const currentIndex=Number(state?.qIndex??-1);
+  const currentList=rounds[currentRound];
+
+  // إذا خلصت أسئلة الفقرة الحالية، انتقل تلقائيًا للفقرة التالية.
+  if(currentIndex >= currentList.length-1){
+    if(currentRound < 3){
+      const nextRound=currentRound+1;
+      await update(gameRef,{
+        round:nextRound,
+        qIndex:-1,
+        transition:{
+          active:true,
+          round:nextRound,
+          startedAt:Date.now()
+        },
+        question:{
+          text:"",
+          answer:"",
+          choices:[],
+          points:0,
+          revealed:false,
+          answeredBy:null,
+          answeredByName:"",
+          answeredTeam:null,
+          awardedPoints:0,
+          historyKey:"",
+          x2Team:null,
+          x2Consumed:false
+        },
+        "buzzer/open":false,
+        "buzzer/winner":null,
+        "buzzer/pressedAt":null
+      });
+      return;
+    }else{
+      await update(gameRef,{
+        transition:{active:true,round:4,startedAt:Date.now()},
+        "buzzer/open":false
+      });
+      return;
+    }
+  }
+
+  const r=currentRound;
+  const idx=currentIndex+1;
+  const item=rounds[r][idx];
 
   const historyKey=`r${r}_q${idx}`;
   const historical=state?.history?.[historyKey]||null;
 
   await update(gameRef,{
     qIndex:idx,
+    transition:{active:false,round:r,startedAt:0},
     question:{
       text:item.q,
       answer:item.a,
@@ -334,6 +391,13 @@ window.nextQuestion=async()=>{
     "buzzer/winner":null,
     "buzzer/pressedAt":null
   });
+};
+
+window.startSectionQuestions=async()=>{
+  if(!state?.transition?.active) return;
+  if(Number(state.transition.round)>3) return;
+  await update(gameRef,{transition:{active:false,round:Number(state.transition.round),startedAt:0}});
+  await nextQuestion();
 };
 
 window.showAnswerOnGame=()=>update(ref(db,"mn_ana/question"),{revealed:true});

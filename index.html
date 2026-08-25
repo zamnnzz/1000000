@@ -300,6 +300,11 @@ document.getElementById("startBtn").addEventListener("click", async () => {
     },
     round: 1,
     qIndex: -1,
+    transition: {
+      active: true,
+      round: 1,
+      startedAt: Date.now()
+    },
     question: {
       text: "بانتظار المقدم لبدء السؤال.",
       answer: "",
