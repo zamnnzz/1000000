@@ -213,43 +213,6 @@ body{
   padding:8px 12px;font-weight:1000;font-size:14px;
   box-shadow:0 4px 0 rgba(24,56,76,.18)
 }
-
-.section-transition{
-  position:fixed;inset:0;z-index:70;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(255,221,138,.55),transparent 35%),
-    radial-gradient(circle at 80% 30%,rgba(112,209,239,.20),transparent 30%),
-    rgba(247,244,233,.98);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-}
-.section-transition-inner{
-  text-align:center;animation:sectionEnter .85s cubic-bezier(.2,.8,.2,1) both
-}
-.section-kicker{
-  font-size:clamp(16px,1.5vw,24px);font-weight:900;color:#718174;
-  margin-bottom:12px;opacity:.9
-}
-.section-title{
-  font-size:clamp(54px,7vw,112px);font-weight:1000;color:#179aa5;
-  letter-spacing:-3px;text-shadow:0 5px 0 rgba(24,56,76,.10);
-  animation:titleFloat 2.2s ease-in-out infinite
-}
-.card,.team,.center,.answer,.question,.free,.revealed-answer,.answered-marker{
-  animation:uiAppear .45s ease both
-}
-@keyframes sectionEnter{
-  from{opacity:0;transform:translateY(30px) scale(.94)}
-  to{opacity:1;transform:translateY(0) scale(1)}
-}
-@keyframes titleFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-@keyframes uiAppear{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
 </style>
 </head>
 <body>
@@ -328,14 +291,6 @@ body{
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-
-<div id="sectionTransition" class="section-transition hidden">
-  <div class="section-transition-inner">
-    <div id="sectionKicker" class="section-kicker">الفقرة التالية</div>
-    <div id="sectionTitle" class="section-title">من القائل؟</div>
-  </div>
-</div>
-
 <script src="./firebase-config.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -355,34 +310,11 @@ const freeText=document.getElementById("freeText");
 const questionText=document.getElementById("questionText");
 const answers=document.getElementById("answers");
 const buzzerState=document.getElementById("buzzerState");
-const sectionTransition=document.getElementById("sectionTransition");
-const sectionTitle=document.getElementById("sectionTitle");
-const sectionKicker=document.getElementById("sectionKicker");
 
 onValue(ref(db,"mn_ana"),snap=>{
   if(!snap.exists()) return;
   try{
   const s=snap.val();
-
-  if(s.transition?.active){
-    const tr=Number(s.transition.round||1);
-    sectionTransition.classList.remove("hidden");
-    if(tr===1){
-      sectionKicker.textContent="الفقرة الأولى";
-      sectionTitle.textContent="بدون نقاط";
-    }else if(tr===2){
-      sectionKicker.textContent="الفقرة الثانية";
-      sectionTitle.textContent="من أنا؟";
-    }else if(tr===3){
-      sectionKicker.textContent="الفقرة الثالثة";
-      sectionTitle.textContent="من القائل؟";
-    }else{
-      sectionKicker.textContent="";
-      sectionTitle.textContent="انتهت اللعبة";
-    }
-  }else{
-    sectionTransition.classList.add("hidden");
-  }
   const t1=s.teams?.[1]||s.teams?.["1"]||{name:"الفريق الأول",score:0};
   const t2=s.teams?.[2]||s.teams?.["2"]||{name:"الفريق الثاني",score:0};
 
