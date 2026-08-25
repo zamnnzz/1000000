@@ -299,8 +299,21 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10
 const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
 
+const team1Name=document.getElementById("team1Name");
+const team2Name=document.getElementById("team2Name");
+const team1Score=document.getElementById("team1Score");
+const team2Score=document.getElementById("team2Score");
+const qnum=document.getElementById("qnum");
+const mcqView=document.getElementById("mcqView");
+const freeView=document.getElementById("freeView");
+const freeText=document.getElementById("freeText");
+const questionText=document.getElementById("questionText");
+const answers=document.getElementById("answers");
+const buzzerState=document.getElementById("buzzerState");
+
 onValue(ref(db,"mn_ana"),snap=>{
   if(!snap.exists()) return;
+  try{
   const s=snap.val();
   const t1=s.teams?.[1]||s.teams?.["1"]||{name:"الفريق الأول",score:0};
   const t2=s.teams?.[2]||s.teams?.["2"]||{name:"الفريق الثاني",score:0};
@@ -382,6 +395,9 @@ onValue(ref(db,"mn_ana"),snap=>{
     buzzerState.classList.add("open");
   }else{
     buzzerState.textContent="الجرس مغلق";
+  }
+  }catch(e){
+    console.error("Game render error",e);
   }
 });
 

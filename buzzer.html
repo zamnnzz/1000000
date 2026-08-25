@@ -68,7 +68,12 @@ let saved=!!(team && playerName);
 onValue(ref(db,"mn_ana"),snap=>{
   el("connection").textContent="متصل";
   state=snap.val();
-  render();
+  try{
+    render();
+  }catch(e){
+    console.error("Buzzer render error",e);
+    el("connection").textContent="متصل — خطأ عرض";
+  }
 },err=>{el("connection").textContent="تعذر الاتصال";console.error(err)});
 
 window.chooseTeam=n=>{

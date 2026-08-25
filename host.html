@@ -218,7 +218,12 @@ onValue(gameRef,snap=>{
   el("connection").textContent="متصل";
   if(!snap.exists()) return;
   state=snap.val();
-  render();
+  try{
+    render();
+  }catch(e){
+    console.error("Host render error",e);
+    el("connection").textContent="متصل — خطأ عرض";
+  }
 },err=>{el("connection").textContent="تعذر الاتصال";console.error(err)});
 
 function teamData(n){return state?.teams?.[n]||state?.teams?.[String(n)]||{}}
@@ -229,8 +234,6 @@ function render(){
   el("team2Name").textContent=t2.name||"الفريق الثاني";
   el("team1Score").textContent=Number(t1.score||0);
   el("team2Score").textContent=Number(t2.score||0);
-  el("p1label").textContent=t1.name||"الفريق الأول";
-  el("p2label").textContent=t2.name||"الفريق الثاني";
 
   const r=Number(state?.round||1);
   [1,2,3].forEach(n=>el("r"+n).classList.toggle("active",n===r));
@@ -268,8 +271,6 @@ function render(){
     el("winnerBox").style.background="#fff";
   }
 
-  renderX2(1,t1); renderX2(2,t2);
-
   const pts=Number(state?.question?.points||0);
   el("questionPoints").textContent=`نقاط السؤال: ${pts}`;
 
@@ -294,12 +295,6 @@ function render(){
   }
 }
 
-function renderX2(n,t){
-  const e=el("p"+n+"x2");
-  if(t.x2Active) e.textContent="x2 مفعّل من الفريق — النقاط القادمة تتضاعف";
-  else if(t.x2Used) e.textContent="تم استخدام x2";
-  else e.textContent="x2 متاح للفريق من شاشة الجرس";
-}
 
 window.setRound=async n=>{
   await update(gameRef,{
