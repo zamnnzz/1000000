@@ -31,7 +31,7 @@ button{font:inherit;cursor:pointer}
 .answerBox{margin-top:14px;background:#fff4cf;border:3px solid var(--ink);border-radius:14px;padding:14px;text-align:center;font-weight:1000;font-size:21px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .status{border:3px solid var(--ink);border-radius:14px;background:#fff;padding:14px;text-align:center;font-weight:900}.winner{font-size:25px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px} select.btn{appearance:auto}
 .x2note{font-size:12px;color:#6e765c;margin-top:7px}
 @media(max-width:700px){.roundTabs,.grid2,.answers{grid-template-columns:1fr}.scorebar{grid-template-columns:1fr 76px 1fr}.teamName{font-size:13px}.score{font-size:36px}.logo{font-size:42px}}
 </style>
@@ -89,26 +89,25 @@ button{font:inherit;cursor:pointer}
   </div>
 
   <div class="card">
-    <span class="badge">النقاط</span>
-    <div class="grid2" style="margin-top:14px">
-      <div class="status">
-        <strong id="p1label">الفريق الأول</strong>
-        <div id="p1x2" class="x2note">x2 غير مفعّل</div>
-        <div class="controls" style="justify-content:center">
-          <button class="btn green" onclick="addPoints(1,1)">+1</button>
-          <button class="btn blue" onclick="addPoints(1,2)">+2</button>
-          <button class="btn red" onclick="addPoints(1,-1)">-1</button>
-        </div>
+    <div class="hostHeader">
+      <span class="badge">اعتماد الإجابة</span>
+      <span id="questionPoints" class="small muted">نقاط السؤال: 0</span>
+    </div>
+
+    <div id="answeredInfo" class="status" style="margin-bottom:12px">السؤال لم يُحسم بعد</div>
+
+    <div class="grid2">
+      <div>
+        <label class="small muted" style="display:block;margin-bottom:6px">من جاوب؟</label>
+        <select id="answeredBySelect" class="btn" style="width:100%;background:#fff"></select>
       </div>
-      <div class="status">
-        <strong id="p2label">الفريق الثاني</strong>
-        <div id="p2x2" class="x2note">x2 غير مفعّل</div>
-        <div class="controls" style="justify-content:center">
-          <button class="btn green" onclick="addPoints(2,1)">+1</button>
-          <button class="btn blue" onclick="addPoints(2,2)">+2</button>
-          <button class="btn red" onclick="addPoints(2,-1)">-1</button>
-        </div>
+      <div style="display:flex;align-items:end">
+        <button id="approveAnswerBtn" class="btn green" style="width:100%" onclick="approveAnswer()">اعتماد الإجابة وإضافة النقاط</button>
       </div>
+    </div>
+
+    <div class="x2note" style="margin-top:10px">
+      النقاط تُضاف تلقائيًا لفريق اللاعب المختار. إذا كان x2 مفعّل للفريق، تتضاعف نقاط هذا السؤال تلقائيًا.
     </div>
   </div>
 </div>
@@ -139,18 +138,18 @@ markHostOnline();
 
 const rounds={
   1:[
-    {q:"من أجمل ملامح الإنسان ... ؟",a:"ابتسامته"},
-    {q:"شيء يبدأ بحرف م وينتهي بحرف ة ... ؟",a:"معلومة"},
-    {q:"اسم بلد عربي إذا حذفت نقاطه تغيّر شكله تمامًا ... ؟",a:"تحدي مفتوح"}
+    {q:"من أجمل ملامح الإنسان ... ؟",a:"ابتسامته",points:1},
+    {q:"شيء يبدأ بحرف م وينتهي بحرف ة ... ؟",a:"معلومة",points:2},
+    {q:"اسم بلد عربي إذا حذفت نقاطه تغيّر شكله تمامًا ... ؟",a:"تحدي مفتوح",points:3}
   ],
   2:[
-    {q:"أنا لاعب كرة قدم عربي، لعبت في الدوري الإنجليزي، ومن أشهر نجوم ليفربول. من أنا؟",a:"محمد صلاح"},
-    {q:"أنا عالم فيزياء اشتهرت بالنسبية ومعادلة E=mc². من أنا؟",a:"ألبرت أينشتاين"},
-    {q:"أنا شخصية خيالية أرتدي عباءة سوداء وشعاري الخفاش. من أنا؟",a:"باتمان"}
+    {q:"أنا لاعب كرة قدم عربي، لعبت في الدوري الإنجليزي، ومن أشهر نجوم ليفربول. من أنا؟",a:"محمد صلاح",points:4},
+    {q:"أنا عالم فيزياء اشتهرت بالنسبية ومعادلة E=mc². من أنا؟",a:"ألبرت أينشتاين",points:5},
+    {q:"أنا شخصية خيالية أرتدي عباءة سوداء وشعاري الخفاش. من أنا؟",a:"باتمان",points:6}
   ],
   3:[
-    {q:"الجهل يؤدي إلى الخوف، والخوف يؤدي إلى الكره، والكره يؤدي إلى العنف.",a:"ابن رشد",choices:["ابن رشد","ابن سينا","الكندي","الفارابي"]},
-    {q:"الحياة مثل ركوب الدراجة، لتحافظ على توازنك يجب أن تستمر في الحركة.",a:"ألبرت أينشتاين",choices:["ألبرت أينشتاين","نيوتن","تسلا","داروين"]}
+    {q:"الجهل يؤدي إلى الخوف، والخوف يؤدي إلى الكره، والكره يؤدي إلى العنف.",a:"ابن رشد",choices:["ابن رشد","ابن سينا","الكندي","الفارابي"],points:8},
+    {q:"الحياة مثل ركوب الدراجة، لتحافظ على توازنك يجب أن تستمر في الحركة.",a:"ألبرت أينشتاين",choices:["ألبرت أينشتاين","نيوتن","تسلا","داروين"],points:10}
   ]
 };
 
@@ -197,6 +196,33 @@ function render(){
   }
 
   renderX2(1,t1); renderX2(2,t2);
+
+  const pts=Number(state?.question?.points||0);
+  el("questionPoints").textContent=`نقاط السؤال: ${pts}`;
+
+  const players=state?.players||{};
+  const select=el("answeredBySelect");
+  const currentValue=select.value;
+  const entries=Object.entries(players)
+    .filter(([id,p])=>p?.name && (Number(p.team)===1 || Number(p.team)===2))
+    .sort((a,b)=>String(a[1].name).localeCompare(String(b[1].name),"ar"));
+
+  select.innerHTML='<option value="">اختر اللاعب</option>'+entries.map(([id,p])=>{
+    const tn=Number(p.team)===1?(t1.name||"الفريق الأول"):(t2.name||"الفريق الثاني");
+    return `<option value="${id}">${p.name} — ${tn}</option>`;
+  }).join("");
+  if(entries.some(([id])=>id===currentValue)) select.value=currentValue;
+
+  if(state?.question?.answeredBy){
+    const teamName=Number(state.question.answeredTeam)===1?(t1.name||"الفريق الأول"):(t2.name||"الفريق الثاني");
+    el("answeredInfo").textContent=`جابها: ${state.question.answeredByName} — ${teamName} — +${Number(state.question.awardedPoints||0)} نقطة`;
+    el("answeredInfo").style.background="#bcebb4";
+    el("approveAnswerBtn").disabled=true;
+  }else{
+    el("answeredInfo").textContent="السؤال لم يُحسم بعد";
+    el("answeredInfo").style.background="#fff";
+    el("approveAnswerBtn").disabled=false;
+  }
 }
 
 function renderX2(n,t){
@@ -209,7 +235,7 @@ function renderX2(n,t){
 window.setRound=async n=>{
   await update(gameRef,{
     round:n,qIndex:-1,
-    question:{text:"اضغط «السؤال التالي» لبدء الجولة.",answer:"",choices:[],revealed:false},
+    question:{text:"اضغط «السؤال التالي» لبدء الجولة.",answer:"",choices:[],points:0,revealed:false,answeredBy:null,answeredByName:"",answeredTeam:null,awardedPoints:0,historyKey:""},
     "buzzer/open":false,"buzzer/winner":null,"buzzer/pressedAt":null
   });
 };
@@ -219,10 +245,27 @@ window.nextQuestion=async()=>{
   const list=rounds[r];
   const idx=((Number(state?.qIndex??-1)+1)%list.length);
   const item=list[idx];
+
+  const historyKey=`r${r}_q${idx}`;
+  const historical=state?.history?.[historyKey]||null;
+
   await update(gameRef,{
     qIndex:idx,
-    question:{text:item.q,answer:item.a,choices:item.choices||[],revealed:false},
-    "buzzer/open":false,"buzzer/winner":null,"buzzer/pressedAt":null
+    question:{
+      text:item.q,
+      answer:item.a,
+      choices:item.choices||[],
+      points:Number(item.points||1),
+      revealed:false,
+      answeredBy:historical?.answeredBy||null,
+      answeredByName:historical?.answeredByName||"",
+      answeredTeam:historical?.answeredTeam||null,
+      awardedPoints:Number(historical?.awardedPoints||0),
+      historyKey
+    },
+    "buzzer/open":false,
+    "buzzer/winner":null,
+    "buzzer/pressedAt":null
   });
 };
 
@@ -233,18 +276,49 @@ window.openBuzzer=()=>set(ref(db,"mn_ana/buzzer"),{open:true,winner:null,pressed
 window.closeBuzzer=()=>update(ref(db,"mn_ana/buzzer"),{open:false});
 window.resetBuzzer=()=>set(ref(db,"mn_ana/buzzer"),{open:false,winner:null,pressedAt:null});
 
-window.addPoints=async(team,delta)=>{
+window.approveAnswer=async()=>{
+  if(!state?.question?.historyKey) return alert("ابدأ سؤالًا أولًا.");
+  if(state?.question?.answeredBy) return alert("هذا السؤال محسوب بالفعل.");
+
+  const playerId=document.getElementById("answeredBySelect").value;
+  if(!playerId) return alert("اختر من جاوب.");
+
+  const player=state?.players?.[playerId];
+  if(!player) return alert("اللاعب غير موجود أو غير متصل.");
+
+  const team=Number(player.team);
+  const basePoints=Number(state.question.points||1);
   const teamRef=ref(db,`mn_ana/teams/${team}`);
+  let awarded=basePoints;
+
   await runTransaction(teamRef,current=>{
     if(!current) return current;
-    let amount=Number(delta);
-    if(amount>0 && current.x2Active===true){
-      amount*=2;
+    if(current.x2Active===true){
+      awarded=basePoints*2;
       current.x2Active=false;
       current.x2Used=true;
     }
-    current.score=Math.max(0,Number(current.score||0)+amount);
+    current.score=Number(current.score||0)+awarded;
     return current;
+  });
+
+  const historyKey=state.question.historyKey;
+  const record={
+    answeredBy:playerId,
+    answeredByName:player.name,
+    answeredTeam:team,
+    awardedPoints:awarded,
+    basePoints,
+    answeredAt:Date.now()
+  };
+
+  await update(gameRef,{
+    [`history/${historyKey}`]:record,
+    "question/answeredBy":playerId,
+    "question/answeredByName":player.name,
+    "question/answeredTeam":team,
+    "question/awardedPoints":awarded,
+    "buzzer/open":false
   });
 };
 </script>

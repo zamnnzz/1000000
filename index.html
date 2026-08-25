@@ -290,13 +290,21 @@ document.getElementById("startBtn").addEventListener("click", async () => {
       text: "بانتظار المقدم لبدء السؤال.",
       answer: "",
       choices: [],
-      revealed: false
+      points: 0,
+      revealed: false,
+      answeredBy: null,
+      answeredByName: "",
+      answeredTeam: null,
+      awardedPoints: 0,
+      historyKey: ""
     },
     buzzer: {
       open: false,
       winner: null,
       pressedAt: null
     },
+    players: {},
+    history: {},
     connections: {
       host: {
         connected: false,
