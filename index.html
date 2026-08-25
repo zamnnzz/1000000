@@ -309,14 +309,44 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   overlay.classList.remove("hidden");
 
   if(stopHostWatch) stopHostWatch();
-  stopHostWatch = onValue(ref(db, "mn_ana/connections/host"), snap => {
-    const h = snap.val();
-    if(h?.connected === true){
-      hostStep.classList.add("hidden");
-      buzzerStep.classList.remove("hidden");
-      if(stopHostWatch){ stopHostWatch(); stopHostWatch = null; }
+
+  let transitionedToBuzzer = false;
+  let fallbackPoll = null;
+
+  const goToBuzzerStep = () => {
+    if(transitionedToBuzzer) return;
+    transitionedToBuzzer = true;
+    hostStep.classList.add("hidden");
+    buzzerStep.classList.remove("hidden");
+    if(stopHostWatch){ stopHostWatch(); stopHostWatch = null; }
+    if(fallbackPoll){ clearInterval(fallbackPoll); fallbackPoll = null; }
+  };
+
+  const hostLooksAlive = (h) => {
+    if(!h) return false;
+    const lastSeen = Number(h.lastSeen || 0);
+    const age = Date.now() - lastSeen;
+    return h.connected === true || (lastSeen > 0 && age < 8000);
+  };
+
+  stopHostWatch = onValue(
+    ref(db, "mn_ana/connections/host"),
+    snap => {
+      const h = snap.val();
+      if(hostLooksAlive(h)) goToBuzzerStep();
+    },
+    err => console.error("Host watcher error", err)
+  );
+
+  // فحص احتياطي كل ثانية، يفيد لو تأخر onValue أو رجع من الكاش.
+  fallbackPoll = setInterval(async () => {
+    try{
+      const snap = await get(ref(db, "mn_ana/connections/host"));
+      if(hostLooksAlive(snap.val())) goToBuzzerStep();
+    }catch(e){
+      console.error("Host polling error", e);
     }
-  });
+  }, 1000);
 });
 
 document.getElementById("skipBuzzerBtn").addEventListener("click", () => {

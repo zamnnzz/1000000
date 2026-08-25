@@ -183,12 +183,47 @@ const db = getDatabase(app);
 const gameRef = ref(db, "mn_ana");
 
 const hostConnectionRef = ref(db, "mn_ana/connections/host");
+
+let hostHeartbeatTimer = null;
+
 async function markHostOnline(){
   try{
-    await onDisconnect(hostConnectionRef).set({connected:false,lastSeen:Date.now()});
-    await set(hostConnectionRef,{connected:true,lastSeen:Date.now()});
-    setInterval(()=>update(hostConnectionRef,{connected:true,lastSeen:Date.now()}),5000);
-  }catch(e){ console.error("Host presence error",e); }
+    await onDisconnect(hostConnectionRef).set({
+      connected:false,
+      lastSeen:Date.now()
+    });
+
+    const sendBeat = async () => {
+      try{
+        await set(hostConnectionRef,{
+          connected:true,
+          lastSeen:Date.now(),
+          page:"host"
+        });
+      }catch(e){
+        console.error("Host heartbeat error",e);
+      }
+    };
+
+    await sendBeat();
+
+    if(hostHeartbeatTimer) clearInterval(hostHeartbeatTimer);
+    hostHeartbeatTimer = setInterval(sendBeat, 2000);
+
+    window.addEventListener("focus", sendBeat);
+    document.addEventListener("visibilitychange", () => {
+      if(document.visibilityState === "visible") sendBeat();
+    });
+
+    window.addEventListener("beforeunload", () => {
+      update(hostConnectionRef,{
+        connected:false,
+        lastSeen:Date.now()
+      }).catch(()=>{});
+    });
+  }catch(e){
+    console.error("Host presence error",e);
+  }
 }
 markHostOnline();
 
