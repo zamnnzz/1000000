@@ -113,7 +113,10 @@ function render(){
   if(!saved){
     el("registration").classList.remove("hidden");
     el("savedPlayer").style.display="none";
-    el("playerName").value=playerName;
+    // لا تعيد كتابة الحقل أثناء ما المستخدم يكتب.
+    if(document.activeElement!==el("playerName") && !el("playerName").value){
+      el("playerName").value=playerName;
+    }
     el("status").textContent="اكتب اسمك واختر فريقك ثم اضغط حفظ";
     el("buzz").disabled=true;
     el("x2").disabled=true;

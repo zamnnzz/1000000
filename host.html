@@ -147,7 +147,7 @@ import { getDatabase, ref, set, update, onValue, onDisconnect, runTransaction } 
 const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
 const gameRef=ref(db,"mn_ana");
-const hostConnectionRef=ref(db,"mn_ana/connections/host");
+const hostConnectionRef=ref(db,"mn_ana_presence/host");
 const hostSession = new URLSearchParams(location.search).get("session") || "";
 
 let heartbeat=null;
@@ -202,6 +202,7 @@ const rounds={
 };
 
 let state=null;
+let lastHostChoicesKey="";
 const el=id=>document.getElementById(id);
 
 onValue(gameRef,snap=>{
@@ -246,7 +247,11 @@ function render(){
   }
 
   const choices=state?.question?.choices||[];
-  el("answers").innerHTML=choices.map(x=>`<div class="answer">${x}</div>`).join("");
+  const hostChoicesKey=JSON.stringify([state?.round||1,state?.qIndex??-1,choices]);
+  if(hostChoicesKey!==lastHostChoicesKey){
+    el("answers").innerHTML=choices.map(x=>`<div class="answer">${x}</div>`).join("");
+    lastHostChoicesKey=hostChoicesKey;
+  }
   el("showAnswerBtn").textContent=state?.question?.revealed?"الإجابة ظاهرة على شاشة اللعبة":"إظهار الإجابة على شاشة اللعبة";
 
   const bz=state?.buzzer||{};

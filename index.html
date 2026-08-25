@@ -321,14 +321,14 @@ document.getElementById("startBtn").addEventListener("click", async () => {
       pressedAt: null
     },
     players: {},
-    history: {},
-    connections: {
-      host: {
-        connected: false,
-        lastSeen: 0,
-        session: ""
-      }
-    }
+    history: {}});
+
+  // صفّر حالة اتصال المقدم لهذا الـ Session في مسار منفصل عن بيانات اللعبة.
+  await set(ref(db, "mn_ana_presence/host"), {
+    connected: false,
+    lastSeen: 0,
+    page: "host",
+    session: ""
   });
 
   hostStep.classList.remove("hidden");
@@ -360,7 +360,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   };
 
   stopHostWatch = onValue(
-    ref(db, "mn_ana/connections/host"),
+    ref(db, "mn_ana_presence/host"),
     snap => {
       if(hostMatchesThisSession(snap.val())) goToBuzzerStep();
     },
@@ -370,7 +370,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   // فحص احتياطي، لكن فقط لنفس Session.
   fallbackPoll = setInterval(async () => {
     try{
-      const snap = await get(ref(db, "mn_ana/connections/host"));
+      const snap = await get(ref(db, "mn_ana_presence/host"));
       if(hostMatchesThisSession(snap.val())) goToBuzzerStep();
     }catch(e){
       console.error("Host polling error", e);
