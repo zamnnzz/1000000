@@ -158,18 +158,39 @@ const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
 const gameRef=ref(db,"mn_ana");
 const hostConnectionRef=ref(db,"mn_ana/connections/host");
+const hostSession = new URLSearchParams(location.search).get("session") || "";
 
 let heartbeat=null;
 async function markHostOnline(){
   const beat=async()=>{
-    try{ await set(hostConnectionRef,{connected:true,lastSeen:Date.now(),page:"host"}); }catch(e){console.error(e)}
+    try{
+      await set(hostConnectionRef,{
+        connected:true,
+        lastSeen:Date.now(),
+        page:"host",
+        session:hostSession
+      });
+    }catch(e){console.error("Host heartbeat",e)}
   };
-  try{ await onDisconnect(hostConnectionRef).set({connected:false,lastSeen:Date.now(),page:"host"}); }catch(e){}
+
+  try{
+    await onDisconnect(hostConnectionRef).set({
+      connected:false,
+      lastSeen:Date.now(),
+      page:"host",
+      session:hostSession
+    });
+  }catch(e){}
+
   await beat();
+
   if(heartbeat) clearInterval(heartbeat);
-  heartbeat=setInterval(beat,2000);
+  heartbeat=setInterval(beat,1500);
+
   window.addEventListener("focus",beat);
-  document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")beat()});
+  document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState==="visible") beat();
+  });
 }
 markHostOnline();
 
