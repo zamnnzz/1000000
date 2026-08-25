@@ -58,6 +58,102 @@ button{font:inherit;cursor:pointer}
   margin-top:12px;background:#ffe277;border:3px solid var(--ink);
   border-radius:13px;padding:10px 14px;text-align:center;font-weight:1000
 }
+
+.host-overlay{
+  position:fixed;inset:0;z-index:120;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 18% 20%,rgba(255,222,145,.44),transparent 34%),
+    radial-gradient(circle at 82% 24%,rgba(110,211,239,.18),transparent 30%),
+    rgba(241,247,227,.975);
+  overflow:hidden;
+}
+.host-overlay.hidden{display:none!important}
+.host-overlay-card{
+  position:relative;z-index:2;
+  width:min(610px,94vw);
+  background:rgba(234,249,208,.98);
+  border:4px solid var(--ink);
+  border-radius:24px;
+  box-shadow:0 10px 0 var(--shadow);
+  padding:34px 28px;
+  text-align:center;
+  animation:hostOverlayIn .55s cubic-bezier(.18,.82,.22,1) both;
+}
+.host-overlay-kicker{
+  font-size:16px;font-weight:900;color:#667d68;margin-bottom:10px
+}
+.host-overlay-title{
+  font-size:clamp(42px,6vw,72px);
+  font-weight:1000;line-height:1;color:#179aa5;
+  letter-spacing:-2px
+}
+.host-overlay-subtitle{
+  margin:13px 0 20px;font-size:18px;font-weight:900;color:#526b59
+}
+.host-overlay-action{
+  width:min(330px,100%);font-size:19px
+}
+.results-card{padding-top:28px}
+.results-crown{
+  width:66px;height:66px;margin:0 auto 10px;
+  border-radius:50%;display:grid;place-items:center;
+  background:#ffe277;border:4px solid var(--ink);
+  font-size:34px;font-weight:1000;
+  animation:crownBounce 1.6s ease-in-out infinite
+}
+.winner-name{
+  margin:10px 0 22px;
+  font-size:clamp(30px,4vw,48px);
+  font-weight:1000;color:var(--ink)
+}
+.final-score-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px
+}
+.final-team{
+  border:4px solid var(--ink);border-radius:17px;
+  padding:17px 12px;box-shadow:0 5px 0 #9fac9e
+}
+.final-team-one{background:var(--team1)}
+.final-team-two{background:var(--team2)}
+.final-team-name{font-weight:900;font-size:17px}
+.final-team-score{font-size:45px;line-height:1;font-weight:1000;margin-top:5px}
+.score-difference{
+  margin-top:18px;display:inline-block;
+  background:#fff;border:3px solid var(--ink);
+  border-radius:999px;padding:9px 16px;font-weight:1000
+}
+.confetti-layer{
+  position:absolute;inset:0;overflow:hidden;pointer-events:none
+}
+.confetti-piece{
+  position:absolute;top:-12vh;
+  width:10px;height:18px;border-radius:3px;
+  background:var(--c);
+  left:var(--x);
+  animation:confettiFall var(--d) linear infinite;
+  animation-delay:var(--delay);
+  transform:rotate(var(--r))
+}
+@keyframes hostOverlayIn{
+  from{opacity:0;transform:translateY(24px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes crownBounce{
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-7px) rotate(3deg)}
+}
+@keyframes confettiFall{
+  0%{transform:translateY(-10vh) rotate(0deg)}
+  100%{transform:translateY(120vh) rotate(720deg)}
+}
+@media(max-width:650px){
+  .final-score-grid{grid-template-columns:1fr 1fr}
+  .host-overlay-card{padding:28px 18px}
+  .final-team-score{font-size:36px}
+}
+
 </style>
 </head>
 <body>
@@ -139,6 +235,37 @@ button{font:inherit;cursor:pointer}
   </div>
 </div>
 
+
+<div id="sectionGateOverlay" class="host-overlay hidden">
+  <div class="host-overlay-card section-card">
+    <div class="host-overlay-kicker">اكتملت الفقرة</div>
+    <div id="nextSectionTitle" class="host-overlay-title">من أنا؟</div>
+    <div id="nextSectionSubtitle" class="host-overlay-subtitle">الفقرة الثانية جاهزة</div>
+    <button id="startNextSectionBtn" class="btn green host-overlay-action" onclick="startNextSection()">ابدأ الفقرة التالية</button>
+  </div>
+</div>
+
+<div id="finalResultsOverlay" class="host-overlay hidden">
+  <div id="hostConfetti" class="confetti-layer"></div>
+  <div class="host-overlay-card results-card">
+    <div class="results-crown">★</div>
+    <div class="host-overlay-kicker">النتيجة النهائية</div>
+    <div id="hostWinnerTitle" class="host-overlay-title">الفائز</div>
+    <div id="hostWinnerName" class="winner-name">—</div>
+    <div class="final-score-grid">
+      <div class="final-team final-team-one">
+        <div id="hostFinalTeam1Name" class="final-team-name">الفريق الأول</div>
+        <div id="hostFinalTeam1Score" class="final-team-score">0</div>
+      </div>
+      <div class="final-team final-team-two">
+        <div id="hostFinalTeam2Name" class="final-team-name">الفريق الثاني</div>
+        <div id="hostFinalTeam2Score" class="final-team-score">0</div>
+      </div>
+    </div>
+    <div id="hostScoreDifference" class="score-difference">الفارق: 0 نقطة</div>
+  </div>
+</div>
+
 <script src="./firebase-config.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -203,7 +330,24 @@ const rounds={
 
 let state=null;
 let lastHostChoicesKey="";
+let hostResultsShown=false;
 const el=id=>document.getElementById(id);
+
+function buildHostConfetti(){
+  const layer=el("hostConfetti");
+  if(!layer || layer.childElementCount) return;
+  const colors=["#57cd78","#6ed3ef","#ff7d31","#ffe277","#18384c"];
+  for(let i=0;i<54;i++){
+    const piece=document.createElement("i");
+    piece.className="confetti-piece";
+    piece.style.setProperty("--x",`${Math.random()*100}%`);
+    piece.style.setProperty("--d",`${3.2+Math.random()*3.2}s`);
+    piece.style.setProperty("--delay",`${-Math.random()*5}s`);
+    piece.style.setProperty("--r",`${Math.random()*180}deg`);
+    piece.style.setProperty("--c",colors[i%colors.length]);
+    layer.appendChild(piece);
+  }
+}
 
 onValue(gameRef,snap=>{
   el("connection").textContent="متصل";
@@ -287,6 +431,49 @@ function render(){
     el("answeredInfo").style.background="#fff";
     el("givePointsBtn").disabled=(selectedAwardTeam===0);
   }
+
+  // بوابة انتقال الفقرة التالية تظهر في الهوست فقط بعد إنهاء أسئلة الفقرة.
+  const gate=state?.sectionGate||{};
+  const gateOverlay=el("sectionGateOverlay");
+  if(gate.active && !state?.gameFinished){
+    const nextRound=Number(gate.nextRound||0);
+    const names={2:["من أنا؟","الفقرة الثانية جاهزة"],3:["من القائل؟","الفقرة الثالثة جاهزة"]};
+    const info=names[nextRound]||["الفقرة التالية","جاهزة"];
+    el("nextSectionTitle").textContent=info[0];
+    el("nextSectionSubtitle").textContent=info[1];
+    gateOverlay.classList.remove("hidden");
+  }else{
+    gateOverlay.classList.add("hidden");
+  }
+
+  // النتيجة النهائية بعد إنهاء الفقرة الثالثة.
+  const resultsOverlay=el("finalResultsOverlay");
+  if(state?.gameFinished){
+    const s1=Number(t1.score||0),s2=Number(t2.score||0);
+    const diff=Math.abs(s1-s2);
+    el("hostFinalTeam1Name").textContent=t1.name||"الفريق الأول";
+    el("hostFinalTeam2Name").textContent=t2.name||"الفريق الثاني";
+    el("hostFinalTeam1Score").textContent=s1;
+    el("hostFinalTeam2Score").textContent=s2;
+    if(s1===s2){
+      el("hostWinnerTitle").textContent="تعادل!";
+      el("hostWinnerName").textContent="الفريقان متساويان";
+      el("hostScoreDifference").textContent="الفارق: 0 نقطة";
+    }else{
+      const winner=s1>s2?t1:t2;
+      el("hostWinnerTitle").textContent="الفائز";
+      el("hostWinnerName").textContent=winner.name||(s1>s2?"الفريق الأول":"الفريق الثاني");
+      el("hostScoreDifference").textContent=`الفارق: ${diff} ${diff===1?"نقطة":"نقاط"}`;
+    }
+    resultsOverlay.classList.remove("hidden");
+    if(!hostResultsShown){
+      buildHostConfetti();
+      hostResultsShown=true;
+    }
+  }else{
+    resultsOverlay.classList.add("hidden");
+    hostResultsShown=false;
+  }
 }
 
 
@@ -294,26 +481,38 @@ function render(){
 window.nextQuestion=async()=>{
   selectedAwardTeam=0;
 
-  let r=Number(state?.round||1);
-  let idx=Number(state?.qIndex??-1)+1;
+  const r=Number(state?.round||1);
+  const idx=Number(state?.qIndex??-1)+1;
 
-  // بعد آخر سؤال في الجولة، انتقل تلقائيًا لأول سؤال في الجولة التالية.
+  // عند انتهاء الفقرة لا ننتقل مباشرة: نظهر بوابة انتقال في الهوست.
   if(idx>=rounds[r].length){
     if(r<3){
-      const completedRound=r;
-      r+=1;
-      idx=0;
-      await update(gameRef,{completedSections:completedRound});
-    }else{
-      // انتهت الجولة الثالثة؛ لا نعيد الأسئلة من البداية.
       await update(gameRef,{
-        completedSections:3,
+        completedSections:r,
+        sectionGate:{
+          active:true,
+          nextRound:r+1
+        },
         "buzzer/open":false,
         "buzzer/winner":null,
         "buzzer/pressedAt":null
       });
       return;
     }
+
+    // نهاية الفقرة الثالثة = النتائج النهائية.
+    await update(gameRef,{
+      completedSections:3,
+      sectionGate:{
+        active:false,
+        nextRound:0
+      },
+      gameFinished:true,
+      "buzzer/open":false,
+      "buzzer/winner":null,
+      "buzzer/pressedAt":null
+    });
+    return;
   }
 
   const item=rounds[r][idx];
@@ -321,8 +520,43 @@ window.nextQuestion=async()=>{
   const historical=state?.history?.[historyKey]||null;
 
   await update(gameRef,{
-    round:r,
     qIndex:idx,
+    question:{
+      text:item.q,
+      answer:item.a,
+      choices:item.choices||[],
+      points:Number(item.points||1),
+      revealed:false,
+      answeredBy:historical?.answeredBy||null,
+      answeredByName:historical?.answeredByName||"",
+      answeredTeam:historical?.answeredTeam||null,
+      awardedPoints:Number(historical?.awardedPoints||0),
+      historyKey,
+      x2Team:historical?.x2Team||null,
+      x2Consumed:historical?.x2Consumed||false
+    },
+    "buzzer/open":false,
+    "buzzer/winner":null,
+    "buzzer/pressedAt":null
+  });
+};
+
+window.startNextSection=async()=>{
+  const gate=state?.sectionGate||{};
+  const nextRound=Number(gate.nextRound||0);
+  if(!gate.active || nextRound<2 || nextRound>3) return;
+
+  const item=rounds[nextRound][0];
+  const historyKey=`r${nextRound}_q0`;
+  const historical=state?.history?.[historyKey]||null;
+
+  await update(gameRef,{
+    round:nextRound,
+    qIndex:0,
+    sectionGate:{
+      active:false,
+      nextRound:0
+    },
     question:{
       text:item.q,
       answer:item.a,

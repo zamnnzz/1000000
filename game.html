@@ -322,6 +322,78 @@ body{
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
+
+.game-results-overlay{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 16% 18%,rgba(255,222,145,.52),transparent 34%),
+    radial-gradient(circle at 84% 22%,rgba(112,209,239,.22),transparent 29%),
+    rgba(244,247,232,.985);
+  overflow:hidden;
+}
+.game-results-overlay.hidden{display:none!important}
+.game-results-card{
+  position:relative;z-index:2;
+  width:min(700px,92vw);
+  background:#eaf8d2;
+  border:4px solid var(--navy);
+  border-radius:26px;
+  box-shadow:0 10px 0 rgba(24,56,76,.20);
+  padding:34px 28px;
+  text-align:center;
+  animation:resultsEnter .7s cubic-bezier(.18,.82,.22,1) both
+}
+.game-results-star{
+  width:72px;height:72px;margin:0 auto 9px;
+  border-radius:50%;display:grid;place-items:center;
+  background:#ffe277;border:4px solid var(--navy);
+  font-size:38px;font-weight:1000;
+  animation:resultStar 1.7s ease-in-out infinite
+}
+.game-results-kicker{font-size:17px;font-weight:900;color:#667d68}
+.game-winner-name{
+  margin:8px 0 23px;
+  color:#179aa5;font-size:clamp(38px,5vw,66px);
+  line-height:1;font-weight:1000;letter-spacing:-2px
+}
+.game-final-scores{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.game-final-team{
+  border:4px solid var(--navy);border-radius:18px;
+  padding:18px 12px;box-shadow:0 5px 0 rgba(24,56,76,.25)
+}
+.game-final-team-one{background:var(--team1)}
+.game-final-team-two{background:var(--team2)}
+.game-final-name{font-size:17px;font-weight:900}
+.game-final-score{font-size:52px;font-weight:1000;line-height:1;margin-top:4px}
+.game-score-diff{
+  display:inline-block;margin-top:19px;
+  background:#fff;border:3px solid var(--navy);
+  border-radius:999px;padding:9px 17px;
+  font-size:17px;font-weight:1000
+}
+.game-confetti{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.game-confetti-piece{
+  position:absolute;top:-15vh;left:var(--x);
+  width:10px;height:18px;border-radius:3px;
+  background:var(--c);
+  animation:gameConfettiFall var(--d) linear infinite;
+  animation-delay:var(--delay)
+}
+@keyframes resultsEnter{
+  from{opacity:0;transform:translateY(28px) scale(.94)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes resultStar{
+  0%,100%{transform:translateY(0) rotate(-4deg)}
+  50%{transform:translateY(-8px) rotate(4deg)}
+}
+@keyframes gameConfettiFall{
+  from{transform:translateY(-12vh) rotate(0deg)}
+  to{transform:translateY(120vh) rotate(760deg)}
+}
+
 </style>
 </head>
 <body>
@@ -374,6 +446,27 @@ body{
 </div>
 
 
+
+
+<div id="gameResultsOverlay" class="game-results-overlay hidden">
+  <div id="gameConfetti" class="game-confetti"></div>
+  <div class="game-results-card">
+    <div class="game-results-star">★</div>
+    <div id="gameResultsKicker" class="game-results-kicker">النتيجة النهائية</div>
+    <div id="gameWinnerName" class="game-winner-name">—</div>
+    <div class="game-final-scores">
+      <div class="game-final-team game-final-team-one">
+        <div id="gameFinalTeam1Name" class="game-final-name">الفريق الأول</div>
+        <div id="gameFinalTeam1Score" class="game-final-score">0</div>
+      </div>
+      <div class="game-final-team game-final-team-two">
+        <div id="gameFinalTeam2Name" class="game-final-name">الفريق الثاني</div>
+        <div id="gameFinalTeam2Score" class="game-final-score">0</div>
+      </div>
+    </div>
+    <div id="gameScoreDifference" class="game-score-diff">الفارق: 0 نقطة</div>
+  </div>
+</div>
 
 <div id="paragraphIntro" class="paragraph-intro hidden" aria-live="polite">
   <div class="paragraph-intro-card">
@@ -435,6 +528,29 @@ const progressStars=[...document.querySelectorAll(".progress-star")];
 const paragraphIntro=document.getElementById("paragraphIntro");
 const paragraphIntroKicker=document.getElementById("paragraphIntroKicker");
 const paragraphIntroTitle=document.getElementById("paragraphIntroTitle");
+const gameResultsOverlay=document.getElementById("gameResultsOverlay");
+const gameWinnerName=document.getElementById("gameWinnerName");
+const gameFinalTeam1Name=document.getElementById("gameFinalTeam1Name");
+const gameFinalTeam2Name=document.getElementById("gameFinalTeam2Name");
+const gameFinalTeam1Score=document.getElementById("gameFinalTeam1Score");
+const gameFinalTeam2Score=document.getElementById("gameFinalTeam2Score");
+const gameScoreDifference=document.getElementById("gameScoreDifference");
+let gameResultsBuilt=false;
+
+function buildGameConfetti(){
+  const layer=document.getElementById("gameConfetti");
+  if(!layer || layer.childElementCount) return;
+  const colors=["#57cd78","#6ed3ef","#ff7d31","#ffe277","#18384c"];
+  for(let i=0;i<64;i++){
+    const piece=document.createElement("i");
+    piece.className="game-confetti-piece";
+    piece.style.setProperty("--x",`${Math.random()*100}%`);
+    piece.style.setProperty("--d",`${3.3+Math.random()*3.4}s`);
+    piece.style.setProperty("--delay",`${-Math.random()*5}s`);
+    piece.style.setProperty("--c",colors[i%colors.length]);
+    layer.appendChild(piece);
+  }
+}
 
 let lastIntroRound=0;
 let introTimer=null;
@@ -489,6 +605,34 @@ onValue(ref(db,"mn_ana"),snap=>{
   }
   const t1=s.teams?.[1]||s.teams?.["1"]||{name:"الفريق الأول",score:0};
   const t2=s.teams?.[2]||s.teams?.["2"]||{name:"الفريق الثاني",score:0};
+
+  if(s.gameFinished){
+    const s1=Number(t1.score||0),s2=Number(t2.score||0);
+    const diff=Math.abs(s1-s2);
+    gameFinalTeam1Name.textContent=t1.name||"الفريق الأول";
+    gameFinalTeam2Name.textContent=t2.name||"الفريق الثاني";
+    gameFinalTeam1Score.textContent=s1;
+    gameFinalTeam2Score.textContent=s2;
+
+    if(s1===s2){
+      document.getElementById("gameResultsKicker").textContent="تعادل!";
+      gameWinnerName.textContent="الفريقان متساويان";
+      gameScoreDifference.textContent="الفارق: 0 نقطة";
+    }else{
+      document.getElementById("gameResultsKicker").textContent="الفائز";
+      gameWinnerName.textContent=s1>s2?(t1.name||"الفريق الأول"):(t2.name||"الفريق الثاني");
+      gameScoreDifference.textContent=`الفارق: ${diff} ${diff===1?"نقطة":"نقاط"}`;
+    }
+
+    gameResultsOverlay.classList.remove("hidden");
+    if(!gameResultsBuilt){
+      buildGameConfetti();
+      gameResultsBuilt=true;
+    }
+  }else{
+    gameResultsOverlay.classList.add("hidden");
+    gameResultsBuilt=false;
+  }
 
   const round=Number(s.round||1);
   const qIndex=Number(s.qIndex??-1);
