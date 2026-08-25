@@ -295,11 +295,14 @@ window.nextQuestion=async()=>{
   // بعد آخر سؤال في الجولة، انتقل تلقائيًا لأول سؤال في الجولة التالية.
   if(idx>=rounds[r].length){
     if(r<3){
+      const completedRound=r;
       r+=1;
       idx=0;
+      await update(gameRef,{completedSections:completedRound});
     }else{
       // انتهت الجولة الثالثة؛ لا نعيد الأسئلة من البداية.
       await update(gameRef,{
+        completedSections:3,
         "buzzer/open":false,
         "buzzer/winner":null,
         "buzzer/pressedAt":null

@@ -213,6 +213,115 @@ body{
   padding:8px 12px;font-weight:1000;font-size:14px;
   box-shadow:0 4px 0 rgba(24,56,76,.18)
 }
+
+/* تقدم الفقرات */
+.stars{
+  display:flex;
+  direction:rtl;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  margin:4px 0;
+}
+.progress-star{
+  color:#dfe7ca;
+  font-size:clamp(13px,1.15vw,18px);
+  line-height:1;
+  -webkit-text-stroke:1px rgba(24,56,76,.16);
+  transform:scale(.9);
+  transition:color .35s ease,transform .35s ease,filter .35s ease;
+}
+.progress-star.done{
+  color:#26b97b;
+  transform:scale(1.08);
+  filter:drop-shadow(0 2px 2px rgba(24,56,76,.18));
+  animation:starPop .55s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes starPop{
+  0%{transform:scale(.55) rotate(-18deg);opacity:.2}
+  70%{transform:scale(1.22) rotate(7deg);opacity:1}
+  100%{transform:scale(1.08) rotate(0)}
+}
+
+/* شاشة بداية الفقرة */
+.paragraph-intro{
+  position:fixed;
+  inset:0;
+  z-index:90;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 18% 28%,rgba(255,222,145,.45),transparent 34%),
+    radial-gradient(circle at 80% 22%,rgba(112,209,239,.18),transparent 28%),
+    rgba(244,247,232,.985);
+  overflow:hidden;
+}
+.paragraph-intro.hidden{display:none!important}
+.paragraph-intro-card{
+  text-align:center;
+  padding:34px 42px;
+  animation:introCardIn .72s cubic-bezier(.18,.82,.22,1) both;
+}
+.paragraph-intro-kicker{
+  color:#667d68;
+  font-size:clamp(16px,1.4vw,23px);
+  font-weight:900;
+  margin-bottom:12px;
+  animation:introFade .7s .08s ease both;
+}
+.paragraph-intro-title{
+  color:#179aa5;
+  font-size:clamp(54px,7vw,112px);
+  font-weight:1000;
+  line-height:1;
+  letter-spacing:-3px;
+  text-shadow:0 5px 0 rgba(24,56,76,.10);
+  animation:introTitle 2.1s .1s ease-in-out both;
+}
+.paragraph-intro.leaving{
+  animation:introOut .42s ease forwards;
+}
+@keyframes introCardIn{
+  from{opacity:0;transform:translateY(32px) scale(.92)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes introFade{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes introTitle{
+  0%{opacity:0;transform:translateY(24px) scale(.9)}
+  35%{opacity:1;transform:translateY(0) scale(1.04)}
+  75%{transform:translateY(-5px) scale(1)}
+  100%{transform:translateY(0) scale(1)}
+}
+@keyframes introOut{
+  to{opacity:0;transform:scale(1.025)}
+}
+
+/* حركة خفيفة بدون تغيير المقاسات */
+.scoreboard,.card{
+  animation:softEnter .45s ease both;
+}
+.question,.free,.answer,.revealed-answer,.answered-marker{
+  animation:itemEnter .38s ease both;
+}
+.answer:nth-child(2){animation-delay:.04s}
+.answer:nth-child(3){animation-delay:.08s}
+.answer:nth-child(4){animation-delay:.12s}
+@keyframes softEnter{
+  from{opacity:0;transform:translateY(-6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes itemEnter{
+  from{opacity:0;transform:translateY(8px) scale(.985)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
@@ -224,7 +333,11 @@ body{
     </section>
     <section class="center">
       <div class="logo-mini">من<br>أنا</div>
-      <div class="stars">☆★☆</div>
+      <div id="progressStars" class="stars" aria-label="تقدم الفقرات">
+        <span class="progress-star" data-step="3">★</span>
+        <span class="progress-star" data-step="2">★</span>
+        <span class="progress-star" data-step="1">★</span>
+      </div>
       <button id="optionsBtn" class="options">▼ الخيارات</button>
     </section>
     <section class="team right">
@@ -260,6 +373,14 @@ body{
   </main>
 </div>
 
+
+
+<div id="paragraphIntro" class="paragraph-intro hidden" aria-live="polite">
+  <div class="paragraph-intro-card">
+    <div id="paragraphIntroKicker" class="paragraph-intro-kicker">الفقرة الأولى</div>
+    <div id="paragraphIntroTitle" class="paragraph-intro-title">بدون نقاط</div>
+  </div>
+</div>
 
 <div id="optionsModal" class="modal hidden">
   <div class="modal-card">
@@ -310,11 +431,50 @@ const freeText=document.getElementById("freeText");
 const questionText=document.getElementById("questionText");
 const answers=document.getElementById("answers");
 const buzzerState=document.getElementById("buzzerState");
+const progressStars=[...document.querySelectorAll(".progress-star")];
+const paragraphIntro=document.getElementById("paragraphIntro");
+const paragraphIntroKicker=document.getElementById("paragraphIntroKicker");
+const paragraphIntroTitle=document.getElementById("paragraphIntroTitle");
+
+let lastIntroRound=0;
+let introTimer=null;
 
 onValue(ref(db,"mn_ana"),snap=>{
   if(!snap.exists()) return;
   try{
   const s=snap.val();
+
+  // النجوم: تتلون من اليمين بعد إنهاء كل فقرة.
+  const completed=Math.max(0,Math.min(3,Number(s.completedSections||0)));
+  progressStars.forEach(star=>{
+    const step=Number(star.dataset.step||0);
+    // data-step 1 هو النجم الأيمن.
+    star.classList.toggle("done",step<=completed);
+  });
+
+  // شاشة بداية الفقرة تظهر مرة عند دخول كل فقرة لمدة 3 ثوانٍ.
+  const currentRound=Number(s.round||1);
+  if(currentRound>=1 && currentRound<=3 && currentRound!==lastIntroRound){
+    lastIntroRound=currentRound;
+    const labels={
+      1:["الفقرة الأولى","بدون نقاط"],
+      2:["الفقرة الثانية","من أنا؟"],
+      3:["الفقرة الثالثة","من القائل؟"]
+    };
+    const info=labels[currentRound];
+    paragraphIntroKicker.textContent=info[0];
+    paragraphIntroTitle.textContent=info[1];
+    paragraphIntro.classList.remove("hidden","leaving");
+
+    if(introTimer) clearTimeout(introTimer);
+    introTimer=setTimeout(()=>{
+      paragraphIntro.classList.add("leaving");
+      setTimeout(()=>{
+        paragraphIntro.classList.add("hidden");
+        paragraphIntro.classList.remove("leaving");
+      },420);
+    },3000);
+  }
   const t1=s.teams?.[1]||s.teams?.["1"]||{name:"الفريق الأول",score:0};
   const t2=s.teams?.[2]||s.teams?.["2"]||{name:"الفريق الثاني",score:0};
 
