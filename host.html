@@ -154,6 +154,43 @@ button{font:inherit;cursor:pointer}
   .final-team-score{font-size:36px}
 }
 
+
+.start-game-overlay{
+  position:fixed;inset:0;z-index:130;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 18% 22%,rgba(255,222,145,.40),transparent 34%),
+    radial-gradient(circle at 82% 25%,rgba(110,211,239,.16),transparent 30%),
+    rgba(241,247,227,.98);
+}
+.start-game-overlay.hidden{display:none!important}
+.start-game-box{
+  width:min(520px,92vw);
+  text-align:center;
+  animation:startBoxIn .48s cubic-bezier(.18,.82,.22,1) both
+}
+.start-game-btn{
+  width:100%;
+  min-height:112px;
+  border:5px solid var(--ink);
+  border-radius:25px;
+  background:var(--green);
+  color:var(--ink);
+  font:inherit;
+  font-size:clamp(30px,4vw,48px);
+  font-weight:1000;
+  cursor:pointer;
+  box-shadow:0 11px 0 #2f8550;
+  transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+}
+.start-game-btn:hover{filter:brightness(1.03);transform:translateY(-2px)}
+.start-game-btn:active{transform:translateY(5px);box-shadow:0 6px 0 #2f8550}
+@keyframes startBoxIn{
+  from{opacity:0;transform:translateY(20px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
 </style>
 </head>
 <body>
@@ -235,6 +272,15 @@ button{font:inherit;cursor:pointer}
   </div>
 </div>
 
+
+
+<div id="startGameOverlay" class="start-game-overlay hidden">
+  <div class="start-game-box">
+    <button id="startGameBtn" class="start-game-btn" onclick="startGameNow()">
+      بدء اللعبة
+    </button>
+  </div>
+</div>
 
 <div id="sectionGateOverlay" class="host-overlay hidden">
   <div class="host-overlay-card section-card">
@@ -432,6 +478,15 @@ function render(){
     el("givePointsBtn").disabled=(selectedAwardTeam===0);
   }
 
+  // بعد تخطي باركود الجرس يظهر زر بدء اللعبة وحده في شاشة الهوست.
+  const startGate=state?.startGate||{};
+  const startOverlay=el("startGameOverlay");
+  if(startGate.ready && !state?.gameStarted && !state?.gameFinished){
+    startOverlay.classList.remove("hidden");
+  }else{
+    startOverlay.classList.add("hidden");
+  }
+
   // بوابة انتقال الفقرة التالية تظهر في الهوست فقط بعد إنهاء أسئلة الفقرة.
   const gate=state?.sectionGate||{};
   const gateOverlay=el("sectionGateOverlay");
@@ -477,6 +532,41 @@ function render(){
 }
 
 
+
+window.startGameNow=async()=>{
+  if(!state?.startGate?.ready || state?.gameStarted) return;
+
+  const item=rounds[1][0];
+  const historyKey="r1_q0";
+  const historical=state?.history?.[historyKey]||null;
+
+  await update(gameRef,{
+    gameStarted:true,
+    startGate:{
+      ready:false,
+      started:true
+    },
+    round:1,
+    qIndex:0,
+    question:{
+      text:item.q,
+      answer:item.a,
+      choices:item.choices||[],
+      points:Number(item.points||1),
+      revealed:false,
+      answeredBy:historical?.answeredBy||null,
+      answeredByName:historical?.answeredByName||"",
+      answeredTeam:historical?.answeredTeam||null,
+      awardedPoints:Number(historical?.awardedPoints||0),
+      historyKey,
+      x2Team:historical?.x2Team||null,
+      x2Consumed:historical?.x2Consumed||false
+    },
+    "buzzer/open":false,
+    "buzzer/winner":null,
+    "buzzer/pressedAt":null
+  });
+};
 
 window.nextQuestion=async()=>{
   selectedAwardTeam=0;

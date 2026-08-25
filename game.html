@@ -394,6 +394,30 @@ body{
   to{transform:translateY(120vh) rotate(760deg)}
 }
 
+
+.game-waiting-overlay{
+  position:fixed;inset:0;z-index:89;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(243,248,229,.97);
+  padding:20px
+}
+.game-waiting-overlay.hidden{display:none!important}
+.game-waiting-card{text-align:center;animation:waitingIn .4s ease both}
+.game-waiting-spinner{
+  width:46px;height:46px;margin:0 auto 15px;
+  border-radius:50%;
+  border:5px solid #d5e3c5;
+  border-top-color:var(--navy);
+  animation:waitSpin .9s linear infinite
+}
+.game-waiting-title{font-size:clamp(26px,3vw,40px);font-weight:1000}
+.game-waiting-sub{margin-top:7px;color:#667d68;font-weight:800}
+@keyframes waitSpin{to{transform:rotate(360deg)}}
+@keyframes waitingIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 </style>
 </head>
 <body>
@@ -447,6 +471,15 @@ body{
 
 
 
+
+
+<div id="gameWaitingOverlay" class="game-waiting-overlay hidden">
+  <div class="game-waiting-card">
+    <div class="game-waiting-spinner"></div>
+    <div class="game-waiting-title">بانتظار المقدم</div>
+    <div class="game-waiting-sub">ستبدأ اللعبة بعد ضغط زر بدء اللعبة</div>
+  </div>
+</div>
 
 <div id="gameResultsOverlay" class="game-results-overlay hidden">
   <div id="gameConfetti" class="game-confetti"></div>
@@ -525,6 +558,7 @@ const questionText=document.getElementById("questionText");
 const answers=document.getElementById("answers");
 const buzzerState=document.getElementById("buzzerState");
 const progressStars=[...document.querySelectorAll(".progress-star")];
+const gameWaitingOverlay=document.getElementById("gameWaitingOverlay");
 const paragraphIntro=document.getElementById("paragraphIntro");
 const paragraphIntroKicker=document.getElementById("paragraphIntroKicker");
 const paragraphIntroTitle=document.getElementById("paragraphIntroTitle");
@@ -580,9 +614,17 @@ onValue(ref(db,"mn_ana"),snap=>{
     lastProgressKey=progressKey;
   }
 
-  // شاشة بداية الفقرة تظهر مرة عند دخول كل فقرة لمدة 3 ثوانٍ.
+  // قبل ضغط "بدء اللعبة" من الهوست، شاشة اللعبة تبقى في وضع انتظار فقط.
+  if(!s.gameStarted && !s.gameFinished){
+    gameWaitingOverlay.classList.remove("hidden");
+  }else{
+    gameWaitingOverlay.classList.add("hidden");
+  }
+
+  // شاشة بداية الفقرة تظهر مرة عند دخول كل فقرة لمدة 3 ثوانٍ،
+  // لكن فقط بعد ضغط المقدم "بدء اللعبة".
   const currentRound=Number(s.round||1);
-  if(currentRound>=1 && currentRound<=3 && currentRound!==lastIntroRound){
+  if(s.gameStarted && currentRound>=1 && currentRound<=3 && currentRound!==lastIntroRound){
     lastIntroRound=currentRound;
     const labels={
       1:["الفقرة الأولى","بدون نقاط"],
