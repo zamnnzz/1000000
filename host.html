@@ -48,6 +48,16 @@ button{font:inherit;cursor:pointer}
 .team-award-score{font-size:34px;line-height:1;margin-top:4px}
 @media(max-width:700px){.team-award-grid{grid-template-columns:1fr 1fr}.team-award-name{font-size:14px}.team-award-score{font-size:28px}}
 
+
+.question-meta{display:flex;gap:8px;align-items:center}
+.question-meta span{
+  background:#fff;border:3px solid var(--ink);border-radius:999px;
+  padding:7px 11px;font-weight:900
+}
+.question-x2{
+  margin-top:12px;background:#ffe277;border:3px solid var(--ink);
+  border-radius:13px;padding:10px 14px;text-align:center;font-weight:1000
+}
 </style>
 </head>
 <body>
@@ -73,10 +83,17 @@ button{font:inherit;cursor:pointer}
   </div>
 
   <div class="card">
-    <div id="roundTitle" class="badge">الجولة الأولى</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+      <div id="roundTitle" class="badge">الجولة الأولى</div>
+      <div class="question-meta">
+        <span>السؤال <strong id="hostQnum">1</strong></span>
+        <span>النقاط <strong id="hostQpoints">0</strong></span>
+      </div>
+    </div>
     <div id="questionText" class="question" style="margin-top:14px">اضغط "السؤال التالي" لبدء الجولة.</div>
     <div id="answers" class="answers"></div>
 
+    <div id="questionX2" class="question-x2" style="display:none"></div>
     <div class="answerBox">
       <div class="small muted" style="margin-bottom:5px">الإجابة عند المقدم</div>
       <div id="hostAnswer">—</div>
@@ -200,6 +217,21 @@ function render(){
 
   el("questionText").textContent=state?.question?.text||"";
   el("hostAnswer").textContent=state?.question?.answer||"—";
+
+  el("hostQnum").textContent=Math.max(1,Number(state?.qIndex??0)+1);
+  el("hostQpoints").textContent=Number(state?.question?.points||0);
+
+  const qx2=state?.question?.x2Team;
+  const qx2El=el("questionX2");
+  if(qx2){
+    const xt=teamData(Number(qx2));
+    qx2El.style.display="block";
+    qx2El.textContent=`x2 مفعّل على هذا السؤال بواسطة ${xt.name||("الفريق "+qx2)}`;
+  }else{
+    qx2El.style.display="none";
+    qx2El.textContent="";
+  }
+
   const choices=state?.question?.choices||[];
   el("answers").innerHTML=choices.map(x=>`<div class="answer">${x}</div>`).join("");
   el("showAnswerBtn").textContent=state?.question?.revealed?"الإجابة ظاهرة على شاشة اللعبة":"إظهار الإجابة على شاشة اللعبة";
@@ -251,7 +283,7 @@ function renderX2(n,t){
 window.setRound=async n=>{
   await update(gameRef,{
     round:n,qIndex:-1,
-    question:{text:"اضغط «السؤال التالي» لبدء الجولة.",answer:"",choices:[],points:0,revealed:false,answeredBy:null,answeredByName:"",answeredTeam:null,awardedPoints:0,historyKey:""},
+    question:{text:"اضغط «السؤال التالي» لبدء الجولة.",answer:"",choices:[],points:0,revealed:false,answeredBy:null,answeredByName:"",answeredTeam:null,awardedPoints:0,historyKey:"",x2Team:null,x2Consumed:false},
     "buzzer/open":false,"buzzer/winner":null,"buzzer/pressedAt":null
   });
 };
@@ -278,7 +310,9 @@ window.nextQuestion=async()=>{
       answeredByName:historical?.answeredByName||"",
       answeredTeam:historical?.answeredTeam||null,
       awardedPoints:Number(historical?.awardedPoints||0),
-      historyKey
+      historyKey,
+      x2Team:historical?.x2Team||null,
+      x2Consumed:historical?.x2Consumed||false
     },
     "buzzer/open":false,
     "buzzer/winner":null,
@@ -308,42 +342,52 @@ window.givePointsAndNext=async()=>{
   if(state?.question?.answeredTeam) return alert("هذا السؤال محسوب بالفعل.");
   if(selectedAwardTeam!==1 && selectedAwardTeam!==2) return alert("اختر الفريق أولًا.");
 
-  const team=selectedAwardTeam;
+  const answeringTeam=selectedAwardTeam;
   const basePoints=Number(state.question.points||1);
-  const teamRef=ref(db,`mn_ana/teams/${team}`);
-  let awarded=basePoints;
+  const x2Team=Number(state.question.x2Team||0);
+  const historyKey=state.question.historyKey;
 
-  await runTransaction(teamRef,current=>{
+  let awarded=basePoints;
+  if(x2Team===answeringTeam){
+    awarded=basePoints*2;
+  }
+
+  // الفريق الذي جاوب يحصل على نقاط السؤال (مضاعفة فقط إذا كان هو مفعل x2).
+  await runTransaction(ref(db,`mn_ana/teams/${answeringTeam}`),current=>{
     if(!current) return current;
-    if(current.x2Active===true){
-      awarded=basePoints*2;
-      current.x2Active=false;
-      current.x2Used=true;
-    }
     current.score=Number(current.score||0)+awarded;
     return current;
   });
 
+  // إذا كان هناك x2 على السؤال، تُستهلك الفرصة نهائيًا سواء فاز الفريق المفعّل أو الخصم.
+  if(x2Team===1 || x2Team===2){
+    await update(ref(db,`mn_ana/teams/${x2Team}`),{
+      x2Active:false,
+      x2Used:true
+    });
+  }
+
   const winnerPlayerId=state?.buzzer?.winnerPlayerId||null;
   const winnerPlayerName=state?.buzzer?.winnerPlayerName||"";
-  const teamName=(team===1?(teamData(1).name||"الفريق الأول"):(teamData(2).name||"الفريق الثاني"));
-  const historyKey=state.question.historyKey;
 
   const record={
     answeredBy:winnerPlayerId,
     answeredByName:winnerPlayerName,
-    answeredTeam:team,
+    answeredTeam:answeringTeam,
     awardedPoints:awarded,
     basePoints,
-    answeredAt:Date.now()
+    answeredAt:Date.now(),
+    x2Team:x2Team||null,
+    x2Consumed:!!x2Team
   };
 
   await update(gameRef,{
     [`history/${historyKey}`]:record,
     "question/answeredBy":winnerPlayerId,
     "question/answeredByName":winnerPlayerName,
-    "question/answeredTeam":team,
+    "question/answeredTeam":answeringTeam,
     "question/awardedPoints":awarded,
+    "question/x2Consumed":!!x2Team,
     "buzzer/open":false
   });
 

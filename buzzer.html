@@ -124,11 +124,12 @@ function render(){
   el("buzz").classList.remove("win","lose");
   el("x2").classList.remove("active");
 
-  if(me.x2Active){
-    el("x2").textContent="x2 مفعّل ✓";
+  const questionX2=Number(state?.question?.x2Team||0);
+  if(questionX2===team){
+    el("x2").textContent="x2 مفعّل على هذا السؤال ✓";
     el("x2").classList.add("active");
     el("x2").disabled=true;
-    el("x2hint").textContent="النقاط القادمة لفريقك ستتضاعف.";
+    el("x2hint").textContent="إذا جاوب فريقك هذا السؤال صح، نقاطه تتضاعف. وإذا جاوب الخصم، تضيع الفرصة.";
   }else if(me.x2Used){
     el("x2").textContent="تم استخدام x2";
     el("x2").disabled=true;
@@ -182,14 +183,26 @@ window.buzzNow=async()=>{
 
 window.activateX2=async()=>{
   if(!saved||!team)return;
-  const result=await runTransaction(ref(db,`mn_ana/teams/${team}`),current=>{
-    if(!current||current.x2Used||current.x2Active)return;
-    current.x2Active=true;
-    current.x2Used=true;
-    current.x2ActivatedAt=Date.now();
+
+  const teamState=teamData(team);
+  if(teamState.x2Used) return alert("تم استخدام x2 مسبقًا.");
+  if(!state?.question?.historyKey) return alert("انتظر بدء سؤال أولًا.");
+  if(state?.question?.answeredTeam) return alert("هذا السؤال انتهى.");
+  if(state?.question?.x2Team) return alert("تم تفعيل x2 على هذا السؤال بالفعل.");
+
+  const result=await runTransaction(ref(db,"mn_ana"),current=>{
+    if(!current) return;
+    const t=current.teams?.[team]||current.teams?.[String(team)];
+    if(!t || t.x2Used) return;
+    if(!current.question?.historyKey || current.question?.answeredTeam || current.question?.x2Team) return;
+
+    current.question.x2Team=team;
+    current.question.x2Consumed=false;
+    t.x2Active=true;
     return current;
   });
-  if(!result.committed)render();
+
+  if(!result.committed) render();
 };
 </script>
 </body>
