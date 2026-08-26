@@ -676,16 +676,12 @@ onValue(ref(db,"mn_ana"),snap=>{
     lastProgressKey=progressKey;
   }
 
-  // قبل بدء اللعبة فقط: شاشة انتظار.
-  if(!s.gameStarted && !s.gameFinished){
-    gameWaitingOverlay.classList.remove("hidden");
-    gameTitleIntro.classList.add("hidden");
-  }else{
-    gameWaitingOverlay.classList.add("hidden");
-  }
+  // شاشة "بانتظار المقدم" لا تظهر نهائيًا بعد الآن.
+  // تبقى مخفية دائمًا حتى لا تومض أثناء تحميل حالة Firebase.
+  gameWaitingOverlay.classList.add("hidden");
 
   // أول ضغطة "بدء اللعبة": أنميشن اسم اللعبة مرة واحدة،
-  // ثم يظهر السؤال الأول مباشرة. لا نرجع لشاشة الانتظار بعد بدء اللعبة.
+  // ثم يظهر السؤال الأول مباشرة.
   if(s.gameStarted && !gameTitleIntroShown && !s.gameFinished){
     gameTitleIntroShown=true;
     gameTitleIntro.classList.remove("hidden","leaving");
