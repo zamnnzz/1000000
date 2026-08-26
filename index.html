@@ -193,7 +193,7 @@ input::placeholder{
   </section>
 
   <button id="startBtn" class="start">ابدأ الجولة!</button>
-  <div id="status" class="status">جاري الاتصال…</div>
+  <div id="status" class="status">اكتب أسماء الفريقين</div>
 </main>
 
 
@@ -241,6 +241,28 @@ const overlay = document.getElementById("connectOverlay");
 const hostStep = document.getElementById("hostStep");
 const buzzerStep = document.getElementById("buzzerStep");
 
+function updateTeamNameStatus(){
+  const name1=t1.value.trim().replace(/\s+/g," ");
+  const name2=t2.value.trim().replace(/\s+/g," ");
+
+  if(!name1 || !name2){
+    status.textContent="اكتب أسماء الفريقين";
+    return false;
+  }
+
+  if(name1.localeCompare(name2,"ar",{sensitivity:"base"})===0){
+    status.textContent="أسماء الفريقين متشابهة";
+    return false;
+  }
+
+  status.textContent="جاهز لبدء الجولة";
+  return true;
+}
+
+t1.addEventListener("input",updateTeamNameStatus);
+t2.addEventListener("input",updateTeamNameStatus);
+updateTeamNameStatus();
+
 const rootUrl = location.origin + location.pathname.replace(/\/[^/]*$/, "/");
 
 function makeQr(el, url){
@@ -256,17 +278,20 @@ function makeQr(el, url){
 let stopHostWatch = null;
 
 document.getElementById("startBtn").addEventListener("click", async () => {
-  const team1Name = t1.value.trim();
-  const team2Name = t2.value.trim();
+  const startBtn=document.getElementById("startBtn");
+  if(startBtn.dataset.busy==="1") return;
+
+  const team1Name = t1.value.trim().replace(/\s+/g," ");
+  const team2Name = t2.value.trim().replace(/\s+/g," ");
 
   if(!team1Name || !team2Name){
-    status.textContent = "اكتب اسم الفريقين قبل بدء الجولة";
+    status.textContent = "اكتب أسماء الفريقين";
     (!team1Name ? t1 : t2).focus();
     return;
   }
 
   if(team1Name.localeCompare(team2Name, "ar", {sensitivity:"base"}) === 0){
-    status.textContent = "اسم الفريقين لازم يكون مختلف";
+    status.textContent = "أسماء الفريقين متشابهة";
     t2.focus();
     t2.select();
     return;
@@ -275,7 +300,11 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   const ft = Math.max(1, Number(firstTimer.value || 5));
   const st = Math.max(1, Number(secondTimer.value || 10));
 
-  status.textContent = "جاري تجهيز الاتصال…";
+  startBtn.dataset.busy="1";
+  startBtn.disabled=true;
+  status.textContent = "جاري تجهيز اللعبة…";
+
+  try{
 
   // Session جديد لكل بداية لعبة، يمنع الاتصال القديم من تفعيل الانتقال.
   const sessionId =
@@ -418,6 +447,13 @@ document.getElementById("startBtn").addEventListener("click", async () => {
       console.error("Host polling error", e);
     }
   }, 1000);
+
+  }catch(e){
+    console.error("Start game setup error",e);
+    status.textContent="تعذر بدء الجولة — حاول مرة ثانية";
+    startBtn.disabled=false;
+    startBtn.dataset.busy="0";
+  }
 });
 
 
