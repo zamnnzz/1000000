@@ -191,6 +191,94 @@ button{font:inherit;cursor:pointer}
   to{opacity:1;transform:translateY(0) scale(1)}
 }
 
+
+.question-nav{
+  display:grid;
+  grid-template-columns:minmax(120px,1fr) auto minmax(120px,1fr);
+  gap:22px;
+  align-items:center;
+  margin-top:18px;
+  direction:ltr;
+}
+.question-nav-btn{
+  min-height:64px;
+  border:4px solid var(--ink);
+  border-radius:18px;
+  font:inherit;
+  font-size:22px;
+  font-weight:1000;
+  color:var(--ink);
+  cursor:pointer;
+  box-shadow:0 7px 0 var(--shadow);
+  transition:transform .14s ease,box-shadow .14s ease,filter .14s ease;
+}
+.question-nav-btn.prev{background:#eef8d9}
+.question-nav-btn.next{background:var(--green)}
+.question-nav-btn:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.02)}
+.question-nav-btn:active:not(:disabled){transform:translateY(4px);box-shadow:0 3px 0 var(--shadow)}
+.question-nav-btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:0 4px 0 var(--shadow)}
+.question-nav-badge{
+  min-width:112px;
+  padding:12px 18px;
+  border:4px solid var(--ink);
+  border-radius:999px;
+  background:#70d3ef;
+  color:var(--ink);
+  font-size:18px;
+  font-weight:1000;
+  text-align:center;
+  box-shadow:0 4px 0 rgba(24,56,76,.18);
+}
+.answer-controls{margin-top:18px}
+
+.who-answered-overlay{
+  position:fixed;inset:0;z-index:145;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:rgba(243,248,229,.96);
+  backdrop-filter:blur(4px);
+}
+.who-answered-overlay.hidden{display:none!important}
+.who-answered-card{
+  width:min(610px,94vw);
+  background:#eef8d9;
+  border:4px solid var(--ink);
+  border-radius:25px;
+  box-shadow:0 10px 0 var(--shadow);
+  padding:30px;
+  text-align:center;
+  animation:whoAnswerIn .34s cubic-bezier(.18,.82,.22,1) both;
+}
+.who-answered-kicker{font-size:16px;font-weight:900;color:#617665;margin-bottom:5px}
+.who-answered-title{font-size:32px;font-weight:1000;color:var(--ink);margin-bottom:22px}
+.who-answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.who-team,.who-nobody,.who-cancel{
+  min-height:70px;border:4px solid var(--ink);border-radius:18px;
+  font:inherit;font-size:20px;font-weight:1000;color:var(--ink);
+  cursor:pointer;box-shadow:0 6px 0 var(--shadow);
+  transition:transform .13s ease,box-shadow .13s ease;
+}
+.who-team:active,.who-nobody:active,.who-cancel:active{
+  transform:translateY(4px);box-shadow:0 2px 0 var(--shadow)
+}
+.who-team-one{background:var(--team1)}
+.who-team-two{background:var(--team2)}
+.who-nobody{width:100%;margin-top:14px;background:#fff}
+.who-cancel{
+  min-height:48px;margin-top:13px;padding:8px 24px;
+  background:transparent;box-shadow:none;border-width:3px;font-size:16px
+}
+@keyframes whoAnswerIn{
+  from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@media(max-width:620px){
+  .question-nav{grid-template-columns:1fr auto 1fr;gap:9px}
+  .question-nav-btn{min-height:55px;font-size:18px}
+  .question-nav-badge{min-width:88px;padding:10px 12px;font-size:15px}
+  .who-answer-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -222,8 +310,13 @@ button{font:inherit;cursor:pointer}
       <div id="hostAnswer">—</div>
     </div>
 
-    <div class="controls">
-      <button class="btn blue" onclick="nextQuestion()">السؤال التالي</button>
+    <div class="question-nav">
+      <button id="prevBtn" class="question-nav-btn prev" onclick="previousQuestion()">السابق</button>
+      <div id="navQuestionBadge" class="question-nav-badge">السؤال 1</div>
+      <button id="nextBtn" class="question-nav-btn next" onclick="requestNextQuestion()">التالي</button>
+    </div>
+
+    <div class="controls answer-controls">
       <button id="showAnswerBtn" class="btn green" onclick="showAnswerOnGame()">إظهار الإجابة على شاشة اللعبة</button>
       <button class="btn" onclick="hideAnswerOnGame()">إخفاء الإجابة</button>
     </div>
@@ -242,37 +335,29 @@ button{font:inherit;cursor:pointer}
     </div>
   </div>
 
-  <div class="card">
-    <div class="hostHeader">
-      <span class="badge">إعطاء النقاط</span>
-      <span id="questionPoints" class="small muted">نقاط السؤال: 0</span>
-    </div>
-
-    <div id="answeredInfo" class="status" style="margin-bottom:14px">السؤال لم يُحسم بعد</div>
-
-    <div class="team-award-grid">
-      <button id="awardTeam1" class="team-award team-one" onclick="selectAwardTeam(1)">
-        <div id="awardTeam1Name" class="team-award-name">الفريق الأول</div>
-        <div id="awardTeam1Score" class="team-award-score">0</div>
-      </button>
-
-      <button id="awardTeam2" class="team-award team-two" onclick="selectAwardTeam(2)">
-        <div id="awardTeam2Name" class="team-award-name">الفريق الثاني</div>
-        <div id="awardTeam2Score" class="team-award-score">0</div>
-      </button>
-    </div>
-
-    <button id="givePointsBtn" class="btn green" style="width:100%;margin-top:14px;font-size:18px" onclick="givePointsAndNext()" disabled>
-      إعطاء النقاط والانتقال للسؤال التالي
-    </button>
-
-    <div class="x2note" style="margin-top:10px">
-      اختر الفريق الذي أجاب بشكل صحيح. نقاط السؤال تُضاف تلقائيًا، وإذا كان x2 مفعّلًا تتضاعف مرة واحدة.
-    </div>
-  </div>
 </div>
 
 
+
+
+<div id="whoAnsweredOverlay" class="who-answered-overlay hidden">
+  <div class="who-answered-card">
+    <div class="who-answered-kicker">من جاوب؟</div>
+    <div class="who-answered-title">اختر نتيجة السؤال</div>
+
+    <div class="who-answer-grid">
+      <button id="whoTeam1" class="who-team who-team-one" onclick="resolveQuestionAndNext(1)">
+        <span id="whoTeam1Name">الفريق الأول</span>
+      </button>
+      <button id="whoTeam2" class="who-team who-team-two" onclick="resolveQuestionAndNext(2)">
+        <span id="whoTeam2Name">الفريق الثاني</span>
+      </button>
+    </div>
+
+    <button id="whoNobody" class="who-nobody" onclick="resolveQuestionAndNext(0)">محد جاوب</button>
+    <button class="who-cancel" onclick="closeWhoAnswered()">إلغاء</button>
+  </div>
+</div>
 
 <div id="startGameOverlay" class="start-game-overlay hidden">
   <div class="start-game-box">
@@ -474,30 +559,20 @@ function render(){
     el("winnerBox").style.background="#fff";
   }
 
-  const pts=Number(state?.question?.points||0);
-  el("questionPoints").textContent=`نقاط السؤال: ${pts}`;
-
-  el("awardTeam1Name").textContent=t1.name||"الفريق الأول";
-  el("awardTeam2Name").textContent=t2.name||"الفريق الثاني";
-  el("awardTeam1Score").textContent=Number(t1.score||0);
-  el("awardTeam2Score").textContent=Number(t2.score||0);
-
-  el("awardTeam1").classList.toggle("selected",selectedAwardTeam===1);
-  el("awardTeam2").classList.toggle("selected",selectedAwardTeam===2);
 
   const nextBtn=el("nextBtn");
-  if(nextBtn && state?.gameStarted) nextBtn.disabled=!displayOnSameQuestion;
+  const prevBtn=el("prevBtn");
+  const currentRound=Number(state?.round||1);
+  const currentIndex=Number(state?.qIndex??-1);
 
-  if(state?.question?.answeredTeam){
-    const teamName=Number(state.question.answeredTeam)===1?(t1.name||"الفريق الأول"):(t2.name||"الفريق الثاني");
-    const who=state.question.answeredByName?` — ${state.question.answeredByName}`:"";
-    el("answeredInfo").textContent=`جابها: ${teamName}${who} — +${Number(state.question.awardedPoints||0)} نقطة`;
-    el("answeredInfo").style.background="#bcebb4";
-    el("givePointsBtn").disabled=true;
-  }else{
-    el("answeredInfo").textContent="السؤال لم يُحسم بعد";
-    el("answeredInfo").style.background="#fff";
-    el("givePointsBtn").disabled=(selectedAwardTeam===0 || (state?.gameStarted && !displayOnSameQuestion));
+  el("navQuestionBadge").textContent=`السؤال ${Math.max(1,currentIndex+1)}`;
+  el("whoTeam1Name").textContent=t1.name||"الفريق الأول";
+  el("whoTeam2Name").textContent=t2.name||"الفريق الثاني";
+
+  if(nextBtn && state?.gameStarted) nextBtn.disabled=!displayOnSameQuestion;
+  if(prevBtn){
+    const atVeryFirst=currentRound===1 && currentIndex<=0;
+    prevBtn.disabled=!state?.gameStarted || atVeryFirst;
   }
 
   // بعد تخطي باركود الجرس يظهر زر بدء اللعبة وحده في شاشة الهوست.
@@ -580,6 +655,7 @@ window.startGameNow=async()=>{
       answeredBy:historical?.answeredBy||null,
       answeredByName:historical?.answeredByName||"",
       answeredTeam:historical?.answeredTeam||null,
+      answeredNoOne:!!historical?.answeredNoOne,
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
@@ -646,6 +722,7 @@ window.nextQuestion=async()=>{
       answeredBy:historical?.answeredBy||null,
       answeredByName:historical?.answeredByName||"",
       answeredTeam:historical?.answeredTeam||null,
+      answeredNoOne:!!historical?.answeredNoOne,
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
@@ -682,6 +759,7 @@ window.startNextSection=async()=>{
       answeredBy:historical?.answeredBy||null,
       answeredByName:historical?.answeredByName||"",
       answeredTeam:historical?.answeredTeam||null,
+      answeredNoOne:!!historical?.answeredNoOne,
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
@@ -700,76 +778,212 @@ window.openBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{open:true,winner:null
 window.closeBuzzer=()=>update(ref(db,`${sessionPath}/buzzer`),{open:false});
 window.resetBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{open:false,winner:null,pressedAt:null});
 
-let selectedAwardTeam=0;
+let whoAnsweredBusy=false;
 
-window.selectAwardTeam=(team)=>{
-  if(state?.question?.answeredTeam) return;
-  selectedAwardTeam=Number(team);
-  el("awardTeam1").classList.toggle("selected",selectedAwardTeam===1);
-  el("awardTeam2").classList.toggle("selected",selectedAwardTeam===2);
-  el("givePointsBtn").disabled=false;
+window.closeWhoAnswered=()=>{
+  if(whoAnsweredBusy) return;
+  el("whoAnsweredOverlay").classList.add("hidden");
 };
 
-window.givePointsAndNext=async()=>{
+window.requestNextQuestion=async()=>{
+  if(!state?.gameStarted || state?.gameFinished) return;
+
+  const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
+  const isInitialQuestion=Number(state?.round||1)===1 && Number(state?.qIndex??-1)===0;
+  if(!isInitialQuestion && (!displaySync || displaySync.key!==currentQuestionKey)) return;
+
+  if(!state?.question?.historyKey){
+    return advanceQuestion();
+  }
+
+  // إذا كان السؤال محسوبًا سابقًا (عند الرجوع للمراجعة)، لا نحتسبه مرة ثانية.
+  const existing=state?.history?.[state.question.historyKey];
+  if(existing && (existing.answeredTeam || existing.answeredNoOne)){
+    return advanceQuestion();
+  }
+
+  el("whoTeam1Name").textContent=teamData(1).name||"الفريق الأول";
+  el("whoTeam2Name").textContent=teamData(2).name||"الفريق الثاني";
+  el("whoAnsweredOverlay").classList.remove("hidden");
+};
+
+window.resolveQuestionAndNext=async(answeringTeam)=>{
+  if(whoAnsweredBusy) return;
+  whoAnsweredBusy=true;
+
+  try{
+    const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
+    const isInitialQuestion=Number(state?.round||1)===1 && Number(state?.qIndex??-1)===0;
+    if(!isInitialQuestion && (!displaySync || displaySync.key!==currentQuestionKey)) return;
+
+    if(!state?.question?.historyKey) return;
+
+    const historyKey=state.question.historyKey;
+    const existing=state?.history?.[historyKey];
+    if(existing && (existing.answeredTeam || existing.answeredNoOne)){
+      el("whoAnsweredOverlay").classList.add("hidden");
+      await advanceQuestion();
+      return;
+    }
+
+    answeringTeam=Number(answeringTeam||0);
+    const basePoints=Number(state.question.points||1);
+    const x2Team=Number(state.question.x2Team||0);
+    const winnerPlayerId=state?.buzzer?.winnerPlayerId||null;
+    const winnerPlayerName=state?.buzzer?.winnerPlayerName||"";
+
+    let awarded=0;
+
+    if(answeringTeam===1 || answeringTeam===2){
+      awarded=(x2Team===answeringTeam)?basePoints*2:basePoints;
+
+      await runTransaction(ref(db,`${sessionPath}/teams/${answeringTeam}`),current=>{
+        if(!current) return current;
+        current.score=Number(current.score||0)+awarded;
+        return current;
+      });
+    }
+
+    // x2 يُستهلك عند انتهاء السؤال حتى لو "محد جاوب".
+    if(x2Team===1 || x2Team===2){
+      await update(ref(db,`${sessionPath}/teams/${x2Team}`),{
+        x2Active:false,
+        x2Used:true
+      });
+    }
+
+    const record={
+      answeredBy:(answeringTeam===1 || answeringTeam===2)?winnerPlayerId:null,
+      answeredByName:(answeringTeam===1 || answeringTeam===2)?winnerPlayerName:"",
+      answeredTeam:(answeringTeam===1 || answeringTeam===2)?answeringTeam:null,
+      answeredNoOne:answeringTeam===0,
+      awardedPoints:awarded,
+      basePoints,
+      answeredAt:Date.now(),
+      x2Team:x2Team||null,
+      x2Consumed:!!x2Team
+    };
+
+    await update(gameRef,{
+      [`history/${historyKey}`]:record,
+      "question/answeredBy":record.answeredBy,
+      "question/answeredByName":record.answeredByName,
+      "question/answeredTeam":record.answeredTeam,
+      "question/answeredNoOne":record.answeredNoOne,
+      "question/awardedPoints":awarded,
+      "question/x2Consumed":!!x2Team,
+      "buzzer/open":false
+    });
+
+    el("whoAnsweredOverlay").classList.add("hidden");
+    await advanceQuestion();
+  }finally{
+    whoAnsweredBusy=false;
+  }
+};
+
+window.previousQuestion=async()=>{
+  if(!state?.gameStarted || state?.gameFinished) return;
+
+  let r=Number(state?.round||1);
+  let idx=Number(state?.qIndex??-1)-1;
+
+  if(idx<0){
+    if(r<=1) return;
+    r-=1;
+    idx=rounds[r].length-1;
+  }
+
+  const item=rounds[r][idx];
+  const historyKey=`r${r}_q${idx}`;
+  const historical=state?.history?.[historyKey]||null;
+
+  await update(gameRef,{
+    round:r,
+    qIndex:idx,
+    sectionGate:{active:false,nextRound:0},
+    question:{
+      text:item.q,
+      answer:item.a,
+      choices:item.choices||[],
+      points:Number(item.points||1),
+      revealed:false,
+      answeredBy:historical?.answeredBy||null,
+      answeredByName:historical?.answeredByName||"",
+      answeredTeam:historical?.answeredTeam||null,
+      answeredNoOne:!!historical?.answeredNoOne,
+      awardedPoints:Number(historical?.awardedPoints||0),
+      historyKey,
+      x2Team:historical?.x2Team||null,
+      x2Consumed:historical?.x2Consumed||false
+    },
+    "buzzer/open":false,
+    "buzzer/winner":null,
+    "buzzer/pressedAt":null
+  });
+};
+
+// دالة الانتقال الأصلية بعد أن يتم حسم السؤال من نافذة "من جاوب؟".
+window.advanceQuestion=async()=>{
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
   const isInitialQuestion=Number(state?.round||1)===1 && Number(state?.qIndex??-1)===0;
   if(state?.gameStarted && !isInitialQuestion && (!displaySync || displaySync.key!==currentQuestionKey)) return;
-  if(!state?.question?.historyKey) return alert("ابدأ سؤالًا أولًا.");
-  if(state?.question?.answeredTeam) return alert("هذا السؤال محسوب بالفعل.");
-  if(selectedAwardTeam!==1 && selectedAwardTeam!==2) return alert("اختر الفريق أولًا.");
 
-  const answeringTeam=selectedAwardTeam;
-  const basePoints=Number(state.question.points||1);
-  const x2Team=Number(state.question.x2Team||0);
-  const historyKey=state.question.historyKey;
+  const r=Number(state?.round||1);
+  const idx=Number(state?.qIndex??-1)+1;
 
-  let awarded=basePoints;
-  if(x2Team===answeringTeam){
-    awarded=basePoints*2;
-  }
+  if(idx>=rounds[r].length){
+    if(r<3){
+      await update(gameRef,{
+        completedSections:r,
+        sectionGate:{active:true,nextRound:r+1},
+        "buzzer/open":false,
+        "buzzer/winner":null,
+        "buzzer/pressedAt":null
+      });
+      return;
+    }
 
-  // الفريق الذي جاوب يحصل على نقاط السؤال (مضاعفة فقط إذا كان هو مفعل x2).
-  await runTransaction(ref(db,`${sessionPath}/teams/${answeringTeam}`),current=>{
-    if(!current) return current;
-    current.score=Number(current.score||0)+awarded;
-    return current;
-  });
-
-  // إذا كان هناك x2 على السؤال، تُستهلك الفرصة نهائيًا سواء فاز الفريق المفعّل أو الخصم.
-  if(x2Team===1 || x2Team===2){
-    await update(ref(db,`${sessionPath}/teams/${x2Team}`),{
-      x2Active:false,
-      x2Used:true
+    await update(gameRef,{
+      completedSections:3,
+      sectionGate:{active:false,nextRound:0},
+      gameFinished:true,
+      "buzzer/open":false,
+      "buzzer/winner":null,
+      "buzzer/pressedAt":null
     });
+    return;
   }
 
-  const winnerPlayerId=state?.buzzer?.winnerPlayerId||null;
-  const winnerPlayerName=state?.buzzer?.winnerPlayerName||"";
-
-  const record={
-    answeredBy:winnerPlayerId,
-    answeredByName:winnerPlayerName,
-    answeredTeam:answeringTeam,
-    awardedPoints:awarded,
-    basePoints,
-    answeredAt:Date.now(),
-    x2Team:x2Team||null,
-    x2Consumed:!!x2Team
-  };
+  const item=rounds[r][idx];
+  const historyKey=`r${r}_q${idx}`;
+  const historical=state?.history?.[historyKey]||null;
 
   await update(gameRef,{
-    [`history/${historyKey}`]:record,
-    "question/answeredBy":winnerPlayerId,
-    "question/answeredByName":winnerPlayerName,
-    "question/answeredTeam":answeringTeam,
-    "question/awardedPoints":awarded,
-    "question/x2Consumed":!!x2Team,
-    "buzzer/open":false
+    qIndex:idx,
+    question:{
+      text:item.q,
+      answer:item.a,
+      choices:item.choices||[],
+      points:Number(item.points||1),
+      revealed:false,
+      answeredBy:historical?.answeredBy||null,
+      answeredByName:historical?.answeredByName||"",
+      answeredTeam:historical?.answeredTeam||null,
+      answeredNoOne:!!historical?.answeredNoOne,
+      awardedPoints:Number(historical?.awardedPoints||0),
+      historyKey,
+      x2Team:historical?.x2Team||null,
+      x2Consumed:historical?.x2Consumed||false
+    },
+    "buzzer/open":false,
+    "buzzer/winner":null,
+    "buzzer/pressedAt":null
   });
-
-  selectedAwardTeam=0;
-  await nextQuestion();
 };
+
+// إبقاء الاسم القديم داخليًا لأي استدعاء قديم، بدون واجهة توزيع نقاط.
+window.nextQuestion=window.advanceQuestion;
 </script>
 </body>
 </html>
