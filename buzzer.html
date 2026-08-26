@@ -120,29 +120,54 @@ function clearCountdownTimer(){
   }
 }
 
-async function finishCountdownIfNeeded(){
+async function advanceBuzzerPhase(){
   if(countdownOpening) return;
   countdownOpening=true;
   try{
     await runTransaction(ref(db,`${sessionPath}/buzzer`),current=>{
       if(!current) return;
       const until=Number(current.countdownUntil||0);
-      if(current.open || current.winner || !until || Date.now()<until) return;
-      return {
-        ...current,
-        open:true,
-        countdownUntil:0,
-        countdownSeconds:0
-      };
+      if(!until || Date.now()<until) return;
+
+      // انتهى وقت صاحب الضغطة الأولى: تنتقل الفرصة تلقائيًا للفريق الآخر.
+      if(current.phase==="first"){
+        const firstTeam=Number(current.firstTeam||0);
+        if(firstTeam!==1 && firstTeam!==2) return;
+        const otherTeam=firstTeam===1?2:1;
+        const seconds=Math.max(1,Number(state?.settings?.secondTimer||10));
+        return {
+          ...current,
+          open:true,
+          phase:"second",
+          allowedTeam:otherTeam,
+          winner:null,
+          winnerPlayerId:"",
+          winnerPlayerName:"",
+          countdownUntil:Date.now()+(seconds*1000),
+          countdownSeconds:seconds
+        };
+      }
+
+      // انتهى وقت الفريق الثاني بدون ضغطة.
+      if(current.phase==="second"){
+        return {
+          ...current,
+          open:false,
+          phase:"ended",
+          allowedTeam:0,
+          countdownUntil:0,
+          countdownSeconds:0
+        };
+      }
     });
   }finally{
     countdownOpening=false;
   }
 }
 
-function renderCountdown(bz){
+function renderPhaseCountdown(bz){
   const until=Number(bz?.countdownUntil||0);
-  if(!until || bz?.open || bz?.winner){
+  if(!until || (bz?.phase!=="first" && bz?.phase!=="second")){
     clearCountdownTimer();
     return false;
   }
@@ -150,12 +175,32 @@ function renderCountdown(bz){
   const draw=()=>{
     const ms=until-Date.now();
     const remaining=Math.max(0,Math.ceil(ms/1000));
-    el("buzz").textContent=remaining>0?String(remaining):"0";
-    el("buzz").disabled=true;
-    el("status").textContent=remaining>0?"استعد...":"يفتح الآن";
+    el("buzz").textContent=String(remaining);
+
+    if(bz.phase==="first"){
+      const mine=bz.firstPlayerId===playerId;
+      const sameTeam=Number(bz.firstTeam||0)===team;
+      el("buzz").disabled=true;
+      if(mine){
+        el("status").textContent="دورك — جاوب الآن";
+        el("buzz").classList.add("win");
+      }else if(sameTeam){
+        el("status").textContent="زميلك يجاوب الآن";
+      }else{
+        el("status").textContent="انتظر — بعدها تنتقل الفرصة لفريقك";
+      }
+    }else{
+      const allowed=Number(bz.allowedTeam||0);
+      const myTurn=allowed===team;
+      el("buzz").disabled=!myTurn;
+      el("status").textContent=myTurn
+        ?"دور فريقك — اضغط الجرس"
+        :"الفرصة للفريق الآخر";
+    }
+
     if(ms<=0){
       clearCountdownTimer();
-      finishCountdownIfNeeded();
+      advanceBuzzerPhase();
     }
   };
 
@@ -212,24 +257,37 @@ function render(){
   const bz=state?.buzzer||{};
   el("buzz").textContent="جرس";
 
-  if(renderCountdown(bz)) return;
+  if(renderPhaseCountdown(bz)) return;
 
-  if(bz.winner){
+  if(bz.phase==="second_answer" && bz.winner){
     const winnerPlayer=bz.winnerPlayerName||"";
     const wt=teamData(Number(bz.winner));
     if(bz.winnerPlayerId===playerId){
       el("status").textContent="أنت الأسرع! جاوب الآن";
       el("buzz").classList.add("win");
     }else{
-      el("status").textContent="سبقك "+(winnerPlayer || wt.name || "الفريق الآخر");
+      el("status").textContent="الفرصة عند "+(winnerPlayer || wt.name || "الفريق الآخر");
       el("buzz").classList.add("lose");
     }
     el("buzz").disabled=true;
     return;
   }
 
+  if(bz.phase==="ended"){
+    el("status").textContent="انتهى وقت الفريقين";
+    el("buzz").disabled=true;
+    return;
+  }
+
   if(!bz.open){
-    el("status").textContent="الجرس مغلق — انتظر المقدم";
+    el("status").textContent="الجرس مغلق";
+    el("buzz").disabled=true;
+    return;
+  }
+
+  const allowed=Number(bz.allowedTeam||0);
+  if(allowed && allowed!==team){
+    el("status").textContent="الجرس مفتوح للفريق الآخر";
     el("buzz").disabled=true;
     return;
   }
@@ -241,19 +299,53 @@ function render(){
 window.buzzNow=async()=>{
   if(!saved||!team||!state?.buzzer?.open)return;
   el("buzz").disabled=true;
+
+  const firstSeconds=Math.max(1,Number(state?.settings?.firstTimer||5));
+
   const result=await runTransaction(ref(db,`${sessionPath}/buzzer`),current=>{
-    if(!current?.open||current?.winner)return;
-    return {
-      open:false,
-      winner:team,
-      winnerPlayerId:playerId,
-      winnerPlayerName:playerName,
-      pressedAt:Date.now(),
-      countdownUntil:0,
-      countdownSeconds:0
-    };
+    if(!current?.open) return;
+
+    const phase=current.phase||"open";
+    const allowed=Number(current.allowedTeam||0);
+    if(allowed && allowed!==team) return;
+
+    // أول ضغطة: صاحبها يحصل على المؤقت الأول.
+    if(phase==="open"){
+      return {
+        ...current,
+        open:false,
+        phase:"first",
+        allowedTeam:0,
+        firstTeam:team,
+        firstPlayerId:playerId,
+        firstPlayerName:playerName,
+        winner:team,
+        winnerPlayerId:playerId,
+        winnerPlayerName:playerName,
+        pressedAt:Date.now(),
+        countdownUntil:Date.now()+(firstSeconds*1000),
+        countdownSeconds:firstSeconds
+      };
+    }
+
+    // بعد انتهاء المؤقت الأول: الجرس متاح فقط للفريق الآخر.
+    if(phase==="second" && allowed===team){
+      return {
+        ...current,
+        open:false,
+        phase:"second_answer",
+        allowedTeam:team,
+        winner:team,
+        winnerPlayerId:playerId,
+        winnerPlayerName:playerName,
+        pressedAt:Date.now(),
+        countdownUntil:0,
+        countdownSeconds:0
+      };
+    }
   });
-  if(!result.committed)render();
+
+  if(!result.committed) render();
 };
 
 window.activateX2=async()=>{

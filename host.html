@@ -676,7 +676,14 @@ window.startGameNow=async()=>{
       x2Consumed:historical?.x2Consumed||false
     },
     "buzzer/open":true,
+    "buzzer/phase":"open",
+    "buzzer/allowedTeam":0,
     "buzzer/winner":null,
+    "buzzer/winnerPlayerId":"",
+    "buzzer/winnerPlayerName":"",
+    "buzzer/firstTeam":0,
+    "buzzer/firstPlayerId":"",
+    "buzzer/firstPlayerName":"",
     "buzzer/pressedAt":null,
     "buzzer/countdownUntil":0,
     "buzzer/countdownSeconds":0
@@ -751,9 +758,18 @@ window.nextQuestion=async()=>{
       x2Team:historical?.x2Team||null,
       x2Consumed:historical?.x2Consumed||false
     },
-    "buzzer/open":false,
+    "buzzer/open":true,
+    "buzzer/phase":"open",
+    "buzzer/allowedTeam":0,
     "buzzer/winner":null,
-    "buzzer/pressedAt":null
+    "buzzer/winnerPlayerId":"",
+    "buzzer/winnerPlayerName":"",
+    "buzzer/firstTeam":0,
+    "buzzer/firstPlayerId":"",
+    "buzzer/firstPlayerName":"",
+    "buzzer/pressedAt":null,
+    "buzzer/countdownUntil":0,
+    "buzzer/countdownSeconds":0
   });
 };
 
@@ -788,43 +804,48 @@ window.startNextSection=async()=>{
       x2Team:historical?.x2Team||null,
       x2Consumed:historical?.x2Consumed||false
     },
-    "buzzer/open":false,
+    "buzzer/open":true,
+    "buzzer/phase":"open",
+    "buzzer/allowedTeam":0,
     "buzzer/winner":null,
-    "buzzer/pressedAt":null
+    "buzzer/winnerPlayerId":"",
+    "buzzer/winnerPlayerName":"",
+    "buzzer/firstTeam":0,
+    "buzzer/firstPlayerId":"",
+    "buzzer/firstPlayerName":"",
+    "buzzer/pressedAt":null,
+    "buzzer/countdownUntil":0,
+    "buzzer/countdownSeconds":0
   });
 };
 
 window.showAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:true});
 window.hideAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:false});
 
-window.openBuzzer=async()=>{
-  const hadWinner=!!state?.buzzer?.winner;
-  const firstSeconds=Math.max(1,Number(state?.settings?.firstTimer||5));
-  const secondSeconds=Math.max(1,Number(state?.settings?.secondTimer||10));
-  const seconds=hadWinner?secondSeconds:firstSeconds;
-
-  await set(ref(db,`${sessionPath}/buzzer`),{
-    open:false,
-    winner:null,
-    pressedAt:null,
-    countdownUntil:Date.now()+(seconds*1000),
-    countdownSeconds:seconds
-  });
-};
-
-window.closeBuzzer=()=>update(ref(db,`${sessionPath}/buzzer`),{
-  open:false,
-  countdownUntil:0,
-  countdownSeconds:0
-});
-
-window.resetBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{
+window.openBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{
   open:true,
+  phase:"open",
+  allowedTeam:0,
   winner:null,
+  winnerPlayerId:"",
+  winnerPlayerName:"",
+  firstTeam:0,
+  firstPlayerId:"",
+  firstPlayerName:"",
   pressedAt:null,
   countdownUntil:0,
   countdownSeconds:0
 });
+
+window.closeBuzzer=()=>update(ref(db,`${sessionPath}/buzzer`),{
+  open:false,
+  phase:"closed",
+  allowedTeam:0,
+  countdownUntil:0,
+  countdownSeconds:0
+});
+
+window.resetBuzzer=()=>window.openBuzzer();
 
 let whoAnsweredBusy=false;
 
@@ -965,9 +986,18 @@ window.previousQuestion=async()=>{
       x2Team:historical?.x2Team||null,
       x2Consumed:historical?.x2Consumed||false
     },
-    "buzzer/open":false,
+    "buzzer/open":true,
+    "buzzer/phase":"open",
+    "buzzer/allowedTeam":0,
     "buzzer/winner":null,
-    "buzzer/pressedAt":null
+    "buzzer/winnerPlayerId":"",
+    "buzzer/winnerPlayerName":"",
+    "buzzer/firstTeam":0,
+    "buzzer/firstPlayerId":"",
+    "buzzer/firstPlayerName":"",
+    "buzzer/pressedAt":null,
+    "buzzer/countdownUntil":0,
+    "buzzer/countdownSeconds":0
   });
 };
 
@@ -1024,9 +1054,18 @@ window.advanceQuestion=async()=>{
       x2Team:historical?.x2Team||null,
       x2Consumed:historical?.x2Consumed||false
     },
-    "buzzer/open":false,
+    "buzzer/open":true,
+    "buzzer/phase":"open",
+    "buzzer/allowedTeam":0,
     "buzzer/winner":null,
-    "buzzer/pressedAt":null
+    "buzzer/winnerPlayerId":"",
+    "buzzer/winnerPlayerName":"",
+    "buzzer/firstTeam":0,
+    "buzzer/firstPlayerId":"",
+    "buzzer/firstPlayerName":"",
+    "buzzer/pressedAt":null,
+    "buzzer/countdownUntil":0,
+    "buzzer/countdownSeconds":0
   });
 };
 

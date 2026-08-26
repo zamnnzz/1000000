@@ -482,6 +482,40 @@ body{
   opacity:1;
   transform:translateY(0);
 }
+
+.live-settings{
+  margin-top:16px;
+  padding:16px;
+  border:3px solid var(--ink);
+  border-radius:18px;
+  background:#f8fbe9;
+}
+.live-settings-title{font-size:20px;font-weight:1000;margin-bottom:12px}
+.live-settings-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.live-setting-field{display:block;text-align:right;font-weight:900}
+.live-setting-field span{display:block;margin-bottom:6px;font-size:13px}
+.live-setting-field input{
+  width:100%;
+  box-sizing:border-box;
+  border:3px solid var(--ink);
+  border-radius:12px;
+  background:#fff;
+  padding:10px 12px;
+  font:inherit;
+  font-size:16px;
+  color:var(--ink);
+}
+.settings-save-btn{margin-top:14px;background:#bcebb4}
+.restart-game-btn{margin-top:10px;background:#ffd9bd}
+.settings-message{min-height:20px;margin-top:8px;font-size:13px;font-weight:900}
+@media(max-width:620px){
+  .live-settings-grid{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -592,6 +626,34 @@ body{
 
     <div id="settingsView" class="hidden">
       <button id="backOptions" class="back-btn">← رجوع</button>
+
+      <div class="live-settings">
+        <div class="live-settings-title">إعدادات اللعبة</div>
+
+        <div class="live-settings-grid">
+          <label class="live-setting-field">
+            <span>اسم الفريق الأول</span>
+            <input id="settingsTeam1Name" type="text" autocomplete="off">
+          </label>
+          <label class="live-setting-field">
+            <span>اسم الفريق الثاني</span>
+            <input id="settingsTeam2Name" type="text" autocomplete="off">
+          </label>
+          <label class="live-setting-field">
+            <span>مؤقت الضغطة الأولى</span>
+            <input id="settingsFirstTimer" type="number" min="1">
+          </label>
+          <label class="live-setting-field">
+            <span>مؤقت الفريق الآخر</span>
+            <input id="settingsSecondTimer" type="number" min="1">
+          </label>
+        </div>
+
+        <button id="saveLiveSettings" type="button" class="menu-btn settings-save-btn">حفظ التعديلات</button>
+        <button id="restartGameBtn" type="button" class="menu-btn restart-game-btn">إعادة اللعبة من جديد</button>
+        <div id="settingsMessage" class="settings-message"></div>
+      </div>
+
       <div class="qr-grid" style="margin-top:16px">
         <div class="qr-card">
           <h3>باركود المقدم</h3>
@@ -612,7 +674,7 @@ body{
 <script src="./firebase-config.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import {getDatabase, ref, onValue, set} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+import {getDatabase, ref, onValue, set, update} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
@@ -649,6 +711,7 @@ let gameTitleIntroShown=false;
 let gameTitleIntroFinished=false;
 let gameTitleIntroTimer=null;
 let lastPublishedDisplayKey="";
+let latestState=null;
 
 function buildGameConfetti(){
   const layer=document.getElementById("gameConfetti");
@@ -683,6 +746,7 @@ onValue(gameRef,snap=>{
   if(!snap.exists()) return;
   try{
   const s=snap.val();
+  latestState=s;
 
   // النجوم: تتلون من اليمين بعد إنهاء كل فقرة.
   const completed=Math.max(0,Math.min(3,Number(s.completedSections||0)));
@@ -948,8 +1012,14 @@ const settingsView = document.getElementById("settingsView");
 const modalTitle = document.getElementById("modalTitle");
 
 const baseRoot = location.origin + location.pathname.replace(/\/[^/]*$/, "/");
-const settingsHostLink = new URL("host.html", baseRoot).href;
-const settingsBuzzerLink = new URL("buzzer.html", baseRoot).href;
+const settingsHostUrlObj = new URL("host.html", baseRoot);
+const settingsBuzzerUrlObj = new URL("buzzer.html", baseRoot);
+if(gameSessionId){
+  settingsHostUrlObj.searchParams.set("session",gameSessionId);
+  settingsBuzzerUrlObj.searchParams.set("session",gameSessionId);
+}
+const settingsHostLink = settingsHostUrlObj.href;
+const settingsBuzzerLink = settingsBuzzerUrlObj.href;
 
 function renderSettingsQr(){
   const h = document.getElementById("settingsHostQr");
@@ -963,6 +1033,109 @@ function renderSettingsQr(){
   document.getElementById("settingsBuzzerUrl").textContent=settingsBuzzerLink;
 }
 
+function fillLiveSettings(){
+  const t1=latestState?.teams?.[1]||latestState?.teams?.["1"]||{};
+  const t2=latestState?.teams?.[2]||latestState?.teams?.["2"]||{};
+  document.getElementById("settingsTeam1Name").value=t1.name||"الفريق الأول";
+  document.getElementById("settingsTeam2Name").value=t2.name||"الفريق الثاني";
+  document.getElementById("settingsFirstTimer").value=Math.max(1,Number(latestState?.settings?.firstTimer||5));
+  document.getElementById("settingsSecondTimer").value=Math.max(1,Number(latestState?.settings?.secondTimer||10));
+  document.getElementById("settingsMessage").textContent="";
+}
+
+document.getElementById("saveLiveSettings").addEventListener("click",async()=>{
+  const name1=document.getElementById("settingsTeam1Name").value.trim();
+  const name2=document.getElementById("settingsTeam2Name").value.trim();
+  const first=Math.max(1,Number(document.getElementById("settingsFirstTimer").value||5));
+  const second=Math.max(1,Number(document.getElementById("settingsSecondTimer").value||10));
+  const msg=document.getElementById("settingsMessage");
+
+  if(!name1 || !name2){
+    msg.textContent="اكتب اسم الفريقين";
+    return;
+  }
+  if(name1.localeCompare(name2,"ar",{sensitivity:"base"})===0){
+    msg.textContent="أسماء الفريقين لازم تكون مختلفة";
+    return;
+  }
+
+  try{
+    await update(gameRef,{
+      "teams/1/name":name1,
+      "teams/2/name":name2,
+      "settings/firstTimer":first,
+      "settings/secondTimer":second
+    });
+    msg.textContent="تم حفظ الإعدادات ✓";
+  }catch(e){
+    console.error("Save settings error",e);
+    msg.textContent="تعذر حفظ الإعدادات";
+  }
+});
+
+document.getElementById("restartGameBtn").addEventListener("click",async()=>{
+  if(!confirm("إعادة اللعبة من البداية؟ سيتم تصفير النقاط والتقدم.")) return;
+
+  try{
+    await update(gameRef,{
+      "teams/1/score":0,
+      "teams/1/x2Used":false,
+      "teams/1/x2Active":false,
+      "teams/2/score":0,
+      "teams/2/x2Used":false,
+      "teams/2/x2Active":false,
+      completedSections:0,
+      round:1,
+      qIndex:-1,
+      gameFinished:false,
+      gameStarted:false,
+      history:null,
+      sectionGate:{active:false,nextRound:0},
+      startGate:{ready:false,started:false},
+      question:{
+        text:"بانتظار المقدم لبدء السؤال.",
+        answer:"",
+        choices:[],
+        points:0,
+        revealed:false,
+        answeredBy:null,
+        answeredByName:"",
+        answeredTeam:null,
+        awardedPoints:0,
+        historyKey:"",
+        x2Team:null,
+        x2Consumed:false
+      },
+      buzzer:{
+        open:true,
+        phase:"open",
+        allowedTeam:0,
+        winner:null,
+        winnerPlayerId:"",
+        winnerPlayerName:"",
+        firstTeam:0,
+        firstPlayerId:"",
+        firstPlayerName:"",
+        pressedAt:null,
+        countdownUntil:0,
+        countdownSeconds:0
+      },
+      display:{
+        key:"",
+        round:0,
+        qIndex:-1,
+        historyKey:"",
+        shownAt:0
+      }
+    });
+    document.getElementById("settingsMessage").textContent="تمت إعادة اللعبة ✓";
+    optionsModal.classList.add("hidden");
+  }catch(e){
+    console.error("Restart game error",e);
+    document.getElementById("settingsMessage").textContent="تعذر إعادة اللعبة";
+  }
+});
+
 document.getElementById("optionsBtn").addEventListener("click",()=>{
   optionsMenu.classList.remove("hidden");
   settingsView.classList.add("hidden");
@@ -975,6 +1148,7 @@ document.getElementById("settingsBtn").addEventListener("click",()=>{
   optionsMenu.classList.add("hidden");
   settingsView.classList.remove("hidden");
   modalTitle.textContent="الإعدادات";
+  fillLiveSettings();
   renderSettingsQr();
 });
 document.getElementById("backOptions").addEventListener("click",()=>{
