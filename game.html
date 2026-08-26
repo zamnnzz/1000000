@@ -528,7 +528,6 @@ body{
         <span>الإجابة:</span> <strong id="revealedAnswerText"></strong>
       </div>
       <div id="answeredMarker" class="answered-marker hidden"></div>
-      <div id="buzzerState" class="buzzer-line">الجرس مغلق</div>
     </section>
   </main>
 </div>
@@ -631,7 +630,6 @@ const freeView=document.getElementById("freeView");
 const freeText=document.getElementById("freeText");
 const questionText=document.getElementById("questionText");
 const answers=document.getElementById("answers");
-const buzzerState=document.getElementById("buzzerState");
 const progressStars=[...document.querySelectorAll(".progress-star")];
 const gameTitleIntro=document.getElementById("gameTitleIntro");
 const gameMainContent=document.getElementById("gameMainContent");
@@ -673,7 +671,6 @@ let introTimer=null;
 // كاش للرسم: يمنع إعادة إنشاء خيارات السؤال عند تغيّر الجرس/النقاط/x2.
 let lastQuestionRenderKey="";
 let lastScoreKey="";
-let lastBuzzerKey="";
 let lastAnswerRevealKey="";
 let lastAnsweredMarkerKey="";
 let lastProgressKey="";
@@ -722,26 +719,42 @@ onValue(gameRef,snap=>{
       setTimeout(()=>{
         gameTitleIntro.classList.add("hidden");
         gameTitleIntro.classList.remove("leaving");
-        gameTitleIntroFinished=true;
-        gameMainContent.classList.remove("intro-hidden");
-        gameMainContent.classList.add("intro-visible");
 
-        // أعلن أول سؤال فور ظهوره حتى تتزامن شاشة الهوست.
-        const currentStateKey=lastQuestionRenderKey;
-        if(currentStateKey){
-          const roundNow=Number(document.body.dataset.round||1);
-          const qIndexNow=Number(document.body.dataset.qindex||0);
-          const historyNow=document.body.dataset.historykey||"";
-          const displayKey=`${roundNow}:${qIndexNow}:${historyNow}`;
-          set(ref(db,`${sessionPath}/display`),{
-            key:displayKey,
-            round:roundNow,
-            qIndex:qIndexNow,
-            historyKey:historyNow,
-            shownAt:Date.now()
-          }).catch(e=>console.error("Initial display sync error",e));
-          lastPublishedDisplayKey=displayKey;
-        }
+        // بعد "من أنا؟" يظهر اسم الجولة الأولى بأنميشن بسيط.
+        lastIntroRound=1;
+        paragraphIntroKicker.textContent="الفقرة الأولى";
+        paragraphIntroTitle.textContent="بدون نقاط";
+        paragraphIntro.classList.remove("hidden","leaving");
+
+        if(introTimer) clearTimeout(introTimer);
+        introTimer=setTimeout(()=>{
+          paragraphIntro.classList.add("leaving");
+          setTimeout(()=>{
+            paragraphIntro.classList.add("hidden");
+            paragraphIntro.classList.remove("leaving");
+
+            gameTitleIntroFinished=true;
+            gameMainContent.classList.remove("intro-hidden");
+            gameMainContent.classList.add("intro-visible");
+
+            // أعلن أول سؤال فور ظهوره حتى تتزامن شاشة الهوست.
+            const currentStateKey=lastQuestionRenderKey;
+            if(currentStateKey){
+              const roundNow=Number(document.body.dataset.round||1);
+              const qIndexNow=Number(document.body.dataset.qindex||0);
+              const historyNow=document.body.dataset.historykey||"";
+              const displayKey=`${roundNow}:${qIndexNow}:${historyNow}`;
+              set(ref(db,`${sessionPath}/display`),{
+                key:displayKey,
+                round:roundNow,
+                qIndex:qIndexNow,
+                historyKey:historyNow,
+                shownAt:Date.now()
+              }).catch(e=>console.error("Initial display sync error",e));
+              lastPublishedDisplayKey=displayKey;
+            }
+          },420);
+        },1400);
       },360);
     },1200);
   }
@@ -753,15 +766,10 @@ onValue(gameRef,snap=>{
 
   // شاشة بداية الفقرة تظهر مرة عند دخول الفقرة الثانية والثالثة.
   const currentRound=Number(s.round||1);
-  if(s.gameStarted && currentRound>=1 && currentRound<=3 && currentRound!==lastIntroRound){
+  if(s.gameStarted && currentRound>=2 && currentRound<=3 && currentRound!==lastIntroRound){
     lastIntroRound=currentRound;
 
-    // عند بدء اللعبة لأول مرة: اعرض السؤال الأول مباشرة بدون شاشة 3 ثوانٍ.
-    if(currentRound===1){
-      paragraphIntro.classList.add("hidden");
-    }else{
     const labels={
-      1:["الفقرة الأولى","بدون نقاط"],
       2:["الفقرة الثانية","من أنا؟"],
       3:["الفقرة الثالثة","من القائل؟"]
     };
@@ -778,7 +786,6 @@ onValue(gameRef,snap=>{
         paragraphIntro.classList.remove("leaving");
       },420);
     },3000);
-    }
   }
   const t1=s.teams?.[1]||s.teams?.["1"]||{name:"الفريق الأول",score:0};
   const t2=s.teams?.[2]||s.teams?.["2"]||{name:"الفريق الثاني",score:0};
@@ -930,22 +937,6 @@ onValue(gameRef,snap=>{
     }
   }
 
-  const bz=s.buzzer||{open:false,winner:null};
-  const buzzerKey=JSON.stringify([!!bz.open,bz.winner||0,bz.winnerPlayerName||"",t1.name||"",t2.name||""]);
-  if(buzzerKey!==lastBuzzerKey){
-    buzzerState.className="buzzer-line";
-    if(bz.winner){
-      const wt=s.teams?.[bz.winner]||s.teams?.[String(bz.winner)];
-      buzzerState.textContent="الأسرع: "+(bz.winnerPlayerName||wt?.name||"أحد الفرق");
-      buzzerState.classList.add("win");
-    }else if(bz.open){
-      buzzerState.textContent="الجرس مفتوح";
-      buzzerState.classList.add("open");
-    }else{
-      buzzerState.textContent="الجرس مغلق";
-    }
-    lastBuzzerKey=buzzerKey;
-  }
   }catch(e){
     console.error("Game render error",e);
   }
