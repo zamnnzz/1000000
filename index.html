@@ -150,6 +150,11 @@ input{
 }
 .url-hint{font-size:11px;color:#718174;overflow-wrap:anywhere;margin-top:8px}
 
+
+input::placeholder{
+  color:rgba(24,56,76,.38);
+  opacity:1;
+}
 </style>
 </head>
 <body>
@@ -209,7 +214,7 @@ input{
       <p>الحين خل المتسابقين يصورون باركود الجرس من جوالاتهم، أو تخطَّ الخطوة وكمل اللعبة.</p>
       <div id="buzzerQr" class="qr-box"></div>
       <div id="buzzerUrlHint" class="url-hint"></div>
-      <button id="skipBuzzerBtn" class="secondary">تخطي الجرس ودخول اللعبة</button>
+      
     </div>
   </div>
 </div>
@@ -229,10 +234,7 @@ const gameRef = ref(db, "mn_ana");
 // حتى لو كانت لا تزال تعرض باركود الجرس.
 onValue(ref(db, "mn_ana/gameStarted"), snap => {
   if(snap.val() === true){
-    const overlayVisible = !document.getElementById("connectOverlay")?.classList.contains("hidden");
-    if(overlayVisible){
-      window.location.href = "./game.html";
-    }
+    window.location.href = "./game.html";
   }
 });
 
@@ -278,8 +280,22 @@ onValue(gameRef, snap => {
 let stopHostWatch = null;
 
 document.getElementById("startBtn").addEventListener("click", async () => {
-  const team1Name = t1.value.trim() || "الفريق الأول";
-  const team2Name = t2.value.trim() || "الفريق الثاني";
+  const team1Name = t1.value.trim();
+  const team2Name = t2.value.trim();
+
+  if(!team1Name || !team2Name){
+    status.textContent = "اكتب اسم الفريقين قبل بدء الجولة";
+    (!team1Name ? t1 : t2).focus();
+    return;
+  }
+
+  if(team1Name.localeCompare(team2Name, "ar", {sensitivity:"base"}) === 0){
+    status.textContent = "اسم الفريقين لازم يكون مختلف";
+    t2.focus();
+    t2.select();
+    return;
+  }
+
   const ft = Math.max(1, Number(firstTimer.value || 5));
   const st = Math.max(1, Number(secondTimer.value || 10));
 
@@ -407,17 +423,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   }, 1000);
 });
 
-document.getElementById("skipBuzzerBtn").addEventListener("click", async () => {
-  // بعد تخطي باركود الجرس: نبلغ الهوست أن زر بدء اللعبة أصبح جاهزًا.
-  await update(gameRef, {
-    "startGate/ready": true,
-    "startGate/started": false,
-    gameStarted: false
-  });
 
-  // الشاشة الرئيسية تدخل وضع الانتظار، ولا تبدأ الأسئلة قبل ضغط المقدم.
-  window.location.href = "./game.html";
-});
 </script>
 </body>
 </html>
