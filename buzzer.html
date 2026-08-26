@@ -56,16 +56,24 @@ import { getDatabase, ref, onValue, runTransaction, set } from "https://www.gsta
 const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
 const el=id=>document.getElementById(id);
+const gameSessionId=new URLSearchParams(location.search).get("session")||"";
+const sessionPath=gameSessionId?`mn_ana_sessions/${gameSessionId}`:"";
+const gameRef=ref(db,sessionPath||"mn_ana_invalid_session");
 
-let team=Number(localStorage.getItem("mnAnaTeam")||0);
-let playerName=localStorage.getItem("mnAnaPlayerName")||"";
-let playerId=localStorage.getItem("mnAnaPlayerId")||crypto.randomUUID();
-localStorage.setItem("mnAnaPlayerId",playerId);
+const storagePrefix=`mnAna:${gameSessionId}:`;
+let team=Number(localStorage.getItem(storagePrefix+"team")||0);
+let playerName=localStorage.getItem(storagePrefix+"playerName")||"";
+let playerId=localStorage.getItem(storagePrefix+"playerId")||crypto.randomUUID();
+localStorage.setItem(storagePrefix+"playerId",playerId);
 
 let state=null;
 let saved=!!(team && playerName);
 
-onValue(ref(db,"mn_ana"),snap=>{
+if(!gameSessionId){
+  document.body.innerHTML='<div style="font-family:system-ui;text-align:center;padding:50px"><h2>رابط الجلسة غير صالح</h2></div>';
+}
+
+onValue(gameRef,snap=>{
   el("connection").textContent="متصل";
   state=snap.val();
   try{
@@ -89,10 +97,10 @@ window.savePlayer=async()=>{
 
   playerName=name;
   saved=true;
-  localStorage.setItem("mnAnaTeam",String(team));
-  localStorage.setItem("mnAnaPlayerName",playerName);
+  localStorage.setItem(storagePrefix+"team",String(team));
+  localStorage.setItem(storagePrefix+"playerName",playerName);
 
-  await set(ref(db,`mn_ana/players/${playerId}`),{
+  await set(ref(db,`${sessionPath}/players/${playerId}`),{
     name:playerName,
     team,
     savedAt:Date.now()
@@ -176,7 +184,7 @@ function render(){
 window.buzzNow=async()=>{
   if(!saved||!team||!state?.buzzer?.open)return;
   el("buzz").disabled=true;
-  const result=await runTransaction(ref(db,"mn_ana/buzzer"),current=>{
+  const result=await runTransaction(ref(db,`${sessionPath}/buzzer`),current=>{
     if(!current?.open||current?.winner)return;
     return {
       open:false,
@@ -198,7 +206,7 @@ window.activateX2=async()=>{
   if(state?.question?.answeredTeam) return alert("هذا السؤال انتهى.");
   if(state?.question?.x2Team) return alert("تم تفعيل x2 على هذا السؤال بالفعل.");
 
-  const result=await runTransaction(ref(db,"mn_ana"),current=>{
+  const result=await runTransaction(gameRef,current=>{
     if(!current) return;
     const t=current.teams?.[team]||current.teams?.[String(team)];
     if(!t || t.x2Used) return;

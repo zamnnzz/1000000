@@ -617,6 +617,9 @@ import {getDatabase, ref, onValue, set} from "https://www.gstatic.com/firebasejs
 
 const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
+const gameSessionId=new URLSearchParams(location.search).get("session")||"";
+const sessionPath=gameSessionId?`mn_ana_sessions/${gameSessionId}`:"";
+const gameRef=ref(db,sessionPath||"mn_ana_invalid_session");
 
 const team1Name=document.getElementById("team1Name");
 const team2Name=document.getElementById("team2Name");
@@ -675,7 +678,11 @@ let lastAnswerRevealKey="";
 let lastAnsweredMarkerKey="";
 let lastProgressKey="";
 
-onValue(ref(db,"mn_ana"),snap=>{
+if(!gameSessionId){
+  document.body.innerHTML='<div style="font-family:system-ui;text-align:center;padding:50px"><h2>رابط الجلسة غير صالح</h2></div>';
+}
+
+onValue(gameRef,snap=>{
   if(!snap.exists()) return;
   try{
   const s=snap.val();
@@ -726,7 +733,7 @@ onValue(ref(db,"mn_ana"),snap=>{
           const qIndexNow=Number(document.body.dataset.qindex||0);
           const historyNow=document.body.dataset.historykey||"";
           const displayKey=`${roundNow}:${qIndexNow}:${historyNow}`;
-          set(ref(db,"mn_ana_display"),{
+          set(ref(db,`${sessionPath}/display`),{
             key:displayKey,
             round:roundNow,
             qIndex:qIndexNow,
@@ -912,7 +919,7 @@ onValue(ref(db,"mn_ana"),snap=>{
   if(s.gameStarted && gameTitleIntroFinished && !s.gameFinished){
     const displayKey=`${Number(s.round||1)}:${Number(s.qIndex??-1)}:${s.question?.historyKey||""}`;
     if(displayKey!==lastPublishedDisplayKey){
-      set(ref(db,"mn_ana_display"),{
+      set(ref(db,`${sessionPath}/display`),{
         key:displayKey,
         round:Number(s.round||1),
         qIndex:Number(s.qIndex??-1),

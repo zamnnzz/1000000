@@ -228,15 +228,9 @@ import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic
 
 const app = initializeApp(window.firebaseConfig);
 const db = getDatabase(app);
-const gameRef = ref(db, "mn_ana");
-
-// إذا بدأ المقدم اللعبة من الهوست، تنتقل شاشة العرض فورًا للعبة
-// حتى لو كانت لا تزال تعرض باركود الجرس.
-onValue(ref(db, "mn_ana/gameStarted"), snap => {
-  if(snap.val() === true){
-    window.location.href = "./game.html";
-  }
-});
+let gameRef=null;
+let gameSessionId="";
+let stopGameStartedWatch=null;
 
 const t1 = document.getElementById("team1");
 const t2 = document.getElementById("team2");
@@ -248,7 +242,6 @@ const hostStep = document.getElementById("hostStep");
 const buzzerStep = document.getElementById("buzzerStep");
 
 const rootUrl = location.origin + location.pathname.replace(/\/[^/]*$/, "/");
-const buzzerUrl = new URL("buzzer.html", rootUrl).href;
 
 function makeQr(el, url){
   el.innerHTML = "";
@@ -259,23 +252,6 @@ function makeQr(el, url){
   }
 }
 
-// QR الجرس ثابت، ولا يسبب أي انتقال تلقائي.
-makeQr(document.getElementById("buzzerQr"), buzzerUrl);
-document.getElementById("buzzerUrlHint").textContent = buzzerUrl;
-
-onValue(gameRef, snap => {
-  status.textContent = "متصل";
-  if(!snap.exists()) return;
-  const s = snap.val();
-  const a = s.teams?.[1] || s.teams?.["1"];
-  const b = s.teams?.[2] || s.teams?.["2"];
-  if(a?.name && document.activeElement !== t1) t1.value = a.name;
-  if(b?.name && document.activeElement !== t2) t2.value = b.name;
-  if(s.settings?.firstTimer && document.activeElement !== firstTimer) firstTimer.value = s.settings.firstTimer;
-  if(s.settings?.secondTimer && document.activeElement !== secondTimer) secondTimer.value = s.settings.secondTimer;
-}, () => {
-  status.textContent = "تعذر الاتصال بـ Firebase";
-});
 
 let stopHostWatch = null;
 
@@ -305,12 +281,26 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   const sessionId =
     (crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
 
+  gameSessionId=sessionId;
+  const sessionPath=`mn_ana_sessions/${sessionId}`;
+  gameRef=ref(db,sessionPath);
+
   const hostUrlObj = new URL("host.html", rootUrl);
   hostUrlObj.searchParams.set("session", sessionId);
   const hostUrl = hostUrlObj.href;
 
+  const buzzerUrlObj = new URL("buzzer.html", rootUrl);
+  buzzerUrlObj.searchParams.set("session", sessionId);
+  const buzzerUrl = buzzerUrlObj.href;
+
+  const gameUrlObj = new URL("game.html", rootUrl);
+  gameUrlObj.searchParams.set("session", sessionId);
+  const gameUrl = gameUrlObj.href;
+
   makeQr(document.getElementById("hostQr"), hostUrl);
   document.getElementById("hostUrlHint").textContent = hostUrl;
+  makeQr(document.getElementById("buzzerQr"), buzzerUrl);
+  document.getElementById("buzzerUrlHint").textContent = buzzerUrl;
 
   await set(gameRef, {
     teams: {
@@ -361,7 +351,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
     history: {}});
 
   // صفّر حالة اتصال المقدم لهذا الـ Session في مسار منفصل عن بيانات اللعبة.
-  await set(ref(db, "mn_ana_display"), {
+  await set(ref(db, `${sessionPath}/display`), {
     key: "",
     round: 0,
     qIndex: -1,
@@ -369,11 +359,18 @@ document.getElementById("startBtn").addEventListener("click", async () => {
     shownAt: 0
   });
 
-  await set(ref(db, "mn_ana_presence/host"), {
+  await set(ref(db, `${sessionPath}/presence/host`), {
     connected: false,
     lastSeen: 0,
     page: "host",
     session: ""
+  });
+
+  if(stopGameStartedWatch) stopGameStartedWatch();
+  stopGameStartedWatch=onValue(ref(db,`${sessionPath}/gameStarted`),snap=>{
+    if(snap.val()===true){
+      window.location.href=gameUrl;
+    }
   });
 
   hostStep.classList.remove("hidden");
@@ -405,7 +402,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   };
 
   stopHostWatch = onValue(
-    ref(db, "mn_ana_presence/host"),
+    ref(db, `${sessionPath}/presence/host`),
     snap => {
       if(hostMatchesThisSession(snap.val())) goToBuzzerStep();
     },
@@ -415,7 +412,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   // فحص احتياطي، لكن فقط لنفس Session.
   fallbackPoll = setInterval(async () => {
     try{
-      const snap = await get(ref(db, "mn_ana_presence/host"));
+      const snap = await get(ref(db, `${sessionPath}/presence/host`));
       if(hostMatchesThisSession(snap.val())) goToBuzzerStep();
     }catch(e){
       console.error("Host polling error", e);

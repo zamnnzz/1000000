@@ -319,9 +319,10 @@ import { getDatabase, ref, set, update, onValue, onDisconnect, runTransaction } 
 
 const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
-const gameRef=ref(db,"mn_ana");
-const hostConnectionRef=ref(db,"mn_ana_presence/host");
 const hostSession = new URLSearchParams(location.search).get("session") || "";
+const sessionPath=hostSession?`mn_ana_sessions/${hostSession}`:"";
+const gameRef=ref(db,sessionPath||"mn_ana_invalid_session");
+const hostConnectionRef=ref(db,sessionPath?`${sessionPath}/presence/host`:"mn_ana_invalid_session/presence/host");
 
 let heartbeat=null;
 async function markHostOnline(){
@@ -355,7 +356,11 @@ async function markHostOnline(){
     if(document.visibilityState==="visible") beat();
   });
 }
-markHostOnline();
+if(hostSession){
+  markHostOnline();
+}else{
+  document.body.innerHTML='<div style="font-family:system-ui;text-align:center;padding:50px"><h2>رابط الجلسة غير صالح</h2></div>';
+}
 
 const rounds={
   1:[
@@ -407,7 +412,7 @@ onValue(gameRef,snap=>{
     el("connection").textContent="متصل — خطأ عرض";
   }
 },err=>{el("connection").textContent="تعذر الاتصال";console.error(err)});
-onValue(ref(db,"mn_ana_display"),snap=>{
+onValue(ref(db,`${sessionPath}/display`),snap=>{
   displaySync=snap.val()||null;
   try{render();}catch(e){console.error("Host display sync render error",e);}
 });
@@ -688,12 +693,12 @@ window.startNextSection=async()=>{
   });
 };
 
-window.showAnswerOnGame=()=>update(ref(db,"mn_ana/question"),{revealed:true});
-window.hideAnswerOnGame=()=>update(ref(db,"mn_ana/question"),{revealed:false});
+window.showAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:true});
+window.hideAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:false});
 
-window.openBuzzer=()=>set(ref(db,"mn_ana/buzzer"),{open:true,winner:null,pressedAt:null});
-window.closeBuzzer=()=>update(ref(db,"mn_ana/buzzer"),{open:false});
-window.resetBuzzer=()=>set(ref(db,"mn_ana/buzzer"),{open:false,winner:null,pressedAt:null});
+window.openBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{open:true,winner:null,pressedAt:null});
+window.closeBuzzer=()=>update(ref(db,`${sessionPath}/buzzer`),{open:false});
+window.resetBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{open:false,winner:null,pressedAt:null});
 
 let selectedAwardTeam=0;
 
@@ -724,7 +729,7 @@ window.givePointsAndNext=async()=>{
   }
 
   // الفريق الذي جاوب يحصل على نقاط السؤال (مضاعفة فقط إذا كان هو مفعل x2).
-  await runTransaction(ref(db,`mn_ana/teams/${answeringTeam}`),current=>{
+  await runTransaction(ref(db,`${sessionPath}/teams/${answeringTeam}`),current=>{
     if(!current) return current;
     current.score=Number(current.score||0)+awarded;
     return current;
@@ -732,7 +737,7 @@ window.givePointsAndNext=async()=>{
 
   // إذا كان هناك x2 على السؤال، تُستهلك الفرصة نهائيًا سواء فاز الفريق المفعّل أو الخصم.
   if(x2Team===1 || x2Team===2){
-    await update(ref(db,`mn_ana/teams/${x2Team}`),{
+    await update(ref(db,`${sessionPath}/teams/${x2Team}`),{
       x2Active:false,
       x2Used:true
     });
