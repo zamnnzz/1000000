@@ -68,6 +68,8 @@ localStorage.setItem(storagePrefix+"playerId",playerId);
 
 let state=null;
 let saved=!!(team && playerName);
+let countdownTimer=null;
+let countdownOpening=false;
 
 if(!gameSessionId){
   document.body.innerHTML='<div style="font-family:system-ui;text-align:center;padding:50px"><h2>رابط الجلسة غير صالح</h2></div>';
@@ -110,6 +112,57 @@ window.savePlayer=async()=>{
 };
 
 function teamData(n){return state?.teams?.[n]||state?.teams?.[String(n)]||{}}
+
+function clearCountdownTimer(){
+  if(countdownTimer){
+    clearInterval(countdownTimer);
+    countdownTimer=null;
+  }
+}
+
+async function finishCountdownIfNeeded(){
+  if(countdownOpening) return;
+  countdownOpening=true;
+  try{
+    await runTransaction(ref(db,`${sessionPath}/buzzer`),current=>{
+      if(!current) return;
+      const until=Number(current.countdownUntil||0);
+      if(current.open || current.winner || !until || Date.now()<until) return;
+      return {
+        ...current,
+        open:true,
+        countdownUntil:0,
+        countdownSeconds:0
+      };
+    });
+  }finally{
+    countdownOpening=false;
+  }
+}
+
+function renderCountdown(bz){
+  const until=Number(bz?.countdownUntil||0);
+  if(!until || bz?.open || bz?.winner){
+    clearCountdownTimer();
+    return false;
+  }
+
+  const draw=()=>{
+    const ms=until-Date.now();
+    const remaining=Math.max(0,Math.ceil(ms/1000));
+    el("buzz").textContent=remaining>0?String(remaining):"0";
+    el("buzz").disabled=true;
+    el("status").textContent=remaining>0?"استعد...":"يفتح الآن";
+    if(ms<=0){
+      clearCountdownTimer();
+      finishCountdownIfNeeded();
+    }
+  };
+
+  draw();
+  if(!countdownTimer) countdownTimer=setInterval(draw,200);
+  return true;
+}
 
 function render(){
   const t1=teamData(1),t2=teamData(2);
@@ -157,6 +210,10 @@ function render(){
   }
 
   const bz=state?.buzzer||{};
+  el("buzz").textContent="جرس";
+
+  if(renderCountdown(bz)) return;
+
   if(bz.winner){
     const winnerPlayer=bz.winnerPlayerName||"";
     const wt=teamData(Number(bz.winner));
@@ -191,7 +248,9 @@ window.buzzNow=async()=>{
       winner:team,
       winnerPlayerId:playerId,
       winnerPlayerName:playerName,
-      pressedAt:Date.now()
+      pressedAt:Date.now(),
+      countdownUntil:0,
+      countdownSeconds:0
     };
   });
   if(!result.committed)render();

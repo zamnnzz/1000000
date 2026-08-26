@@ -675,9 +675,11 @@ window.startGameNow=async()=>{
       x2Team:historical?.x2Team||null,
       x2Consumed:historical?.x2Consumed||false
     },
-    "buzzer/open":false,
+    "buzzer/open":true,
     "buzzer/winner":null,
-    "buzzer/pressedAt":null
+    "buzzer/pressedAt":null,
+    "buzzer/countdownUntil":0,
+    "buzzer/countdownSeconds":0
   });
   }catch(e){
     console.error("Start game failed",e);
@@ -795,9 +797,34 @@ window.startNextSection=async()=>{
 window.showAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:true});
 window.hideAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:false});
 
-window.openBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{open:true,winner:null,pressedAt:null});
-window.closeBuzzer=()=>update(ref(db,`${sessionPath}/buzzer`),{open:false});
-window.resetBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{open:false,winner:null,pressedAt:null});
+window.openBuzzer=async()=>{
+  const hadWinner=!!state?.buzzer?.winner;
+  const firstSeconds=Math.max(1,Number(state?.settings?.firstTimer||5));
+  const secondSeconds=Math.max(1,Number(state?.settings?.secondTimer||10));
+  const seconds=hadWinner?secondSeconds:firstSeconds;
+
+  await set(ref(db,`${sessionPath}/buzzer`),{
+    open:false,
+    winner:null,
+    pressedAt:null,
+    countdownUntil:Date.now()+(seconds*1000),
+    countdownSeconds:seconds
+  });
+};
+
+window.closeBuzzer=()=>update(ref(db,`${sessionPath}/buzzer`),{
+  open:false,
+  countdownUntil:0,
+  countdownSeconds:0
+});
+
+window.resetBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{
+  open:true,
+  winner:null,
+  pressedAt:null,
+  countdownUntil:0,
+  countdownSeconds:0
+});
 
 let whoAnsweredBusy=false;
 
