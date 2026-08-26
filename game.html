@@ -561,6 +561,7 @@ body{
       <div id="revealedAnswer" class="revealed-answer hidden">
         <span>الإجابة:</span> <strong id="revealedAnswerText"></strong>
       </div>
+      <div id="buzzerPlayerMarker" class="answered-marker hidden"></div>
       <div id="answeredMarker" class="answered-marker hidden"></div>
     </section>
   </main>
@@ -736,6 +737,7 @@ let lastQuestionRenderKey="";
 let lastScoreKey="";
 let lastAnswerRevealKey="";
 let lastAnsweredMarkerKey="";
+let lastBuzzerPlayerMarkerKey="";
 let lastProgressKey="";
 
 if(!gameSessionId){
@@ -967,6 +969,31 @@ onValue(gameRef,snap=>{
       revealText.textContent="";
     }
     lastAnswerRevealKey=answerRevealKey;
+  }
+
+  const buzzerPlayerMarker=document.getElementById("buzzerPlayerMarker");
+  const bz=s.buzzer||{};
+  const buzzerPlayerName=bz.winnerPlayerName||bz.firstPlayerName||"";
+  const buzzerPlayerTeam=Number(bz.winner||bz.firstTeam||0);
+  const buzzerPlayerMarkerKey=JSON.stringify([
+    buzzerPlayerName,buzzerPlayerTeam,bz.phase||"",s.qIndex??-1
+  ]);
+
+  if(buzzerPlayerMarkerKey!==lastBuzzerPlayerMarkerKey){
+    const showPlayer=
+      !!buzzerPlayerName &&
+      ["first","second_answer"].includes(bz.phase||"");
+
+    if(showPlayer){
+      const pressedTeam=s.teams?.[buzzerPlayerTeam]||s.teams?.[String(buzzerPlayerTeam)]||{};
+      buzzerPlayerMarker.textContent=`ضغط الجرس: ${buzzerPlayerName}${pressedTeam.name?(" — "+pressedTeam.name):""}`;
+      buzzerPlayerMarker.classList.remove("hidden");
+    }else{
+      buzzerPlayerMarker.classList.add("hidden");
+      buzzerPlayerMarker.textContent="";
+    }
+
+    lastBuzzerPlayerMarkerKey=buzzerPlayerMarkerKey;
   }
 
   const answeredMarker=document.getElementById("answeredMarker");
