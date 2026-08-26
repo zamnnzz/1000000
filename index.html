@@ -194,6 +194,55 @@ input::placeholder{
   .qr-pair{grid-template-columns:1fr}
 }
 
+
+/* تحسين ترتيب نافذة الباركود فقط */
+.qr-connect-card{
+  width:min(920px,94vw);
+  padding:28px;
+}
+.qr-pair{
+  gap:26px;
+}
+.qr-side{
+  background:#fff;
+  border:3px solid var(--navy);
+  border-radius:20px;
+  padding:22px 18px 18px;
+  box-shadow:0 6px 0 rgba(24,56,76,.14);
+}
+.qr-side h2{
+  margin:0 0 6px;
+  font-size:25px;
+}
+.qr-side p{
+  margin:0 0 14px;
+  color:#617665;
+  font-size:14px;
+}
+.qr-side .qr-box{
+  margin-left:auto;
+  margin-right:auto;
+}
+.copy-link-row{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px dashed rgba(24,56,76,.24);
+}
+.copy-url{
+  background:#f7faf2;
+  border:1px solid rgba(24,56,76,.18);
+  border-radius:10px;
+  padding:9px 10px;
+}
+.copy-link-btn{
+  min-height:40px;
+}
+@media(max-width:720px){
+  .qr-connect-card{padding:18px}
+  .qr-pair{gap:16px}
+  .qr-side{padding:18px 14px}
+}
+
 </style>
 </head>
 <body>
@@ -274,6 +323,7 @@ const db = getDatabase(app);
 let gameRef=null;
 let gameSessionId="";
 let stopGameStartedWatch=null;
+let gameStartedFallback=null;
 
 const t1 = document.getElementById("team1");
 const t2 = document.getElementById("team2");
@@ -434,11 +484,27 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   });
 
   if(stopGameStartedWatch) stopGameStartedWatch();
+  if(gameStartedFallback){ clearInterval(gameStartedFallback); gameStartedFallback=null; }
+
+  const enterGame=()=>{
+    if(gameStartedFallback){ clearInterval(gameStartedFallback); gameStartedFallback=null; }
+    if(stopGameStartedWatch){ stopGameStartedWatch(); stopGameStartedWatch=null; }
+    window.location.replace(gameUrl);
+  };
+
   stopGameStartedWatch=onValue(ref(db,`${sessionPath}/gameStarted`),snap=>{
-    if(snap.val()===true){
-      window.location.href=gameUrl;
-    }
+    if(snap.val()===true) enterGame();
   });
+
+  // فحص احتياطي حتى لا تتوقف شاشة اللعبة لو تأخر/انقطع مستمع Firebase.
+  gameStartedFallback=setInterval(async()=>{
+    try{
+      const startedSnap=await get(ref(db,`${sessionPath}/gameStarted`));
+      if(startedSnap.val()===true) enterGame();
+    }catch(e){
+      console.error("Game start fallback error",e);
+    }
+  },800);
 
   hostStep.classList.remove("hidden");
   buzzerStep.classList.remove("hidden");
