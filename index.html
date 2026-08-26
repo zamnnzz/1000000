@@ -160,6 +160,7 @@ input::placeholder{
 <body>
 <main class="wrap">
   <div class="logo">من أنا؟</div>
+  <div class="sub" aria-hidden="true">&nbsp;</div>
 
   <section class="card">
     <h2>• أسماء الفرق (فريقين فقط)</h2>
@@ -255,8 +256,8 @@ function makeQr(el, url){
 let stopHostWatch = null;
 
 document.getElementById("startBtn").addEventListener("click", async () => {
-  const team1Name = t1.value.trim().replace(/\s+/g," ");
-  const team2Name = t2.value.trim().replace(/\s+/g," ");
+  const team1Name = t1.value.trim();
+  const team2Name = t2.value.trim();
 
   if(!team1Name || !team2Name){
     status.textContent = "اكتب اسم الفريقين قبل بدء الجولة";

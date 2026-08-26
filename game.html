@@ -541,7 +541,7 @@ body{
 <div id="gameTitleIntro" class="game-title-intro hidden">
   <div class="game-title-intro-inner">
     <div class="game-title-intro-stars">★ ★ ★</div>
-    <div id="gameTitleIntroName" class="game-title-intro-name">بدون نقاط</div>
+    <div class="game-title-intro-name">بدون نقاط</div>
   </div>
 </div>
 
@@ -634,7 +634,6 @@ const answers=document.getElementById("answers");
 const buzzerState=document.getElementById("buzzerState");
 const progressStars=[...document.querySelectorAll(".progress-star")];
 const gameTitleIntro=document.getElementById("gameTitleIntro");
-const gameTitleIntroName=document.getElementById("gameTitleIntroName");
 const gameMainContent=document.getElementById("gameMainContent");
 const gameWaitingOverlay=document.getElementById("gameWaitingOverlay");
 const paragraphIntro=document.getElementById("paragraphIntro");
@@ -712,13 +711,6 @@ onValue(gameRef,snap=>{
   if(s.gameStarted && !gameTitleIntroShown && !s.gameFinished){
     gameTitleIntroShown=true;
     gameTitleIntroFinished=false;
-
-    const startRoundName={
-      1:"بدون نقاط",
-      2:"من أنا؟",
-      3:"من القائل؟"
-    };
-    gameTitleIntroName.textContent=startRoundName[Number(s.round||1)]||"بدون نقاط";
 
     gameMainContent.classList.add("intro-hidden");
     gameMainContent.classList.remove("intro-visible");
