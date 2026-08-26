@@ -635,15 +635,25 @@ function render(){
 
 
 
+let startingGameNow=false;
 window.startGameNow=async()=>{
-  if(state?.gameStarted) return;
+  if(startingGameNow || state?.gameStarted) return;
+  startingGameNow=true;
 
   const item=rounds[1][0];
   const historyKey="r1_q0";
   const historical=state?.history?.[historyKey]||null;
 
-  await update(gameRef,{
-    gameStarted:true,
+  try{
+    // إشارة البدء تُكتب أولًا بشكل مستقل حتى تنتقل شاشة العرض فورًا.
+    await set(ref(db,`${sessionPath}/gameStarted`),true);
+    await set(ref(db,`${sessionPath}/startSignal`),{
+      started:true,
+      at:Date.now(),
+      session:hostSession
+    });
+
+    await update(gameRef,{
     startGate:{
       ready:true,
       started:true
@@ -669,6 +679,13 @@ window.startGameNow=async()=>{
     "buzzer/winner":null,
     "buzzer/pressedAt":null
   });
+  }catch(e){
+    console.error("Start game failed",e);
+    alert("تعذر بدء اللعبة. حاول مرة ثانية.");
+    try{ await set(ref(db,`${sessionPath}/gameStarted`),false); }catch(_){}
+  }finally{
+    startingGameNow=false;
+  }
 };
 
 window.nextQuestion=async()=>{

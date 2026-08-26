@@ -323,6 +323,7 @@ const db = getDatabase(app);
 let gameRef=null;
 let gameSessionId="";
 let stopGameStartedWatch=null;
+let stopStartSignalWatch=null;
 let gameStartedFallback=null;
 
 const t1 = document.getElementById("team1");
@@ -484,27 +485,42 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   });
 
   if(stopGameStartedWatch) stopGameStartedWatch();
+  if(stopStartSignalWatch) stopStartSignalWatch();
   if(gameStartedFallback){ clearInterval(gameStartedFallback); gameStartedFallback=null; }
 
+  let enteringGame=false;
   const enterGame=()=>{
+    if(enteringGame) return;
+    enteringGame=true;
     if(gameStartedFallback){ clearInterval(gameStartedFallback); gameStartedFallback=null; }
     if(stopGameStartedWatch){ stopGameStartedWatch(); stopGameStartedWatch=null; }
-    window.location.replace(gameUrl);
+    if(stopStartSignalWatch){ stopStartSignalWatch(); stopStartSignalWatch=null; }
+    window.location.href=gameUrl;
   };
 
+  // الإشارة الأساسية.
   stopGameStartedWatch=onValue(ref(db,`${sessionPath}/gameStarted`),snap=>{
     if(snap.val()===true) enterGame();
   });
 
-  // فحص احتياطي حتى لا تتوقف شاشة اللعبة لو تأخر/انقطع مستمع Firebase.
+  // إشارة مستقلة احتياطية يكتبها الهوست عند الضغط على "بدء اللعبة".
+  stopStartSignalWatch=onValue(ref(db,`${sessionPath}/startSignal`),snap=>{
+    const signal=snap.val();
+    if(signal?.started===true && signal?.session===sessionId) enterGame();
+  });
+
+  // فحص احتياطي للجلسة كاملة، وليس gameStarted فقط.
   gameStartedFallback=setInterval(async()=>{
     try{
-      const startedSnap=await get(ref(db,`${sessionPath}/gameStarted`));
-      if(startedSnap.val()===true) enterGame();
+      const sessionSnap=await get(gameRef);
+      const current=sessionSnap.val();
+      if(current?.gameStarted===true || current?.startSignal?.started===true){
+        enterGame();
+      }
     }catch(e){
       console.error("Game start fallback error",e);
     }
-  },800);
+  },700);
 
   hostStep.classList.remove("hidden");
   buzzerStep.classList.remove("hidden");
