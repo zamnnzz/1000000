@@ -718,9 +718,28 @@ onValue(ref(db,"mn_ana"),snap=>{
         gameTitleIntroFinished=true;
         gameMainContent.classList.remove("intro-hidden");
         gameMainContent.classList.add("intro-visible");
+
+        // أعلن أول سؤال فور ظهوره حتى تتزامن شاشة الهوست.
+        const currentStateKey=lastQuestionRenderKey;
+        if(currentStateKey){
+          const roundNow=Number(document.body.dataset.round||1);
+          const qIndexNow=Number(document.body.dataset.qindex||0);
+          const historyNow=document.body.dataset.historykey||"";
+          const displayKey=`${roundNow}:${qIndexNow}:${historyNow}`;
+          set(ref(db,"mn_ana_display"),{
+            key:displayKey,
+            round:roundNow,
+            qIndex:qIndexNow,
+            historyKey:historyNow,
+            shownAt:Date.now()
+          }).catch(e=>console.error("Initial display sync error",e));
+          lastPublishedDisplayKey=displayKey;
+        }
       },360);
-    },1500);
-  }else if(s.gameStarted && gameTitleIntroFinished && !s.gameFinished){
+    },1200);
+  }
+
+  if(s.gameStarted && gameTitleIntroFinished && !s.gameFinished){
     gameMainContent.classList.remove("intro-hidden");
     gameMainContent.classList.add("intro-visible");
   }
@@ -788,6 +807,10 @@ onValue(ref(db,"mn_ana"),snap=>{
   const round=Number(s.round||1);
   const qIndex=Number(s.qIndex??-1);
   const question=s.question||{};
+
+  document.body.dataset.round=String(round);
+  document.body.dataset.qindex=String(qIndex);
+  document.body.dataset.historykey=question.historyKey||"";
   const choices=Array.isArray(question.choices)?question.choices:[];
 
   const scoreKey=JSON.stringify([

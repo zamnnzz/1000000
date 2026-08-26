@@ -431,7 +431,13 @@ function render(){
   el("hostQpoints").textContent=Number(state?.question?.points||0);
 
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
-  const displayOnSameQuestion=!!state?.gameStarted && !!displaySync && displaySync.key===currentQuestionKey;
+  const isInitialQuestion=Number(state?.round||1)===1 && Number(state?.qIndex??-1)===0;
+  const displayOnSameQuestion=
+    !!state?.gameStarted &&
+    (
+      (isInitialQuestion && (!displaySync || !displaySync.key)) ||
+      (!!displaySync && displaySync.key===currentQuestionKey)
+    );
 
   const qx2=state?.question?.x2Team;
   const qx2El=el("questionX2");
@@ -582,7 +588,8 @@ window.startGameNow=async()=>{
 
 window.nextQuestion=async()=>{
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
-  if(state?.gameStarted && (!displaySync || displaySync.key!==currentQuestionKey)) return;
+  const isInitialQuestion=Number(state?.round||1)===1 && Number(state?.qIndex??-1)===0;
+  if(state?.gameStarted && !isInitialQuestion && (!displaySync || displaySync.key!==currentQuestionKey)) return;
   selectedAwardTeam=0;
 
   const r=Number(state?.round||1);
@@ -700,7 +707,8 @@ window.selectAwardTeam=(team)=>{
 
 window.givePointsAndNext=async()=>{
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
-  if(state?.gameStarted && (!displaySync || displaySync.key!==currentQuestionKey)) return;
+  const isInitialQuestion=Number(state?.round||1)===1 && Number(state?.qIndex??-1)===0;
+  if(state?.gameStarted && !isInitialQuestion && (!displaySync || displaySync.key!==currentQuestionKey)) return;
   if(!state?.question?.historyKey) return alert("ابدأ سؤالًا أولًا.");
   if(state?.question?.answeredTeam) return alert("هذا السؤال محسوب بالفعل.");
   if(selectedAwardTeam!==1 && selectedAwardTeam!==2) return alert("اختر الفريق أولًا.");
