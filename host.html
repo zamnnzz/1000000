@@ -297,7 +297,6 @@ button{font:inherit;cursor:pointer}
     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
       <div id="roundTitle" class="badge">الجولة الأولى</div>
       <div class="question-meta">
-        <span>السؤال <strong id="hostQnum">1</strong></span>
         <span>النقاط <strong id="hostQpoints">0</strong></span>
       </div>
     </div>
@@ -311,9 +310,9 @@ button{font:inherit;cursor:pointer}
     </div>
 
     <div class="question-nav">
-      <button id="prevBtn" class="question-nav-btn prev" onclick="previousQuestion()">السابق</button>
-      <div id="navQuestionBadge" class="question-nav-badge">السؤال 1</div>
       <button id="nextBtn" class="question-nav-btn next" onclick="requestNextQuestion()">التالي</button>
+      <div id="navQuestionBadge" class="question-nav-badge">السؤال 1</div>
+      <button id="prevBtn" class="question-nav-btn prev" onclick="previousQuestion()">السابق</button>
     </div>
 
     <div class="controls answer-controls">
@@ -516,8 +515,6 @@ function render(){
 
   el("questionText").textContent=state?.question?.text||"";
   el("hostAnswer").textContent=state?.question?.answer||"—";
-
-  el("hostQnum").textContent=Math.max(1,Number(state?.qIndex??0)+1);
   el("hostQpoints").textContent=Number(state?.question?.points||0);
 
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;

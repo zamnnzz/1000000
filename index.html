@@ -160,19 +160,18 @@ input::placeholder{
 <body>
 <main class="wrap">
   <div class="logo">من أنا؟</div>
-  <div class="sub">لعبة المسابقة التفاعلية</div>
 
   <section class="card">
     <h2>• أسماء الفرق (فريقين فقط)</h2>
 
     <div class="field">
       <label>● الفريق الأول</label>
-      <input id="team1" value="الفريق الأول" autocomplete="off">
+      <input id="team1" placeholder="مثال: الفريق الأول" autocomplete="off" required>
     </div>
 
     <div class="field">
       <label>○ الفريق الثاني</label>
-      <input id="team2" value="الفريق الثاني" autocomplete="off">
+      <input id="team2" placeholder="مثال: الفريق الثاني" autocomplete="off" required>
     </div>
   </section>
 
@@ -256,8 +255,8 @@ function makeQr(el, url){
 let stopHostWatch = null;
 
 document.getElementById("startBtn").addEventListener("click", async () => {
-  const team1Name = t1.value.trim();
-  const team2Name = t2.value.trim();
+  const team1Name = t1.value.trim().replace(/\s+/g," ");
+  const team2Name = t2.value.trim().replace(/\s+/g," ");
 
   if(!team1Name || !team2Name){
     status.textContent = "اكتب اسم الفريقين قبل بدء الجولة";
