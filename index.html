@@ -192,7 +192,7 @@ input::placeholder{
     </div>
   </section>
 
-  <button id="startBtn" class="start">ابدأ الجولة!</button>
+  <button id="startBtn" type="button" class="start">ابدأ الجولة!</button>
   <div id="status" class="status">اكتب أسماء الفريقين</div>
 </main>
 
@@ -276,10 +276,10 @@ function makeQr(el, url){
 
 
 let stopHostWatch = null;
+let startingGame=false;
 
 document.getElementById("startBtn").addEventListener("click", async () => {
-  const startBtn=document.getElementById("startBtn");
-  if(startBtn.dataset.busy==="1") return;
+  if(startingGame) return;
 
   const team1Name = t1.value.trim().replace(/\s+/g," ");
   const team2Name = t2.value.trim().replace(/\s+/g," ");
@@ -300,8 +300,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   const ft = Math.max(1, Number(firstTimer.value || 5));
   const st = Math.max(1, Number(secondTimer.value || 10));
 
-  startBtn.dataset.busy="1";
-  startBtn.disabled=true;
+  startingGame=true;
   status.textContent = "جاري تجهيز اللعبة…";
 
   try{
@@ -451,8 +450,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   }catch(e){
     console.error("Start game setup error",e);
     status.textContent="تعذر بدء الجولة — حاول مرة ثانية";
-    startBtn.disabled=false;
-    startBtn.dataset.busy="0";
+    startingGame=false;
   }
 });
 
