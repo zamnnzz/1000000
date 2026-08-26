@@ -418,6 +418,57 @@ body{
   to{opacity:1;transform:translateY(0)}
 }
 
+
+.game-title-intro{
+  position:fixed;inset:0;z-index:95;
+  display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 18% 22%,rgba(255,222,145,.45),transparent 34%),
+    radial-gradient(circle at 82% 24%,rgba(112,209,239,.18),transparent 30%),
+    rgba(243,248,229,.985);
+  overflow:hidden;
+}
+.game-title-intro.hidden{display:none!important}
+.game-title-intro-inner{
+  text-align:center;
+  animation:gameTitleIntroIn .7s cubic-bezier(.18,.82,.22,1) both;
+}
+.game-title-intro-stars{
+  font-size:24px;
+  color:#26b97b;
+  letter-spacing:8px;
+  margin-bottom:8px;
+  animation:gameTitleStars .9s ease both;
+}
+.game-title-intro-name{
+  font-size:clamp(62px,8vw,120px);
+  line-height:1;
+  font-weight:1000;
+  color:#179aa5;
+  letter-spacing:-4px;
+  text-shadow:0 6px 0 rgba(24,56,76,.10);
+  animation:gameTitleName 1.1s cubic-bezier(.18,.82,.22,1) both;
+}
+.game-title-intro.leaving{
+  animation:gameTitleIntroOut .36s ease forwards;
+}
+@keyframes gameTitleIntroIn{
+  from{opacity:0;transform:scale(.92)}
+  to{opacity:1;transform:scale(1)}
+}
+@keyframes gameTitleStars{
+  from{opacity:0;transform:translateY(-12px) scale(.8)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes gameTitleName{
+  0%{opacity:0;transform:translateY(26px) scale(.88)}
+  60%{opacity:1;transform:translateY(-4px) scale(1.04)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes gameTitleIntroOut{
+  to{opacity:0;transform:scale(1.03)}
+}
+
 </style>
 </head>
 <body>
@@ -472,6 +523,14 @@ body{
 
 
 
+
+
+<div id="gameTitleIntro" class="game-title-intro hidden">
+  <div class="game-title-intro-inner">
+    <div class="game-title-intro-stars">★ ★ ★</div>
+    <div class="game-title-intro-name">من أنا؟</div>
+  </div>
+</div>
 
 <div id="gameWaitingOverlay" class="game-waiting-overlay hidden">
   <div class="game-waiting-card">
@@ -558,6 +617,7 @@ const questionText=document.getElementById("questionText");
 const answers=document.getElementById("answers");
 const buzzerState=document.getElementById("buzzerState");
 const progressStars=[...document.querySelectorAll(".progress-star")];
+const gameTitleIntro=document.getElementById("gameTitleIntro");
 const gameWaitingOverlay=document.getElementById("gameWaitingOverlay");
 const paragraphIntro=document.getElementById("paragraphIntro");
 const paragraphIntroKicker=document.getElementById("paragraphIntroKicker");
@@ -570,6 +630,8 @@ const gameFinalTeam1Score=document.getElementById("gameFinalTeam1Score");
 const gameFinalTeam2Score=document.getElementById("gameFinalTeam2Score");
 const gameScoreDifference=document.getElementById("gameScoreDifference");
 let gameResultsBuilt=false;
+let gameTitleIntroShown=false;
+let gameTitleIntroTimer=null;
 
 function buildGameConfetti(){
   const layer=document.getElementById("gameConfetti");
@@ -614,15 +676,30 @@ onValue(ref(db,"mn_ana"),snap=>{
     lastProgressKey=progressKey;
   }
 
-  // قبل ضغط "بدء اللعبة" من الهوست، شاشة اللعبة تبقى في وضع انتظار فقط.
+  // قبل بدء اللعبة فقط: شاشة انتظار.
   if(!s.gameStarted && !s.gameFinished){
     gameWaitingOverlay.classList.remove("hidden");
+    gameTitleIntro.classList.add("hidden");
   }else{
     gameWaitingOverlay.classList.add("hidden");
   }
 
-  // شاشة بداية الفقرة تظهر مرة عند دخول كل فقرة لمدة 3 ثوانٍ،
-  // لكن فقط بعد ضغط المقدم "بدء اللعبة".
+  // أول ضغطة "بدء اللعبة": أنميشن اسم اللعبة مرة واحدة،
+  // ثم يظهر السؤال الأول مباشرة. لا نرجع لشاشة الانتظار بعد بدء اللعبة.
+  if(s.gameStarted && !gameTitleIntroShown && !s.gameFinished){
+    gameTitleIntroShown=true;
+    gameTitleIntro.classList.remove("hidden","leaving");
+    if(gameTitleIntroTimer) clearTimeout(gameTitleIntroTimer);
+    gameTitleIntroTimer=setTimeout(()=>{
+      gameTitleIntro.classList.add("leaving");
+      setTimeout(()=>{
+        gameTitleIntro.classList.add("hidden");
+        gameTitleIntro.classList.remove("leaving");
+      },360);
+    },1500);
+  }
+
+  // شاشة بداية الفقرة تظهر مرة عند دخول الفقرة الثانية والثالثة.
   const currentRound=Number(s.round||1);
   if(s.gameStarted && currentRound>=1 && currentRound<=3 && currentRound!==lastIntroRound){
     lastIntroRound=currentRound;
