@@ -48,7 +48,7 @@ button{font:inherit;cursor:pointer}
   </div>
 </div>
 
-<script src="./firebase-config.js?v=28"></script>
+<script src="./firebase-config.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getDatabase, ref, onValue, runTransaction, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
@@ -59,18 +59,6 @@ const el=id=>document.getElementById(id);
 const gameSessionId=new URLSearchParams(location.search).get("session")||"";
 const sessionPath=gameSessionId?`mn_ana_sessions/${gameSessionId}`:"";
 const gameRef=ref(db,sessionPath||"mn_ana_invalid_session");
-const buzzerPresenceRef=ref(db,sessionPath?`${sessionPath}/presence/buzzer`:"mn_ana_invalid_session/presence/buzzer");
-
-if(gameSessionId){
-  const markBuzzerOnline=()=>set(buzzerPresenceRef,{
-    connected:true,
-    lastSeen:Date.now(),
-    page:"buzzer",
-    session:gameSessionId
-  }).catch(e=>console.error("Buzzer presence",e));
-  markBuzzerOnline();
-  setInterval(markBuzzerOnline,3000);
-}
 
 const storagePrefix=`mnAna:${gameSessionId}:`;
 let team=Number(localStorage.getItem(storagePrefix+"team")||0);

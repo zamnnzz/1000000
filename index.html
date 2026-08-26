@@ -160,19 +160,19 @@ input::placeholder{
 <body>
 <main class="wrap">
   <div class="logo">من أنا؟</div>
-  <div class="sub" aria-hidden="true">&nbsp;</div>
+  <div class="sub">لعبة المسابقة التفاعلية</div>
 
   <section class="card">
     <h2>• أسماء الفرق (فريقين فقط)</h2>
 
     <div class="field">
       <label>● الفريق الأول</label>
-      <input id="team1" placeholder="مثال: الفريق الأول" autocomplete="off">
+      <input id="team1" value="الفريق الأول" autocomplete="off">
     </div>
 
     <div class="field">
       <label>○ الفريق الثاني</label>
-      <input id="team2" placeholder="مثال: الفريق الثاني" autocomplete="off">
+      <input id="team2" value="الفريق الثاني" autocomplete="off">
     </div>
   </section>
 
@@ -193,7 +193,7 @@ input::placeholder{
   </section>
 
   <button id="startBtn" class="start">ابدأ الجولة!</button>
-  <div id="status" class="status">اكتب أسماء الفريقين</div>
+  <div id="status" class="status">جاري الاتصال…</div>
 </main>
 
 
@@ -213,7 +213,6 @@ input::placeholder{
       <h2>تم اتصال المقدم</h2>
       <p>الحين خل المتسابقين يصورون باركود الجرس من جوالاتهم، أو تخطَّ الخطوة وكمل اللعبة.</p>
       <div id="buzzerQr" class="qr-box"></div>
-      <div class="connect-state">بانتظار اتصال الجرس…</div>
       <div id="buzzerUrlHint" class="url-hint"></div>
       
     </div>
@@ -222,7 +221,7 @@ input::placeholder{
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<script src="./firebase-config.js?v=28"></script>
+<script src="./firebase-config.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
@@ -242,21 +241,6 @@ const overlay = document.getElementById("connectOverlay");
 const hostStep = document.getElementById("hostStep");
 const buzzerStep = document.getElementById("buzzerStep");
 
-function refreshTeamStatus(){
-  const a=t1.value.trim();
-  const b=t2.value.trim();
-  if(!a || !b){
-    status.textContent="اكتب أسماء الفريقين";
-  }else if(a.localeCompare(b,"ar",{sensitivity:"base"})===0){
-    status.textContent="أسماء الفريقين متشابهة";
-  }else{
-    status.textContent="جاهز لبدء الجولة";
-  }
-}
-t1.addEventListener("input",refreshTeamStatus);
-t2.addEventListener("input",refreshTeamStatus);
-refreshTeamStatus();
-
 const rootUrl = location.origin + location.pathname.replace(/\/[^/]*$/, "/");
 
 function makeQr(el, url){
@@ -270,20 +254,19 @@ function makeQr(el, url){
 
 
 let stopHostWatch = null;
-let stopBuzzerWatch = null;
 
 document.getElementById("startBtn").addEventListener("click", async () => {
   const team1Name = t1.value.trim();
   const team2Name = t2.value.trim();
 
   if(!team1Name || !team2Name){
-    status.textContent = "اكتب أسماء الفريقين";
+    status.textContent = "اكتب اسم الفريقين قبل بدء الجولة";
     (!team1Name ? t1 : t2).focus();
     return;
   }
 
   if(team1Name.localeCompare(team2Name, "ar", {sensitivity:"base"}) === 0){
-    status.textContent = "أسماء الفريقين متشابهة";
+    status.textContent = "اسم الفريقين لازم يكون مختلف";
     t2.focus();
     t2.select();
     return;
@@ -303,17 +286,14 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   gameRef=ref(db,sessionPath);
 
   const hostUrlObj = new URL("host.html", rootUrl);
-  hostUrlObj.searchParams.set("v", "28");
   hostUrlObj.searchParams.set("session", sessionId);
   const hostUrl = hostUrlObj.href;
 
   const buzzerUrlObj = new URL("buzzer.html", rootUrl);
-  buzzerUrlObj.searchParams.set("v", "28");
   buzzerUrlObj.searchParams.set("session", sessionId);
   const buzzerUrl = buzzerUrlObj.href;
 
   const gameUrlObj = new URL("game.html", rootUrl);
-  gameUrlObj.searchParams.set("v", "28");
   gameUrlObj.searchParams.set("session", sessionId);
   const gameUrl = gameUrlObj.href;
 
@@ -412,16 +392,6 @@ document.getElementById("startBtn").addEventListener("click", async () => {
 
     if(stopHostWatch){ stopHostWatch(); stopHostWatch = null; }
     if(fallbackPoll){ clearInterval(fallbackPoll); fallbackPoll = null; }
-
-    if(stopBuzzerWatch) stopBuzzerWatch();
-    stopBuzzerWatch=onValue(ref(db,`${sessionPath}/presence/buzzer`),snap=>{
-      const b=snap.val();
-      const fresh=b && Number(b.lastSeen||0)>0 && (Date.now()-Number(b.lastSeen||0))<10000;
-      if(b?.connected===true && fresh && b.session===sessionId){
-        const hint=document.querySelector("#buzzerStep .connect-state");
-        if(hint) hint.textContent="تم اتصال الجرس ✓";
-      }
-    });
   };
 
   const hostMatchesThisSession = (h) => {
