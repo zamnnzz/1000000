@@ -225,6 +225,17 @@ const app = initializeApp(window.firebaseConfig);
 const db = getDatabase(app);
 const gameRef = ref(db, "mn_ana");
 
+// إذا بدأ المقدم اللعبة من الهوست، تنتقل شاشة العرض فورًا للعبة
+// حتى لو كانت لا تزال تعرض باركود الجرس.
+onValue(ref(db, "mn_ana/gameStarted"), snap => {
+  if(snap.val() === true){
+    const overlayVisible = !document.getElementById("connectOverlay")?.classList.contains("hidden");
+    if(overlayVisible){
+      window.location.href = "./game.html";
+    }
+  }
+});
+
 const t1 = document.getElementById("team1");
 const t2 = document.getElementById("team2");
 const firstTimer = document.getElementById("firstTimer");

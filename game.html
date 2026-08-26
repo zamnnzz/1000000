@@ -626,6 +626,11 @@ onValue(ref(db,"mn_ana"),snap=>{
   const currentRound=Number(s.round||1);
   if(s.gameStarted && currentRound>=1 && currentRound<=3 && currentRound!==lastIntroRound){
     lastIntroRound=currentRound;
+
+    // عند بدء اللعبة لأول مرة: اعرض السؤال الأول مباشرة بدون شاشة 3 ثوانٍ.
+    if(currentRound===1){
+      paragraphIntro.classList.add("hidden");
+    }else{
     const labels={
       1:["الفقرة الأولى","بدون نقاط"],
       2:["الفقرة الثانية","من أنا؟"],
@@ -644,6 +649,7 @@ onValue(ref(db,"mn_ana"),snap=>{
         paragraphIntro.classList.remove("leaving");
       },420);
     },3000);
+    }
   }
   const t1=s.teams?.[1]||s.teams?.["1"]||{name:"الفريق الأول",score:0};
   const t2=s.teams?.[2]||s.teams?.["2"]||{name:"الفريق الثاني",score:0};

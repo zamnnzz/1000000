@@ -481,7 +481,8 @@ function render(){
   // بعد تخطي باركود الجرس يظهر زر بدء اللعبة وحده في شاشة الهوست.
   const startGate=state?.startGate||{};
   const startOverlay=el("startGameOverlay");
-  if(startGate.ready && !state?.gameStarted && !state?.gameFinished){
+  // بمجرد فتح الهوست واتصاله بالجلسة يظهر زر بدء اللعبة مباشرة.
+  if(!state?.gameStarted && !state?.gameFinished){
     startOverlay.classList.remove("hidden");
   }else{
     startOverlay.classList.add("hidden");
@@ -534,7 +535,7 @@ function render(){
 
 
 window.startGameNow=async()=>{
-  if(!state?.startGate?.ready || state?.gameStarted) return;
+  if(state?.gameStarted) return;
 
   const item=rounds[1][0];
   const historyKey="r1_q0";
@@ -543,7 +544,7 @@ window.startGameNow=async()=>{
   await update(gameRef,{
     gameStarted:true,
     startGate:{
-      ready:false,
+      ready:true,
       started:true
     },
     round:1,
