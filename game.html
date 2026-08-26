@@ -986,7 +986,7 @@ onValue(gameRef,snap=>{
 
     if(showPlayer){
       const pressedTeam=s.teams?.[buzzerPlayerTeam]||s.teams?.[String(buzzerPlayerTeam)]||{};
-      buzzerPlayerMarker.textContent=`ضغط الجرس: ${buzzerPlayerName}${pressedTeam.name?(" — "+pressedTeam.name):""}`;
+      buzzerPlayerMarker.textContent=`ضغط الجرس ${buzzerPlayerName}${pressedTeam.name?(" من فريق "+pressedTeam.name):""}`;
       buzzerPlayerMarker.classList.remove("hidden");
     }else{
       buzzerPlayerMarker.classList.add("hidden");
