@@ -375,6 +375,7 @@ const rounds={
 };
 
 let state=null;
+let displaySync=null;
 let lastHostChoicesKey="";
 let hostResultsShown=false;
 const el=id=>document.getElementById(id);
@@ -406,6 +407,10 @@ onValue(gameRef,snap=>{
     el("connection").textContent="متصل — خطأ عرض";
   }
 },err=>{el("connection").textContent="تعذر الاتصال";console.error(err)});
+onValue(ref(db,"mn_ana_display"),snap=>{
+  displaySync=snap.val()||null;
+  try{render();}catch(e){console.error("Host display sync render error",e);}
+});
 
 function teamData(n){return state?.teams?.[n]||state?.teams?.[String(n)]||{}}
 
@@ -424,6 +429,9 @@ function render(){
 
   el("hostQnum").textContent=Math.max(1,Number(state?.qIndex??0)+1);
   el("hostQpoints").textContent=Number(state?.question?.points||0);
+
+  const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
+  const displayOnSameQuestion=!!state?.gameStarted && !!displaySync && displaySync.key===currentQuestionKey;
 
   const qx2=state?.question?.x2Team;
   const qx2El=el("questionX2");
@@ -466,6 +474,9 @@ function render(){
   el("awardTeam1").classList.toggle("selected",selectedAwardTeam===1);
   el("awardTeam2").classList.toggle("selected",selectedAwardTeam===2);
 
+  const nextBtn=el("nextBtn");
+  if(nextBtn && state?.gameStarted) nextBtn.disabled=!displayOnSameQuestion;
+
   if(state?.question?.answeredTeam){
     const teamName=Number(state.question.answeredTeam)===1?(t1.name||"الفريق الأول"):(t2.name||"الفريق الثاني");
     const who=state.question.answeredByName?` — ${state.question.answeredByName}`:"";
@@ -475,7 +486,7 @@ function render(){
   }else{
     el("answeredInfo").textContent="السؤال لم يُحسم بعد";
     el("answeredInfo").style.background="#fff";
-    el("givePointsBtn").disabled=(selectedAwardTeam===0);
+    el("givePointsBtn").disabled=(selectedAwardTeam===0 || (state?.gameStarted && !displayOnSameQuestion));
   }
 
   // بعد تخطي باركود الجرس يظهر زر بدء اللعبة وحده في شاشة الهوست.
@@ -570,6 +581,8 @@ window.startGameNow=async()=>{
 };
 
 window.nextQuestion=async()=>{
+  const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
+  if(state?.gameStarted && (!displaySync || displaySync.key!==currentQuestionKey)) return;
   selectedAwardTeam=0;
 
   const r=Number(state?.round||1);
@@ -686,6 +699,8 @@ window.selectAwardTeam=(team)=>{
 };
 
 window.givePointsAndNext=async()=>{
+  const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
+  if(state?.gameStarted && (!displaySync || displaySync.key!==currentQuestionKey)) return;
   if(!state?.question?.historyKey) return alert("ابدأ سؤالًا أولًا.");
   if(state?.question?.answeredTeam) return alert("هذا السؤال محسوب بالفعل.");
   if(selectedAwardTeam!==1 && selectedAwardTeam!==2) return alert("اختر الفريق أولًا.");

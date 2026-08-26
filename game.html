@@ -469,10 +469,23 @@ body{
   to{opacity:0;transform:scale(1.03)}
 }
 
+
+.game-main-content{
+  transition:opacity .32s ease,transform .32s ease;
+}
+.game-main-content.intro-hidden{
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+}
+.game-main-content.intro-visible{
+  opacity:1;
+  transform:translateY(0);
+}
 </style>
 </head>
 <body>
-<div class="shell">
+<div id="gameMainContent" class="shell game-main-content intro-hidden">
   <header class="scoreboard">
     <section class="team left">
       <div id="team2Name" class="team-name">الفريق الثاني</div><div id="team2X2" class="team-x2"></div>
@@ -600,7 +613,7 @@ body{
 <script src="./firebase-config.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+import {getDatabase, ref, onValue, set} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 const app=initializeApp(window.firebaseConfig);
 const db=getDatabase(app);
@@ -618,6 +631,7 @@ const answers=document.getElementById("answers");
 const buzzerState=document.getElementById("buzzerState");
 const progressStars=[...document.querySelectorAll(".progress-star")];
 const gameTitleIntro=document.getElementById("gameTitleIntro");
+const gameMainContent=document.getElementById("gameMainContent");
 const gameWaitingOverlay=document.getElementById("gameWaitingOverlay");
 const paragraphIntro=document.getElementById("paragraphIntro");
 const paragraphIntroKicker=document.getElementById("paragraphIntroKicker");
@@ -631,7 +645,9 @@ const gameFinalTeam2Score=document.getElementById("gameFinalTeam2Score");
 const gameScoreDifference=document.getElementById("gameScoreDifference");
 let gameResultsBuilt=false;
 let gameTitleIntroShown=false;
+let gameTitleIntroFinished=false;
 let gameTitleIntroTimer=null;
+let lastPublishedDisplayKey="";
 
 function buildGameConfetti(){
   const layer=document.getElementById("gameConfetti");
@@ -676,23 +692,37 @@ onValue(ref(db,"mn_ana"),snap=>{
     lastProgressKey=progressKey;
   }
 
-  // شاشة "بانتظار المقدم" لا تظهر نهائيًا بعد الآن.
-  // تبقى مخفية دائمًا حتى لا تومض أثناء تحميل حالة Firebase.
+  // شاشة الانتظار تبقى مخفية دائمًا.
   gameWaitingOverlay.classList.add("hidden");
 
-  // أول ضغطة "بدء اللعبة": أنميشن اسم اللعبة مرة واحدة،
-  // ثم يظهر السؤال الأول مباشرة.
+  if(!s.gameStarted && !s.gameFinished){
+    gameMainContent.classList.add("intro-hidden");
+    gameMainContent.classList.remove("intro-visible");
+  }
+
+  // عند بدء اللعبة: اسم اللعبة أولًا والسؤال مخفي بالكامل.
   if(s.gameStarted && !gameTitleIntroShown && !s.gameFinished){
     gameTitleIntroShown=true;
+    gameTitleIntroFinished=false;
+
+    gameMainContent.classList.add("intro-hidden");
+    gameMainContent.classList.remove("intro-visible");
     gameTitleIntro.classList.remove("hidden","leaving");
+
     if(gameTitleIntroTimer) clearTimeout(gameTitleIntroTimer);
     gameTitleIntroTimer=setTimeout(()=>{
       gameTitleIntro.classList.add("leaving");
       setTimeout(()=>{
         gameTitleIntro.classList.add("hidden");
         gameTitleIntro.classList.remove("leaving");
+        gameTitleIntroFinished=true;
+        gameMainContent.classList.remove("intro-hidden");
+        gameMainContent.classList.add("intro-visible");
       },360);
     },1500);
+  }else if(s.gameStarted && gameTitleIntroFinished && !s.gameFinished){
+    gameMainContent.classList.remove("intro-hidden");
+    gameMainContent.classList.add("intro-visible");
   }
 
   // شاشة بداية الفقرة تظهر مرة عند دخول الفقرة الثانية والثالثة.
@@ -853,6 +883,21 @@ onValue(ref(db,"mn_ana"),snap=>{
       answeredMarker.textContent="";
     }
     lastAnsweredMarkerKey=answeredMarkerKey;
+  }
+
+  // إعلان السؤال الذي يظهر فعليًا على شاشة اللعبة.
+  if(s.gameStarted && gameTitleIntroFinished && !s.gameFinished){
+    const displayKey=`${Number(s.round||1)}:${Number(s.qIndex??-1)}:${s.question?.historyKey||""}`;
+    if(displayKey!==lastPublishedDisplayKey){
+      set(ref(db,"mn_ana_display"),{
+        key:displayKey,
+        round:Number(s.round||1),
+        qIndex:Number(s.qIndex??-1),
+        historyKey:s.question?.historyKey||"",
+        shownAt:Date.now()
+      }).catch(e=>console.error("Display sync error",e));
+      lastPublishedDisplayKey=displayKey;
+    }
   }
 
   const bz=s.buzzer||{open:false,winner:null};

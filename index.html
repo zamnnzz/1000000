@@ -345,6 +345,14 @@ document.getElementById("startBtn").addEventListener("click", async () => {
     history: {}});
 
   // صفّر حالة اتصال المقدم لهذا الـ Session في مسار منفصل عن بيانات اللعبة.
+  await set(ref(db, "mn_ana_display"), {
+    key: "",
+    round: 0,
+    qIndex: -1,
+    historyKey: "",
+    shownAt: 0
+  });
+
   await set(ref(db, "mn_ana_presence/host"), {
     connected: false,
     lastSeen: 0,
