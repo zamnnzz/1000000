@@ -155,6 +155,45 @@ input::placeholder{
   color:rgba(24,56,76,.38);
   opacity:1;
 }
+
+.qr-connect-card{width:min(980px,94vw)}
+.qr-pair{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+  align-items:start;
+}
+.qr-side{min-width:0;text-align:center}
+.copy-link-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:12px;
+}
+.copy-url{
+  flex:1;
+  min-width:0;
+  direction:ltr;
+  text-align:left;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.copy-link-btn{
+  flex:0 0 auto;
+  border:3px solid var(--ink);
+  border-radius:12px;
+  background:#fff;
+  color:var(--ink);
+  padding:9px 12px;
+  font:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+@media(max-width:720px){
+  .qr-pair{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -198,23 +237,27 @@ input::placeholder{
 
 
 <div id="connectOverlay" class="connect-overlay hidden">
-  <div class="connect-card">
-    <div id="hostStep">
-      <h2>اتصال المقدم</h2>
-      <p>صوّر باركود المقدم من جهاز المقدم. بننتظر لين تدخل صفحة المقدم وتتصل باللعبة.</p>
-      <div id="hostQr" class="qr-box"></div>
-      <div class="spinner"></div>
-      <div class="connect-state">بانتظار اتصال المقدم…</div>
-      <div id="hostUrlHint" class="url-hint"></div>
-    </div>
+  <div class="connect-card qr-connect-card">
+    <div class="qr-pair">
+      <div id="hostStep" class="qr-side">
+        <h2>باركود المقدم</h2>
+        <p>افتح صفحة المقدم من جهاز المقدم.</p>
+        <div id="hostQr" class="qr-box"></div>
+        <div class="copy-link-row">
+          <div id="hostUrlHint" class="url-hint copy-url"></div>
+          <button type="button" class="copy-link-btn" onclick="copyGameLink('hostUrlHint', this)">نسخ الرابط</button>
+        </div>
+      </div>
 
-    <div id="buzzerStep" class="hidden">
-      <div class="success-mark">✓</div>
-      <h2>تم اتصال المقدم</h2>
-      <p>الحين خل المتسابقين يصورون باركود الجرس من جوالاتهم، أو تخطَّ الخطوة وكمل اللعبة.</p>
-      <div id="buzzerQr" class="qr-box"></div>
-      <div id="buzzerUrlHint" class="url-hint"></div>
-      
+      <div id="buzzerStep" class="qr-side">
+        <h2>باركود الجرس</h2>
+        <p>خل المتسابقين يصورون باركود الجرس من جوالاتهم.</p>
+        <div id="buzzerQr" class="qr-box"></div>
+        <div class="copy-link-row">
+          <div id="buzzerUrlHint" class="url-hint copy-url"></div>
+          <button type="button" class="copy-link-btn" onclick="copyGameLink('buzzerUrlHint', this)">نسخ الرابط</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -252,6 +295,30 @@ function makeQr(el, url){
   }
 }
 
+
+window.copyGameLink=async(id,btn)=>{
+  const text=document.getElementById(id)?.textContent?.trim()||"";
+  if(!text) return;
+  try{
+    if(navigator.clipboard?.writeText){
+      await navigator.clipboard.writeText(text);
+    }else{
+      const ta=document.createElement("textarea");
+      ta.value=text;
+      ta.style.position="fixed";
+      ta.style.opacity="0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+    const old=btn.textContent;
+    btn.textContent="تم النسخ ✓";
+    setTimeout(()=>btn.textContent=old,1200);
+  }catch(e){
+    console.error("Copy link error",e);
+  }
+};
 
 let stopHostWatch = null;
 
@@ -374,7 +441,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
   });
 
   hostStep.classList.remove("hidden");
-  buzzerStep.classList.add("hidden");
+  buzzerStep.classList.remove("hidden");
   overlay.classList.remove("hidden");
 
   if(stopHostWatch) stopHostWatch();
@@ -386,10 +453,7 @@ document.getElementById("startBtn").addEventListener("click", async () => {
     if(transitionedToBuzzer) return;
     transitionedToBuzzer = true;
 
-    // الانتقال الوحيد التلقائي: من QR المقدم إلى QR الجرس.
-    hostStep.classList.add("hidden");
-    buzzerStep.classList.remove("hidden");
-
+    // الباركودان يبقيان ظاهرين معًا؛ نوقف المراقبة فقط بعد اتصال المقدم.
     if(stopHostWatch){ stopHostWatch(); stopHostWatch = null; }
     if(fallbackPoll){ clearInterval(fallbackPoll); fallbackPoll = null; }
   };
