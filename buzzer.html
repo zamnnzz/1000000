@@ -193,9 +193,10 @@ function renderPhaseCountdown(bz){
       const allowed=Number(bz.allowedTeam||0);
       const myTurn=allowed===team;
       el("buzz").disabled=!myTurn;
+      const allowedTeamData=teamData(allowed);
       el("status").textContent=myTurn
-        ?"دور فريقك — اضغط الجرس"
-        :"الفرصة للفريق الآخر";
+        ?"الفرصة عند فريقك — اضغط الجرس"
+        :`الفرصة عند ${allowedTeamData.name||("الفريق "+allowed)}`;
     }
 
     if(ms<=0){
