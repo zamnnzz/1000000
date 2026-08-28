@@ -237,6 +237,48 @@ body.registered #connection{
   body.registered #status{font-size:12px;margin-top:4px}
 }
 
+
+.bigBuzzer{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  text-align:center;
+}
+#buzzMainText{
+  display:block;
+  font-size:inherit;
+  font-weight:1000;
+  line-height:1;
+}
+.buzz-subtext{
+  display:block;
+  max-width:78%;
+  font-size:clamp(12px,3.2vw,17px);
+  font-weight:900;
+  line-height:1.35;
+  opacity:.92;
+}
+body.registered #status{
+  display:none!important;
+}
+body.registered .bigBuzzer.muted-state{
+  background:rgba(200,208,196,.34);
+  color:rgba(24,56,76,.62);
+  box-shadow:
+    0 10px 0 rgba(53,93,98,.32),
+    0 18px 28px rgba(24,56,76,.08);
+}
+body.registered .bigBuzzer.muted-state .buzz-subtext{
+  opacity:.68;
+}
+body.registered .bigBuzzer.active-state{
+  background:#69d27d;
+  color:var(--ink);
+}
+
 </style>
 </head>
 <body>
@@ -264,7 +306,10 @@ body.registered #connection{
     <div id="savedPlayer" class="status" style="display:none;margin-bottom:12px"></div>
     <div id="status" class="status">اكتب اسمك واختر فريقك ثم اضغط حفظ</div>
 
-    <button id="buzz" class="bigBuzzer" onclick="buzzNow()" disabled>جرس</button>
+    <button id="buzz" class="bigBuzzer" onclick="buzzNow()" disabled>
+      <span id="buzzMainText">جرس</span>
+      <span id="buzzSubText" class="buzz-subtext"></span>
+    </button>
 
     <button id="x2" class="x2btn" onclick="activateX2()" disabled>مضاعفة النقاط x2</button>
     <div id="x2hint" class="x2hint">لكل فريق استخدام واحد فقط طوال اللعبة.</div>
@@ -349,6 +394,14 @@ window.savePlayer=async()=>{
 
 function teamData(n){return state?.teams?.[n]||state?.teams?.[String(n)]||{}}
 
+function setBuzzerCenter(mainText,subText="",mode="active"){
+  const btn=el("buzz");
+  el("buzzMainText").textContent=mainText;
+  el("buzzSubText").textContent=subText;
+  btn.classList.toggle("muted-state",mode==="muted");
+  btn.classList.toggle("active-state",mode!=="muted");
+}
+
 function clearCountdownTimer(){
   if(countdownTimer){
     clearInterval(countdownTimer);
@@ -411,28 +464,31 @@ function renderPhaseCountdown(bz){
   const draw=()=>{
     const ms=until-Date.now();
     const remaining=Math.max(0,Math.ceil(ms/1000));
-    el("buzz").textContent=String(remaining);
 
     if(bz.phase==="first"){
       const mine=bz.firstPlayerId===playerId;
       const sameTeam=Number(bz.firstTeam||0)===team;
       el("buzz").disabled=true;
+
       if(mine){
-        el("status").textContent="دورك — جاوب الآن";
+        setBuzzerCenter(String(remaining),"دورك — جاوب الآن","active");
         el("buzz").classList.add("win");
       }else if(sameTeam){
-        el("status").textContent="زميلك يجاوب الآن";
+        setBuzzerCenter(String(remaining),"زميلك يجاوب الآن","muted");
       }else{
-        el("status").textContent="انتظر — بعدها تنتقل الفرصة لفريقك";
+        setBuzzerCenter(String(remaining),"الفرصة عند الفريق الآخر","muted");
       }
     }else{
       const allowed=Number(bz.allowedTeam||0);
       const myTurn=allowed===team;
-      el("buzz").disabled=!myTurn;
       const allowedTeamData=teamData(allowed);
-      el("status").textContent=myTurn
-        ?"الفرصة عند فريقك — اضغط الجرس"
-        :`الفرصة عند ${allowedTeamData.name||("الفريق "+allowed)}`;
+      el("buzz").disabled=!myTurn;
+
+      if(myTurn){
+        setBuzzerCenter(String(remaining),"الفرصة عند فريقك","active");
+      }else{
+        setBuzzerCenter(String(remaining),`الفرصة عند ${allowedTeamData.name||("الفريق "+allowed)}`,"muted");
+      }
     }
 
     if(ms<=0){
@@ -498,7 +554,7 @@ function render(){
   }
 
   const bz=state?.buzzer||{};
-  el("buzz").textContent="جرس";
+  setBuzzerCenter("جرس","","active");
 
   if(renderPhaseCountdown(bz)) return;
 
@@ -506,10 +562,10 @@ function render(){
     const winnerPlayer=bz.winnerPlayerName||"";
     const wt=teamData(Number(bz.winner));
     if(bz.winnerPlayerId===playerId){
-      el("status").textContent="أنت الأسرع! جاوب الآن";
+      setBuzzerCenter("أنت الأسرع","جاوب الآن","active");
       el("buzz").classList.add("win");
     }else{
-      el("status").textContent="الفرصة عند "+(winnerPlayer || wt.name || "الفريق الآخر");
+      setBuzzerCenter("الفرصة عند",winnerPlayer || wt.name || "الفريق الآخر","muted");
       el("buzz").classList.add("lose");
     }
     el("buzz").disabled=true;
@@ -517,26 +573,26 @@ function render(){
   }
 
   if(bz.phase==="ended"){
-    el("status").textContent="انتهى وقت الفريقين";
+    setBuzzerCenter("انتهى الوقت","للفريقين","muted");
     el("buzz").disabled=true;
     return;
   }
 
   if(!bz.open){
-    el("status").textContent="الجرس مغلق";
+    setBuzzerCenter("الجرس مغلق","","muted");
     el("buzz").disabled=true;
     return;
   }
 
   const allowed=Number(bz.allowedTeam||0);
   if(allowed && allowed!==team){
-    el("status").textContent="الجرس مفتوح للفريق الآخر";
+    const allowedTeamData=teamData(allowed);
+    setBuzzerCenter("الفرصة عند",allowedTeamData.name||("الفريق "+allowed),"muted");
     el("buzz").disabled=true;
     return;
   }
 
-  el("status").textContent="جاهز للضغط";
-  el("buzz").textContent="جاهز";
+  setBuzzerCenter("جاهز","","active");
   el("buzz").disabled=false;
 }
 
