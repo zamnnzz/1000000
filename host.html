@@ -818,8 +818,8 @@ function render(){
   answerToggleBtn.classList.toggle("green",!state?.question?.revealed);
 
   const choicesToggleBtn=el("choicesToggleBtn");
-  const isWhoSaid=Number(state?.round||1)===3 && Array.isArray(state?.question?.choices) && state.question.choices.length>0;
-  if(isWhoSaid){
+  const hasChoices=Array.isArray(state?.question?.choices) && state.question.choices.length>0;
+  if(hasChoices){
     choicesToggleBtn.classList.remove("hidden");
     choicesToggleBtn.textContent=state?.question?.choicesVisible?"إخفاء الخيارات":"إظهار الخيارات";
     choicesToggleBtn.classList.toggle("orange",!!state?.question?.choicesVisible);
