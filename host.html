@@ -744,6 +744,18 @@ body[data-round="1"] #hostAnswer{
   font-weight:1000;
 }
 
+
+/* الجولة الثانية فقط: لا يظهر المربع الكبير ولا مربع الإجابة السفلي */
+#questionText.round2-hidden,
+#hostAnswerBox.round2-hidden{
+  display:none!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  min-height:0!important;
+  box-shadow:none!important;
+}
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;600;700&display=swap" rel="stylesheet"/>
 </head>
@@ -794,7 +806,7 @@ body[data-round="1"] #hostAnswer{
 
     <div id="questionX2" class="question-x2" style="display:none"></div>
     <div id="questionAnsweredStatus" class="question-answered-status hidden"></div>
-    <div class="answerBox">
+    <div id="hostAnswerBox" class="answerBox">
       <div class="small muted" style="margin-bottom:5px">الإجابة عند المقدم</div>
       <div id="hostAnswer">—</div>
     </div>
@@ -968,9 +980,16 @@ const rounds={
     {q:"من خاف الخطأ في كل خطوة، بقي مكانه وهو يظن أنه حذر",a:"من خاف الخطأ في كل خطوة، بقي مكانه وهو يظن أنه حذر",points:10}
   ],
   2:[
-    {q:"أنا لاعب كرة قدم عربي، لعبت في الدوري الإنجليزي، ومن أشهر نجوم ليفربول. من أنا؟",a:"محمد صلاح",points:4},
-    {q:"أنا عالم فيزياء اشتهرت بالنسبية ومعادلة E=mc². من أنا؟",a:"ألبرت أينشتاين",points:5},
-    {q:"أنا شخصية خيالية أرتدي عباءة سوداء وشعاري الخفاش. من أنا؟",a:"باتمان",points:6}
+    {q:"من أنا؟",a:"النهر",person:"النهر",clues:["أبدأ من مكان، وغالبًا أنتهي في مكان مختلف تمامًا.", "كثير من المدن والحضارات قامت حولي.", "أحيانًا أكون هادئ، وأحيانًا أسبب فيضانات قوية.", "أجري لمسافات طويلة، وغالبًا تكون نهايتي في بحر أو محيط."],points:4},
+    {q:"من أنا؟",a:"الذهب",person:"الذهب",clues:["الناس عرفوا قيمتي من آلاف السنين.", "دخلت في التجارة والهدايا وحتى خزائن الملوك.", "ما أصدأ بسهولة مثل كثير من المعادن.", "لوني معروف، وغالبًا تشوفني في المجوهرات."],points:4},
+    {q:"من أنا؟",a:"الرياح",person:"الرياح",clues:["ما تقدر تشوفني، لكن تقدر تعرف إني موجود.", "أقدر أحرك أشياء أكبر مني بكثير.", "أحيانًا أكون خفيف ولطيف، وأحيانًا أتحول لشيء مخيف.", "أكثر شيء يفضح وجودي هو حركة الأشجار."],points:4},
+    {q:"من أنا؟",a:"بصمة الإصبع",person:"بصمة الإصبع",clues:["أقدر أكشف هوية شخص حتى لو ما قال اسمه.", "ما أحتاج إلا لمسة عشان أترك أثر.", "أختلف من شخص لشخص بشكل كبير.", "تستخدم كثير في التحقيقات والتعرف على الأشخاص."],points:4},
+    {q:"من أنا؟",a:"النار",person:"النار",clues:["عرفني الإنسان من زمان جدًا.", "كنت وسيلة للدفء والطبخ والحماية.", "لو خرجت عن السيطرة أقدر أسبب كارثة.", "أحتاج وقود، وأعطي حرارة وضوء."],points:4},
+    {q:"من أنا؟",a:"المرآة",person:"المرآة",clues:["ما عندي ذاكرة، ومع ذلك أعرض لك اللي أمامي فورًا.", "أتعامل مع الضوء أكثر مما أتعامل مع الأشياء نفسها.", "أظهر لك صورة مألوفة، لكن ترتيبها الجانبي مو مثل الواقع.", "وجودي يعتمد على سطح يعكس الضوء بشكل منتظم."],points:4},
+    {q:"من أنا؟",a:"البوصلة",person:"البوصلة",clues:["كنت من أهم الأدوات للمسافرين والبحارة.", "ما أقول لك وين أنت بالضبط، لكن أساعدك تعرف الاتجاه.", "شغلي مرتبط بالمغناطيسية.", "أشهر شيء فيني إن إبرتي تدلك على الشمال."],points:4},
+    {q:"من أنا؟",a:"الجاذبية",person:"الجاذبية",clues:["ما لها شكل، لكن تأثيرها يحدد حركة أشياء ضخمة جدًا.", "كل ما زادت الكتلة، زاد تأثيري.", "أنا سبب في بقاء أجرام كثيرة ضمن مداراتها.", "على سطح الأرض، أنا السبب في اتجاه سقوط الأجسام للأسفل."],points:4},
+    {q:"من أنا؟",a:"الساعة",person:"الساعة",clues:["مهمتي مرتبطة بقياس شيء يستمر حتى لو توقفت أنا.", "كنت قديمًا أعتمد على الشمس قبل ما أصير ميكانيكية وإلكترونية.", "بعض أنواعي تقيس أكثر من مجرد الساعات والدقائق.", "أقسم اليوم إلى وحدات يعرفها الجميع تقريبًا."],points:4},
+    {q:"من أنا؟",a:"الذاكرة",person:"الذاكرة",clues:["أحتفظ بأشياء صارت لك بدون ورق ولا صور.", "أحيانًا أكون دقيقة، وأحيانًا أغيّر بعض التفاصيل.", "ريحة أو أغنية ممكن ترجعني لك فجأة.", "بدونّي ما تعرف تتذكر أسماء الناس أو مواقف حياتك"],points:4}
   ],
   3:[
     {q:"الجهل يؤدي إلى الخوف، والخوف يؤدي إلى الكره، والكره يؤدي إلى العنف.",a:"ابن رشد",choices:["ابن رشد","ابن سينا","الكندي","الفارابي"],points:8},
@@ -1065,20 +1084,21 @@ function render(){
   const currentQuestionText=state?.question?.text||"";
   const round2Panel=el("round2WhoPanel");
   const round2CluesEl=el("round2Clues");
+  const questionBox=el("questionText");
+  const hostAnswerBox=el("hostAnswerBox");
+
+  questionBox.classList.toggle("round2-hidden",r===2);
+  hostAnswerBox.classList.toggle("round2-hidden",r===2);
 
   if(r===1){
-    el("questionText").classList.remove("hidden");
     round2Panel.classList.add("hidden");
-    el("questionText").textContent=toDotlessArabic(currentQuestionText);
+    questionBox.textContent=toDotlessArabic(currentQuestionText);
     el("hostAnswer").textContent=currentQuestionText||"—";
   }else if(r===2){
-    el("questionText").classList.add("hidden");
     round2Panel.classList.remove("hidden");
 
     const personName=state?.question?.person || state?.question?.answer || "—";
-    const clues=Array.isArray(state?.question?.clues) && state.question.clues.length
-      ? state.question.clues
-      : [currentQuestionText].filter(Boolean);
+    const clues=Array.isArray(state?.question?.clues) ? state.question.clues : [];
 
     el("round2PersonName").textContent=personName;
     round2CluesEl.innerHTML=clues.slice(0,4).map((clue,i)=>`
@@ -1090,9 +1110,8 @@ function render(){
 
     el("hostAnswer").textContent=personName;
   }else{
-    el("questionText").classList.remove("hidden");
     round2Panel.classList.add("hidden");
-    el("questionText").textContent=currentQuestionText;
+    questionBox.textContent=currentQuestionText;
     el("hostAnswer").textContent=state?.question?.answer||"—";
   }
   el("hostQpoints").textContent=Number(state?.question?.points||0);
@@ -1287,6 +1306,8 @@ window.startGameNow=async()=>{
     question:{
       text:item.q,
       answer:item.a,
+      person:item.person||item.a,
+      clues:item.clues||[],
       choices:item.choices||[],
       points:Number(item.points||1),
       revealed:false,
@@ -1373,6 +1394,8 @@ window.nextQuestion=async()=>{
     question:{
       text:item.q,
       answer:item.a,
+      person:item.person||item.a,
+      clues:item.clues||[],
       choices:item.choices||[],
       points:Number(item.points||1),
       revealed:false,
@@ -1422,6 +1445,8 @@ window.startNextSection=async()=>{
     question:{
       text:item.q,
       answer:item.a,
+      person:item.person||item.a,
+      clues:item.clues||[],
       choices:item.choices||[],
       points:Number(item.points||1),
       revealed:false,
@@ -1625,6 +1650,8 @@ window.previousQuestion=async()=>{
     question:{
       text:item.q,
       answer:item.a,
+      person:item.person||item.a,
+      clues:item.clues||[],
       choices:item.choices||[],
       points:Number(item.points||1),
       revealed:false,
@@ -1696,6 +1723,8 @@ window.advanceQuestion=async()=>{
     question:{
       text:item.q,
       answer:item.a,
+      person:item.person||item.a,
+      clues:item.clues||[],
       choices:item.choices||[],
       points:Number(item.points||1),
       revealed:false,
