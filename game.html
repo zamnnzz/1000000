@@ -658,19 +658,25 @@ body{
 
 
 
-/* الجولة الأولى - بدون نقاط فقط */
+/* فقرة بدون نقاط فقط: خط عربي يدوي أحادي اللون وأسود */
 #freeView #freeText.free{
-  font-family:"Aref Ruqaa Ink","Tajawal",sans-serif!important;
-  color:#000!important;
-  -webkit-text-fill-color:#000!important;
+  font-family:"Lateef",serif!important;
+  color:rgb(0,0,0)!important;
+  -webkit-text-fill-color:rgb(0,0,0)!important;
+  caret-color:rgb(0,0,0)!important;
   opacity:1!important;
   filter:none!important;
   text-shadow:none!important;
+  -webkit-text-stroke:0!important;
+  background-clip:border-box!important;
+  -webkit-background-clip:border-box!important;
   font-weight:700!important;
+  font-size:clamp(30px,2.7vw,45px)!important;
+  line-height:1.65!important;
 }
 
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lateef:wght@400;600;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
 <div id="gameMainContent" class="shell game-main-content intro-hidden">
@@ -720,7 +726,7 @@ body{
       </div>
 
       <div id="freeView" class="hidden">
-        <div id="freeText" class="free" style="color:#000!important;-webkit-text-fill-color:#000!important;opacity:1!important;text-shadow:none!important;">بانتظار المقدم لبدء السؤال.</div>
+        <div id="freeText" class="free" style="color:#000!important;-webkit-text-fill-color:#000!important;opacity:1!important;filter:none!important;text-shadow:none!important;">بانتظار المقدم لبدء السؤال.</div>
       </div>
 
       <div id="revealedAnswer" class="revealed-answer hidden">
