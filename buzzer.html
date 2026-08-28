@@ -832,6 +832,107 @@ body.registered #delete2hint{
   }
 }
 
+
+/* موازنة الأحجام فقط: تصغير الأعلى وتكبير منطقة الجرس */
+@media(min-width:700px){
+  .phone > .logo{
+    padding-top:12px!important;
+    padding-bottom:10px!important;
+    font-size:clamp(30px,3vw,40px)!important;
+  }
+
+  .phone > .player-topbar{
+    padding-top:10px!important;
+    padding-bottom:10px!important;
+  }
+
+  .player-team-name{
+    font-size:clamp(22px,2.2vw,30px)!important;
+  }
+
+  .player-score-pill{
+    font-size:clamp(14px,1.35vw,18px)!important;
+    padding:7px 12px!important;
+  }
+
+  .header-power-team{
+    padding:5px 8px!important;
+  }
+
+  .header-power-team-title{
+    font-size:10px!important;
+    margin-bottom:3px!important;
+  }
+
+  .header-power{
+    min-height:24px!important;
+    padding:3px 7px!important;
+    font-size:10px!important;
+  }
+
+  body.registered .bigBuzzer{
+    width:270px!important;
+    height:270px!important;
+    min-width:270px!important;
+    min-height:270px!important;
+    max-width:270px!important;
+    max-height:270px!important;
+    margin:14px auto 16px!important;
+  }
+
+  body.registered #buzzMainText{
+    font-size:50px!important;
+  }
+
+  body.registered .buzz-subtext{
+    font-size:15px!important;
+  }
+
+  body.registered .x2btn,
+  body.registered .delete2btn{
+    width:min(500px,88vw)!important;
+    padding:11px 14px!important;
+    font-size:15px!important;
+    margin-top:7px!important;
+  }
+
+  body.registered #x2hint,
+  body.registered #delete2hint{
+    width:min(500px,88vw)!important;
+    font-size:11px!important;
+  }
+}
+
+/* الكمبيوتر القصير: نفس النسب لكن بدون خروج من الشاشة */
+@media(min-width:700px) and (max-height:760px){
+  .phone > .logo{
+    padding-top:8px!important;
+    padding-bottom:7px!important;
+    font-size:30px!important;
+  }
+
+  .phone > .player-topbar{
+    padding-top:7px!important;
+    padding-bottom:7px!important;
+  }
+
+  body.registered .bigBuzzer{
+    width:225px!important;
+    height:225px!important;
+    min-width:225px!important;
+    min-height:225px!important;
+    max-width:225px!important;
+    max-height:225px!important;
+    margin:8px auto 10px!important;
+  }
+
+  body.registered .x2btn,
+  body.registered .delete2btn{
+    padding:8px 12px!important;
+    font-size:13px!important;
+  }
+}
+
 </style>
 </head>
 <body>
