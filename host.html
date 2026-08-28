@@ -450,6 +450,86 @@ body{min-height:100dvh}
   }
 }
 
+
+/* تمدد واجهة الهوست مع الشاشة */
+html,body{
+  width:100%;
+  min-height:100%;
+}
+body{
+  min-height:100dvh;
+}
+.wrap{
+  width:100%;
+  max-width:none;
+  min-height:100dvh;
+  margin:0;
+  padding:14px 18px 18px;
+  display:flex;
+  flex-direction:column;
+}
+.scorebar{
+  width:100%;
+}
+.host-main-layout{
+  width:100%;
+  flex:1 1 auto;
+  grid-template-columns:minmax(0,1fr) minmax(260px,22vw);
+}
+.host-question-column{
+  display:flex;
+  min-height:0;
+}
+.host-question-column>.card{
+  width:100%;
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.host-buzzer-column{
+  min-height:100%;
+}
+.buzzer-card{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.buzzer-card .controls{
+  margin-top:auto;
+}
+.question{
+  flex:0 0 auto;
+}
+.answerBox{
+  flex:0 0 auto;
+}
+@media(min-width:1200px){
+  .wrap{
+    padding:16px 24px 20px;
+  }
+  .host-main-layout{
+    gap:18px;
+    grid-template-columns:minmax(0,1fr) minmax(300px,21vw);
+  }
+}
+@media(max-width:900px){
+  .wrap{
+    min-height:auto;
+    padding:10px 10px 14px;
+  }
+  .host-main-layout{
+    flex:0 0 auto;
+  }
+  .host-question-column{
+    display:block;
+  }
+  .host-question-column>.card,
+  .host-buzzer-column,
+  .buzzer-card{
+    min-height:auto;
+  }
+}
+
 </style>
 </head>
 <body>
