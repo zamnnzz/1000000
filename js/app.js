@@ -178,7 +178,7 @@ function openGame(game,push=true){
   setPageIcon(game.icon || game.image);
   if(!game||!gameView)return;
   setText("detailTitle",game.name);
-  setText("detailSubtitle", ({"horof-bell":"تحدي الخلية","horof":"تحدي الحروف","photos-1":"تحدي الصور","photos-2":"تحدي الصور أبو عمر","photos-3":"تقدر تجيب الصورة؟","family-feud":"تحدي العائلة","fawazeer":"تحدي الأسئلة","guess-link":"تحدي الرابط","alatrash":"اتحداك تجيب الأطرش","top-ten":"تحدي الـ10 إجابات"})[game.slug] || game.badge || game.category || "تحدي جماعي");
+  setText("detailSubtitle", ({"horof-bell":"تحدي الخلية","horof":"تحدي الحروف","photos-1":"تحدي الصور","photos-2":"تحدي الصور أبو عمر","photos-3":"تقدر تجيب الصورة؟","family-feud":"تحدي العائلة","fawazeer":"تحدي الأسئلة","guess-link":"تحدي الرابط","alatrash":"اتحداك تجيب الأطرش","top-ten":"تحدي الـ10 إجابات","mn-ana":"من أنا؟"})[game.slug] || game.badge || game.category || "تحدي جماعي");
   setText("detailDesc",game.description);
   setText("detailPlayers",game.players || "٢+ لاعبين");
   setText("detailCategory",game.category || game.badge || "لعبة جماعية");
@@ -218,7 +218,11 @@ function openGame(game,push=true){
   const buy=document.getElementById("gameBuyBtn");
   const trial=document.getElementById("gameTrialBtn");
   if(play){play.href="#"; play.removeAttribute("target"); play.textContent="▶ العب الآن"}
-  if(buy){buy.href=game.buyLink||"#"; buy.target="_blank"; buy.rel="noopener"; buy.textContent=`💳 اشتر الآن - ${game.price||""}`}
+  if(buy){
+    const hasBuy=!!(game.buyLink && game.price);
+    buy.hidden=!hasBuy;
+    if(hasBuy){buy.href=game.buyLink; buy.target="_blank"; buy.rel="noopener"; buy.textContent=`💳 اشتر الآن - ${game.price}`}
+  }
   if(trial){trial.dataset.trialKey=game.trialKey||""}
   renderShots(game);
   renderReviews(game);

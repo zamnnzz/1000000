@@ -333,6 +333,7 @@
 
   async function requestPlay(game){
     if(!game)return;
+    if(game.directPlay===true){ openPlayer(game,"direct"); return; }
     if(!phone){
       pendingGame=game; showLogin(); message("سجل دخولك أولاً","error"); return;
     }
