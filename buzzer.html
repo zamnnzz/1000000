@@ -318,7 +318,7 @@ body.registered #connection{order:9}
 }
 .header-powers{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr;
   gap:8px;
   width:100%;
 }
@@ -386,19 +386,12 @@ body.registered #connection{order:9}
       <div id="buzzerTeamName" class="player-team-name">الفريق الأول</div>
       <div class="player-score-pill">النقاط: <strong id="buzzerTeamScore">0</strong></div>
     </div>
-    <div class="header-powers">
+    <div class="header-powers own-only">
       <div class="header-power-team is-mine">
-        <div class="header-power-team-title">فريقك</div>
+        <div class="header-power-team-title">قدرات فريقك</div>
         <div class="header-power-list">
           <span id="myX2Power" class="header-power">x2</span>
           <span id="myDelete2Power" class="header-power">حذف 2</span>
-        </div>
-      </div>
-      <div class="header-power-team">
-        <div id="opponentPowerTitle" class="header-power-team-title">الخصم</div>
-        <div class="header-power-list">
-          <span id="oppX2Power" class="header-power">x2</span>
-          <span id="oppDelete2Power" class="header-power">حذف 2</span>
         </div>
       </div>
     </div>
@@ -651,10 +644,6 @@ function render(){
   el("buzzerTeamName").textContent=myTeam.name||("الفريق "+team);
   el("buzzerTeamScore").textContent=Number(myTeam.score||0);
 
-  const opponentTeamNumber=team===1?2:1;
-  const opponentTeam=teamData(opponentTeamNumber);
-  el("opponentPowerTitle").textContent=opponentTeam.name||"الخصم";
-
   const setPowerState=(id,{used=false,active=false}={})=>{
     const node=el(id);
     node.classList.toggle("used",!!used);
@@ -673,11 +662,6 @@ function render(){
     active:!!myTeam.x2Active || !!headerX2Teams[team] || !!headerX2Teams[String(team)]
   });
   setPowerState("myDelete2Power",{used:!!myTeam.delete2Used});
-  setPowerState("oppX2Power",{
-    used:!!opponentTeam.x2Used,
-    active:!!opponentTeam.x2Active || !!headerX2Teams[opponentTeamNumber] || !!headerX2Teams[String(opponentTeamNumber)]
-  });
-  setPowerState("oppDelete2Power",{used:!!opponentTeam.delete2Used});
 
   const me=myTeam;
   el("buzz").classList.remove("win","lose");

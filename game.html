@@ -613,6 +613,48 @@ body{
 .inapp-confirm-yes{background:#ffd9bd}
 .inapp-confirm-no{background:#fff}
 
+
+/* قدرات الفريقين في الهيدر العلوي */
+.game-team-powers{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  flex-wrap:wrap;
+  margin:4px 0 2px;
+}
+.game-power-chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:25px;
+  padding:4px 8px;
+  border:2px solid var(--navy);
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  font-size:10px;
+  font-weight:1000;
+  line-height:1;
+  transition:.2s ease;
+}
+.game-power-chip.active{
+  background:#ffe277;
+  opacity:1;
+}
+.game-power-chip.used{
+  opacity:.27;
+  filter:grayscale(1);
+  text-decoration:line-through;
+}
+@media(max-width:650px){
+  .game-team-powers{gap:4px}
+  .game-power-chip{
+    min-height:22px;
+    padding:3px 6px;
+    font-size:9px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -621,7 +663,10 @@ body{
     <section class="team left">
       <div class="team-title-line">
         <div id="team2Name" class="team-name">الفريق الثاني</div>
-        <div id="team2X2" class="team-x2"></div>
+      </div>
+      <div id="team2Powers" class="game-team-powers">
+        <span id="gameT2X2" class="game-power-chip">x2</span>
+        <span id="gameT2Delete2" class="game-power-chip">حذف 2</span>
       </div>
       <div id="team2Score" class="team-score">0</div>
     </section>
@@ -637,7 +682,10 @@ body{
     <section class="team right">
       <div class="team-title-line">
         <div id="team1Name" class="team-name">الفريق الأول</div>
-        <div id="team1X2" class="team-x2"></div>
+      </div>
+      <div id="team1Powers" class="game-team-powers">
+        <span id="gameT1X2" class="game-power-chip">x2</span>
+        <span id="gameT1Delete2" class="game-power-chip">حذف 2</span>
       </div>
       <div id="team1Score" class="team-score">0</div>
     </section>
@@ -1027,9 +1075,9 @@ onValue(gameRef,snap=>{
   const choices=Array.isArray(question.choices)?question.choices:[];
 
   const scoreKey=JSON.stringify([
-    t1.name||"",Number(t1.score||0),!!t1.x2Active,!!t1.x2Used,
-    t2.name||"",Number(t2.score||0),!!t2.x2Active,!!t2.x2Used,
-    qIndex,Number(question.points||0),Number(question.x2Team||0)
+    t1.name||"",Number(t1.score||0),!!t1.x2Active,!!t1.x2Used,!!t1.delete2Used,
+    t2.name||"",Number(t2.score||0),!!t2.x2Active,!!t2.x2Used,!!t2.delete2Used,
+    qIndex,Number(question.points||0),Number(question.x2Team||0),question.x2Teams||{}
   ]);
 
   if(scoreKey!==lastScoreKey){
@@ -1037,12 +1085,27 @@ onValue(gameRef,snap=>{
     team2Name.textContent=t2.name||"الفريق الثاني";
     team1Score.textContent=t1.score||0;
     team2Score.textContent=t2.score||0;
-    const team1X2=document.getElementById("team1X2");
-    const team2X2=document.getElementById("team2X2");
-    team1X2.textContent=t1.x2Active?"x2 مفعّل":"";
-    team2X2.textContent=t2.x2Active?"x2 مفعّل":"";
-    team1X2.classList.toggle("active",!!t1.x2Active);
-    team2X2.classList.toggle("active",!!t2.x2Active);
+    const legacyGameX2=Number(question.x2Team||0);
+    const gameX2Teams={
+      ...(question.x2Teams||{}),
+      ...(legacyGameX2?{[legacyGameX2]:true}:{})
+    };
+    const setGamePowerState=(id,{used=false,active=false}={})=>{
+      const node=document.getElementById(id);
+      node.classList.toggle("used",!!used);
+      node.classList.toggle("active",!!active && !used);
+      node.title=used?"تم استخدامها":active?"مفعّلة الآن":"متاحة";
+    };
+    setGamePowerState("gameT1X2",{
+      used:!!t1.x2Used,
+      active:!!t1.x2Active || !!gameX2Teams[1] || !!gameX2Teams["1"]
+    });
+    setGamePowerState("gameT1Delete2",{used:!!t1.delete2Used});
+    setGamePowerState("gameT2X2",{
+      used:!!t2.x2Used,
+      active:!!t2.x2Active || !!gameX2Teams[2] || !!gameX2Teams["2"]
+    });
+    setGamePowerState("gameT2Delete2",{used:!!t2.delete2Used});
     qnum.textContent=Math.max(1,qIndex+1);
     document.getElementById("gamePoints").textContent=Number(question.points||0);
     lastScoreKey=scoreKey;
