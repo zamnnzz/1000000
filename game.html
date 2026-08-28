@@ -658,27 +658,15 @@ body{
 
 
 
-body[data-round="1"] #freeText{
+/* الجولة الأولى - بدون نقاط فقط */
+#freeView #freeText.free{
   font-family:"Aref Ruqaa Ink","Tajawal",sans-serif!important;
   color:#000!important;
   -webkit-text-fill-color:#000!important;
   opacity:1!important;
   filter:none!important;
   text-shadow:none!important;
-  font-size:clamp(30px,3.15vw,50px);
   font-weight:700!important;
-  line-height:1.85;
-}
-body[data-round="1"] #revealedAnswer,
-body[data-round="1"] #revealedAnswerText{
-  font-family:"Tajawal",sans-serif!important;
-  font-weight:900!important;
-}
-@media(max-width:700px){
-  body[data-round="1"] #freeText{
-    font-size:clamp(27px,8vw,39px);
-    line-height:1.75;
-  }
 }
 
 </style>
@@ -732,7 +720,7 @@ body[data-round="1"] #revealedAnswerText{
       </div>
 
       <div id="freeView" class="hidden">
-        <div id="freeText" class="free">بانتظار المقدم لبدء السؤال.</div>
+        <div id="freeText" class="free" style="color:#000!important;-webkit-text-fill-color:#000!important;opacity:1!important;text-shadow:none!important;">بانتظار المقدم لبدء السؤال.</div>
       </div>
 
       <div id="revealedAnswer" class="revealed-answer hidden">
@@ -917,16 +905,6 @@ function buildGameConfetti(){
     piece.style.setProperty("--c",colors[i%colors.length]);
     layer.appendChild(piece);
   }
-}
-
-
-function toDotlessArabic(text=""){
-  const map={
-    "ب":"ٮ","ت":"ٮ","ث":"ٮ","ن":"ٮ","ي":"ى","ى":"ى","ئ":"ى",
-    "ج":"ح","خ":"ح","ذ":"د","ز":"ر","ش":"س","ض":"ص","ظ":"ط","غ":"ع",
-    "ف":"ڡ","ق":"ٯ","ة":"ه","پ":"ٮ","چ":"ح","ژ":"ر","گ":"ك"
-  };
-  return String(text).replace(/[بتثنيىئجخذزشضظغفقةپچژگ]/g,ch=>map[ch]||ch);
 }
 
 let lastIntroRound=0;
@@ -1162,7 +1140,7 @@ onValue(gameRef,snap=>{
       tagEl.className="tag green";
       mcqView.classList.add("hidden");
       freeView.classList.remove("hidden");
-      freeText.textContent=toDotlessArabic(question.text||"بانتظار السؤال");
+      freeText.textContent=question.text||"بانتظار السؤال";
       // نظف الخيارات القديمة عند الانتقال لفقرة بدون نقاط.
       answers.innerHTML="";
     }else{
@@ -1192,13 +1170,10 @@ onValue(gameRef,snap=>{
 
   const revealBox=document.getElementById("revealedAnswer");
   const revealText=document.getElementById("revealedAnswerText");
-  const answerRevealKey=JSON.stringify([
-    round,!!question.revealed,question.answer||"",question.text||""
-  ]);
+  const answerRevealKey=JSON.stringify([!!question.revealed,question.answer||""]);
   if(answerRevealKey!==lastAnswerRevealKey){
-    const revealValue=round===1?(question.text||""):(question.answer||"");
-    if(question.revealed && revealValue){
-      revealText.textContent=revealValue;
+    if(question.revealed && question.answer){
+      revealText.textContent=question.answer;
       revealBox.classList.remove("hidden");
     }else{
       revealBox.classList.add("hidden");
