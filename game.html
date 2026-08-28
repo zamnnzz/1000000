@@ -1051,7 +1051,7 @@ onValue(gameRef,snap=>{
   // هذا هو المفتاح المهم: الخيارات تُعاد فقط إذا تغير السؤال نفسه.
   const hiddenChoices=Array.isArray(question.hiddenChoices)?question.hiddenChoices:[];
   const questionRenderKey=JSON.stringify([
-    round,qIndex,question.text||"",choices,hiddenChoices
+    round,qIndex,question.text||"",choices,hiddenChoices,!!question.choicesVisible
   ]);
 
   if(questionRenderKey!==lastQuestionRenderKey){
@@ -1073,15 +1073,18 @@ onValue(gameRef,snap=>{
       questionText.textContent=question.text||"بانتظار السؤال";
 
       const letters=["أ","ب","ج","د"];
-      answers.innerHTML=choices.map((x,i)=>{
-        if(hiddenChoices.includes(i)) return "";
-        return `
-          <div class="answer">
-            <span>${x}</span>
-            <span class="letter">${letters[i]||""}</span>
-          </div>
-        `;
-      }).join("");
+      const choicesShouldShow=round!==3 || !!question.choicesVisible;
+      answers.innerHTML=choicesShouldShow
+        ? choices.map((x,i)=>{
+            if(hiddenChoices.includes(i)) return "";
+            return `
+              <div class="answer">
+                <span>${x}</span>
+                <span class="letter">${letters[i]||""}</span>
+              </div>
+            `;
+          }).join("")
+        : "";
     }
 
     lastQuestionRenderKey=questionRenderKey;
@@ -1273,7 +1276,8 @@ document.getElementById("restartConfirmYes").addEventListener("click",async()=>{
         x2Team:null,
         x2Teams:{},
         x2Consumed:false,
-        hiddenChoices:[]
+        hiddenChoices:[],
+        choicesVisible:false
       },
       buzzer:{
         open:true,

@@ -786,14 +786,33 @@ window.activateDelete2=async()=>{
     if(choices.length<4) return;
     if(Array.isArray(q.hiddenChoices) && q.hiddenChoices.length>=2) return;
 
-    const wrong=[];
-    choices.forEach((choice,i)=>{
-      if(String(choice)!==String(q.answer)) wrong.push(i);
-    });
+    const normalizeChoice=value=>String(value??"")
+      .trim()
+      .toLowerCase()
+      .replace(/[أإآ]/g,"ا")
+      .replace(/ى/g,"ي")
+      .replace(/ة/g,"ه")
+      .replace(/\s+/g," ");
+
+    const normalizedAnswer=normalizeChoice(q.answer);
+    const correctIndexes=choices
+      .map((choice,i)=>normalizeChoice(choice)===normalizedAnswer?i:-1)
+      .filter(i=>i>=0);
+
+    if(correctIndexes.length===0) return;
+
+    const wrong=choices
+      .map((_,i)=>i)
+      .filter(i=>!correctIndexes.includes(i));
+
     if(wrong.length<2) return;
 
-    // اختيار ثابت وعادل لخيارين خاطئين من السؤال نفسه.
-    q.hiddenChoices=[wrong[0],wrong[1]];
+    // احذف خيارين خاطئين فقط، ولا يمكن أن تُحذف الإجابة الصحيحة.
+    for(let i=wrong.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [wrong[i],wrong[j]]=[wrong[j],wrong[i]];
+    }
+    q.hiddenChoices=wrong.slice(0,2);
     t.delete2Used=true;
     return current;
   });

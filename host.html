@@ -385,6 +385,8 @@ body{min-height:100dvh}
     <div class="controls answer-controls">
       <button id="showAnswerBtn" class="btn green" onclick="showAnswerOnGame()">إظهار الإجابة على شاشة اللعبة</button>
       <button class="btn" onclick="hideAnswerOnGame()">إخفاء الإجابة</button>
+      <button id="showChoicesBtn" class="btn blue hidden" onclick="showChoicesOnGame()">إظهار الخيارات</button>
+      <button id="hideChoicesBtn" class="btn hidden" onclick="hideChoicesOnGame()">إخفاء الخيارات</button>
     </div>
   </div>
 
@@ -623,6 +625,19 @@ function render(){
   }
   el("showAnswerBtn").textContent=state?.question?.revealed?"الإجابة ظاهرة على شاشة اللعبة":"إظهار الإجابة على شاشة اللعبة";
 
+  const showChoicesBtn=el("showChoicesBtn");
+  const hideChoicesBtn=el("hideChoicesBtn");
+  const isWhoSaid=Number(state?.round||1)===3 && Array.isArray(state?.question?.choices) && state.question.choices.length>0;
+  if(isWhoSaid){
+    showChoicesBtn.classList.remove("hidden");
+    hideChoicesBtn.classList.remove("hidden");
+    showChoicesBtn.disabled=!!state?.question?.choicesVisible;
+    hideChoicesBtn.disabled=!state?.question?.choicesVisible;
+  }else{
+    showChoicesBtn.classList.add("hidden");
+    hideChoicesBtn.classList.add("hidden");
+  }
+
   const bz=state?.buzzer||{};
   el("buzzerState").textContent=bz.open?"مفتوح":"مغلق";
   if(bz.winner){
@@ -746,7 +761,8 @@ window.startGameNow=async()=>{
       x2Team:historical?.x2Team||null,
       x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
       x2Consumed:historical?.x2Consumed||false,
-      hiddenChoices:historical?.hiddenChoices||[]
+      hiddenChoices:historical?.hiddenChoices||[],
+      choicesVisible:historical?.choicesVisible??false
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -831,7 +847,8 @@ window.nextQuestion=async()=>{
       x2Team:historical?.x2Team||null,
       x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
       x2Consumed:historical?.x2Consumed||false,
-      hiddenChoices:historical?.hiddenChoices||[]
+      hiddenChoices:historical?.hiddenChoices||[],
+      choicesVisible:historical?.choicesVisible??false
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -879,7 +896,8 @@ window.startNextSection=async()=>{
       x2Team:historical?.x2Team||null,
       x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
       x2Consumed:historical?.x2Consumed||false,
-      hiddenChoices:historical?.hiddenChoices||[]
+      hiddenChoices:historical?.hiddenChoices||[],
+      choicesVisible:historical?.choicesVisible??false
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -898,6 +916,8 @@ window.startNextSection=async()=>{
 
 window.showAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:true});
 window.hideAnswerOnGame=()=>update(ref(db,`${sessionPath}/question`),{revealed:false});
+window.showChoicesOnGame=()=>update(ref(db,`${sessionPath}/question`),{choicesVisible:true});
+window.hideChoicesOnGame=()=>update(ref(db,`${sessionPath}/question`),{choicesVisible:false});
 
 window.openBuzzer=()=>set(ref(db,`${sessionPath}/buzzer`),{
   open:true,
@@ -1014,7 +1034,8 @@ window.resolveQuestionAndNext=async(answeringTeam)=>{
       x2Team:activeX2Teams.length===1?activeX2Teams[0]:null,
       x2Teams:Object.fromEntries(activeX2Teams.map(n=>[n,true])),
       x2Consumed:activeX2Teams.length>0,
-      hiddenChoices:Array.isArray(state.question.hiddenChoices)?state.question.hiddenChoices:[]
+      hiddenChoices:Array.isArray(state.question.hiddenChoices)?state.question.hiddenChoices:[],
+      choicesVisible:!!state.question.choicesVisible
     };
 
     await update(gameRef,{
@@ -1071,7 +1092,8 @@ window.previousQuestion=async()=>{
       x2Team:historical?.x2Team||null,
       x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
       x2Consumed:historical?.x2Consumed||false,
-      hiddenChoices:historical?.hiddenChoices||[]
+      hiddenChoices:historical?.hiddenChoices||[],
+      choicesVisible:historical?.choicesVisible??false
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -1141,7 +1163,8 @@ window.advanceQuestion=async()=>{
       x2Team:historical?.x2Team||null,
       x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
       x2Consumed:historical?.x2Consumed||false,
-      hiddenChoices:historical?.hiddenChoices||[]
+      hiddenChoices:historical?.hiddenChoices||[],
+      choicesVisible:historical?.choicesVisible??false
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
