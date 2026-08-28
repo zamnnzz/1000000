@@ -656,20 +656,6 @@ body{
 }
 
 
-.game-buzzer-owner{
-  margin:5px auto 0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:6px 10px;
-  border:2px solid var(--navy);
-  border-radius:999px;
-  background:#ffe277;
-  font-size:10px;
-  font-weight:1000;
-  white-space:nowrap;
-}
-.game-buzzer-owner.hidden{display:none!important}
 
 </style>
 </head>
@@ -693,7 +679,6 @@ body{
         <span class="progress-star" data-step="2">★</span>
         <span class="progress-star" data-step="1">★</span>
       </div>
-      <div id="gameBuzzerOwner" class="game-buzzer-owner hidden"></div>
       <button id="optionsBtn" class="options">▼ الخيارات</button>
     </section>
     <section class="team right">
@@ -1186,31 +1171,24 @@ onValue(gameRef,snap=>{
 
   const buzzerPlayerMarker=document.getElementById("buzzerPlayerMarker");
   const bz=s.buzzer||{};
-
-  const gameBuzzerOwner=document.getElementById("gameBuzzerOwner");
-  const ownerTeam=Number(bz.allowedTeam||0);
-  const ownerActive=(bz.phase==="second" || bz.phase==="second_answer") && (ownerTeam===1 || ownerTeam===2);
-  if(ownerActive){
-    const owner=s.teams?.[ownerTeam]||s.teams?.[String(ownerTeam)]||{};
-    gameBuzzerOwner.textContent=`الجرس عند ${owner.name||("الفريق "+ownerTeam)}`;
-    gameBuzzerOwner.classList.remove("hidden");
-  }else{
-    gameBuzzerOwner.textContent="";
-    gameBuzzerOwner.classList.add("hidden");
-  }
-
   const buzzerPlayerName=bz.winnerPlayerName||bz.firstPlayerName||"";
   const buzzerPlayerTeam=Number(bz.winner||bz.firstTeam||0);
   const buzzerPlayerMarkerKey=JSON.stringify([
-    buzzerPlayerName,buzzerPlayerTeam,bz.phase||"",s.qIndex??-1
+    buzzerPlayerName,buzzerPlayerTeam,bz.phase||"",Number(bz.allowedTeam||0),s.qIndex??-1
   ]);
 
   if(buzzerPlayerMarkerKey!==lastBuzzerPlayerMarkerKey){
+    const ownerTeam=Number(bz.allowedTeam||0);
+    const ownerActive=(bz.phase==="second" || bz.phase==="second_answer") && (ownerTeam===1 || ownerTeam===2);
     const showPlayer=
       !!buzzerPlayerName &&
       ["first","second_answer"].includes(bz.phase||"");
 
-    if(showPlayer){
+    if(ownerActive && bz.phase==="second"){
+      const owner=s.teams?.[ownerTeam]||s.teams?.[String(ownerTeam)]||{};
+      buzzerPlayerMarker.textContent=`الجرس عند ${owner.name||("الفريق "+ownerTeam)}`;
+      buzzerPlayerMarker.classList.remove("hidden");
+    }else if(showPlayer){
       const pressedTeam=s.teams?.[buzzerPlayerTeam]||s.teams?.[String(buzzerPlayerTeam)]||{};
       buzzerPlayerMarker.textContent=`ضغط الجرس ${buzzerPlayerName}${pressedTeam.name?(" من فريق "+pressedTeam.name):""}`;
       buzzerPlayerMarker.classList.remove("hidden");

@@ -934,17 +934,6 @@ body.registered #delete2hint{
 }
 
 
-.buzzer-owner-status{
-  width:100%;
-  border:2px solid var(--ink);
-  border-radius:999px;
-  background:#ffe277;
-  padding:6px 10px;
-  font-size:11px;
-  font-weight:1000;
-  text-align:center;
-}
-.buzzer-owner-status.hidden{display:none!important}
 
 </style>
 </head>
@@ -957,7 +946,6 @@ body.registered #delete2hint{
       <div id="buzzerTeamName" class="player-team-name">الفريق الأول</div>
       <div class="player-score-pill">النقاط: <strong id="buzzerTeamScore">0</strong></div>
     </div>
-    <div id="buzzerOwnerStatus" class="buzzer-owner-status hidden"></div>
     <div class="header-powers own-only">
       <div class="header-power-team is-mine">
         <div class="header-power-team-title">قدرات فريقك</div>
@@ -1244,18 +1232,6 @@ function render(){
   el("x2").classList.remove("active");
 
   const bz=state?.buzzer||{};
-
-  const buzzerOwnerStatus=el("buzzerOwnerStatus");
-  const ownerTeam=Number(bz.allowedTeam||0);
-  const ownerActive=(bz.phase==="second" || bz.phase==="second_answer") && (ownerTeam===1 || ownerTeam===2);
-  if(ownerActive){
-    const owner=teamData(ownerTeam);
-    buzzerOwnerStatus.textContent=`الجرس عند ${owner.name||("الفريق "+ownerTeam)}`;
-    buzzerOwnerStatus.classList.remove("hidden");
-  }else{
-    buzzerOwnerStatus.textContent="";
-    buzzerOwnerStatus.classList.add("hidden");
-  }
 
   const legacyQuestionX2=Number(state?.question?.x2Team||0);
   const questionX2Teams={

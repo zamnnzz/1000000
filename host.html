@@ -665,16 +665,6 @@ body{
 .buzzer-state-pill.is-closed{background:#eef0ea;opacity:.72}
 
 
-.synced-buzzer-owner{
-  border:3px solid var(--ink);
-  border-radius:999px;
-  background:#ffe277;
-  padding:8px 12px;
-  font-size:13px;
-  font-weight:1000;
-  text-align:center;
-}
-.synced-buzzer-owner.hidden{display:none!important}
 
 </style>
 </head>
@@ -747,7 +737,6 @@ body{
       <span id="buzzerState" class="buzzer-state-pill">مغلق</span>
     </div>
     <div id="winnerBox" class="status winner buzzer-winner-box">لا يوجد ضغط بعد</div>
-    <div id="hostBuzzerOwner" class="synced-buzzer-owner hidden"></div>
     <div class="buzzer-control-stack">
       <button class="btn green buzzer-control-btn" onclick="openBuzzer()">فتح الجرس</button>
       <button class="btn orange buzzer-control-btn" onclick="closeBuzzer()">إغلاق الجرس</button>
@@ -1044,25 +1033,23 @@ function render(){
   buzzerStateEl.textContent=bz.open?"مفتوح":"مغلق";
   buzzerStateEl.classList.toggle("is-open",!!bz.open);
   buzzerStateEl.classList.toggle("is-closed",!bz.open);
-  if(bz.winner){
+  const ownerTeam=Number(bz.allowedTeam||0);
+  const ownerActive=(bz.phase==="second" || bz.phase==="second_answer") && (ownerTeam===1 || ownerTeam===2);
+
+  if(ownerActive){
+    const owner=teamData(ownerTeam);
+    el("winnerBox").textContent=`الجرس عند ${owner.name||("الفريق "+ownerTeam)}`;
+    el("winnerBox").style.background="#ffe277";
+  }else if(bz.winner){
     const wt=teamData(Number(bz.winner));
-    el("winnerBox").textContent="الأسرع: "+(wt.name||("فريق "+bz.winner));
+    const winnerPlayer=bz.winnerPlayerName||bz.firstPlayerName||"";
+    el("winnerBox").textContent=winnerPlayer
+      ? `الأسرع: ${winnerPlayer} من ${wt.name||("فريق "+bz.winner)}`
+      : "الأسرع: "+(wt.name||("فريق "+bz.winner));
     el("winnerBox").style.background="#bcebb4";
   }else{
     el("winnerBox").textContent=bz.open?"الجرس مفتوح — بانتظار أول ضغطة":"لا يوجد ضغط بعد";
     el("winnerBox").style.background="#fff";
-  }
-
-  const hostBuzzerOwner=el("hostBuzzerOwner");
-  const ownerTeam=Number(bz.allowedTeam||0);
-  const ownerActive=(bz.phase==="second" || bz.phase==="second_answer") && (ownerTeam===1 || ownerTeam===2);
-  if(ownerActive){
-    const owner=teamData(ownerTeam);
-    hostBuzzerOwner.textContent=`الجرس عند ${owner.name||("الفريق "+ownerTeam)}`;
-    hostBuzzerOwner.classList.remove("hidden");
-  }else{
-    hostBuzzerOwner.textContent="";
-    hostBuzzerOwner.classList.add("hidden");
   }
 
 
