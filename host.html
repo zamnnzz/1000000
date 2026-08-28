@@ -1044,6 +1044,10 @@ onValue(ref(db,`${sessionPath}/display`),snap=>{
 });
 
 function teamData(n){return state?.teams?.[n]||state?.teams?.[String(n)]||{}}
+function roundQuestionLimit(r){
+  const requested=Number(state?.settings?.questionsPerRound||10);
+  return Math.max(1,Math.min(requested,rounds[r]?.length||requested));
+}
 
 
 function toDotlessArabic(text=""){
@@ -1363,7 +1367,7 @@ window.nextQuestion=async()=>{
   const idx=Number(state?.qIndex??-1)+1;
 
   // عند انتهاء الفقرة لا ننتقل مباشرة: نظهر بوابة انتقال في الهوست.
-  if(idx>=rounds[r].length){
+  if(idx>=roundQuestionLimit(r)){
     if(r<3){
       await update(gameRef,{
         completedSections:r,
@@ -1699,7 +1703,7 @@ window.advanceQuestion=async()=>{
   const r=Number(state?.round||1);
   const idx=Number(state?.qIndex??-1)+1;
 
-  if(idx>=rounds[r].length){
+  if(idx>=roundQuestionLimit(r)){
     if(r<3){
       await update(gameRef,{
         completedSections:r,

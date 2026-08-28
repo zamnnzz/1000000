@@ -262,6 +262,47 @@ input::placeholder{
   .qr-side{padding:18px 14px}
 }
 
+
+.question-count-card{text-align:center}
+.round-count-note{
+  margin:4px 0 14px;
+  font-size:15px;
+  font-weight:900;
+  color:#617665;
+}
+.question-count-options{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.question-count-btn{
+  min-height:52px;
+  border:3px solid var(--ink);
+  border-radius:13px;
+  background:#fff;
+  color:var(--ink);
+  font:inherit;
+  font-size:21px;
+  font-weight:1000;
+  cursor:pointer;
+  box-shadow:0 4px 0 rgba(24,56,76,.15);
+  transition:.15s ease;
+}
+.question-count-btn.active{
+  background:#6ed3ef;
+  transform:translateY(2px);
+  box-shadow:0 2px 0 rgba(24,56,76,.15);
+}
+.question-count-hint{
+  margin-top:10px;
+  font-size:12px;
+  font-weight:800;
+  color:#71816f;
+}
+@media(max-width:560px){
+  .question-count-options{grid-template-columns:repeat(2,1fr)}
+}
+
 </style>
 </head>
 <body>
@@ -297,6 +338,18 @@ input::placeholder{
         <input id="secondTimer" type="number" min="1" value="10">
       </div>
     </div>
+  </section>
+
+  <section class="card question-count-card">
+    <h2>• اختر عدد الأسئلة</h2>
+    <div class="round-count-note">عدد الجولات: <strong>3</strong></div>
+    <div class="question-count-options" role="radiogroup" aria-label="عدد الأسئلة في كل جولة">
+      <button type="button" class="question-count-btn" data-count="3">3</button>
+      <button type="button" class="question-count-btn active" data-count="5">5</button>
+      <button type="button" class="question-count-btn" data-count="7">7</button>
+      <button type="button" class="question-count-btn" data-count="10">10</button>
+    </div>
+    <div class="question-count-hint">العدد المختار يطبق على كل جولة</div>
   </section>
 
   <button id="startBtn" class="start">ابدأ الجولة!</button>
@@ -350,6 +403,14 @@ const t1 = document.getElementById("team1");
 const t2 = document.getElementById("team2");
 const firstTimer = document.getElementById("firstTimer");
 const secondTimer = document.getElementById("secondTimer");
+const questionCountButtons=[...document.querySelectorAll(".question-count-btn")];
+let questionsPerRound=5;
+questionCountButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    questionsPerRound=Number(btn.dataset.count||5);
+    questionCountButtons.forEach(b=>b.classList.toggle("active",b===btn));
+  });
+});
 const status = document.getElementById("status");
 const overlay = document.getElementById("connectOverlay");
 const hostStep = document.getElementById("hostStep");
@@ -447,7 +508,8 @@ document.getElementById("startBtn").addEventListener("click", async () => {
     },
     settings: {
       firstTimer: ft,
-      secondTimer: st
+      secondTimer: st,
+      questionsPerRound
     },
     session: {
       id: sessionId,
