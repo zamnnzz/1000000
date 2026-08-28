@@ -796,6 +796,42 @@ body.registered #delete2hint{
   }
 }
 
+
+/* تمديد البانرات العلوية بعرض الشاشة مع بقاء الجرس في المنتصف */
+@media(min-width:700px){
+  .phone{
+    width:100%;
+    max-width:none;
+    margin:0;
+  }
+
+  .phone > .logo,
+  .phone > .player-topbar{
+    width:100vw;
+    max-width:none;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+    border-radius:0;
+    box-sizing:border-box;
+  }
+
+  .phone > .logo{
+    padding-left:24px;
+    padding-right:24px;
+  }
+
+  .phone > .player-topbar{
+    padding-left:max(24px,calc((100vw - 1100px)/2));
+    padding-right:max(24px,calc((100vw - 1100px)/2));
+  }
+
+  .phone > .card{
+    width:min(620px,92vw);
+    margin-left:auto;
+    margin-right:auto;
+  }
+}
+
 </style>
 </head>
 <body>
