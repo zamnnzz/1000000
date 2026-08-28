@@ -772,6 +772,9 @@ let gameTitleIntroFinished=false;
 let gameTitleIntroTimer=null;
 let lastPublishedDisplayKey="";
 let latestState=null;
+const navigationEntry=performance.getEntriesByType?.("navigation")?.[0];
+const isPageReload=navigationEntry?.type==="reload";
+let refreshStateRestored=false;
 
 function buildGameConfetti(){
   const layer=document.getElementById("gameConfetti");
@@ -808,6 +811,24 @@ onValue(gameRef,snap=>{
   try{
   const s=snap.val();
   latestState=s;
+
+  // عند تحديث الصفحة أثناء لعبة جارية: ارجع مباشرة لنفس الحالة بدون أي أنميشن.
+  if(isPageReload && !refreshStateRestored && s.gameStarted && !s.gameFinished){
+    refreshStateRestored=true;
+    gameTitleIntroShown=true;
+    gameTitleIntroFinished=true;
+    lastIntroRound=Number(s.round||1);
+
+    if(gameTitleIntroTimer){ clearTimeout(gameTitleIntroTimer); gameTitleIntroTimer=null; }
+    if(introTimer){ clearTimeout(introTimer); introTimer=null; }
+
+    gameTitleIntro.classList.add("hidden");
+    gameTitleIntro.classList.remove("leaving");
+    paragraphIntro.classList.add("hidden");
+    paragraphIntro.classList.remove("leaving");
+    gameMainContent.classList.remove("intro-hidden");
+    gameMainContent.classList.add("intro-visible");
+  }
 
   // النجوم: تتلون من اليمين بعد إنهاء كل فقرة.
   const completed=Math.max(0,Math.min(3,Number(s.completedSections||0)));
