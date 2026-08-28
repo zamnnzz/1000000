@@ -666,6 +666,25 @@ body{
 
 
 
+
+.host-points-meta{
+  display:flex!important;
+  align-items:center;
+  gap:9px;
+}
+.host-points-labels{
+  display:flex;
+  flex-direction:column;
+  line-height:1.05;
+  gap:2px;
+  font-size:10px;
+  font-weight:1000;
+  text-align:right;
+}
+.host-points-meta strong{
+  font-size:16px;
+}
+
 </style>
 </head>
 <body>
@@ -701,7 +720,13 @@ body{
       <div id="roundTitle" class="badge">الجولة الأولى</div>
       <div class="question-meta">
         
-        <span id="hostPointsMeta">النقاط <strong id="hostQpoints">0</strong></span>
+        <span id="hostPointsMeta" class="host-points-meta">
+          <span class="host-points-labels">
+            <span>بدون نقاط</span>
+            <span>بنقاط</span>
+          </span>
+          <strong id="hostQpoints">0</strong>
+        </span>
       </div>
     </div>
     <div id="questionText" class="question" style="margin-top:14px">اضغط "السؤال التالي" لبدء الجولة.</div>
@@ -960,12 +985,7 @@ function render(){
 
   el("questionText").textContent=state?.question?.text||"";
   el("hostAnswer").textContent=state?.question?.answer||"—";
-  const hostPointsMeta=el("hostPointsMeta");
-  if(r===1){
-    hostPointsMeta.textContent="بدون نقاط";
-  }else{
-    hostPointsMeta.innerHTML=`النقاط <strong id="hostQpoints">${Number(state?.question?.points||0)}</strong>`;
-  }
+  el("hostQpoints").textContent=Number(state?.question?.points||0);
 
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
   const isInitialQuestion=Number(state?.round||1)===1 && Number(state?.qIndex??-1)===0;
