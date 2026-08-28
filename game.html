@@ -660,7 +660,7 @@ body{
 
 /* فقرة بدون نقاط فقط: خط عربي يدوي أحادي اللون وأسود */
 #freeView #freeText.free{
-  font-family:"Lateef",serif!important;
+  font-family:"Noto Nastaliq Urdu",serif!important;
   color:rgb(0,0,0)!important;
   -webkit-text-fill-color:rgb(0,0,0)!important;
   caret-color:rgb(0,0,0)!important;
@@ -675,8 +675,23 @@ body{
   line-height:1.65!important;
 }
 
+
+/* ضبط خط فقرة بدون نقاط ليطابق المرجع */
+#freeView #freeText.free{
+  font-family:"Noto Nastaliq Urdu",serif!important;
+  color:#000!important;
+  -webkit-text-fill-color:#000!important;
+  opacity:1!important;
+  filter:none!important;
+  text-shadow:none!important;
+  font-weight:600!important;
+  font-size:clamp(29px,2.55vw,43px)!important;
+  line-height:2.05!important;
+  letter-spacing:0!important;
+}
+
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Lateef:wght@400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;600;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
 <div id="gameMainContent" class="shell game-main-content intro-hidden">

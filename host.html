@@ -666,7 +666,33 @@ body{
 
 
 
+
+
+/* نفس خط اللعبة حرفيًا في الجولة الأولى */
+body[data-round="1"] #questionText{
+  font-family:"Noto Nastaliq Urdu",serif!important;
+  color:#000!important;
+  -webkit-text-fill-color:#000!important;
+  opacity:1!important;
+  filter:none!important;
+  text-shadow:none!important;
+  font-weight:600!important;
+  font-size:clamp(29px,2.55vw,43px)!important;
+  line-height:2.05!important;
+  letter-spacing:0!important;
+}
+body[data-round="1"] #hostAnswer{
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif!important;
+  color:var(--ink)!important;
+  -webkit-text-fill-color:var(--ink)!important;
+  font-weight:900!important;
+  opacity:1!important;
+  filter:none!important;
+  text-shadow:none!important;
+}
+
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;600;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
 <div class="wrap">
@@ -926,6 +952,17 @@ onValue(ref(db,`${sessionPath}/display`),snap=>{
 
 function teamData(n){return state?.teams?.[n]||state?.teams?.[String(n)]||{}}
 
+
+function toDotlessArabic(text=""){
+  const map={
+    "ب":"ٮ","ت":"ٮ","ث":"ٮ","ن":"ٮ","ي":"ى","ى":"ى","ئ":"ى",
+    "ج":"ح","خ":"ح","ذ":"د","ز":"ر","ش":"س","ض":"ص","ظ":"ط","غ":"ع",
+    "ف":"ڡ","ق":"ٯ","ة":"ه","پ":"ٮ","چ":"ح","ژ":"ر","گ":"ك"
+  };
+  return String(text).replace(/[بتثنيىئجخذزشضظغفقةپچژگ]/g,ch=>map[ch]||ch);
+}
+
+
 function render(){
   const t1=teamData(1),t2=teamData(2);
   el("team1Name").textContent=t1.name||"الفريق الأول";
@@ -958,8 +995,14 @@ function render(){
   const r=Number(state?.round||1);
   el("roundTitle").textContent=r===1?"الجولة الأولى — بدون نقاط":r===2?"الجولة الثانية — من أنا؟":"الجولة الثالثة — من القائل؟";
 
-  el("questionText").textContent=state?.question?.text||"";
-  el("hostAnswer").textContent=state?.question?.answer||"—";
+  const currentQuestionText=state?.question?.text||"";
+  if(r===1){
+    el("questionText").textContent=toDotlessArabic(currentQuestionText);
+    el("hostAnswer").textContent=currentQuestionText||"—";
+  }else{
+    el("questionText").textContent=currentQuestionText;
+    el("hostAnswer").textContent=state?.question?.answer||"—";
+  }
   el("hostQpoints").textContent=Number(state?.question?.points||0);
 
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
