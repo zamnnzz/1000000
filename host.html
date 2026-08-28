@@ -667,22 +667,32 @@ body{
 
 
 
-.host-points-meta{
-  display:flex!important;
-  align-items:center;
-  gap:9px;
+.round1-text-pair{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:14px;
 }
-.host-points-labels{
-  display:flex;
-  flex-direction:column;
-  line-height:1.05;
-  gap:2px;
-  font-size:10px;
+.round1-text-pair.hidden{display:none!important}
+.round1-text-box{
+  border:3px solid var(--ink);
+  border-radius:15px;
+  padding:13px 15px;
+  background:#fff;
+  box-shadow:0 4px 0 rgba(24,56,76,.16);
+}
+.round1-text-box.dotless{background:#f5f8e9}
+.round1-text-label{
+  font-size:12px;
   font-weight:1000;
-  text-align:right;
+  color:#64786a;
+  margin-bottom:7px;
 }
-.host-points-meta strong{
-  font-size:16px;
+.round1-text-value{
+  font-size:clamp(17px,1.45vw,22px);
+  line-height:1.75;
+  font-weight:900;
+  color:var(--ink);
 }
 
 </style>
@@ -720,21 +730,27 @@ body{
       <div id="roundTitle" class="badge">الجولة الأولى</div>
       <div class="question-meta">
         
-        <span id="hostPointsMeta" class="host-points-meta">
-          <span class="host-points-labels">
-            <span>بدون نقاط</span>
-            <span>بنقاط</span>
-          </span>
-          <strong id="hostQpoints">0</strong>
-        </span>
+        <span>النقاط <strong id="hostQpoints">0</strong></span>
       </div>
     </div>
     <div id="questionText" class="question" style="margin-top:14px">اضغط "السؤال التالي" لبدء الجولة.</div>
+
+    <div id="round1TextPair" class="round1-text-pair hidden">
+      <div class="round1-text-box original">
+        <div class="round1-text-label">النص الأصلي</div>
+        <div id="hostOriginalText" class="round1-text-value">—</div>
+      </div>
+      <div class="round1-text-box dotless">
+        <div class="round1-text-label">النص بدون نقاط</div>
+        <div id="hostDotlessText" class="round1-text-value">—</div>
+      </div>
+    </div>
+
     <div id="answers" class="answers"></div>
 
     <div id="questionX2" class="question-x2" style="display:none"></div>
     <div id="questionAnsweredStatus" class="question-answered-status hidden"></div>
-    <div class="answerBox">
+    <div id="hostAnswerBox" class="answerBox">
       <div class="small muted" style="margin-bottom:5px">الإجابة عند المقدم</div>
       <div id="hostAnswer">—</div>
     </div>
@@ -951,6 +967,17 @@ onValue(ref(db,`${sessionPath}/display`),snap=>{
 
 function teamData(n){return state?.teams?.[n]||state?.teams?.[String(n)]||{}}
 
+
+function toDotlessArabic(text=""){
+  const map={
+    "ب":"ٮ","ت":"ٮ","ث":"ٮ","ن":"ٮ","ي":"ى","ى":"ى","ئ":"ى",
+    "ج":"ح","خ":"ح","ذ":"د","ز":"ر","ش":"س","ض":"ص","ظ":"ط","غ":"ع",
+    "ف":"ڡ","ق":"ٯ","ة":"ه","پ":"ٮ","چ":"ح","ژ":"ر","گ":"ك"
+  };
+  return String(text).replace(/[بتثنيىئجخذزشضظغفقةپچژگ]/g,ch=>map[ch]||ch);
+}
+
+
 function render(){
   const t1=teamData(1),t2=teamData(2);
   el("team1Name").textContent=t1.name||"الفريق الأول";
@@ -983,8 +1010,21 @@ function render(){
   const r=Number(state?.round||1);
   el("roundTitle").textContent=r===1?"الجولة الأولى — بدون نقاط":r===2?"الجولة الثانية — من أنا؟":"الجولة الثالثة — من القائل؟";
 
-  el("questionText").textContent=state?.question?.text||"";
-  el("hostAnswer").textContent=state?.question?.answer||"—";
+  const currentQuestionText=state?.question?.text||"";
+  if(r===1){
+    el("questionText").classList.add("hidden");
+    el("round1TextPair").classList.remove("hidden");
+    el("hostAnswerBox").classList.add("hidden");
+    el("hostOriginalText").textContent=currentQuestionText||"—";
+    el("hostDotlessText").textContent=toDotlessArabic(currentQuestionText)||"—";
+    el("hostAnswer").textContent=currentQuestionText||"—";
+  }else{
+    el("questionText").classList.remove("hidden");
+    el("round1TextPair").classList.add("hidden");
+    el("hostAnswerBox").classList.remove("hidden");
+    el("questionText").textContent=currentQuestionText;
+    el("hostAnswer").textContent=state?.question?.answer||"—";
+  }
   el("hostQpoints").textContent=Number(state?.question?.points||0);
 
   const currentQuestionKey=`${Number(state?.round||1)}:${Number(state?.qIndex??-1)}:${state?.question?.historyKey||""}`;
