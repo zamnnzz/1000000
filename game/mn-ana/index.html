@@ -21,6 +21,47 @@
 
 <meta content="العاب زامن" name="apple-mobile-web-app-title"/><meta content="yes" name="mobile-web-app-capable"/><meta content="yes" name="apple-mobile-web-app-capable"/><link href="/manifest.webmanifest" rel="manifest"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><link href="/favicon.png?v=10" rel="apple-touch-icon"/><meta content="العاب زامن" name="author"/>
 
+
+<style>
+.mnana-about-section,
+.mnana-faq-section{
+  text-align:right;
+}
+.mnana-feature-copy{
+  line-height:1.9;
+}
+.mnana-feature-copy h3{
+  margin:0 0 10px;
+}
+.mnana-feature-copy ul{
+  margin:0 0 14px;
+  padding-right:22px;
+}
+.mnana-feature-copy p{
+  margin:8px 0;
+}
+.mnana-faq-list{
+  display:grid;
+  gap:10px;
+}
+.mnana-faq-list details{
+  border:2px solid rgba(24,56,76,.18);
+  border-radius:14px;
+  background:#fff;
+  padding:0 16px;
+}
+.mnana-faq-list summary{
+  cursor:pointer;
+  font-weight:900;
+  padding:15px 0;
+}
+.mnana-faq-list details p{
+  margin:0;
+  padding:0 0 15px;
+  line-height:1.8;
+}
+</style>
+
 </head><body class="game-mode">
 <section aria-live="polite" class="game-view" id="gameView">
 <section class="retro-game-hero"><div aria-hidden="true" class="retro-grid-overlay"></div><span aria-hidden="true" class="pixel pixel-a"></span><span aria-hidden="true" class="pixel pixel-b"></span><span aria-hidden="true" class="pixel pixel-c"></span><span aria-hidden="true" class="pixel pixel-d"></span><button class="retro-home-btn" id="gameBackBtn" type="button">الرئيسية <span aria-hidden="true">◆</span></button>
@@ -35,6 +76,47 @@
 </section>
 <section class="retro-section reviews-panel"><h2>تقييمات اللاعبين</h2><div class="retro-reviews-grid" id="retroReviewsGrid"></div></section>
 <section class="retro-section game-seo-content" id="gameSeoContent" hidden></section>
+
+<section class="retro-section mnana-about-section" id="mnanaAbout">
+  <h2>عن لعبة من أنا؟</h2>
+
+  <div class="mnana-feature-copy">
+    <h3>ثلاث جولات متنوعة:</h3>
+    <ul>
+      <li><strong>بدون نقاط:</strong> اقرأ العبارة بدون نقاط واكتشف النص الصحيح.</li>
+      <li><strong>من أنا؟:</strong> استمع إلى 4 تلميحات وحاول معرفة الإجابة.</li>
+      <li><strong>من القائل؟:</strong> اختر صاحب المقولة من بين 4 خيارات.</li>
+    </ul>
+
+    <p><strong>شاشة عرض مستقلة:</strong> لعرض الأسئلة، الجرس والنتائج.</p>
+    <p><strong>جرس من الجوال:</strong> يحدد الأسرع في الضغط تلقائيًا.</p>
+    <p><strong>مضاعفة النقاط x2:</strong> لكل فريق فرصة لمضاعفة نقاطه.</p>
+    <p><strong>حذف خيارين:</strong> لإزالة خيارين خاطئين في أسئلة الاختيارات.</p>
+    <p><strong>لوحة للمقدم:</strong> للتحكم بالأسئلة، الإجابات، الجرس والنقاط.</p>
+  </div>
+</section>
+
+<section class="retro-section mnana-faq-section" id="mnanaFaq">
+  <h2>الأسئلة الشائعة</h2>
+
+  <div class="mnana-faq-list">
+    <details>
+      <summary>كيف ألعب من أنا؟</summary>
+      <p>قسّم اللاعبين إلى فريقين، وافتح شاشة اللعبة أمام الجميع وشاشة المقدم على جهاز منفصل. تتنافس الفرق عبر 3 جولات مختلفة، ويستخدم اللاعبون الجرس من جوالاتهم لتحديد الأسرع في الإجابة وجمع النقاط.</p>
+    </details>
+
+    <details>
+      <summary>هل تحتاج لعبة من أنا؟ إلى تحميل؟</summary>
+      <p>لا، تعمل اللعبة مباشرة من المتصفح ولا تحتاج إلى تحميل تطبيق.</p>
+    </details>
+
+    <details>
+      <summary>كم عدد اللاعبين؟</summary>
+      <p>اللعبة تدعم فريقين يتنافسون ضد بعض، ويمكن توزيع أكثر من لاعب داخل كل فريق حسب عدد الموجودين.</p>
+    </details>
+  </div>
+</section>
+
 <section class="seo-related-section retro-section" id="seoRelatedSection"><h2>قد تعجبك أيضًا</h2><div class="seo-related-grid" id="seoRelatedGames"></div></section><section class="retro-section other-games-section"><h2>العاب أخرى من زامن</h2><div class="other-games-grid" id="otherGamesGrid"></div></section>
 </main>
 <footer class="site-footer game-footer"><div class="footer-inner"><div class="footer-grid"><section><h3>العاب زامن</h3><p>منصة العاب تفاعلية عربية تجمع العائلة والأصدقاء في تجربة مليئة بالمرح والتحدي.</p></section><section><h3>روابط سريعة</h3><div class="footer-links"><a href="/">🏠 <span>الرئيسية</span></a><a href="/#games-list">🎮 <span>العابنا</span></a><a href="/blog">📰 <span>المدونة</span></a></div></section><section class="footer-contact-old"><h3>تواصل معنا</h3><div class="footer-contact-old-actions"><a aria-label="زيارة متجر العاب زامن" class="footer-contact-old-circle" href="https://zamn1.com/" rel="noopener noreferrer" target="_blank">🏪</a><a aria-label="التواصل عبر واتساب" class="footer-contact-old-circle" href="https://wa.me/message/ZDFHGX5MVYMOF1" rel="noopener noreferrer" target="_blank">💬</a></div></section></div><div class="copyright">© 2026 جميع الحقوق محفوظة - متجر ZAMN</div></div></footer>
