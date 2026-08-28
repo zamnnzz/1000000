@@ -683,7 +683,7 @@ body[data-round="1"] #hostAnswer{
 
 /* خط الجولة الأولى في الهوست - نفس خط اللعبة */
 #questionText.round1-handwriting{
-  font-family:"Noto Nastaliq Urdu",serif!important;
+  font-family:"ShekariRound1",serif!important;
   color:#000!important;
   -webkit-text-fill-color:#000!important;
   opacity:1!important;
@@ -756,8 +756,21 @@ body[data-round="1"] #hostAnswer{
   box-shadow:none!important;
 }
 
+
+@font-face{
+  font-family:"ShekariRound1";
+  src:url("shekari (1).ttf") format("truetype");
+  font-style:normal;
+  font-weight:400 900;
+  font-display:swap;
+}
+
+
+#questionText.round1-handwriting{
+  font-family:"ShekariRound1",serif!important;
+}
+
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;600;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
 <div class="wrap">
