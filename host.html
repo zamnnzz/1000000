@@ -669,7 +669,20 @@ body{
 
 
 /* نفس خط اللعبة حرفيًا في الجولة الأولى */
-body[data-round="1"] #questionText{
+body[data-round="1"] #hostAnswer{
+  font-family:Tahoma,"Segoe UI",Arial,sans-serif!important;
+  color:var(--ink)!important;
+  -webkit-text-fill-color:var(--ink)!important;
+  font-weight:900!important;
+  opacity:1!important;
+  filter:none!important;
+  text-shadow:none!important;
+}
+
+
+
+/* خط الجولة الأولى في الهوست - نفس خط اللعبة */
+#questionText.round1-handwriting{
   font-family:"Noto Nastaliq Urdu",serif!important;
   color:#000!important;
   -webkit-text-fill-color:#000!important;
@@ -680,15 +693,6 @@ body[data-round="1"] #questionText{
   font-size:clamp(29px,2.55vw,43px)!important;
   line-height:2.05!important;
   letter-spacing:0!important;
-}
-body[data-round="1"] #hostAnswer{
-  font-family:Tahoma,"Segoe UI",Arial,sans-serif!important;
-  color:var(--ink)!important;
-  -webkit-text-fill-color:var(--ink)!important;
-  font-weight:900!important;
-  opacity:1!important;
-  filter:none!important;
-  text-shadow:none!important;
 }
 
 </style>
@@ -897,9 +901,16 @@ if(hostSession){
 
 const rounds={
   1:[
-    {q:"من أجمل ملامح الإنسان ... ؟",a:"ابتسامته",points:1},
-    {q:"شيء يبدأ بحرف م وينتهي بحرف ة ... ؟",a:"معلومة",points:2},
-    {q:"اسم بلد عربي إذا حذفت نقاطه تغيّر شكله تمامًا ... ؟",a:"تحدي مفتوح",points:3}
+    {q:"من عرف قدر نفسه، عرف متى يتقدم ومتى يتراجع.",a:"من عرف قدر نفسه، عرف متى يتقدم ومتى يتراجع.",points:1},
+    {q:"من أكثر الكلام، كثرت زلاته وإن ظن أنه يحسن الحديث.",a:"من أكثر الكلام، كثرت زلاته وإن ظن أنه يحسن الحديث.",points:2},
+    {q:"قد يخسر الإنسان الكثير حين يصر على كسب جدال لا يستحق.",a:"قد يخسر الإنسان الكثير حين يصر على كسب جدال لا يستحق.",points:3},
+    {q:"من اعتاد الراحة طويلًا، ثقل عليه كل طريق يحتاج إلى صبر.",a:"من اعتاد الراحة طويلًا، ثقل عليه كل طريق يحتاج إلى صبر.",points:4},
+    {q:"ليس كل تأخير خسارة، فقد يكون بعض الانتظار بداية للنجاة.",a:"ليس كل تأخير خسارة، فقد يكون بعض الانتظار بداية للنجاة.",points:5},
+    {q:"من جعل غضبه يقوده، ندم حين يعود إليه عقله.",a:"من جعل غضبه يقوده، ندم حين يعود إليه عقله.",points:6},
+    {q:"قد يكون أقرب الناس إليك أقلهم معرفة بما يدور في داخلك.",a:"قد يكون أقرب الناس إليك أقلهم معرفة بما يدور في داخلك.",points:7},
+    {q:"من طلب احترام الناس قبل أن يحترم نفسه، أتعبه انتظارهم.",a:"من طلب احترام الناس قبل أن يحترم نفسه، أتعبه انتظارهم.",points:8},
+    {q:"ليس كل صمت ضعفًا، فبعض الصمت أبلغ من كثير من الردود.",a:"ليس كل صمت ضعفًا، فبعض الصمت أبلغ من كثير من الردود.",points:9},
+    {q:"من خاف الخطأ في كل خطوة، بقي مكانه وهو يظن أنه حذر",a:"من خاف الخطأ في كل خطوة، بقي مكانه وهو يظن أنه حذر",points:10}
   ],
   2:[
     {q:"أنا لاعب كرة قدم عربي، لعبت في الدوري الإنجليزي، ومن أشهر نجوم ليفربول. من أنا؟",a:"محمد صلاح",points:4},
@@ -994,6 +1005,7 @@ function render(){
 
   const r=Number(state?.round||1);
   el("roundTitle").textContent=r===1?"الجولة الأولى — بدون نقاط":r===2?"الجولة الثانية — من أنا؟":"الجولة الثالثة — من القائل؟";
+  el("questionText").classList.toggle("round1-handwriting",r===1);
 
   const currentQuestionText=state?.question?.text||"";
   if(r===1){

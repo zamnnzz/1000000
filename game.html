@@ -690,6 +690,7 @@ body{
   letter-spacing:0!important;
 }
 
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;600;700&display=swap" rel="stylesheet"/>
 </head>
@@ -928,6 +929,16 @@ function buildGameConfetti(){
   }
 }
 
+
+function toDotlessArabic(text=""){
+  const map={
+    "ب":"ٮ","ت":"ٮ","ث":"ٮ","ن":"ٮ","ي":"ى","ى":"ى","ئ":"ى",
+    "ج":"ح","خ":"ح","ذ":"د","ز":"ر","ش":"س","ض":"ص","ظ":"ط","غ":"ع",
+    "ف":"ڡ","ق":"ٯ","ة":"ه","پ":"ٮ","چ":"ح","ژ":"ر","گ":"ك"
+  };
+  return String(text).replace(/[بتثنيىئجخذزشضظغفقةپچژگ]/g,ch=>map[ch]||ch);
+}
+
 let lastIntroRound=0;
 let introTimer=null;
 
@@ -1161,7 +1172,7 @@ onValue(gameRef,snap=>{
       tagEl.className="tag green";
       mcqView.classList.add("hidden");
       freeView.classList.remove("hidden");
-      freeText.textContent=question.text||"بانتظار السؤال";
+      freeText.textContent=toDotlessArabic(question.text||"بانتظار السؤال");
       // نظف الخيارات القديمة عند الانتقال لفقرة بدون نقاط.
       answers.innerHTML="";
     }else{
