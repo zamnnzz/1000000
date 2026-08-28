@@ -1364,10 +1364,12 @@ window.nextQuestion=async()=>{
   selectedAwardTeam=0;
 
   const r=Number(state?.round||1);
-  const idx=Number(state?.qIndex??-1)+1;
+  const limit=roundQuestionLimit(r);
+  const currentIndex=Math.max(-1,Math.min(Number(state?.qIndex??-1),limit-1));
+  const idx=currentIndex+1;
 
   // عند انتهاء الفقرة لا ننتقل مباشرة: نظهر بوابة انتقال في الهوست.
-  if(idx>=roundQuestionLimit(r)){
+  if(idx>=limit){
     if(r<3){
       await update(gameRef,{
         completedSections:r,
@@ -1648,7 +1650,7 @@ window.previousQuestion=async()=>{
   if(idx<0){
     if(r<=1) return;
     r-=1;
-    idx=rounds[r].length-1;
+    idx=roundQuestionLimit(r)-1;
   }
 
   const item=rounds[r][idx];
@@ -1701,9 +1703,11 @@ window.advanceQuestion=async()=>{
   if(state?.gameStarted && !isInitialQuestion && (!displaySync || displaySync.key!==currentQuestionKey)) return;
 
   const r=Number(state?.round||1);
-  const idx=Number(state?.qIndex??-1)+1;
+  const limit=roundQuestionLimit(r);
+  const currentIndex=Math.max(-1,Math.min(Number(state?.qIndex??-1),limit-1));
+  const idx=currentIndex+1;
 
-  if(idx>=roundQuestionLimit(r)){
+  if(idx>=limit){
     if(r<3){
       await update(gameRef,{
         completedSections:r,
