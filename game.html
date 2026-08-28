@@ -657,7 +657,32 @@ body{
 
 
 
+
+/* الجولة الأولى فقط: خط يدوي قريب من المرجع */
+body[data-round="1"] #freeText{
+  font-family:"Aref Ruqaa Ink","Tajawal",sans-serif;
+  font-size:clamp(30px,3.1vw,50px);
+  font-weight:700;
+  line-height:1.8;
+  letter-spacing:.2px;
+}
+
+/* الإجابة المكشوفة تبقى بخط الموقع الأصلي */
+body[data-round="1"] #revealedAnswer,
+body[data-round="1"] #revealedAnswerText{
+  font-family:"Tajawal",sans-serif!important;
+  font-weight:900;
+}
+
+@media(max-width:700px){
+  body[data-round="1"] #freeText{
+    font-size:clamp(27px,8vw,38px);
+    line-height:1.7;
+  }
+}
+
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@400;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
 <div id="gameMainContent" class="shell game-main-content intro-hidden">
