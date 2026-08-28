@@ -537,7 +537,17 @@ function render(){
   el("buzz").classList.remove("win","lose");
   el("x2").classList.remove("active");
 
+  const bz=state?.buzzer||{};
   const questionX2=Number(state?.question?.x2Team||0);
+  const buzzerPhase=bz.phase||"open";
+  const x2Available=
+    bz.open===true &&
+    buzzerPhase==="open" &&
+    !bz.winner &&
+    !Number(bz.countdownUntil||0) &&
+    !state?.question?.revealed &&
+    !!state?.question?.historyKey;
+
   if(questionX2===team){
     el("x2").textContent="x2 مفعّل على هذا السؤال ✓";
     el("x2").classList.add("active");
@@ -547,13 +557,16 @@ function render(){
     el("x2").textContent="تم استخدام x2";
     el("x2").disabled=true;
     el("x2hint").textContent="انتهت فرصة المضاعفة لفريقك.";
+  }else if(!x2Available){
+    el("x2").textContent="مضاعفة النقاط x2";
+    el("x2").disabled=true;
+    el("x2hint").textContent="x2 متاحة فقط قبل أول ضغطة وقبل كشف الإجابة.";
   }else{
     el("x2").textContent="مضاعفة النقاط x2";
     el("x2").disabled=false;
     el("x2hint").textContent="لفريقك استخدام واحد فقط طوال اللعبة.";
   }
 
-  const bz=state?.buzzer||{};
   setBuzzerCenter("جرس","","active");
 
   if(renderPhaseCountdown(bz)) return;
@@ -655,13 +668,36 @@ window.activateX2=async()=>{
   if(teamState.x2Used) return showInappNotice("تم استخدام x2 مسبقًا.");
   if(!state?.question?.historyKey) return showInappNotice("انتظر بدء سؤال أولًا.");
   if(state?.question?.answeredTeam) return showInappNotice("هذا السؤال انتهى.");
+  if(state?.question?.revealed) return showInappNotice("لا يمكن استخدام x2 بعد كشف الإجابة.");
   if(state?.question?.x2Team) return showInappNotice("تم تفعيل x2 على هذا السؤال بالفعل.");
+
+  const liveBuzzer=state?.buzzer||{};
+  if(
+    liveBuzzer.open!==true ||
+    (liveBuzzer.phase||"open")!=="open" ||
+    liveBuzzer.winner ||
+    Number(liveBuzzer.countdownUntil||0)
+  ){
+    return showInappNotice("x2 متاحة فقط قبل أول ضغطة.");
+  }
 
   const result=await runTransaction(gameRef,current=>{
     if(!current) return;
     const t=current.teams?.[team]||current.teams?.[String(team)];
+    const currentBuzzer=current.buzzer||{};
     if(!t || t.x2Used) return;
-    if(!current.question?.historyKey || current.question?.answeredTeam || current.question?.x2Team) return;
+    if(
+      !current.question?.historyKey ||
+      current.question?.answeredTeam ||
+      current.question?.revealed ||
+      current.question?.x2Team
+    ) return;
+    if(
+      currentBuzzer.open!==true ||
+      (currentBuzzer.phase||"open")!=="open" ||
+      currentBuzzer.winner ||
+      Number(currentBuzzer.countdownUntil||0)
+    ) return;
 
     current.question.x2Team=team;
     current.question.x2Consumed=false;
@@ -669,7 +705,10 @@ window.activateX2=async()=>{
     return current;
   });
 
-  if(!result.committed) render();
+  if(!result.committed){
+    showInappNotice("تعذر تفعيل x2 في هذه اللحظة.");
+    render();
+  }
 };
 </script>
 </body>
