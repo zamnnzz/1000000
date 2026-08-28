@@ -695,6 +695,55 @@ body[data-round="1"] #hostAnswer{
   letter-spacing:0!important;
 }
 
+
+/* الجولة الثانية: لوحة من أنا للمقدم فقط */
+.round2-who-panel{
+  margin-top:14px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.round2-who-panel.hidden{display:none!important}
+.round2-person-name{
+  text-align:center;
+  color:#20bce4;
+  font-size:clamp(25px,2.2vw,36px);
+  font-weight:1000;
+  line-height:1.25;
+  padding:6px 10px 10px;
+}
+.round2-clues{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+.round2-clue{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 38px;
+  align-items:center;
+  gap:10px;
+  min-height:52px;
+  background:#fff;
+  border:3px solid var(--ink);
+  border-radius:11px;
+  padding:8px 9px 8px 13px;
+  box-shadow:0 3px 0 rgba(24,56,76,.13);
+  font-size:clamp(15px,1.15vw,19px);
+  font-weight:900;
+  line-height:1.55;
+}
+.round2-clue-num{
+  width:32px;
+  height:32px;
+  border:2px solid var(--ink);
+  border-radius:8px;
+  background:#ff7e31;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  font-weight:1000;
+}
+
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@500;600;700&display=swap" rel="stylesheet"/>
 </head>
@@ -735,6 +784,12 @@ body[data-round="1"] #hostAnswer{
       </div>
     </div>
     <div id="questionText" class="question" style="margin-top:14px">اضغط "السؤال التالي" لبدء الجولة.</div>
+
+    <div id="round2WhoPanel" class="round2-who-panel hidden">
+      <div id="round2PersonName" class="round2-person-name">الشخصية</div>
+      <div id="round2Clues" class="round2-clues"></div>
+    </div>
+
     <div id="answers" class="answers"></div>
 
     <div id="questionX2" class="question-x2" style="display:none"></div>
@@ -1008,10 +1063,35 @@ function render(){
   el("questionText").classList.toggle("round1-handwriting",r===1);
 
   const currentQuestionText=state?.question?.text||"";
+  const round2Panel=el("round2WhoPanel");
+  const round2CluesEl=el("round2Clues");
+
   if(r===1){
+    el("questionText").classList.remove("hidden");
+    round2Panel.classList.add("hidden");
     el("questionText").textContent=toDotlessArabic(currentQuestionText);
     el("hostAnswer").textContent=currentQuestionText||"—";
+  }else if(r===2){
+    el("questionText").classList.add("hidden");
+    round2Panel.classList.remove("hidden");
+
+    const personName=state?.question?.person || state?.question?.answer || "—";
+    const clues=Array.isArray(state?.question?.clues) && state.question.clues.length
+      ? state.question.clues
+      : [currentQuestionText].filter(Boolean);
+
+    el("round2PersonName").textContent=personName;
+    round2CluesEl.innerHTML=clues.slice(0,4).map((clue,i)=>`
+      <div class="round2-clue">
+        <div>${clue}</div>
+        <div class="round2-clue-num">${i+1}</div>
+      </div>
+    `).join("");
+
+    el("hostAnswer").textContent=personName;
   }else{
+    el("questionText").classList.remove("hidden");
+    round2Panel.classList.add("hidden");
     el("questionText").textContent=currentQuestionText;
     el("hostAnswer").textContent=state?.question?.answer||"—";
   }
@@ -1060,7 +1140,7 @@ function render(){
   const choices=state?.question?.choices||[];
   const hostChoicesKey=JSON.stringify([state?.round||1,state?.qIndex??-1,choices]);
   if(hostChoicesKey!==lastHostChoicesKey){
-    el("answers").innerHTML=choices.map(x=>`<div class="answer">${x}</div>`).join("");
+    el("answers").innerHTML=r===2 ? "" : choices.map(x=>`<div class="answer">${x}</div>`).join("");
     lastHostChoicesKey=hostChoicesKey;
   }
   const answerToggleBtn=el("answerToggleBtn");

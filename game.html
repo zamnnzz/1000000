@@ -1180,10 +1180,10 @@ onValue(gameRef,snap=>{
       tagEl.className="tag blue";
       mcqView.classList.remove("hidden");
       freeView.classList.add("hidden");
-      questionText.textContent=question.text||"بانتظار السؤال";
+      questionText.textContent=round===2?"من أنا؟":(question.text||"بانتظار السؤال");
 
       const letters=["أ","ب","ج","د"];
-      const choicesShouldShow=round!==3 || !!question.choicesVisible;
+      const choicesShouldShow=round===2 ? false : (round!==3 || !!question.choicesVisible);
       answers.innerHTML=choicesShouldShow
         ? choices.map((x,i)=>{
             if(hiddenChoices.includes(i)) return "";
