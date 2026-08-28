@@ -303,6 +303,78 @@ body.registered #connection{order:9}
   body.registered .delete2btn{padding:7px 10px;font-size:12px;margin-top:5px}
 }
 
+
+/* قدرات الفريق والخصم في هيدر الجرس */
+.player-topbar{
+  flex-direction:column;
+  align-items:stretch;
+  gap:10px;
+}
+.player-topbar-main{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.header-powers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  width:100%;
+}
+.header-power-team{
+  min-width:0;
+  border:2px solid var(--ink);
+  border-radius:13px;
+  padding:7px 9px;
+  background:rgba(255,255,255,.42);
+}
+.header-power-team.is-mine{
+  background:rgba(105,210,125,.16);
+}
+.header-power-team-title{
+  font-size:11px;
+  font-weight:1000;
+  opacity:.7;
+  margin-bottom:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.header-power-list{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.header-power{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:27px;
+  padding:4px 8px;
+  border:2px solid var(--ink);
+  border-radius:999px;
+  background:#fff;
+  font-size:11px;
+  font-weight:1000;
+  line-height:1;
+  transition:.2s ease;
+}
+.header-power.active{
+  background:#ffe277;
+  opacity:1;
+}
+.header-power.used{
+  opacity:.28;
+  filter:grayscale(1);
+  text-decoration:line-through;
+}
+@media(max-width:420px){
+  .player-topbar{padding:10px 12px}
+  .header-power{font-size:10px;padding:4px 6px}
+  .header-power-team{padding:6px 7px}
+}
+
 </style>
 </head>
 <body>
@@ -310,8 +382,26 @@ body.registered #connection{order:9}
   <div class="logo">من أنا؟</div>
 
   <div id="playerTopbar" class="player-topbar hidden">
-    <div id="buzzerTeamName" class="player-team-name">الفريق الأول</div>
-    <div class="player-score-pill">النقاط: <strong id="buzzerTeamScore">0</strong></div>
+    <div class="player-topbar-main">
+      <div id="buzzerTeamName" class="player-team-name">الفريق الأول</div>
+      <div class="player-score-pill">النقاط: <strong id="buzzerTeamScore">0</strong></div>
+    </div>
+    <div class="header-powers">
+      <div class="header-power-team is-mine">
+        <div class="header-power-team-title">فريقك</div>
+        <div class="header-power-list">
+          <span id="myX2Power" class="header-power">x2</span>
+          <span id="myDelete2Power" class="header-power">حذف 2</span>
+        </div>
+      </div>
+      <div class="header-power-team">
+        <div id="opponentPowerTitle" class="header-power-team-title">الخصم</div>
+        <div class="header-power-list">
+          <span id="oppX2Power" class="header-power">x2</span>
+          <span id="oppDelete2Power" class="header-power">حذف 2</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="card">
@@ -560,6 +650,34 @@ function render(){
   el("savedPlayer").textContent=playerName;
   el("buzzerTeamName").textContent=myTeam.name||("الفريق "+team);
   el("buzzerTeamScore").textContent=Number(myTeam.score||0);
+
+  const opponentTeamNumber=team===1?2:1;
+  const opponentTeam=teamData(opponentTeamNumber);
+  el("opponentPowerTitle").textContent=opponentTeam.name||"الخصم";
+
+  const setPowerState=(id,{used=false,active=false}={})=>{
+    const node=el(id);
+    node.classList.toggle("used",!!used);
+    node.classList.toggle("active",!!active && !used);
+    node.title=used?"تم استخدامها":active?"مفعّلة الآن":"متاحة";
+  };
+
+  const legacyHeaderX2=Number(state?.question?.x2Team||0);
+  const headerX2Teams={
+    ...(state?.question?.x2Teams||{}),
+    ...(legacyHeaderX2?{[legacyHeaderX2]:true}:{})
+  };
+
+  setPowerState("myX2Power",{
+    used:!!myTeam.x2Used,
+    active:!!myTeam.x2Active || !!headerX2Teams[team] || !!headerX2Teams[String(team)]
+  });
+  setPowerState("myDelete2Power",{used:!!myTeam.delete2Used});
+  setPowerState("oppX2Power",{
+    used:!!opponentTeam.x2Used,
+    active:!!opponentTeam.x2Active || !!headerX2Teams[opponentTeamNumber] || !!headerX2Teams[String(opponentTeamNumber)]
+  });
+  setPowerState("oppDelete2Power",{used:!!opponentTeam.delete2Used});
 
   const me=myTeam;
   el("buzz").classList.remove("win","lose");
