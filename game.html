@@ -570,6 +570,49 @@ body{
   .live-settings-grid{grid-template-columns:1fr}
 }
 
+
+.inapp-confirm{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(24,56,76,.42);
+}
+.inapp-confirm.hidden{display:none!important}
+.inapp-confirm-card{
+  width:min(430px,92vw);
+  background:#f7f8e8;
+  border:3px solid var(--navy);
+  border-radius:18px;
+  box-shadow:0 8px 0 rgba(24,56,76,.24);
+  padding:22px;
+  text-align:center;
+}
+.inapp-confirm-text{
+  font-size:18px;
+  line-height:1.7;
+  font-weight:900;
+  margin-bottom:18px;
+}
+.inapp-confirm-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.inapp-confirm-actions button{
+  border:3px solid var(--navy);
+  border-radius:12px;
+  padding:11px 14px;
+  font:inherit;
+  font-weight:900;
+  cursor:pointer;
+}
+.inapp-confirm-yes{background:#ffd9bd}
+.inapp-confirm-no{background:#fff}
+
 </style>
 </head>
 <body>
@@ -730,6 +773,16 @@ body{
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<div id="restartConfirm" class="inapp-confirm hidden">
+  <div class="inapp-confirm-card">
+    <div class="inapp-confirm-text">إعادة اللعبة من البداية؟ سيتم تصفير النقاط والتقدم.</div>
+    <div class="inapp-confirm-actions">
+      <button id="restartConfirmYes" class="inapp-confirm-yes" type="button">إعادة اللعبة</button>
+      <button id="restartConfirmNo" class="inapp-confirm-no" type="button">إلغاء</button>
+    </div>
+  </div>
+</div>
 
 <script src="./firebase-config.js"></script>
 <script type="module">
@@ -1173,8 +1226,16 @@ document.getElementById("saveLiveSettings").addEventListener("click",async()=>{
   }
 });
 
-document.getElementById("restartGameBtn").addEventListener("click",async()=>{
-  if(!confirm("إعادة اللعبة من البداية؟ سيتم تصفير النقاط والتقدم.")) return;
+document.getElementById("restartGameBtn").addEventListener("click",()=>{
+  document.getElementById("restartConfirm").classList.remove("hidden");
+});
+
+document.getElementById("restartConfirmNo").addEventListener("click",()=>{
+  document.getElementById("restartConfirm").classList.add("hidden");
+});
+
+document.getElementById("restartConfirmYes").addEventListener("click",async()=>{
+  document.getElementById("restartConfirm").classList.add("hidden");
 
   try{
     await update(gameRef,{

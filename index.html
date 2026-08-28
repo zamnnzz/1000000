@@ -91,6 +91,25 @@ input{
   transform:translateY(3px);
   box-shadow:0 4px 0 #2f8550;
 }
+.exit-btn{
+  display:block;
+  width:100%;
+  margin-top:12px;
+  background:#fff;
+  color:var(--navy);
+  border:3px solid var(--navy);
+  border-radius:16px;
+  box-shadow:0 5px 0 #aab6a3;
+  padding:13px 18px;
+  text-align:center;
+  text-decoration:none;
+  font-weight:1000;
+  font-size:18px;
+}
+.exit-btn:active{
+  transform:translateY(2px);
+  box-shadow:0 3px 0 #aab6a3;
+}
 .status{
   text-align:center;
   margin-top:13px;
@@ -281,6 +300,7 @@ input::placeholder{
   </section>
 
   <button id="startBtn" class="start">ابدأ الجولة!</button>
+  <a class="exit-btn" href="https://zamn-games.vercel.app/" target="_self">خروج</a>
   <div id="status" class="status">جاري الاتصال…</div>
 </main>
 
