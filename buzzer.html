@@ -375,6 +375,144 @@ body.registered #connection{order:9}
   .header-power-team{padding:6px 7px}
 }
 
+
+/* تبسيط صفحة الجرس وتقليل الزحمة */
+.phone{
+  width:min(430px,100%);
+  padding:10px 10px 12px;
+}
+.logo{
+  font-size:28px;
+  margin:2px 0 6px;
+}
+.player-topbar{
+  gap:6px;
+  padding:8px 10px;
+  margin-bottom:7px;
+}
+.player-topbar-main{
+  gap:8px;
+}
+.player-team-name{
+  font-size:15px;
+}
+.player-score-pill{
+  font-size:12px;
+  padding:5px 8px;
+}
+.header-powers{
+  margin-top:0;
+}
+.header-power-team{
+  padding:5px 7px;
+  border-width:2px;
+}
+.header-power-team-title{
+  font-size:10px;
+  margin-bottom:3px;
+}
+.header-power-list{
+  gap:4px;
+}
+.header-power{
+  min-height:23px;
+  padding:3px 7px;
+  font-size:10px;
+}
+body.registered .card{
+  padding:8px 9px 10px;
+}
+body.registered #savedPlayer{
+  margin-bottom:5px!important;
+  font-size:12px;
+  padding:5px 8px;
+}
+body.registered #status{
+  display:none;
+}
+body.registered .bigBuzzer{
+  width:min(245px,64vw);
+  height:min(245px,64vw);
+  min-width:190px;
+  min-height:190px;
+  margin:5px auto 7px;
+}
+body.registered #buzzMainText{
+  font-size:clamp(34px,10vw,52px);
+}
+body.registered .buzz-subtext{
+  font-size:12px;
+  margin-top:3px;
+}
+body.registered .x2btn,
+body.registered .delete2btn{
+  width:min(330px,92%);
+  margin:5px auto 0;
+  padding:8px 10px;
+  font-size:13px;
+}
+body.registered #x2hint,
+body.registered #delete2hint{
+  width:min(330px,92%);
+  margin:2px auto 0;
+  font-size:10px;
+  line-height:1.25;
+}
+body.registered #connection{
+  margin-top:5px!important;
+  font-size:10px;
+}
+@media(max-height:760px){
+  .phone{padding-top:6px}
+  .logo{font-size:24px;margin-bottom:4px}
+  .player-topbar{padding:6px 8px;margin-bottom:5px}
+  .header-power-team-title{display:none}
+  .header-power-team{padding:4px 6px}
+  body.registered .bigBuzzer{
+    width:min(205px,54vw);
+    height:min(205px,54vw);
+    min-width:170px;
+    min-height:170px;
+    margin:3px auto 5px;
+  }
+  body.registered .x2btn,
+  body.registered .delete2btn{
+    padding:6px 9px;
+    font-size:12px;
+    margin-top:4px;
+  }
+  body.registered #x2hint,
+  body.registered #delete2hint{
+    font-size:9px;
+  }
+}
+@media(max-height:650px){
+  body.registered .player-topbar{
+    flex-direction:row;
+    align-items:center;
+  }
+  body.registered .player-topbar-main{
+    flex:1;
+  }
+  body.registered .header-powers{
+    width:auto;
+    min-width:108px;
+  }
+  body.registered .header-power-team{
+    padding:3px 5px;
+  }
+  body.registered .bigBuzzer{
+    width:165px;
+    height:165px;
+    min-width:165px;
+    min-height:165px;
+  }
+  body.registered #x2hint,
+  body.registered #delete2hint{
+    display:none;
+  }
+}
+
 </style>
 </head>
 <body>
