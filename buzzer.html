@@ -1136,26 +1136,30 @@ function renderPhaseCountdown(bz){
     if(bz.phase==="first"){
       const mine=bz.firstPlayerId===playerId;
       const sameTeam=Number(bz.firstTeam||0)===team;
+      const firstTeamData=teamData(Number(bz.firstTeam||0));
+      const firstPlayerName=bz.firstPlayerName||"اللاعب";
+      const firstTeamName=firstTeamData.name||("الفريق "+Number(bz.firstTeam||0));
       el("buzz").disabled=true;
 
       if(mine){
-        setBuzzerCenter(String(remaining),"دورك — جاوب الآن","active");
+        setBuzzerCenter(firstPlayerName,`${firstTeamName} • ${remaining} ث • جاوب الآن`,"active");
         el("buzz").classList.add("win");
       }else if(sameTeam){
-        setBuzzerCenter(String(remaining),"زميلك يجاوب الآن","muted");
+        setBuzzerCenter(firstPlayerName,`${firstTeamName} • ${remaining} ث`,"muted");
       }else{
-        setBuzzerCenter(String(remaining),"الفرصة عند الفريق الآخر","muted");
+        setBuzzerCenter(firstPlayerName,`${firstTeamName} • ${remaining} ث`,"muted");
       }
     }else{
       const allowed=Number(bz.allowedTeam||0);
       const myTurn=allowed===team;
       const allowedTeamData=teamData(allowed);
+      const allowedTeamName=allowedTeamData.name||("الفريق "+allowed);
       el("buzz").disabled=!myTurn;
 
       if(myTurn){
-        setBuzzerCenter(String(remaining),"الفرصة عند فريقك","active");
+        setBuzzerCenter("انتقل الجرس",`${allowedTeamName} • ${remaining} ث`,"active");
       }else{
-        setBuzzerCenter(String(remaining),`الفرصة عند ${allowedTeamData.name||("الفريق "+allowed)}`,"muted");
+        setBuzzerCenter("انتقل الجرس",`${allowedTeamName} • ${remaining} ث`,"muted");
       }
     }
 
@@ -1287,13 +1291,14 @@ function render(){
   if(renderPhaseCountdown(bz)) return;
 
   if(bz.phase==="second_answer" && bz.winner){
-    const winnerPlayer=bz.winnerPlayerName||"";
+    const winnerPlayer=bz.winnerPlayerName||"اللاعب";
     const wt=teamData(Number(bz.winner));
+    const winnerTeamName=wt.name||("الفريق "+Number(bz.winner));
     if(bz.winnerPlayerId===playerId){
-      setBuzzerCenter("أنت الأسرع","جاوب الآن","active");
+      setBuzzerCenter(winnerPlayer,`${winnerTeamName} • جاوب الآن`,"active");
       el("buzz").classList.add("win");
     }else{
-      setBuzzerCenter("الفرصة عند",winnerPlayer || wt.name || "الفريق الآخر","muted");
+      setBuzzerCenter(winnerPlayer,winnerTeamName,"muted");
       el("buzz").classList.add("lose");
     }
     el("buzz").disabled=true;
