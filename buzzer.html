@@ -279,6 +279,30 @@ body.registered .bigBuzzer.active-state{
   color:var(--ink);
 }
 
+
+.delete2btn{
+  width:100%;
+  margin-top:8px;
+  background:#d7eff8;
+  border:3px solid var(--ink);
+  border-radius:14px;
+  padding:10px;
+  font-weight:1000;
+  font-size:15px;
+  box-shadow:0 3px 0 #8fb7c3;
+}
+.delete2btn:disabled{opacity:.5;filter:grayscale(.25)}
+body.registered .delete2btn{
+  order:7;
+  width:min(360px,92%);
+  margin:7px auto 0;
+}
+body.registered #delete2hint{order:8}
+body.registered #connection{order:9}
+@media(max-height:680px){
+  body.registered .delete2btn{padding:7px 10px;font-size:12px;margin-top:5px}
+}
+
 </style>
 </head>
 <body>
@@ -313,6 +337,9 @@ body.registered .bigBuzzer.active-state{
 
     <button id="x2" class="x2btn" onclick="activateX2()" disabled>مضاعفة النقاط x2</button>
     <div id="x2hint" class="x2hint">لكل فريق استخدام واحد فقط طوال اللعبة.</div>
+
+    <button id="delete2" class="delete2btn" onclick="activateDelete2()" disabled>حذف خيارين</button>
+    <div id="delete2hint" class="x2hint">لكل فريق استخدام واحد فقط طوال اللعبة.</div>
 
     <div id="connection" class="small muted" style="margin-top:14px">جاري الاتصال…</div>
   </div>
@@ -521,6 +548,7 @@ function render(){
     el("status").textContent="اكتب اسمك واختر فريقك ثم اضغط حفظ";
     el("buzz").disabled=true;
     el("x2").disabled=true;
+    el("delete2").disabled=true;
     return;
   }
 
@@ -538,9 +566,14 @@ function render(){
   el("x2").classList.remove("active");
 
   const bz=state?.buzzer||{};
-  const questionX2=Number(state?.question?.x2Team||0);
+  const legacyQuestionX2=Number(state?.question?.x2Team||0);
+  const questionX2Teams={
+    ...(state?.question?.x2Teams||{}),
+    ...(legacyQuestionX2?{[legacyQuestionX2]:true}:{})
+  };
+  const myX2Active=!!(questionX2Teams[team]||questionX2Teams[String(team)]);
   const buzzerPhase=bz.phase||"open";
-  const x2Available=
+  const powerAvailable=
     bz.open===true &&
     buzzerPhase==="open" &&
     !bz.winner &&
@@ -548,23 +581,45 @@ function render(){
     !state?.question?.revealed &&
     !!state?.question?.historyKey;
 
-  if(questionX2===team){
+  if(myX2Active){
     el("x2").textContent="x2 مفعّل على هذا السؤال ✓";
     el("x2").classList.add("active");
     el("x2").disabled=true;
-    el("x2hint").textContent="إذا جاوب فريقك هذا السؤال صح، نقاطه تتضاعف. وإذا جاوب الخصم، تضيع الفرصة.";
+    el("x2hint").textContent="إذا جاوب فريقك هذا السؤال صح، نقاطه تتضاعف.";
   }else if(me.x2Used){
     el("x2").textContent="تم استخدام x2";
     el("x2").disabled=true;
     el("x2hint").textContent="انتهت فرصة المضاعفة لفريقك.";
-  }else if(!x2Available){
+  }else if(!powerAvailable){
     el("x2").textContent="مضاعفة النقاط x2";
     el("x2").disabled=true;
     el("x2hint").textContent="x2 متاحة فقط قبل أول ضغطة وقبل كشف الإجابة.";
   }else{
     el("x2").textContent="مضاعفة النقاط x2";
     el("x2").disabled=false;
-    el("x2hint").textContent="لفريقك استخدام واحد فقط طوال اللعبة.";
+    el("x2hint").textContent="يمكن للفريقين تفعيل x2 على نفس السؤال.";
+  }
+
+  const choices=Array.isArray(state?.question?.choices)?state.question.choices:[];
+  const hasDelete2=Array.isArray(state?.question?.hiddenChoices) && state.question.hiddenChoices.length>=2;
+  const delete2Available=powerAvailable && choices.length>=4 && !hasDelete2;
+
+  if(me.delete2Used){
+    el("delete2").textContent="تم استخدام حذف خيارين";
+    el("delete2").disabled=true;
+    el("delete2hint").textContent="انتهت فرصة حذف خيارين لفريقك.";
+  }else if(hasDelete2){
+    el("delete2").textContent="تم حذف خيارين";
+    el("delete2").disabled=true;
+    el("delete2hint").textContent="تم تطبيق حذف خيارين على هذا السؤال.";
+  }else if(!delete2Available){
+    el("delete2").textContent="حذف خيارين";
+    el("delete2").disabled=true;
+    el("delete2hint").textContent=choices.length<4?"متاحة في أسئلة الخيارات فقط.":"متاحة قبل أول ضغطة وقبل كشف الإجابة.";
+  }else{
+    el("delete2").textContent="حذف خيارين";
+    el("delete2").disabled=false;
+    el("delete2hint").textContent="تحذف خيارين خاطئين من شاشة السؤال.";
   }
 
   setBuzzerCenter("جرس","","active");
@@ -669,7 +724,6 @@ window.activateX2=async()=>{
   if(!state?.question?.historyKey) return showInappNotice("انتظر بدء سؤال أولًا.");
   if(state?.question?.answeredTeam) return showInappNotice("هذا السؤال انتهى.");
   if(state?.question?.revealed) return showInappNotice("لا يمكن استخدام x2 بعد كشف الإجابة.");
-  if(state?.question?.x2Team) return showInappNotice("تم تفعيل x2 على هذا السؤال بالفعل.");
 
   const liveBuzzer=state?.buzzer||{};
   if(
@@ -686,12 +740,7 @@ window.activateX2=async()=>{
     const t=current.teams?.[team]||current.teams?.[String(team)];
     const currentBuzzer=current.buzzer||{};
     if(!t || t.x2Used) return;
-    if(
-      !current.question?.historyKey ||
-      current.question?.answeredTeam ||
-      current.question?.revealed ||
-      current.question?.x2Team
-    ) return;
+    if(!current.question?.historyKey || current.question?.answeredTeam || current.question?.revealed) return;
     if(
       currentBuzzer.open!==true ||
       (currentBuzzer.phase||"open")!=="open" ||
@@ -699,7 +748,14 @@ window.activateX2=async()=>{
       Number(currentBuzzer.countdownUntil||0)
     ) return;
 
-    current.question.x2Team=team;
+    current.question.x2Teams=current.question.x2Teams||{};
+    if(current.question.x2Team){
+      current.question.x2Teams[current.question.x2Team]=true;
+    }
+    if(current.question.x2Teams[team]||current.question.x2Teams[String(team)]) return;
+
+    current.question.x2Teams[team]=true;
+    current.question.x2Team=null;
     current.question.x2Consumed=false;
     t.x2Active=true;
     return current;
@@ -710,6 +766,44 @@ window.activateX2=async()=>{
     render();
   }
 };
+
+window.activateDelete2=async()=>{
+  if(!saved||!team)return;
+
+  const teamState=teamData(team);
+  if(teamState.delete2Used) return showInappNotice("تم استخدام حذف خيارين مسبقًا.");
+
+  const result=await runTransaction(gameRef,current=>{
+    if(!current) return;
+    const t=current.teams?.[team]||current.teams?.[String(team)];
+    const q=current.question||{};
+    const b=current.buzzer||{};
+    const choices=Array.isArray(q.choices)?q.choices:[];
+
+    if(!t || t.delete2Used) return;
+    if(!q.historyKey || q.revealed || q.answeredTeam) return;
+    if(b.open!==true || (b.phase||"open")!=="open" || b.winner || Number(b.countdownUntil||0)) return;
+    if(choices.length<4) return;
+    if(Array.isArray(q.hiddenChoices) && q.hiddenChoices.length>=2) return;
+
+    const wrong=[];
+    choices.forEach((choice,i)=>{
+      if(String(choice)!==String(q.answer)) wrong.push(i);
+    });
+    if(wrong.length<2) return;
+
+    // اختيار ثابت وعادل لخيارين خاطئين من السؤال نفسه.
+    q.hiddenChoices=[wrong[0],wrong[1]];
+    t.delete2Used=true;
+    return current;
+  });
+
+  if(!result.committed){
+    showInappNotice("لا يمكن استخدام حذف خيارين الآن.");
+    render();
+  }
+};
+
 </script>
 </body>
 </html>

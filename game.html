@@ -1049,8 +1049,9 @@ onValue(gameRef,snap=>{
   }
 
   // هذا هو المفتاح المهم: الخيارات تُعاد فقط إذا تغير السؤال نفسه.
+  const hiddenChoices=Array.isArray(question.hiddenChoices)?question.hiddenChoices:[];
   const questionRenderKey=JSON.stringify([
-    round,qIndex,question.text||"",choices
+    round,qIndex,question.text||"",choices,hiddenChoices
   ]);
 
   if(questionRenderKey!==lastQuestionRenderKey){
@@ -1072,12 +1073,15 @@ onValue(gameRef,snap=>{
       questionText.textContent=question.text||"بانتظار السؤال";
 
       const letters=["أ","ب","ج","د"];
-      answers.innerHTML=choices.map((x,i)=>`
-        <div class="answer">
-          <span>${x}</span>
-          <span class="letter">${letters[i]||""}</span>
-        </div>
-      `).join("");
+      answers.innerHTML=choices.map((x,i)=>{
+        if(hiddenChoices.includes(i)) return "";
+        return `
+          <div class="answer">
+            <span>${x}</span>
+            <span class="letter">${letters[i]||""}</span>
+          </div>
+        `;
+      }).join("");
     }
 
     lastQuestionRenderKey=questionRenderKey;
@@ -1242,9 +1246,11 @@ document.getElementById("restartConfirmYes").addEventListener("click",async()=>{
       "teams/1/score":0,
       "teams/1/x2Used":false,
       "teams/1/x2Active":false,
+      "teams/1/delete2Used":false,
       "teams/2/score":0,
       "teams/2/x2Used":false,
       "teams/2/x2Active":false,
+      "teams/2/delete2Used":false,
       completedSections:0,
       round:1,
       qIndex:-1,
@@ -1265,7 +1271,9 @@ document.getElementById("restartConfirmYes").addEventListener("click",async()=>{
         awardedPoints:0,
         historyKey:"",
         x2Team:null,
-        x2Consumed:false
+        x2Teams:{},
+        x2Consumed:false,
+        hiddenChoices:[]
       },
       buzzer:{
         open:true,

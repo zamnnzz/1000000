@@ -442,8 +442,8 @@ document.getElementById("startBtn").addEventListener("click", async () => {
 
   await set(gameRef, {
     teams: {
-      1: { name: team1Name, score: 0, x2Used: false, x2Active: false },
-      2: { name: team2Name, score: 0, x2Used: false, x2Active: false }
+      1: { name: team1Name, score: 0, x2Used: false, x2Active: false, delete2Used: false },
+      2: { name: team2Name, score: 0, x2Used: false, x2Active: false, delete2Used: false }
     },
     settings: {
       firstTimer: ft,
@@ -478,7 +478,9 @@ document.getElementById("startBtn").addEventListener("click", async () => {
       awardedPoints: 0,
       historyKey: "",
       x2Team: null,
-      x2Consumed: false
+      x2Teams: {},
+      x2Consumed: false,
+      hiddenChoices: []
     },
     buzzer: {
       open: true,

@@ -744,7 +744,9 @@ window.startGameNow=async()=>{
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
-      x2Consumed:historical?.x2Consumed||false
+      x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
+      x2Consumed:historical?.x2Consumed||false,
+      hiddenChoices:historical?.hiddenChoices||[]
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -827,7 +829,9 @@ window.nextQuestion=async()=>{
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
-      x2Consumed:historical?.x2Consumed||false
+      x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
+      x2Consumed:historical?.x2Consumed||false,
+      hiddenChoices:historical?.hiddenChoices||[]
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -873,7 +877,9 @@ window.startNextSection=async()=>{
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
-      x2Consumed:historical?.x2Consumed||false
+      x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
+      x2Consumed:historical?.x2Consumed||false,
+      hiddenChoices:historical?.hiddenChoices||[]
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -968,14 +974,19 @@ window.resolveQuestionAndNext=async(answeringTeam)=>{
 
     answeringTeam=Number(answeringTeam||0);
     const basePoints=Number(state.question.points||1);
-    const x2Team=Number(state.question.x2Team||0);
+    const legacyX2Team=Number(state.question.x2Team||0);
+    const x2Teams={
+      ...(state.question.x2Teams||{}),
+      ...(legacyX2Team?{[legacyX2Team]:true}:{})
+    };
+    const activeX2Teams=[1,2].filter(n=>x2Teams[n]||x2Teams[String(n)]);
     const winnerPlayerId=state?.buzzer?.winnerPlayerId||null;
     const winnerPlayerName=state?.buzzer?.winnerPlayerName||"";
 
     let awarded=0;
 
     if(answeringTeam===1 || answeringTeam===2){
-      awarded=(x2Team===answeringTeam)?basePoints*2:basePoints;
+      awarded=(x2Teams[answeringTeam]||x2Teams[String(answeringTeam)])?basePoints*2:basePoints;
 
       await runTransaction(ref(db,`${sessionPath}/teams/${answeringTeam}`),current=>{
         if(!current) return current;
@@ -984,8 +995,8 @@ window.resolveQuestionAndNext=async(answeringTeam)=>{
       });
     }
 
-    // x2 يُستهلك عند انتهاء السؤال حتى لو "محد جاوب".
-    if(x2Team===1 || x2Team===2){
+    // أي فريق فعّل x2 في هذا السؤال تُستهلك عليه عند انتهاء السؤال.
+    for(const x2Team of activeX2Teams){
       await update(ref(db,`${sessionPath}/teams/${x2Team}`),{
         x2Active:false,
         x2Used:true
@@ -1000,8 +1011,10 @@ window.resolveQuestionAndNext=async(answeringTeam)=>{
       awardedPoints:awarded,
       basePoints,
       answeredAt:Date.now(),
-      x2Team:x2Team||null,
-      x2Consumed:!!x2Team
+      x2Team:activeX2Teams.length===1?activeX2Teams[0]:null,
+      x2Teams:Object.fromEntries(activeX2Teams.map(n=>[n,true])),
+      x2Consumed:activeX2Teams.length>0,
+      hiddenChoices:Array.isArray(state.question.hiddenChoices)?state.question.hiddenChoices:[]
     };
 
     await update(gameRef,{
@@ -1011,7 +1024,8 @@ window.resolveQuestionAndNext=async(answeringTeam)=>{
       "question/answeredTeam":record.answeredTeam,
       "question/answeredNoOne":record.answeredNoOne,
       "question/awardedPoints":awarded,
-      "question/x2Consumed":!!x2Team,
+      "question/x2Teams":record.x2Teams,
+      "question/x2Consumed":record.x2Consumed,
       "buzzer/open":false
     });
 
@@ -1055,7 +1069,9 @@ window.previousQuestion=async()=>{
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
-      x2Consumed:historical?.x2Consumed||false
+      x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
+      x2Consumed:historical?.x2Consumed||false,
+      hiddenChoices:historical?.hiddenChoices||[]
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
@@ -1123,7 +1139,9 @@ window.advanceQuestion=async()=>{
       awardedPoints:Number(historical?.awardedPoints||0),
       historyKey,
       x2Team:historical?.x2Team||null,
-      x2Consumed:historical?.x2Consumed||false
+      x2Teams:historical?.x2Teams||(historical?.x2Team?{[historical.x2Team]:true}:{}),
+      x2Consumed:historical?.x2Consumed||false,
+      hiddenChoices:historical?.hiddenChoices||[]
     },
     "buzzer/open":true,
     "buzzer/phase":"open",
