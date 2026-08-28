@@ -1230,6 +1230,10 @@ document.getElementById("restartGameBtn").addEventListener("click",async()=>{
     });
     document.getElementById("settingsMessage").textContent="تمت إعادة اللعبة ✓";
     optionsModal.classList.add("hidden");
+
+    // بعد التصفير ارجع مباشرة لواجهة بداية اللعبة بدل البقاء في شاشة العرض.
+    const restartUrl=new URL("index.html",baseRoot).href;
+    window.location.replace(restartUrl);
   }catch(e){
     console.error("Restart game error",e);
     document.getElementById("settingsMessage").textContent="تعذر إعادة اللعبة";
