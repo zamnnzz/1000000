@@ -664,6 +664,18 @@ body{
 .buzzer-state-pill.is-open{background:#bcebb4}
 .buzzer-state-pill.is-closed{background:#eef0ea;opacity:.72}
 
+
+.synced-buzzer-owner{
+  border:3px solid var(--ink);
+  border-radius:999px;
+  background:#ffe277;
+  padding:8px 12px;
+  font-size:13px;
+  font-weight:1000;
+  text-align:center;
+}
+.synced-buzzer-owner.hidden{display:none!important}
+
 </style>
 </head>
 <body>
@@ -735,6 +747,7 @@ body{
       <span id="buzzerState" class="buzzer-state-pill">مغلق</span>
     </div>
     <div id="winnerBox" class="status winner buzzer-winner-box">لا يوجد ضغط بعد</div>
+    <div id="hostBuzzerOwner" class="synced-buzzer-owner hidden"></div>
     <div class="buzzer-control-stack">
       <button class="btn green buzzer-control-btn" onclick="openBuzzer()">فتح الجرس</button>
       <button class="btn orange buzzer-control-btn" onclick="closeBuzzer()">إغلاق الجرس</button>
@@ -1038,6 +1051,18 @@ function render(){
   }else{
     el("winnerBox").textContent=bz.open?"الجرس مفتوح — بانتظار أول ضغطة":"لا يوجد ضغط بعد";
     el("winnerBox").style.background="#fff";
+  }
+
+  const hostBuzzerOwner=el("hostBuzzerOwner");
+  const ownerTeam=Number(bz.allowedTeam||0);
+  const ownerActive=(bz.phase==="second" || bz.phase==="second_answer") && (ownerTeam===1 || ownerTeam===2);
+  if(ownerActive){
+    const owner=teamData(ownerTeam);
+    hostBuzzerOwner.textContent=`الجرس عند ${owner.name||("الفريق "+ownerTeam)}`;
+    hostBuzzerOwner.classList.remove("hidden");
+  }else{
+    hostBuzzerOwner.textContent="";
+    hostBuzzerOwner.classList.add("hidden");
   }
 
 
