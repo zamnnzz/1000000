@@ -75,13 +75,181 @@ body{min-height:100dvh;display:grid;place-items:center}
   .phone{padding:8px 10px}.logo{font-size:34px}.card{padding:11px}.bigBuzzer{width:min(210px,58vw,28vh)}
 }
 
+
+/* واجهة الجرس بشكل قريب من التصميم المرجعي */
+body{
+  background-color:#f3f8e5;
+  background-image:none;
+  display:block;
+}
+.phone{
+  width:100%;
+  min-height:100dvh;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+}
+.logo{
+  width:100%;
+  margin:0;
+  padding:18px 16px 16px;
+  border-bottom:3px solid var(--ink);
+  text-align:center;
+  font-size:clamp(27px,5.4vw,38px);
+  line-height:1;
+  background:#edf7cf;
+}
+.player-topbar{
+  width:100%;
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:14px 20px;
+  border-bottom:3px solid var(--ink);
+  background:#edf7cf;
+}
+.player-team-name{
+  min-width:0;
+  font-size:clamp(20px,4.6vw,29px);
+  font-weight:1000;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.player-score-pill{
+  flex:0 0 auto;
+  background:#245c63;
+  color:#fff;
+  border:3px solid var(--ink);
+  border-radius:999px;
+  padding:9px 15px;
+  font-size:clamp(14px,3.4vw,18px);
+  font-weight:1000;
+  box-shadow:0 3px 0 rgba(24,56,76,.18);
+}
+.card{
+  width:min(460px,calc(100% - 24px));
+  margin:18px auto;
+  background:rgba(234,249,208,.96);
+}
+
+/* بعد حفظ بيانات اللاعب تصبح الشاشة مفتوحة وبسيطة مثل المرجع */
+body.registered .card{
+  width:100%;
+  flex:1;
+  margin:0;
+  padding:0 18px 18px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+body.registered #registrationBadge,
+body.registered #registration{
+  display:none!important;
+}
+body.registered #savedPlayer{
+  border:0;
+  background:transparent;
+  padding:8px 10px 0;
+  margin:0!important;
+  font-size:13px;
+  color:#607267;
+}
+body.registered #status{
+  order:4;
+  border:0;
+  background:transparent;
+  padding:4px 8px;
+  margin-top:8px;
+  min-height:28px;
+  font-size:14px;
+}
+body.registered .bigBuzzer{
+  order:2;
+  width:min(310px,68vw,42vh);
+  min-width:220px;
+  margin:auto auto 12px;
+  border:7px solid var(--ink);
+  outline:7px solid rgba(24,56,76,.13);
+  outline-offset:10px;
+  background:#69d27d;
+  color:var(--ink);
+  font-size:clamp(30px,7vw,46px);
+  box-shadow:
+    0 12px 0 #355d62,
+    0 22px 34px rgba(24,56,76,.14);
+}
+body.registered .bigBuzzer:active{
+  transform:translateY(6px);
+  box-shadow:
+    0 6px 0 #355d62,
+    0 14px 24px rgba(24,56,76,.12);
+}
+body.registered .bigBuzzer:disabled{
+  opacity:1;
+  filter:none;
+}
+body.registered .bigBuzzer.win{
+  background:#69d27d;
+  box-shadow:0 12px 0 #355d62,0 22px 34px rgba(24,56,76,.14);
+}
+body.registered .bigBuzzer.lose{
+  background:#c8d0c4;
+  box-shadow:0 12px 0 #7b8981,0 22px 34px rgba(24,56,76,.12);
+}
+body.registered .x2btn{
+  order:5;
+  width:min(360px,92%);
+  margin:6px auto 0;
+  padding:9px 12px;
+  font-size:14px;
+}
+body.registered .x2hint{
+  order:6;
+  max-width:360px;
+  margin:6px auto 0;
+  font-size:10px;
+}
+body.registered #connection{
+  order:7;
+  margin-top:7px!important;
+  padding-bottom:4px;
+}
+@media(max-height:680px){
+  .logo{padding:12px 14px 11px;font-size:28px}
+  .player-topbar{min-height:64px;padding:9px 16px}
+  .player-team-name{font-size:20px}
+  .player-score-pill{padding:7px 12px;font-size:14px}
+  body.registered .bigBuzzer{
+    width:min(240px,56vw,36vh);
+    min-width:180px;
+    margin:auto auto 8px;
+    outline-width:5px;
+    outline-offset:7px;
+  }
+  body.registered .x2btn{padding:7px 10px;font-size:12px}
+  body.registered #status{font-size:12px;margin-top:4px}
+}
+
 </style>
 </head>
 <body>
 <div class="phone">
   <div class="logo">من أنا؟</div>
+
+  <div id="playerTopbar" class="player-topbar hidden">
+    <div id="buzzerTeamName" class="player-team-name">الفريق الأول</div>
+    <div class="player-score-pill">النقاط: <strong id="buzzerTeamScore">0</strong></div>
+  </div>
+
   <div class="card">
-    <div class="badge">بيانات المتسابق</div>
+    <div id="registrationBadge" class="badge">بيانات المتسابق</div>
 <div id="registration">
       <div style="text-align:right;margin:14px 0 8px;font-weight:900">اسمك</div>
       <input id="playerName" type="text" placeholder="اكتب اسمك" style="width:100%;padding:13px;border:3px solid var(--ink);border-radius:12px;font:inherit;font-weight:800;background:#fff">
@@ -286,6 +454,8 @@ function render(){
   el("regPick2").classList.toggle("active",team===2);
 
   if(!saved){
+    document.body.classList.remove("registered");
+    el("playerTopbar").classList.add("hidden");
     el("registration").classList.remove("hidden");
     el("savedPlayer").style.display="none";
     // لا تعيد كتابة الحقل أثناء ما المستخدم يكتب.
@@ -298,10 +468,14 @@ function render(){
     return;
   }
 
+  document.body.classList.add("registered");
+  el("playerTopbar").classList.remove("hidden");
   el("registration").classList.add("hidden");
   el("savedPlayer").style.display="block";
   const myTeam=teamData(team);
-  el("savedPlayer").textContent=`${playerName} — ${myTeam.name||("الفريق "+team)}`;
+  el("savedPlayer").textContent=playerName;
+  el("buzzerTeamName").textContent=myTeam.name||("الفريق "+team);
+  el("buzzerTeamScore").textContent=Number(myTeam.score||0);
 
   const me=myTeam;
   el("buzz").classList.remove("win","lose");
@@ -361,7 +535,8 @@ function render(){
     return;
   }
 
-  el("status").textContent="الجرس مفتوح!";
+  el("status").textContent="جاهز للضغط";
+  el("buzz").textContent="جاهز";
   el("buzz").disabled=false;
 }
 
