@@ -31,31 +31,92 @@ body{
 .hidden{display:none!important}
 .shell{height:100%;display:flex;flex-direction:column}
 .scoreboard{
-  flex:0 0 clamp(118px,15.5vh,150px);
+  flex:0 0 clamp(122px,16vh,154px);
   display:grid;
-  grid-template-columns:minmax(0,1fr) clamp(92px,6.8vw,110px) minmax(0,1fr);
+  grid-template-columns:minmax(0,1fr) clamp(104px,7.4vw,122px) minmax(0,1fr);
   border:3px solid var(--navy);
-  background:white;
+  background:#fff;
+  font-family:"Segoe UI",Tahoma,Arial,sans-serif;
 }
 .team{
-  display:flex;align-items:center;justify-content:center;flex-direction:column;
-  font-weight:900;text-align:center;padding:8px 20px
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+  font-weight:900;
+  text-align:center;
+  padding:12px 24px;
+  min-width:0;
 }
 .team.left{background:var(--team2)}
 .team.right{background:var(--team1)}
-.team-name{font-size:clamp(16px,1.15vw,20px);margin-bottom:2px}
-.team-score{font-size:clamp(43px,3.9vw,61px);line-height:1}
+.team-title-line{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-width:0;
+  max-width:100%;
+}
+.team-name{
+  font-size:clamp(18px,1.35vw,23px);
+  line-height:1.15;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.team-x2{
+  display:none;
+  flex:0 0 auto;
+  height:auto;
+  margin:0;
+  padding:4px 8px;
+  border:2px solid var(--navy);
+  border-radius:999px;
+  background:#ffe277;
+  color:#7c4a0e;
+  font-size:clamp(10px,.72vw,12px);
+  line-height:1;
+  font-weight:1000;
+}
+.team-x2.active{display:inline-flex}
+.team-score{
+  font-size:clamp(47px,4.15vw,66px);
+  line-height:.95;
+  font-weight:1000;
+  letter-spacing:-1px;
+}
 .center{
   background:var(--center);
-  border-left:1px solid #a3b99d;border-right:1px solid #a3b99d;
-  display:flex;align-items:center;justify-content:center;flex-direction:column;
-  gap:5px;padding:7px
+  border-left:2px solid #a3b99d;
+  border-right:2px solid #a3b99d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:6px;
+  padding:9px 7px;
 }
-.logo-mini{font-size:clamp(24px,2vw,31px);font-weight:1000;line-height:.78;text-align:center;letter-spacing:-2px}
+.logo-mini{
+  font-size:clamp(25px,2.05vw,33px);
+  font-weight:1000;
+  line-height:.82;
+  text-align:center;
+  letter-spacing:-1px;
+}
 .stars{font-size:clamp(15px,1.15vw,19px);letter-spacing:1px;line-height:1}
 .options{
-  border:0;background:var(--navy);color:#fff;border-radius:11px;
-  padding:7px 12px;font-size:clamp(11px,.75vw,13px);font-weight:900
+  border:0;
+  background:var(--navy);
+  color:#fff;
+  border-radius:11px;
+  padding:8px 13px;
+  font-family:inherit;
+  font-size:clamp(11px,.78vw,13px);
+  font-weight:900;
+  cursor:pointer;
 }
 .stage{
   flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
@@ -192,7 +253,6 @@ body{
 @media(max-width:650px){.qr-grid{grid-template-columns:1fr}}
 
 
-.team-x2{height:17px;font-size:11px;font-weight:1000;color:#9b5a12;margin-bottom:1px}
 .revealed-answer{
   margin-top:14px;background:#fff1b8;border:3px solid var(--navy);
   border-radius:13px;padding:11px 15px;text-align:center;
@@ -207,12 +267,6 @@ body{
   font-size:clamp(14px,1vw,17px);font-weight:900
 }
 
-.game-x2-badge{
-  position:absolute;left:24px;top:-34px;
-  background:#ffe277;border:3px solid var(--navy);border-radius:11px;
-  padding:8px 12px;font-weight:1000;font-size:14px;
-  box-shadow:0 4px 0 rgba(24,56,76,.18)
-}
 
 /* تقدم الفقرات */
 .stars{
@@ -522,7 +576,10 @@ body{
 <div id="gameMainContent" class="shell game-main-content intro-hidden">
   <header class="scoreboard">
     <section class="team left">
-      <div id="team2Name" class="team-name">الفريق الثاني</div><div id="team2X2" class="team-x2"></div>
+      <div class="team-title-line">
+        <div id="team2Name" class="team-name">الفريق الثاني</div>
+        <div id="team2X2" class="team-x2"></div>
+      </div>
       <div id="team2Score" class="team-score">0</div>
     </section>
     <section class="center">
@@ -535,7 +592,10 @@ body{
       <button id="optionsBtn" class="options">▼ الخيارات</button>
     </section>
     <section class="team right">
-      <div id="team1Name" class="team-name">الفريق الأول</div><div id="team1X2" class="team-x2"></div>
+      <div class="team-title-line">
+        <div id="team1Name" class="team-name">الفريق الأول</div>
+        <div id="team1X2" class="team-x2"></div>
+      </div>
       <div id="team1Score" class="team-score">0</div>
     </section>
   </header>
@@ -544,7 +604,6 @@ body{
     <section class="card">
       <div class="qnum">السؤال <span id="qnum">1</span> — <span id="gamePoints">0</span> نقاط</div>
       <div id="tag" class="tag blue">من القائل؟</div>
-      <div id="gameX2Badge" class="game-x2-badge hidden"></div>
 
       <div id="mcqView">
         <div class="question">
@@ -904,21 +963,14 @@ onValue(gameRef,snap=>{
     team2Name.textContent=t2.name||"الفريق الثاني";
     team1Score.textContent=t1.score||0;
     team2Score.textContent=t2.score||0;
-    document.getElementById("team1X2").textContent=t1.x2Active?"x2 مفعّل":(t1.x2Used?"x2 مستخدم":"");
-    document.getElementById("team2X2").textContent=t2.x2Active?"x2 مفعّل":(t2.x2Used?"x2 مستخدم":"");
+    const team1X2=document.getElementById("team1X2");
+    const team2X2=document.getElementById("team2X2");
+    team1X2.textContent=t1.x2Active?"x2 مفعّل":"";
+    team2X2.textContent=t2.x2Active?"x2 مفعّل":"";
+    team1X2.classList.toggle("active",!!t1.x2Active);
+    team2X2.classList.toggle("active",!!t2.x2Active);
     qnum.textContent=Math.max(1,qIndex+1);
     document.getElementById("gamePoints").textContent=Number(question.points||0);
-
-    const gx2=document.getElementById("gameX2Badge");
-    const qx2=Number(question.x2Team||0);
-    if(qx2){
-      const xt=s.teams?.[qx2]||s.teams?.[String(qx2)];
-      gx2.textContent=`x2 — ${xt?.name||("الفريق "+qx2)}`;
-      gx2.classList.remove("hidden");
-    }else{
-      gx2.classList.add("hidden");
-      gx2.textContent="";
-    }
     lastScoreKey=scoreKey;
   }
 
