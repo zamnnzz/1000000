@@ -43,11 +43,43 @@ button{font:inherit;cursor:pointer}
   transform:translateX(-50%) translateY(0);
 }
 
+
+/* compact buzzer layout */
+html,body{width:100%;min-height:100%;overflow-x:hidden}
+body{min-height:100dvh;display:grid;place-items:center}
+.phone{width:min(460px,100%);padding:10px 14px}
+.logo{font-size:clamp(36px,6vh,46px);line-height:.95;margin:2px 0 12px}
+.card{border-width:3px;border-radius:16px;box-shadow:0 4px 0 var(--shadow);padding:14px}
+.badge{padding:5px 10px;font-size:13px}
+#registration>div[style*="margin:14px"]{margin:8px 0 5px!important;font-size:13px}
+#playerName{padding:9px 11px!important;border-width:3px!important;font-size:14px!important}
+.teamPick{gap:8px;margin:8px 0 10px}.btn{padding:9px 10px;border-width:3px;box-shadow:0 3px 0 #9fac9e;font-size:13px}
+.status{padding:8px 10px;border-width:3px;font-size:13px}#savedPlayer{margin-bottom:7px!important}
+.bigBuzzer{
+  width:min(230px,56vw,29vh);min-width:160px;border-width:6px;font-size:clamp(28px,5vh,38px);
+  box-shadow:0 10px 0 #b54e1f,0 18px 28px rgba(24,56,76,.16);margin:14px auto
+}
+.bigBuzzer:active{transform:translateY(5px);box-shadow:0 5px 0 #b54e1f}
+.bigBuzzer.win{box-shadow:0 10px 0 #2f8850}.bigBuzzer.lose{box-shadow:0 10px 0 #889487}
+.x2btn{margin-top:0;padding:10px;font-size:15px;box-shadow:0 3px 0 #b79c3d}
+.x2hint{font-size:11px;margin:6px 0 0;line-height:1.35}#connection{margin-top:8px!important;font-size:11px}
+@media(max-height:700px){
+  .phone{padding:6px 12px}.logo{font-size:30px;margin:0 0 7px}.card{padding:10px 12px}.badge{padding:4px 9px;font-size:11px}
+  #registration>div[style*="margin:14px"]{margin:5px 0 3px!important;font-size:11px}
+  #playerName{padding:7px 9px!important;font-size:12px!important}.teamPick{margin:6px 0 7px;gap:6px}
+  .btn{padding:7px 8px;font-size:11px}.status{padding:6px 8px;font-size:11px}
+  .bigBuzzer{width:min(176px,42vw,25vh);min-width:130px;border-width:5px;font-size:27px;margin:9px auto;box-shadow:0 7px 0 #b54e1f,0 12px 20px rgba(24,56,76,.14)}
+  .x2btn{padding:7px;font-size:12px}.x2hint{font-size:9px;margin-top:4px}#connection{margin-top:5px!important;font-size:9px}
+}
+@media(max-width:420px){
+  .phone{padding:8px 10px}.logo{font-size:34px}.card{padding:11px}.bigBuzzer{width:min(210px,58vw,28vh)}
+}
+
 </style>
 </head>
 <body>
 <div class="phone">
-  <div class="logo">من أنا؟<div class="small muted" style="margin-top:8px">جرس المتسابق</div></div>
+  <div class="logo">من أنا؟</div>
   <div class="card">
     <div class="badge">بيانات المتسابق</div>
 <div id="registration">

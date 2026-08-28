@@ -310,11 +310,46 @@ button{font:inherit;cursor:pointer}
   transform:translateX(-50%) translateY(0);
 }
 
+
+/* compact host layout */
+html,body{min-height:100%;overflow-x:hidden}
+body{min-height:100dvh}
+.wrap{width:min(980px,100%);max-width:980px;padding:12px 14px 18px}
+.logo{font-size:clamp(36px,5vh,48px);line-height:.95;margin:2px 0 12px}
+.scorebar{grid-template-columns:1fr 84px 1fr;margin-bottom:10px;border-width:3px}
+.teamBox{padding:8px 12px}.teamName{font-size:clamp(14px,1.5vh,17px)}.score{font-size:clamp(32px,4.8vh,42px)}
+.centerBox{font-size:22px}#connection{margin:-6px 0 9px!important}
+.card{border-width:3px;padding:12px 14px;margin-bottom:10px;box-shadow:0 4px 0 var(--shadow)}
+.hostHeader{margin-bottom:8px}.badge{padding:5px 10px;font-size:13px}
+.question-meta span{padding:5px 9px;font-size:13px}
+.question{padding:12px 16px;min-height:74px;font-size:clamp(17px,2.1vh,21px);line-height:1.45;border-width:3px;box-shadow:0 3px 0 #9faa9b}
+.answers{gap:7px;margin-top:8px}.answer{padding:7px 9px;border-width:2px;font-size:14px}
+.answerBox{margin-top:8px;padding:9px 12px;font-size:17px;border-width:3px}
+.question-x2{margin-top:8px;padding:7px 10px}.controls{gap:7px;margin-top:9px}
+.btn{padding:9px 12px;border-width:3px;box-shadow:0 3px 0 #9fac9e;font-size:14px}
+.status{padding:9px;border-width:3px}.winner{font-size:19px}
+.question-nav{margin-top:10px!important;gap:8px!important}
+.question-nav-btn,.question-nav-badge{min-height:38px!important;padding:7px 10px!important;font-size:14px!important}
+.answer-controls{margin-top:9px!important}
+@media (min-width:701px) and (max-height:760px){
+  .wrap{padding-top:7px;padding-bottom:8px}.logo{font-size:32px;margin:0 0 7px}.scorebar{margin-bottom:7px}
+  .teamBox{padding:5px 10px}.score{font-size:30px}#connection{margin:-4px 0 6px!important;font-size:11px}
+  .card{padding:9px 11px;margin-bottom:7px}.question{min-height:58px;padding:8px 12px;font-size:16px}
+  .answerBox{margin-top:6px;padding:6px 9px;font-size:15px}.controls{margin-top:6px}
+  .btn{padding:7px 9px;font-size:12px}.status{padding:6px}.winner{font-size:16px}.question-nav{margin-top:7px!important}
+}
+@media(max-width:700px){
+  .wrap{padding:10px 10px 14px}.logo{font-size:34px;margin:2px 0 10px}.scorebar{grid-template-columns:1fr 62px 1fr}
+  .teamBox{padding:7px 6px}.teamName{font-size:12px}.score{font-size:30px}.card{padding:11px 10px}
+  .question{font-size:16px;min-height:66px;padding:10px}.roundTabs,.grid2{grid-template-columns:1fr}
+  .answers{grid-template-columns:1fr 1fr}.btn{font-size:12px;padding:8px 9px}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="logo">من أنا؟<div class="small muted" style="margin-top:8px">واجهة المقدم</div></div>
+  <div class="logo">من أنا؟</div>
 
   <div class="scorebar">
     <div class="teamBox t2"><div id="team2Name" class="teamName">الفريق الثاني</div><div id="team2Score" class="score">0</div></div>
