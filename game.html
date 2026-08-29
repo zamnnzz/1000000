@@ -939,6 +939,18 @@ body{
   .scoreboard{flex-basis:clamp(86px,9.5dvh,98px)}
 }
 
+/* Score header only: force the three colored cells to fill the header row completely. */
+.scoreboard{
+  grid-template-rows:minmax(0,1fr);
+  align-items:stretch;
+  align-content:stretch;
+}
+.scoreboard > .team,
+.scoreboard > .center{
+  height:100%;
+  min-height:0;
+}
+
 </style>
 </head>
 <body>
