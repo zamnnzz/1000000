@@ -934,6 +934,11 @@ body{
   .letter{width:21px;height:21px;flex-basis:21px;font-size:10px}
 }
 
+/* Tall screens: keep the header compact so no empty vertical space appears. */
+@media (min-height:900px){
+  .scoreboard{flex-basis:clamp(96px,11dvh,112px)}
+}
+
 </style>
 </head>
 <body>

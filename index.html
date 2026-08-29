@@ -262,6 +262,26 @@ input::placeholder{
   .qr-side{padding:18px 14px}
 }
 
+/* تمرير سلس وكامل لنافذة الباركود على الشاشات الطولية فقط */
+.connect-overlay{
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  scroll-behavior:smooth;
+}
+@media (max-width:720px), (orientation:portrait) and (max-height:1100px){
+  .connect-overlay{
+    align-items:flex-start;
+    padding-top:max(18px, env(safe-area-inset-top));
+    padding-bottom:max(26px, env(safe-area-inset-bottom));
+  }
+  .qr-connect-card{
+    margin:0;
+    flex:0 0 auto;
+  }
+}
+
 
 .question-count-card{text-align:center}
 .round-count-note{
