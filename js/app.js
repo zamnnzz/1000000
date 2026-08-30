@@ -234,7 +234,7 @@ function openGame(game,push=true){
   renderSeoRelated(game);
 
   // مميزات «من أنا؟» خاصة بهذه اللعبة فقط عند التنقل داخل صفحة اللعبة.
-  const mnAnaFeaturesTitle=document.querySelector(".mnana-cartoon-features-title");
+  const mnAnaFeaturesTitle=document.getElementById("mnAnaFeaturesTitle") || document.querySelector(".mnana-cartoon-features-title");
   const mnAnaFeatures=document.querySelector(".mnana-cartoon-features");
   const isMnAna=game.slug==="mn-ana";
   if(mnAnaFeaturesTitle) mnAnaFeaturesTitle.hidden=!isMnAna;
