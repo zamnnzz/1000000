@@ -6118,7 +6118,7 @@ window.addEventListener("orientationchange", checkOrientation);
     const selected = (typeof lastSelectedHex !== "undefined" && lastSelectedHex) ? lastSelectedHex.id : null;
     return {
       ts: Date.now(),
-      gridSize: Number(window.currentGridSize || 5),
+      gridSize: Number(typeof currentGridSize !== "undefined" ? currentGridSize : 5),
       board: collectBoard(),
       selectedId: selected,
       currentLetter: (typeof currentLetter !== "undefined" && currentLetter) ? currentLetter : "",
