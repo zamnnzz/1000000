@@ -109,6 +109,10 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
 .fast.c1{background:var(--c1,#e43b41);color:#fff;border-color:rgba(255,255,255,.45)}
 .fast.c2{background:var(--c2,#0056b3);color:#fff;border-color:rgba(255,255,255,.45)}
 
+
+.board-card{position:relative!important;overflow:hidden!important;background:var(--c2,#0056b3)!important;}
+.board-card::before{content:"";position:absolute;inset:0;background:var(--c1,#e43b41);clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,50% 50%,0 100%);pointer-events:none;}
+.board-card .hex-grid{position:relative;z-index:2;}
 </style>
 </head>
 <body>
@@ -190,28 +194,12 @@ const controls=[...document.querySelectorAll("button")];
 
 function send(type, extra={}){
  if(!session) return;
-
- // استجابة فورية في شاشة المقدم، ثم اللعبة الأساسية تؤكد الحالة النهائية عبر Firebase.
- if(type === "givePoint" && state && state.selectedId && Array.isArray(state.board)){
-   state.board.forEach(x=>{
-     if(x.id === state.selectedId) x.status = extra.team;
-     else if(x.status === "selected") x.status = "neutral";
-   });
-   lastBoardKey = "";
-   renderBoard(state);
-
-   if(extra.team === "c1") state.scores = {...(state.scores||{}), c1:Number(state.scores?.c1||0)+1};
-   if(extra.team === "c2") state.scores = {...(state.scores||{}), c2:Number(state.scores?.c2||0)+1};
-   document.getElementById("score1").textContent=state.scores?.c1??0;
-   document.getElementById("score2").textContent=state.scores?.c2??0;
- }
-
  db.ref("games/"+session+"/presenterCommands").push({type,...extra,ts:Date.now()});
 }
 function esc(s){return String(s??"")}
 function renderBoard(st){
  const board=Array.isArray(st.board)?st.board:[];
- const key=JSON.stringify(board);
+ const key=JSON.stringify({board,teamColors:st.teamColors,selectedId:st.selectedId});
  if(key===lastBoardKey)return;
  lastBoardKey=key;
  grid.innerHTML="";
@@ -339,6 +327,8 @@ function render(st){
  const t1=document.getElementById("team1Box"), t2=document.getElementById("team2Box");
  t1.style.borderColor=state.teamColors?.c1||"#e43b41";
  t2.style.borderColor=state.teamColors?.c2||"#0056b3";
+ document.getElementById("team1Btn").style.background=state.teamColors?.c1||"#e43b41";
+ document.getElementById("team2Btn").style.background=state.teamColors?.c2||"#0056b3";
  t1.classList.toggle("active-team",state.buzzerTeam==="c1");
  t2.classList.toggle("active-team",state.buzzerTeam==="c2");
  const fast=document.getElementById("fast");
