@@ -6036,7 +6036,7 @@ window.addEventListener("orientationchange", checkOrientation);
       items.push({
         id: hex.id,
         letter: hex.dataset.letter || "",
-        status: (window.gridStatus && gridStatus[hex.id]) || "neutral"
+        status: (typeof gridStatus !== "undefined" && gridStatus[hex.id]) ? gridStatus[hex.id] : "neutral"
       });
     });
     return items;
