@@ -96,37 +96,120 @@ font-weight: 900;
 }
 .settings-btn-new:hover { transform: translateY(-1px); box-shadow:0 10px 24px rgba(42,20,74,.22); }
 
+
 #optionsMenu.options-menu-modern{
 position:fixed;
 top:58px;
 left:16px;
 right:auto;
-width:min(330px, calc(100vw - 32px));
+width:min(355px, calc(100vw - 32px));
 background:#fff;
-border-radius:26px;
-padding:20px 16px 16px;
+border-radius:34px;
+padding:24px 18px 20px;
 display:none;
 z-index:1650;
-box-shadow:0 25px 60px rgba(36,22,57,.22);
-color:#5b2d8e;
+box-shadow:0 28px 60px rgba(59,36,82,.22);
+color:#63329a;
 direction:rtl;
 box-sizing:border-box;
+border:1px solid rgba(98,49,153,.05);
 }
-.options-menu-modern .opt-title{font-size:18px;font-weight:900;margin:0 4px 12px;text-align:right;}
-.options-menu-modern .presenter-toggle{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.options-menu-modern .opt-title{
+font-size:20px;
+font-weight:900;
+margin:0 4px 15px;
+text-align:right;
+color:#60308f;
+}
+.options-menu-modern .presenter-toggle{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:13px;
+}
 .options-menu-modern button{font-family:inherit;}
-.options-menu-modern .presenter-btn{height:52px;border:2px solid #ddd2e7;background:#f8f5fb;color:#5b2d8e;border-radius:16px;font-size:16px;font-weight:900;cursor:pointer;transition:.2s;}
-.options-menu-modern .presenter-btn.active{background:linear-gradient(135deg,#6d27df,#9055ff);color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(111,45,215,.24);}
-.options-menu-modern .options-row{width:100%;height:48px;border:0;border-radius:16px;background:#f4f1f7;color:#653196;margin-top:9px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:900;cursor:pointer;transition:.18s;}
-.options-menu-modern .options-row:hover{transform:translateY(-1px);background:#eee9f4;}
-.options-menu-modern .options-row.new-game{background:linear-gradient(90deg,#fff0d4,#ffe7d8);border:2px solid #ffc5af;color:#633090;}
-.options-menu-modern .row-icon{font-size:19px;width:26px;text-align:center;color:#653196;}
-.options-menu-modern .sound-state{font-size:15px;opacity:.7;margin-inline-start:auto;}
+.options-menu-modern .presenter-btn{
+height:58px;
+border:2px solid #ddd0e8;
+background:#f8f5fb;
+color:#623192;
+border-radius:19px;
+font-size:17px;
+font-weight:900;
+cursor:pointer;
+transition:.18s ease;
+box-shadow:inset 0 -2px 0 rgba(98,49,153,.03);
+}
+.options-menu-modern .presenter-btn.active{
+background:linear-gradient(135deg,#7130e8 0%,#9658ff 100%);
+color:#fff;
+border-color:transparent;
+box-shadow:0 9px 20px rgba(113,48,232,.23);
+}
+.options-menu-modern .options-row{
+width:100%;
+min-height:62px;
+border:0;
+border-radius:20px;
+background:#f6f3f8;
+color:#68379a;
+margin-top:10px;
+padding:0 18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+font-size:17px;
+font-weight:900;
+cursor:pointer;
+transition:.16s ease;
+text-align:right;
+}
+.options-menu-modern .options-row:hover{
+transform:translateY(-1px);
+background:#f0ebf5;
+}
+.options-menu-modern .options-row.new-game{
+background:linear-gradient(90deg,#fff0de 0%,#fff7d9 100%);
+border:2px solid #ffc7b4;
+color:#673594;
+}
+.options-menu-modern .row-icon{
+width:34px;
+min-width:34px;
+height:34px;
+display:grid;
+place-items:center;
+color:#66349a;
+}
+.options-menu-modern .row-icon svg{
+width:29px;
+height:29px;
+display:block;
+stroke:currentColor;
+fill:none;
+stroke-width:2.4;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
+.options-menu-modern .sound-state{
+font-size:13px;
+opacity:.65;
+margin-inline-start:auto;
+}
+.options-menu-modern .soon-row{opacity:.56;cursor:not-allowed;}
 @media(max-width:700px){
- .settings-btn-new{top:10px;left:10px;right:auto;font-size:12px;padding:6px 11px;}
- #optionsMenu.options-menu-modern{top:48px;left:10px;right:auto;width:min(300px, calc(100vw - 20px));border-radius:22px;padding:16px 13px;}
- .options-menu-modern .presenter-btn{height:46px;font-size:14px;}
- .options-menu-modern .options-row{height:44px;font-size:14px;border-radius:14px;}
+ .settings-btn-new{top:10px;left:10px;right:auto;font-size:11px;padding:5px 10px;}
+ #optionsMenu.options-menu-modern{
+   top:46px;left:10px;right:auto;
+   width:min(325px, calc(100vw - 20px));
+   border-radius:28px;padding:18px 14px 16px;
+ }
+ .options-menu-modern .opt-title{font-size:17px;margin-bottom:11px;}
+ .options-menu-modern .presenter-btn{height:50px;font-size:14px;border-radius:16px;}
+ .options-menu-modern .options-row{min-height:52px;font-size:14px;border-radius:17px;padding:0 14px;}
+ .options-menu-modern .row-icon{width:30px;min-width:30px;height:30px;}
+ .options-menu-modern .row-icon svg{width:25px;height:25px;}
 }
 
         #mainMenu{
@@ -1225,27 +1308,46 @@ color:white;
   </div>
 
   <button type="button" class="options-row new-game" onclick="shuffleGrid(); toggleOptions();">
-    <span>بداية لعبة جديدة</span><span class="row-icon">↻</span>
+    <span>بداية لعبة جديدة</span>
+    <span class="row-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 1-2.05-4.95L20 10"/></svg>
+    </span>
   </button>
 
-  <button type="button" class="options-row" disabled title="قريباً" style="opacity:.55;cursor:not-allowed;">
-    <span>شاشة المقدم البشري — قريباً</span><span class="row-icon">▣</span>
+  <button type="button" class="options-row soon-row" disabled title="قريباً">
+    <span>شاشة المقدم البشري</span>
+    <span class="row-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    </span>
   </button>
 
   <button type="button" class="options-row" onclick="openBuzzerQuick(); toggleOptions();">
-    <span>الجرس</span><span class="row-icon">🔔</span>
+    <span>الجرس</span>
+    <span class="row-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+    </span>
   </button>
 
   <button type="button" class="options-row" onclick="toggleGameSound(this)">
-    <span>تشغيل الصوت</span><span class="sound-state" id="quickSoundState">مفعّل</span><span class="row-icon" id="quickSoundIcon">🔊</span>
+    <span>تشغيل الصوت</span>
+    <span class="sound-state" id="quickSoundState">مفعّل</span>
+    <span class="row-icon" id="quickSoundIcon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8 8 0 0 1 0 12"/></svg>
+    </span>
   </button>
 
   <button type="button" class="options-row" onclick="openSettings(); toggleOptions();">
-    <span>الإعدادات</span><span class="row-icon">⚙</span>
+    <span>الإعدادات</span>
+    <span class="row-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1A1.7 1.7 0 0 0 2.9 13H3V9h-.09A1.7 1.7 0 0 0 4.6 8a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6A1.7 1.7 0 0 0 10.4 2.9V3h4v-.09A1.7 1.7 0 0 0 15.4 4a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.39.3.6.78.6 1.27V13c0 .49-.21.97-.6 1.27z"/></svg>
+    </span>
   </button>
 
   <button type="button" class="options-row" onclick="window.open('https://zamn.games','_blank','noopener')">
-    <span>المزيد من ألعابنا</span><span class="row-icon">🎮</span>
+    <span>المزيد من ألعابنا</span>
+    <span class="row-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M8 8h8a5 5 0 0 1 4.7 6.7l-1 2.6a2 2 0 0 1-3.3.8l-2.1-2.1H9.7l-2.1 2.1a2 2 0 0 1-3.3-.8l-1-2.6A5 5 0 0 1 8 8z"/><path d="M8 12h4M10 10v4"/><circle cx="16.5" cy="11.5" r=".7" fill="currentColor" stroke="none"/><circle cx="18.5" cy="13.5" r=".7" fill="currentColor" stroke="none"/></svg>
+    </span>
   </button>
 </div>
 <div id="mainMenu">
