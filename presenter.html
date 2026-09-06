@@ -194,6 +194,19 @@ const controls=[...document.querySelectorAll("button")];
 
 function send(type, extra={}){
  if(!session) return;
+
+ // تلوين فوري في شاشة المقدم فقط عند اختيار الفريق.
+ // لا نحسب نقاط محليًا؛ اللعبة الأساسية تبقى المصدر النهائي للحالة.
+ if(type === "givePoint" && state && state.selectedId && Array.isArray(state.board)){
+   const selected = state.board.find(x=>x.id===state.selectedId);
+   if(selected && (extra.team === "c1" || extra.team === "c2")){
+     selected.status = extra.team;
+     state.selectedId = null;
+     lastBoardKey = "";
+     renderBoard(state);
+   }
+ }
+
  db.ref("games/"+session+"/presenterCommands").push({type,...extra,ts:Date.now()});
 }
 function esc(s){return String(s??"")}
