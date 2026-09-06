@@ -1405,6 +1405,25 @@ transition:.25s;
   }
 }
 
+
+/* شعار الإعدادات: بدون خلفية وثابت أعلى الشاشة أثناء التمرير */
+#settingsModal .settings-header{
+  position:sticky !important;
+  top:0 !important;
+  z-index:20 !important;
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  border-radius:0 !important;
+  margin-bottom:12px !important;
+}
+#settingsModal .settings-header::before,
+#settingsModal .settings-header::after{
+  display:none !important;
+  content:none !important;
+}
+
 </style>
 </head>
 <body>
