@@ -5429,6 +5429,11 @@ if(team === "c2"){
 
 }
 
+/* مزامنة شاشة الهوست فورًا بعد تثبيت لون الخلية */
+if(typeof window.__syncPresenterNow === "function"){
+  window.__syncPresenterNow();
+}
+
 /* فحص الفوز */
 setTimeout(()=>{
 checkWin();
@@ -6092,6 +6097,8 @@ window.addEventListener("orientationchange", checkOrientation);
     lastStateJson = json;
     firebase.database().ref("games/"+session+"/presenterState").set(state).catch(()=>{});
   }
+
+  window.__syncPresenterNow = syncPresenter;
 
   function runCommand(cmd){
     if(!cmd || !cmd.type) return;
