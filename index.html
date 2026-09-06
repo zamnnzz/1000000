@@ -5952,13 +5952,13 @@ window.addEventListener("orientationchange", checkOrientation);
   function collectState(){
     const questionEl = document.getElementById('qTextMain');
     const answerBtn = document.querySelector('.show-answer-btn');
-    const selected = window.lastSelectedHex ? lastSelectedHex.id : null;
+    const selected = (typeof lastSelectedHex !== "undefined" && lastSelectedHex) ? lastSelectedHex.id : null;
     return {
       ts: Date.now(),
       gridSize: Number(window.currentGridSize || 5),
       board: collectBoard(),
       selectedId: selected,
-      currentLetter: window.currentLetter || "",
+      currentLetter: (typeof currentLetter !== "undefined" && currentLetter) ? currentLetter : "",
       questionText: questionEl ? questionEl.innerText : "",
       answerVisible: !!(answerBtn && answerBtn.innerText.includes("إخفاء")),
       scores: {
@@ -5971,12 +5971,12 @@ window.addEventListener("orientationchange", checkOrientation);
         c2: getComputedStyle(document.documentElement).getPropertyValue('--team2').trim() || '#0056b3'
       },
       buzzer: ((document.getElementById('fastPlayerName')||{}).innerText || "").trim(),
-      humanHost: !!window.isHumanHost
+      humanHost: (typeof isHumanHost !== "undefined") ? !!isHumanHost : false
     };
   }
 
   function syncPresenter(){
-    if(!window.firebase || !window.session) return;
+    if(!window.firebase || !session) return;
     const state = collectState();
     const json = JSON.stringify({...state, ts:0});
     if(json === lastStateJson) return;
@@ -5997,7 +5997,7 @@ window.addEventListener("orientationchange", checkOrientation);
       } else if(cmd.type === 'givePoint'){
         if(typeof givePoint === 'function' && (cmd.team === 'c1' || cmd.team === 'c2')) givePoint(cmd.team);
       } else if(cmd.type === 'cancelSelection'){
-        if(window.lastSelectedHex && typeof lastSelectedHex.click === 'function') lastSelectedHex.click();
+        if(typeof lastSelectedHex !== "undefined" && lastSelectedHex && typeof lastSelectedHex.click === 'function') lastSelectedHex.click();
       } else if(cmd.type === 'resetBuzzer'){
         if(typeof openBuzzer === 'function') {
           firebase.database().ref("games/"+session+"/buzzer").set(null);
@@ -6014,7 +6014,7 @@ window.addEventListener("orientationchange", checkOrientation);
   }
 
   function startPresenterBridge(){
-    if(presenterStarted || !window.firebase || !window.session) return;
+    if(presenterStarted || !window.firebase || !session) return;
     presenterStarted = true;
     firebase.database().ref("games/"+session+"/presenterCommands").on("child_added", snap=>{
       const cmd = snap.val();
@@ -6026,7 +6026,7 @@ window.addEventListener("orientationchange", checkOrientation);
   }
 
   const timer = setInterval(()=>{
-    if(window.firebase && window.session){
+    if(window.firebase && session){
       clearInterval(timer);
       startPresenterBridge();
     }
