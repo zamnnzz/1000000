@@ -160,7 +160,6 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
           <button class="btn c1" id="team1Btn">نقطة للفريق الأول</button>
           <button class="btn c2" id="team2Btn">نقطة للفريق الثاني</button>
           <button class="btn gold" id="nextBtn">تغيير السؤال</button>
-          <button class="btn" id="cancelBtn">إلغاء التحديد</button>
           <button class="btn" id="buzzerBtn">إعادة تعيين الجرس</button>
           <button class="btn wide" id="newGameBtn">بداية لعبة جديدة</button>
         </div>
@@ -396,7 +395,6 @@ if(!session){
 document.getElementById("team1Btn").addEventListener("click",()=>send("givePoint",{team:"c1"}));
 document.getElementById("team2Btn").addEventListener("click",()=>send("givePoint",{team:"c2"}));
 document.getElementById("nextBtn").addEventListener("click",()=>send("nextQuestion"));
-document.getElementById("cancelBtn").addEventListener("click",()=>send("cancelSelection"));
 document.getElementById("buzzerBtn").addEventListener("click",()=>send("resetBuzzer"));
 document.getElementById("newGameBtn").addEventListener("click",()=>send("newGame"));
 </script>

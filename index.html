@@ -5429,6 +5429,10 @@ if(team === "c2"){
 
 }
 
+/* بعد تثبيت اللون تنتهي حالة التحديد تمامًا */
+hex.classList.remove("selected");
+lastSelectedHex = null;
+
 /* مزامنة شاشة الهوست فورًا بعد تثبيت لون الخلية */
 if(typeof window.__syncPresenterNow === "function"){
   window.__syncPresenterNow();
