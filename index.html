@@ -1247,7 +1247,165 @@ transition:.25s;
 
 
 
-    </style>
+    
+/* ===== ترتيب واجهة الإعدادات فقط ===== */
+#settingsModal{
+  padding:18px !important;
+  background:
+    radial-gradient(circle at 50% 12%,rgba(255,255,255,.07),transparent 28%),
+    var(--main-bg) !important;
+}
+.settings-container{
+  width:min(760px,96vw) !important;
+  max-width:760px !important;
+  max-height:92vh !important;
+  overflow-y:auto !important;
+  padding:6px 8px 22px;
+  scrollbar-width:thin;
+}
+.settings-header{
+  position:sticky;
+  top:0;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-height:76px;
+  margin-bottom:14px !important;
+  padding:10px 84px 10px 14px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;
+  background:rgba(63,29,91,.92);
+  backdrop-filter:blur(12px);
+}
+.save-back-btn{
+  top:50% !important;
+  left:14px !important;
+  transform:translateY(-50%);
+  position:absolute !important;
+  padding:9px 22px !important;
+  border:0 !important;
+  box-shadow:0 7px 18px rgba(0,0,0,.15);
+}
+.save-back-btn:hover{
+  transform:translateY(-50%) scale(1.04) !important;
+}
+.settings-grid{
+  display:grid !important;
+  grid-template-columns:minmax(150px,.8fr) minmax(0,1.8fr) !important;
+  gap:12px 16px !important;
+  align-items:center !important;
+  text-align:right !important;
+  padding:18px !important;
+  border-radius:24px !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  background:rgba(0,0,0,.14) !important;
+}
+.setting-label{
+  font-size:15px !important;
+  font-weight:900 !important;
+  color:#f3eafa !important;
+  margin:0 !important;
+}
+.input-field{
+  min-height:46px;
+  padding:10px 13px !important;
+  font-size:15px !important;
+  border-radius:14px !important;
+  border:1.5px solid rgba(255,255,255,.65) !important;
+  background:rgba(255,255,255,.06) !important;
+}
+.setting-options{
+  display:flex !important;
+  gap:8px !important;
+  flex-wrap:wrap !important;
+  width:100%;
+}
+.opt-btn{
+  min-width:58px !important;
+  min-height:43px;
+  padding:9px 12px !important;
+  border-radius:13px !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  background:rgba(255,255,255,.055) !important;
+  font-size:14px !important;
+}
+.opt-btn.active{
+  background:#fff !important;
+  color:var(--main-bg) !important;
+  border-color:#fff !important;
+}
+.color-pair{
+  width:48px !important;
+  height:30px !important;
+  border-radius:9px !important;
+  border-width:2px !important;
+}
+.color-pair.active{
+  transform:scale(1.06) !important;
+}
+.settings-grid > div[style*="display:flex;flex-wrap:wrap"]{
+  gap:8px !important;
+  justify-content:flex-start !important;
+  max-height:150px;
+  overflow:auto;
+  padding:5px 2px;
+}
+
+/* بعض العناصر القديمة كانت خارج grid بسبب الإغلاق السابق؛ نجمعها بصرياً */
+#settingsModal .settings-container > .setting-label,
+#settingsModal .settings-container > .setting-options,
+#settingsModal .settings-container > .input-field,
+#settingsModal .settings-container > div[style*="display:flex;flex-wrap:wrap"]{
+  margin-inline:18px;
+}
+#settingsModal .settings-container > .setting-label{
+  margin-top:13px;
+  margin-bottom:7px;
+  text-align:right;
+}
+#settingsModal .settings-container > .setting-options,
+#settingsModal .settings-container > .input-field,
+#settingsModal .settings-container > div[style*="display:flex;flex-wrap:wrap"]{
+  width:calc(100% - 36px) !important;
+}
+
+@media(max-width:650px){
+  #settingsModal{padding:8px !important}
+  .settings-container{width:100% !important;max-height:96vh !important}
+  .settings-header{
+    min-height:64px;
+    padding:8px 68px 8px 10px;
+    border-radius:18px;
+  }
+  .settings-grid{
+    grid-template-columns:1fr !important;
+    gap:7px !important;
+    padding:13px !important;
+    border-radius:18px !important;
+  }
+  .setting-label{
+    font-size:13px !important;
+    margin-top:6px !important;
+  }
+  .input-field{min-height:42px;font-size:14px !important}
+  .opt-btn{min-height:40px;font-size:12px !important}
+  .save-back-btn{
+    left:10px !important;
+    padding:8px 15px !important;
+    font-size:12px;
+  }
+  #settingsModal .settings-container > .setting-label,
+  #settingsModal .settings-container > .setting-options,
+  #settingsModal .settings-container > .input-field,
+  #settingsModal .settings-container > div[style*="display:flex;flex-wrap:wrap"]{
+    margin-inline:13px;
+    width:calc(100% - 26px) !important;
+  }
+}
+
+</style>
 </head>
 <body>
 
@@ -1503,16 +1661,7 @@ max="20"
 >
 
 
-<div class="setting-label">باركود الجرس</div>
-<div id="buzzerQR" style="
-background:white;
-padding:10px;
-border-radius:10px;
-width:fit-content;
-margin:auto;
-"></div>
-
-            <div class="setting-label">لون الفريقين:</div>
+<div class="setting-label">لون الفريقين:</div>
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
 
@@ -4775,13 +4924,6 @@ height:120
 let currentPath = window.location.pathname;
 let directory = currentPath.substring(0, currentPath.lastIndexOf('/')) + '/';
 const playerUrl = window.location.origin + directory + "player.html?session=" + session;
-
-new QRCode(document.getElementById("buzzerQR"), {
- text: playerUrl,
- width:140,
- height:140
-});
-
 /* إذا كان هذا جهاز المقدم */
 if(isHostScreen){
 
