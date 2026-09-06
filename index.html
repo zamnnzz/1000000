@@ -6130,7 +6130,7 @@ window.addEventListener("orientationchange", checkOrientation);
       runCommand(cmd);
       snap.ref.remove().catch(()=>{});
     });
-    setInterval(syncPresenter, 700);
+    setInterval(syncPresenter, 120);
     setTimeout(syncPresenter, 250);
   }
 

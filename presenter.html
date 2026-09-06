@@ -263,16 +263,20 @@ style="transition: 0.2s;"
      // لا نرسم حالة من عندنا؛ نطبق نفس ألوان اللعبة على الحالة القادمة منها.
      if(item.status === "selected" || st.selectedId === item.id){
        poly.setAttribute("fill", "#FFD54F");
+       text.style.display = "";
        text.setAttribute("fill", "#5B2D8E");
        hex.classList.add("selected");
      }else if(item.status === "c1"){
        poly.setAttribute("fill", st.teamColors?.c1 || "#e43b41");
-       text.setAttribute("fill", "white");
+       text.setAttribute("fill", "transparent");
+       text.style.display = "none";
      }else if(item.status === "c2"){
        poly.setAttribute("fill", st.teamColors?.c2 || "#0056b3");
-       text.setAttribute("fill", "white");
+       text.setAttribute("fill", "transparent");
+       text.style.display = "none";
      }else{
        poly.setAttribute("fill", "white");
+       text.style.display = "";
        text.setAttribute("fill", "#5B2D8E");
      }
 
