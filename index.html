@@ -1464,10 +1464,7 @@ color:white;
                     <button class="opt-btn active" id="hostAuto" onclick="setHostType('auto', this)">آلي</button>
                     <button class="opt-btn" id="hostHuman" onclick="setHostType('human', this)">بشري</button>
                 </div>
-                <div id="qrContainer" style="display: none; text-align: center; margin-top: 20px;">
-    <p style="color: #FFD400; font-weight: bold; margin-bottom: 10px;">امسح الكود للانضمام كلاعب:</p>
-    <div id="qrcode" style="display: inline-block; padding: 10px; background: white; border-radius: 10px;"></div>
-</div>
+                </div>
          
     
     
@@ -4815,8 +4812,7 @@ createHexGrid();
 
     isHumanHost = (type === 'human');
     if(typeof syncPresenterScreenOption === 'function') syncPresenterScreenOption();
-    const qrCont = document.getElementById('qrContainer');
-    const qrDiv = document.getElementById('qrcode');
+const qrDiv = document.getElementById('qrcode');
 
     if (isHumanHost) {
         qrCont.style.display = 'block'; 
