@@ -1314,7 +1314,7 @@ color:white;
     </span>
   </button>
 
-  <button type="button" class="options-row soon-row" disabled title="قريباً">
+  <button type="button" class="options-row" onclick="openPresenterScreen(); toggleOptions();">
     <span>شاشة المقدم البشري</span>
     <span class="row-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
@@ -5912,6 +5912,128 @@ updateGameScale();
 window.addEventListener("resize", checkOrientation);
 window.addEventListener("orientationchange", checkOrientation);
 </script>
+
+<script>
+/* ===== ZAMN: شاشة المقدم المنفصلة — جسر مزامنة فقط ===== */
+(function(){
+  let presenterStarted = false;
+  let lastStateJson = "";
+
+  window.getPresenterUrl = function(){
+    let currentPath = window.location.pathname;
+    let directory = currentPath.substring(0, currentPath.lastIndexOf('/')) + '/';
+    return window.location.origin + directory + "presenter.html?session=" + encodeURIComponent(session);
+  };
+
+  window.openPresenterScreen = function(){
+    try{
+      // وضع المقدم البشري في اللعبة الأساسية
+      isHumanHost = true;
+      const humanBtn = document.getElementById('quickHostHuman');
+      const autoBtn = document.getElementById('quickHostAuto');
+      if(humanBtn) humanBtn.classList.add('active');
+      if(autoBtn) autoBtn.classList.remove('active');
+    }catch(e){}
+    window.open(getPresenterUrl(), '_blank', 'noopener');
+  };
+
+  function collectBoard(){
+    const items = [];
+    document.querySelectorAll('#hexGrid .hexagon').forEach(hex=>{
+      items.push({
+        id: hex.id,
+        letter: hex.dataset.letter || "",
+        status: (window.gridStatus && gridStatus[hex.id]) || "neutral"
+      });
+    });
+    return items;
+  }
+
+  function collectState(){
+    const questionEl = document.getElementById('qTextMain');
+    const answerBtn = document.querySelector('.show-answer-btn');
+    const selected = window.lastSelectedHex ? lastSelectedHex.id : null;
+    return {
+      ts: Date.now(),
+      gridSize: Number(window.currentGridSize || 5),
+      board: collectBoard(),
+      selectedId: selected,
+      currentLetter: window.currentLetter || "",
+      questionText: questionEl ? questionEl.innerText : "",
+      answerVisible: !!(answerBtn && answerBtn.innerText.includes("إخفاء")),
+      scores: {
+        c1: Number((document.getElementById('s1')||{}).innerText || 0),
+        c2: Number((document.getElementById('s2')||{}).innerText || 0)
+      },
+      teamNames: window.teamNames || {c1:"الفريق الأول",c2:"الفريق الثاني"},
+      teamColors: {
+        c1: getComputedStyle(document.documentElement).getPropertyValue('--team1').trim() || '#e43b41',
+        c2: getComputedStyle(document.documentElement).getPropertyValue('--team2').trim() || '#0056b3'
+      },
+      buzzer: ((document.getElementById('fastPlayerName')||{}).innerText || "").trim(),
+      humanHost: !!window.isHumanHost
+    };
+  }
+
+  function syncPresenter(){
+    if(!window.firebase || !window.session) return;
+    const state = collectState();
+    const json = JSON.stringify({...state, ts:0});
+    if(json === lastStateJson) return;
+    lastStateJson = json;
+    firebase.database().ref("games/"+session+"/presenterState").set(state).catch(()=>{});
+  }
+
+  function runCommand(cmd){
+    if(!cmd || !cmd.type) return;
+    try{
+      if(cmd.type === 'selectHex'){
+        const hex = document.getElementById(cmd.id);
+        if(hex) hex.click();
+      } else if(cmd.type === 'showAnswer'){
+        if(typeof showAnswer === 'function') showAnswer();
+      } else if(cmd.type === 'nextQuestion'){
+        if(typeof nextQuestion === 'function') nextQuestion();
+      } else if(cmd.type === 'givePoint'){
+        if(typeof givePoint === 'function' && (cmd.team === 'c1' || cmd.team === 'c2')) givePoint(cmd.team);
+      } else if(cmd.type === 'cancelSelection'){
+        if(window.lastSelectedHex && typeof lastSelectedHex.click === 'function') lastSelectedHex.click();
+      } else if(cmd.type === 'resetBuzzer'){
+        if(typeof openBuzzer === 'function') {
+          firebase.database().ref("games/"+session+"/buzzer").set(null);
+          openBuzzer();
+        }
+      } else if(cmd.type === 'newGame'){
+        if(typeof shuffleGrid === 'function') shuffleGrid();
+        else if(typeof createHexGrid === 'function') createHexGrid();
+      }
+    }catch(err){
+      console.warn("Presenter command error:", err);
+    }
+    setTimeout(syncPresenter, 80);
+  }
+
+  function startPresenterBridge(){
+    if(presenterStarted || !window.firebase || !window.session) return;
+    presenterStarted = true;
+    firebase.database().ref("games/"+session+"/presenterCommands").on("child_added", snap=>{
+      const cmd = snap.val();
+      runCommand(cmd);
+      snap.ref.remove().catch(()=>{});
+    });
+    setInterval(syncPresenter, 700);
+    setTimeout(syncPresenter, 250);
+  }
+
+  const timer = setInterval(()=>{
+    if(window.firebase && window.session){
+      clearInterval(timer);
+      startPresenterBridge();
+    }
+  },100);
+})();
+</script>
+
 </body>
 </html
 
