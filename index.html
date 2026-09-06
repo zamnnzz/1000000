@@ -78,33 +78,33 @@ color:white;
 
       .settings-btn-new {
 position: fixed;
-top: 22px;
-right: 28px;
-left: auto;
+top: 16px;
+left: 16px;
+right: auto;
 z-index: 1700;
 background: #fff;
 border: 0;
-padding: 13px 31px 15px;
+padding: 7px 14px 8px;
 border-radius: 999px;
 color: #5b2d8e;
 cursor: pointer;
 box-shadow: 0 8px 20px rgba(42,20,74,.16);
 transition: .2s ease;
 opacity: 1;
-font-size: 23px;
+font-size: 14px;
 font-weight: 900;
 }
 .settings-btn-new:hover { transform: translateY(-1px); box-shadow:0 10px 24px rgba(42,20,74,.22); }
 
 #optionsMenu.options-menu-modern{
 position:fixed;
-top:105px;
-right:28px;
-left:auto;
-width:min(405px, calc(100vw - 36px));
+top:58px;
+left:16px;
+right:auto;
+width:min(330px, calc(100vw - 32px));
 background:#fff;
-border-radius:38px;
-padding:28px 24px 24px;
+border-radius:26px;
+padding:20px 16px 16px;
 display:none;
 z-index:1650;
 box-shadow:0 25px 60px rgba(36,22,57,.22);
@@ -112,21 +112,21 @@ color:#5b2d8e;
 direction:rtl;
 box-sizing:border-box;
 }
-.options-menu-modern .opt-title{font-size:24px;font-weight:900;margin:0 4px 18px;text-align:right;}
+.options-menu-modern .opt-title{font-size:18px;font-weight:900;margin:0 4px 12px;text-align:right;}
 .options-menu-modern .presenter-toggle{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
 .options-menu-modern button{font-family:inherit;}
-.options-menu-modern .presenter-btn{height:78px;border:2px solid #ddd2e7;background:#f8f5fb;color:#5b2d8e;border-radius:22px;font-size:22px;font-weight:900;cursor:pointer;transition:.2s;}
+.options-menu-modern .presenter-btn{height:52px;border:2px solid #ddd2e7;background:#f8f5fb;color:#5b2d8e;border-radius:16px;font-size:16px;font-weight:900;cursor:pointer;transition:.2s;}
 .options-menu-modern .presenter-btn.active{background:linear-gradient(135deg,#6d27df,#9055ff);color:#fff;border-color:transparent;box-shadow:0 8px 18px rgba(111,45,215,.24);}
-.options-menu-modern .options-row{width:100%;height:70px;border:0;border-radius:22px;background:#f4f1f7;color:#653196;margin-top:12px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:21px;font-weight:900;cursor:pointer;transition:.18s;}
+.options-menu-modern .options-row{width:100%;height:48px;border:0;border-radius:16px;background:#f4f1f7;color:#653196;margin-top:9px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:900;cursor:pointer;transition:.18s;}
 .options-menu-modern .options-row:hover{transform:translateY(-1px);background:#eee9f4;}
 .options-menu-modern .options-row.new-game{background:linear-gradient(90deg,#fff0d4,#ffe7d8);border:2px solid #ffc5af;color:#633090;}
-.options-menu-modern .row-icon{font-size:27px;width:34px;text-align:center;color:#653196;}
+.options-menu-modern .row-icon{font-size:19px;width:26px;text-align:center;color:#653196;}
 .options-menu-modern .sound-state{font-size:15px;opacity:.7;margin-inline-start:auto;}
 @media(max-width:700px){
- .settings-btn-new{top:14px;right:14px;font-size:18px;padding:10px 22px;}
- #optionsMenu.options-menu-modern{top:72px;right:12px;width:calc(100vw - 24px);border-radius:28px;padding:22px 18px;}
- .options-menu-modern .presenter-btn{height:62px;font-size:18px;}
- .options-menu-modern .options-row{height:58px;font-size:17px;border-radius:18px;}
+ .settings-btn-new{top:10px;left:10px;right:auto;font-size:12px;padding:6px 11px;}
+ #optionsMenu.options-menu-modern{top:48px;left:10px;right:auto;width:min(300px, calc(100vw - 20px));border-radius:22px;padding:16px 13px;}
+ .options-menu-modern .presenter-btn{height:46px;font-size:14px;}
+ .options-menu-modern .options-row{height:44px;font-size:14px;border-radius:14px;}
 }
 
         #mainMenu{
@@ -1208,6 +1208,15 @@ color:white;
 
 </div>
 </div>
+<div id="buzzerQuickModal" style="position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;z-index:9998;padding:18px;box-sizing:border-box;">
+  <div style="width:min(360px,100%);background:white;border-radius:24px;padding:22px;text-align:center;color:#5b2d8e;box-shadow:0 22px 55px rgba(0,0,0,.3);direction:rtl;">
+    <div style="font-size:21px;font-weight:900;margin-bottom:12px;">باركود الجرس</div>
+    <div id="quickBuzzerQR" style="background:#fff;padding:10px;border-radius:14px;width:fit-content;margin:0 auto 12px;"></div>
+    <a id="quickBuzzerLink" href="#" target="_blank" rel="noopener" style="display:block;direction:ltr;word-break:break-all;color:#5b2d8e;font-size:13px;margin:8px 0 14px;text-decoration:underline;"></a>
+    <button type="button" id="quickBuzzerOpen" class="btn-action" style="width:100%;margin-bottom:8px;">فتح الجرس مباشرة</button>
+    <button type="button" class="btn-action" onclick="closeBuzzerQuick()" style="width:100%;background:#eee;color:#5b2d8e;">إغلاق</button>
+  </div>
+</div>
 <div id="optionsMenu" class="options-menu-modern">
   <div class="opt-title">نوع المقدم</div>
   <div class="presenter-toggle">
@@ -1219,11 +1228,11 @@ color:white;
     <span>بداية لعبة جديدة</span><span class="row-icon">↻</span>
   </button>
 
-  <button type="button" class="options-row" onclick="openCodeHelp(); toggleOptions();">
-    <span>شاشة المقدم البشري</span><span class="row-icon">▣</span>
+  <button type="button" class="options-row" disabled title="قريباً" style="opacity:.55;cursor:not-allowed;">
+    <span>شاشة المقدم البشري — قريباً</span><span class="row-icon">▣</span>
   </button>
 
-  <button type="button" class="options-row" onclick="openSettings(); toggleOptions();">
+  <button type="button" class="options-row" onclick="openBuzzerQuick(); toggleOptions();">
     <span>الجرس</span><span class="row-icon">🔔</span>
   </button>
 
@@ -5660,6 +5669,29 @@ box.style.boxShadow = "none";// يمسح الاسم القديم
 
  }
 });
+function getBuzzerPlayerUrl(){
+    let currentPath = window.location.pathname;
+    let directory = currentPath.substring(0, currentPath.lastIndexOf('/')) + '/';
+    return window.location.origin + directory + "player.html?session=" + session;
+}
+function openBuzzerQuick(){
+    const modal = document.getElementById('buzzerQuickModal');
+    const qr = document.getElementById('quickBuzzerQR');
+    const link = document.getElementById('quickBuzzerLink');
+    const openBtn = document.getElementById('quickBuzzerOpen');
+    if(!modal || !qr || !link || !openBtn) return;
+    const url = getBuzzerPlayerUrl();
+    qr.innerHTML = '';
+    new QRCode(qr, { text:url, width:180, height:180, correctLevel:QRCode.CorrectLevel.H });
+    link.href = url;
+    link.textContent = url;
+    openBtn.onclick = ()=>window.open(url,'_blank','noopener');
+    modal.style.display = 'flex';
+}
+function closeBuzzerQuick(){
+    const modal = document.getElementById('buzzerQuickModal');
+    if(modal) modal.style.display = 'none';
+}
 function toggleOptions(){
     const menu = document.getElementById("optionsMenu");
     const visible = getComputedStyle(menu).display !== "none";
