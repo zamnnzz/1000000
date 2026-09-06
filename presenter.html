@@ -189,6 +189,7 @@ document.getElementById("sessionText").textContent=session ? "session: "+session
 
 let state=null;
 let lastBoardKey="";
+const pendingCellColors = new Map();
 const grid=document.getElementById("grid");
 const controls=[...document.querySelectorAll("button")];
 
@@ -198,12 +199,23 @@ function send(type, extra={}){
  // تلوين فوري في شاشة المقدم فقط عند اختيار الفريق.
  // لا نحسب نقاط محليًا؛ اللعبة الأساسية تبقى المصدر النهائي للحالة.
  if(type === "givePoint" && state && state.selectedId && Array.isArray(state.board)){
-   const selected = state.board.find(x=>x.id===state.selectedId);
+   const selectedId = state.selectedId;
+   const selected = state.board.find(x=>x.id===selectedId);
    if(selected && (extra.team === "c1" || extra.team === "c2")){
+     pendingCellColors.set(selectedId, extra.team);
      selected.status = extra.team;
      state.selectedId = null;
      lastBoardKey = "";
      renderBoard(state);
+
+     // حماية فقط من بقاء لون مؤقت لو فشل الأمر نهائيًا.
+     setTimeout(()=>{
+       if(pendingCellColors.has(selectedId)){
+         pendingCellColors.delete(selectedId);
+         lastBoardKey = "";
+         if(state) renderBoard(state);
+       }
+     }, 5000);
    }
  }
 
@@ -273,17 +285,25 @@ style="transition: 0.2s;"
      const poly = hex.querySelector("polygon");
      const text = hex.querySelector("text");
 
-     // لا نرسم حالة من عندنا؛ نطبق نفس ألوان اللعبة على الحالة القادمة منها.
-     if(item.status === "selected" || st.selectedId === item.id){
+     // إذا ضغط المقدم تلوين، احتفظ باللون فورًا حتى تؤكد اللعبة الأساسية الحالة.
+     const pendingTeam = pendingCellColors.get(item.id);
+     const effectiveStatus = pendingTeam || item.status;
+
+     // إذا وصلت الحالة الحقيقية من اللعبة بنفس اللون، انتهت الحاجة للحالة المؤقتة.
+     if(pendingTeam && item.status === pendingTeam){
+       pendingCellColors.delete(item.id);
+     }
+
+     if(effectiveStatus === "selected" || (!pendingTeam && st.selectedId === item.id)){
        poly.setAttribute("fill", "#FFD54F");
        text.style.display = "";
        text.setAttribute("fill", "#5B2D8E");
        hex.classList.add("selected");
-     }else if(item.status === "c1"){
+     }else if(effectiveStatus === "c1"){
        poly.setAttribute("fill", st.teamColors?.c1 || "#e43b41");
        text.setAttribute("fill", "transparent");
        text.style.display = "none";
-     }else if(item.status === "c2"){
+     }else if(effectiveStatus === "c2"){
        poly.setAttribute("fill", st.teamColors?.c2 || "#0056b3");
        text.setAttribute("fill", "transparent");
        text.style.display = "none";
