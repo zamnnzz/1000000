@@ -1424,6 +1424,70 @@ transition:.25s;
   content:none !important;
 }
 
+
+/* تثبيت شعار «حروف مع» وزر الحفظ أعلى الإعدادات */
+#settingsModal .settings-container{
+  padding-top:92px !important;
+  position:relative !important;
+}
+
+#settingsModal .settings-header{
+  position:fixed !important;
+  top:10px !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  width:min(760px,96vw) !important;
+  min-height:72px !important;
+  z-index:9999 !important;
+  margin:0 !important;
+  padding:8px 14px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  pointer-events:none;
+}
+
+#settingsModal .settings-header .menu-logo,
+#settingsModal .settings-header .logo-h,
+#settingsModal .settings-header .logo-w,
+#settingsModal .settings-header .logo-c{
+  pointer-events:none;
+}
+
+#settingsModal .save-back-btn{
+  position:fixed !important;
+  top:18px !important;
+  left:18px !important;
+  right:auto !important;
+  transform:none !important;
+  z-index:10000 !important;
+  pointer-events:auto !important;
+  margin:0 !important;
+}
+
+#settingsModal .save-back-btn:hover{
+  transform:scale(1.04) !important;
+}
+
+@media(max-width:650px){
+  #settingsModal .settings-container{
+    padding-top:82px !important;
+  }
+  #settingsModal .settings-header{
+    top:6px !important;
+    width:100% !important;
+    min-height:64px !important;
+  }
+  #settingsModal .save-back-btn{
+    top:12px !important;
+    left:10px !important;
+  }
+}
+
 </style>
 </head>
 <body>
