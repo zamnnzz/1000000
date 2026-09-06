@@ -340,6 +340,20 @@ button{font-family:inherit}
   .board-scale{transform:scale(.68);margin-top:-86px;margin-bottom:-86px}
   .teams{gap:7px}
 }
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden !important;
+}
+body{
+  position:relative;
+}
+.shell{
+  transform-origin:top center;
+  will-change:transform;
+}
+
 </style>
 </head>
 <body>
@@ -397,7 +411,6 @@ button{font-family:inherit}
           <button class="btn c1" id="team1Btn">نقطة للفريق الأول</button>
           <button class="btn c2" id="team2Btn">نقطة للفريق الثاني</button>
           <button class="btn gold" id="nextBtn">تغيير السؤال</button>
-          <button class="btn" id="buzzerBtn">إعادة الجرس</button>
           <button class="btn wide" id="newGameBtn">بداية لعبة جديدة</button>
         </div>
 
@@ -629,8 +642,57 @@ if(!session){
 document.getElementById("team1Btn").addEventListener("click",()=>send("givePoint",{team:"c1"}));
 document.getElementById("team2Btn").addEventListener("click",()=>send("givePoint",{team:"c2"}));
 document.getElementById("nextBtn").addEventListener("click",()=>send("nextQuestion"));
-document.getElementById("buzzerBtn").addEventListener("click",()=>send("resetBuzzer"));
 document.getElementById("newGameBtn").addEventListener("click",()=>send("newGame"));
 </script>
+
+<script>
+(function(){
+  const shell = document.querySelector('.shell');
+  if(!shell) return;
+
+  function fitPresenterUI(){
+    shell.style.transform = 'none';
+    shell.style.marginLeft = 'auto';
+    shell.style.marginRight = 'auto';
+
+    const rect = shell.getBoundingClientRect();
+    const naturalW = Math.max(shell.scrollWidth, rect.width);
+    const naturalH = Math.max(shell.scrollHeight, rect.height);
+
+    const availW = Math.max(280, window.innerWidth - 12);
+    const availH = Math.max(320, window.innerHeight - 12);
+
+    let scale = Math.min(1, availW / naturalW, availH / naturalH);
+    if(!Number.isFinite(scale) || scale <= 0) scale = 1;
+
+    shell.style.transform = `scale(${scale})`;
+    shell.style.transformOrigin = 'top center';
+
+    // نثبّت العنصر بصريًا في أعلى منتصف الشاشة بعد التصغير.
+    const scaledW = naturalW * scale;
+    shell.style.marginLeft = `${Math.max(0, (window.innerWidth - scaledW) / 2)}px`;
+    shell.style.marginRight = '0';
+  }
+
+  let raf = null;
+  function scheduleFit(){
+    if(raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(()=>{
+      fitPresenterUI();
+      raf = null;
+    });
+  }
+
+  window.addEventListener('resize', scheduleFit, {passive:true});
+  window.addEventListener('orientationchange', scheduleFit, {passive:true});
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(scheduleFit).catch(()=>{});
+  }
+  setTimeout(scheduleFit, 0);
+  setTimeout(scheduleFit, 250);
+  setTimeout(scheduleFit, 900);
+})();
+</script>
+
 </body>
 </html>
