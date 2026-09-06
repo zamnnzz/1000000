@@ -212,139 +212,101 @@ margin-inline-start:auto;
  .options-menu-modern .row-icon svg{width:25px;height:25px;}
 }
 
-
         #mainMenu{
   position:fixed;
   inset:0;
   width:100%;
   height:100%;
   overflow:hidden;
+
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  background:
-    linear-gradient(rgba(255,255,255,.035) 2px, transparent 2px) 0 0/72px 124px,
-    linear-gradient(30deg, transparent 24%, rgba(255,255,255,.07) 25%, rgba(255,255,255,.07) 27%, transparent 28%) 0 0/72px 124px,
-    linear-gradient(150deg, transparent 24%, rgba(255,255,255,.07) 25%, rgba(255,255,255,.07) 27%, transparent 28%) 0 0/72px 124px,
-    radial-gradient(circle at 50% 43%, rgba(255,255,255,.06), transparent 34%),
-    #684393;
 }
-
-#mainMenu::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(26,13,48,.10), transparent 35%),
-    linear-gradient(180deg,rgba(31,12,50,.18),transparent 24%,transparent 78%,rgba(31,12,50,.18));
-}
-
-#mainMenu .menu-logo,
-#mainMenu .menu-buttons{
-  position:relative;
-  z-index:2;
-}
-
 .menu-logo{
 display:flex;
 flex-direction:column;
 align-items:center;
 line-height:0.9;
-margin-bottom:18px;
-margin-top:-24px;
+
+/* رفع الشعار */
+margin-bottom:10px;
+margin-top:-40px;
+
 position:relative;
 }
-
-/* مهم: لم يتم تعديل .logo-h أو .logo-w أو .logo-c */
 
 .menu-buttons{
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:13px;
-margin-top:12px;
-width:min(360px,calc(100vw - 36px));
+gap:18px;
+margin-top:20px;
+}
+.logo-h{
+font-size:110px;
+font-weight:900;
+color:#FFD400;
+text-shadow:
+0 6px 0 #3b2563,
+0 8px 0 #2b1b49,
+0 10px 12px rgba(0,0,0,0.4);
+margin:0;
+}
+
+.logo-w{
+font-size:55px;
+font-weight:900;
+color:#63d6c7;
+text-shadow:
+0 6px 0 #2e7f79,
+0 8px 0 #1d5e59,
+0 10px 12px rgba(0,0,0,0.4);
+
+margin-top:-10px;
+
+/* تحريك يسار قليل */
+transform:translateX(-70px);
+}
+.logo-c{
+font-size:95px;
+font-weight:900;
+color:#ff5a4f;
+
+text-shadow:
+0 6px 0 #7a2323,
+0 8px 0 #4b1515,
+0 10px 12px rgba(0,0,0,0.5);
+
+/* تحت مع ولكن في منتصف الواو */
+transform:translateX(-10px);
+margin-top:-5px;
 }
 
 .btn-action{
-width:100%;
-min-height:58px;
-padding:12px 22px;
-border-radius:999px;
-border:2px solid rgba(255,255,255,.75);
-background:rgba(255,255,255,.97);
-color:#5a3383;
-font-size:19px;
-font-weight:900;
+width:320px;
+padding:16px;
+border-radius:40px;
+border:none;
+background:white;
+color:#5a3d82;
+font-size:22px;
+font-weight:800;
 cursor:pointer;
-transition:transform .14s ease, box-shadow .14s ease, background .14s ease;
-box-shadow:
-0 7px 0 rgba(45,24,65,.42),
-0 15px 28px rgba(36,17,55,.15);
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
-}
-
-.btn-action i{
-font-size:16px;
-opacity:.82;
+transition:0.2s;
+box-shadow:0 6px 0 rgba(0,0,0,0.25);
 }
 
 .btn-action:hover{
-transform:translateY(-2px);
-background:#fff;
-box-shadow:
-0 9px 0 rgba(45,24,65,.42),
-0 18px 34px rgba(36,17,55,.18);
+transform:translateY(-3px);
 }
 
 .btn-action:active{
-transform:translateY(4px);
-box-shadow:
-0 3px 0 rgba(45,24,65,.42),
-0 8px 16px rgba(36,17,55,.13);
+transform:translateY(2px);
+box-shadow:0 2px 0 rgba(0,0,0,0.25);
 }
-
-#mainMenu .btn-action:first-child{
-background:linear-gradient(180deg,#fff 0%,#fff 72%,#f6f1fb 100%);
-border-color:#fff;
-font-size:20px;
-}
-
-@media(max-width:700px){
-  #mainMenu{
-    background-size:58px 100px,58px 100px,58px 100px,auto,auto;
-  }
-  #mainMenu .menu-logo{
-    transform:scale(.82);
-    margin-top:-42px;
-    margin-bottom:-18px;
-  }
-  .menu-buttons{
-    width:min(320px,calc(100vw - 30px));
-    gap:11px;
-  }
-  .btn-action{
-    min-height:52px;
-    font-size:16px;
-    box-shadow:0 5px 0 rgba(45,24,65,.42),0 12px 22px rgba(36,17,55,.14);
-  }
-}
-
-@media(max-height:720px){
-  #mainMenu .menu-logo{
-    transform:scale(.76);
-    margin-top:-58px;
-    margin-bottom:-28px;
-  }
-  .menu-buttons{gap:9px}
-  .btn-action{min-height:48px;padding:9px 18px}
-}
-
+        .btn-action:hover { background: var(--accent); color: #000; transform: scale(1.05); }
 
 .app-container{
 display:none;
@@ -1290,6 +1252,52 @@ transition:.25s;
 <body>
 
 <div class="settings-btn-new" id="floatBtn" style="display: none;" onclick="toggleOptions()">خيارات</div>
+
+<div id="exitConfirmModal" style="
+position:fixed;
+inset:0;
+background:rgba(18,9,31,.78);
+backdrop-filter:blur(8px);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:10000;
+padding:18px;
+box-sizing:border-box;
+direction:rtl;
+">
+  <div style="
+  width:min(420px,94vw);
+  background:#5d2f89;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:28px;
+  padding:26px 22px 22px;
+  text-align:center;
+  color:white;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+  ">
+    <div style="font-size:26px;font-weight:1000;color:#ffd54f;margin-bottom:10px;">الخروج من اللعبة؟</div>
+    <div style="font-size:15px;line-height:1.8;color:#f1e8f7;margin-bottom:20px;">
+      هل أنت متأكد أنك تريد الخروج والعودة إلى موقع الألعاب؟
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <button type="button" onclick="confirmGameExit()" style="
+        min-height:52px;border:0;border-radius:16px;background:#ffd54f;color:#4d2474;
+        font-family:inherit;font-size:16px;font-weight:1000;cursor:pointer;">
+        نعم، خروج
+      </button>
+
+      <button type="button" onclick="closeExitConfirm()" style="
+        min-height:52px;border:1px solid rgba(255,255,255,.20);border-radius:16px;
+        background:rgba(255,255,255,.08);color:white;font-family:inherit;
+        font-size:16px;font-weight:1000;cursor:pointer;">
+        إلغاء
+      </button>
+    </div>
+  </div>
+</div>
+
 <div id="codeHelpModal" style="
 position:fixed;
 inset:0;
@@ -1426,8 +1434,8 @@ color:white;
     <button class="btn-action" onclick="openSettings()">
         <i class="fas fa-cog"></i> الإعدادات
     </button>
-<button class="btn-action" onclick="openCodeHelp()">
-    <i class="fas fa-key"></i> طريقة الحصول على الرمز
+<button class="btn-action" onclick="openExitConfirm()">
+    <i class="fas fa-sign-out-alt"></i> خروج
 </button>
 </div>
 </div>
@@ -5398,6 +5406,21 @@ document.querySelector(".show-answer-btn").innerHTML = "💡 إظهار الإج
 document.getElementById("teamButtons").style.display = "none";
 
 }
+
+function openExitConfirm(){
+  const modal = document.getElementById("exitConfirmModal");
+  if(modal) modal.style.display = "flex";
+}
+
+function closeExitConfirm(){
+  const modal = document.getElementById("exitConfirmModal");
+  if(modal) modal.style.display = "none";
+}
+
+function confirmGameExit(){
+  window.location.href = "https://zamn.games";
+}
+
 function openCodeHelp() {
     document.getElementById("codeHelpModal").style.display = "flex";
 }
