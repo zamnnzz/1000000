@@ -1248,355 +1248,6 @@ transition:.25s;
 
 
     
-/* ===== ترتيب واجهة الإعدادات فقط ===== */
-#settingsModal{
-  padding:18px !important;
-  background:
-    radial-gradient(circle at 50% 12%,rgba(255,255,255,.07),transparent 28%),
-    var(--main-bg) !important;
-}
-.settings-container{
-  width:min(760px,96vw) !important;
-  max-width:760px !important;
-  max-height:92vh !important;
-  overflow-y:auto !important;
-  padding:6px 8px 22px;
-  scrollbar-width:thin;
-}
-.settings-header{
-  position:sticky;
-  top:0;
-  z-index:4;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  min-height:76px;
-  margin-bottom:14px !important;
-  padding:10px 84px 10px 14px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:22px;
-  background:rgba(63,29,91,.92);
-  backdrop-filter:blur(12px);
-}
-.save-back-btn{
-  top:50% !important;
-  left:14px !important;
-  transform:translateY(-50%);
-  position:absolute !important;
-  padding:9px 22px !important;
-  border:0 !important;
-  box-shadow:0 7px 18px rgba(0,0,0,.15);
-}
-.save-back-btn:hover{
-  transform:translateY(-50%) scale(1.04) !important;
-}
-.settings-grid{
-  display:grid !important;
-  grid-template-columns:minmax(150px,.8fr) minmax(0,1.8fr) !important;
-  gap:12px 16px !important;
-  align-items:center !important;
-  text-align:right !important;
-  padding:18px !important;
-  border-radius:24px !important;
-  border:1px solid rgba(255,255,255,.12) !important;
-  background:rgba(0,0,0,.14) !important;
-}
-.setting-label{
-  font-size:15px !important;
-  font-weight:900 !important;
-  color:#f3eafa !important;
-  margin:0 !important;
-}
-.input-field{
-  min-height:46px;
-  padding:10px 13px !important;
-  font-size:15px !important;
-  border-radius:14px !important;
-  border:1.5px solid rgba(255,255,255,.65) !important;
-  background:rgba(255,255,255,.06) !important;
-}
-.setting-options{
-  display:flex !important;
-  gap:8px !important;
-  flex-wrap:wrap !important;
-  width:100%;
-}
-.opt-btn{
-  min-width:58px !important;
-  min-height:43px;
-  padding:9px 12px !important;
-  border-radius:13px !important;
-  border:1px solid rgba(255,255,255,.18) !important;
-  background:rgba(255,255,255,.055) !important;
-  font-size:14px !important;
-}
-.opt-btn.active{
-  background:#fff !important;
-  color:var(--main-bg) !important;
-  border-color:#fff !important;
-}
-.color-pair{
-  width:48px !important;
-  height:30px !important;
-  border-radius:9px !important;
-  border-width:2px !important;
-}
-.color-pair.active{
-  transform:scale(1.06) !important;
-}
-.settings-grid > div[style*="display:flex;flex-wrap:wrap"]{
-  gap:8px !important;
-  justify-content:flex-start !important;
-  max-height:150px;
-  overflow:auto;
-  padding:5px 2px;
-}
-
-/* بعض العناصر القديمة كانت خارج grid بسبب الإغلاق السابق؛ نجمعها بصرياً */
-#settingsModal .settings-container > .setting-label,
-#settingsModal .settings-container > .setting-options,
-#settingsModal .settings-container > .input-field,
-#settingsModal .settings-container > div[style*="display:flex;flex-wrap:wrap"]{
-  margin-inline:18px;
-}
-#settingsModal .settings-container > .setting-label{
-  margin-top:13px;
-  margin-bottom:7px;
-  text-align:right;
-}
-#settingsModal .settings-container > .setting-options,
-#settingsModal .settings-container > .input-field,
-#settingsModal .settings-container > div[style*="display:flex;flex-wrap:wrap"]{
-  width:calc(100% - 36px) !important;
-}
-
-@media(max-width:650px){
-  #settingsModal{padding:8px !important}
-  .settings-container{width:100% !important;max-height:96vh !important}
-  .settings-header{
-    min-height:64px;
-    padding:8px 68px 8px 10px;
-    border-radius:18px;
-  }
-  .settings-grid{
-    grid-template-columns:1fr !important;
-    gap:7px !important;
-    padding:13px !important;
-    border-radius:18px !important;
-  }
-  .setting-label{
-    font-size:13px !important;
-    margin-top:6px !important;
-  }
-  .input-field{min-height:42px;font-size:14px !important}
-  .opt-btn{min-height:40px;font-size:12px !important}
-  .save-back-btn{
-    left:10px !important;
-    padding:8px 15px !important;
-    font-size:12px;
-  }
-  #settingsModal .settings-container > .setting-label,
-  #settingsModal .settings-container > .setting-options,
-  #settingsModal .settings-container > .input-field,
-  #settingsModal .settings-container > div[style*="display:flex;flex-wrap:wrap"]{
-    margin-inline:13px;
-    width:calc(100% - 26px) !important;
-  }
-}
-
-
-/* شعار الإعدادات: بدون خلفية وثابت أعلى الشاشة أثناء التمرير */
-#settingsModal .settings-header{
-  position:sticky !important;
-  top:0 !important;
-  z-index:20 !important;
-  background:transparent !important;
-  border:none !important;
-  box-shadow:none !important;
-  backdrop-filter:none !important;
-  border-radius:0 !important;
-  margin-bottom:12px !important;
-}
-#settingsModal .settings-header::before,
-#settingsModal .settings-header::after{
-  display:none !important;
-  content:none !important;
-}
-
-
-/* تثبيت شعار «حروف مع» وزر الحفظ أعلى الإعدادات */
-#settingsModal .settings-container{
-  padding-top:92px !important;
-  position:relative !important;
-}
-
-#settingsModal .settings-header{
-  position:fixed !important;
-  top:10px !important;
-  left:50% !important;
-  transform:translateX(-50%) !important;
-  width:min(760px,96vw) !important;
-  min-height:72px !important;
-  z-index:9999 !important;
-  margin:0 !important;
-  padding:8px 14px !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  background:transparent !important;
-  border:none !important;
-  box-shadow:none !important;
-  backdrop-filter:none !important;
-  pointer-events:none;
-}
-
-#settingsModal .settings-header .menu-logo,
-#settingsModal .settings-header .logo-h,
-#settingsModal .settings-header .logo-w,
-#settingsModal .settings-header .logo-c{
-  pointer-events:none;
-}
-
-#settingsModal .save-back-btn{
-  position:fixed !important;
-  top:18px !important;
-  left:18px !important;
-  right:auto !important;
-  transform:none !important;
-  z-index:10000 !important;
-  pointer-events:auto !important;
-  margin:0 !important;
-}
-
-#settingsModal .save-back-btn:hover{
-  transform:scale(1.04) !important;
-}
-
-@media(max-width:650px){
-  #settingsModal .settings-container{
-    padding-top:82px !important;
-  }
-  #settingsModal .settings-header{
-    top:6px !important;
-    width:100% !important;
-    min-height:64px !important;
-  }
-  #settingsModal .save-back-btn{
-    top:12px !important;
-    left:10px !important;
-  }
-}
-
-
-/* ===== تثبيت حقيقي لهيدر الإعدادات ===== */
-#settingsModal{
-  overflow:hidden !important;
-  display:none;
-  position:fixed !important;
-  inset:0 !important;
-  align-items:stretch !important;
-  justify-content:flex-start !important;
-}
-
-#settingsModal .settings-header{
-  position:absolute !important;
-  top:0 !important;
-  left:0 !important;
-  right:0 !important;
-  width:100% !important;
-  height:155px !important;
-  min-height:155px !important;
-  transform:none !important;
-  margin:0 !important;
-  padding:8px 18px !important;
-  z-index:10020 !important;
-  display:flex !important;
-  align-items:flex-start !important;
-  justify-content:center !important;
-  pointer-events:none !important;
-  background:var(--main-bg) !important;
-  border:0 !important;
-  box-shadow:none !important;
-  backdrop-filter:none !important;
-}
-
-#settingsModal .settings-logo-fixed{
-  position:absolute !important;
-  top:8px !important;
-  left:50% !important;
-  width:320px;
-  height:145px;
-  transform:translateX(-50%) scale(.58) !important;
-  transform-origin:top center !important;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  line-height:.9;
-  pointer-events:none !important;
-}
-
-#settingsModal .settings-logo-fixed .logo-h,
-#settingsModal .settings-logo-fixed .logo-w,
-#settingsModal .settings-logo-fixed .logo-c{
-  flex:0 0 auto;
-  pointer-events:none !important;
-}
-
-#settingsModal .save-back-btn{
-  position:absolute !important;
-  top:18px !important;
-  left:18px !important;
-  right:auto !important;
-  z-index:10030 !important;
-  transform:none !important;
-  pointer-events:auto !important;
-  margin:0 !important;
-}
-
-#settingsModal .save-back-btn:hover{
-  transform:scale(1.04) !important;
-}
-
-#settingsModal .settings-container{
-  position:absolute !important;
-  top:155px !important;
-  bottom:14px !important;
-  left:50% !important;
-  transform:translateX(-50%) !important;
-  width:min(760px,96vw) !important;
-  max-width:760px !important;
-  max-height:none !important;
-  height:auto !important;
-  overflow-y:auto !important;
-  overflow-x:hidden !important;
-  padding:0 8px 22px !important;
-  margin:0 !important;
-  scrollbar-width:thin;
-  overscroll-behavior:contain;
-}
-
-@media(max-width:650px){
-  #settingsModal .settings-header{
-    height:126px !important;
-    min-height:126px !important;
-    padding:6px 10px !important;
-  }
-  #settingsModal .settings-logo-fixed{
-    top:5px !important;
-    transform:translateX(-50%) scale(.46) !important;
-  }
-  #settingsModal .save-back-btn{
-    top:12px !important;
-    left:10px !important;
-  }
-  #settingsModal .settings-container{
-    top:126px !important;
-    bottom:8px !important;
-    width:100% !important;
-  }
-}
-
 </style>
 </head>
 <body>
@@ -1791,17 +1442,16 @@ color:white;
 </div>
 
 <div id="settingsModal">
-    <div class="settings-header">
-        <div class="settings-logo-fixed">
-            <div class="logo-h">حروف</div>
-            <div class="logo-w">مع</div>
-            <div class="logo-c" id="settingsHostDisplay">بدون اسم</div>
-        </div>
-        <button class="save-back-btn" onclick="saveSettings()">حفظ</button>
+<div class="settings-container">    <div class="settings-header" style="margin-bottom:30px;">
+        <div class="logo-h">حروف</div>
+        <div class="logo-w">مع</div>
+        <div class="logo-c" id="settingsHostDisplay">بدون اسم</div>
+  <button class="save-back-btn" onclick="saveSettings()">
+حفظ
+</button>
     </div>
 
-    <div class="settings-container">
-        <div class="settings-grid">
+    <div class="settings-grid">
             <div class="setting-label">اسم المسابقة:</div>
 <input type="text" id="inHost" class="input-field" value="بدون اسم" oninput="liveName(this.value)"> 
 <div class="setting-label">اسم الفريق الأول:</div>
@@ -1816,6 +1466,10 @@ color:white;
                     <button class="opt-btn" id="hostHuman" onclick="setHostType('human', this)">بشري</button>
                 </div>
                 </div>
+         
+    
+    
+            </div>
 
           
 <div class="setting-label">حجم الشبكة:</div>
@@ -1849,8 +1503,7 @@ min="1"
 max="20"
 >
 
-
-<div class="setting-label">لون الفريقين:</div>
+            <div class="setting-label">لون الفريقين:</div>
 
 <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
 
