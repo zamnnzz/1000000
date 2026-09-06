@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>شاشة المقدم | حروف</title>
 <style>
-
 @font-face{
   font-family:"AA Galaxy";
   src:url("https://raw.githubusercontent.com/zamnnzz/fonts/main/hroffont-B6Zk_0ya.woff2") format("woff2");
@@ -13,28 +12,134 @@
   font-style:normal;
   font-display:swap;
 }
-html,body,button,input,textarea,select{
-  font-family:"AA Galaxy",sans-serif !important;
+*{box-sizing:border-box}
+:root{
+  --purple:#5b2d8e;
+  --purple-dark:#31164f;
+  --purple-soft:#7c4aaa;
+  --gold:#ffd54f;
+  --c1:#e43b41;
+  --c2:#0056b3;
+  --panel:rgba(255,255,255,.10);
+  --line:rgba(255,255,255,.14);
 }
-*:not(svg):not(path):not(polygon):not(circle):not(rect){
-  font-family:"AA Galaxy",sans-serif !important;
+html,body,button,input,textarea,select{
+  font-family:"AA Galaxy",sans-serif!important;
+}
+body{
+  margin:0;
+  min-height:100vh;
+  color:#fff;
+  background:
+    radial-gradient(circle at 15% 12%,rgba(236,63,152,.18),transparent 28%),
+    radial-gradient(circle at 86% 78%,rgba(60,132,238,.15),transparent 28%),
+    linear-gradient(145deg,#32164f 0%,#572b83 52%,#32164f 100%);
+}
+button{font-family:inherit}
+.shell{
+  width:min(1180px,96vw);
+  margin:0 auto;
+  padding:14px 0 26px;
+}
+.top{
+  min-height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:10px 16px;
+  margin-bottom:14px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:rgba(31,13,48,.48);
+  backdrop-filter:blur(14px);
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-mark{
+  font-size:25px;
+  font-weight:1000;
+  color:var(--gold);
+  line-height:1;
+}
+.logo-sub{
+  font-size:11px;
+  color:#eadcf3;
+  opacity:.85;
+}
+.top-right{display:flex;align-items:center;gap:10px}
+.title{
+  font-size:15px;
+  font-weight:1000;
+  color:#fff;
+}
+.connection{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:34px;
+  padding:0 11px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.08);
+  font-size:11px;
+  color:#fff;
+}
+.connection::before{
+  content:"";
+  width:8px;height:8px;border-radius:50%;
+  background:#45e88c;
+  box-shadow:0 0 0 4px rgba(69,232,140,.12);
+}
+.session{
+  font-size:9px;
+  direction:ltr;
+  color:#cdb9dc;
+  opacity:.72;
+}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(500px,1.15fr) minmax(360px,.78fr);
+  gap:14px;
+  align-items:start;
 }
 
-*{box-sizing:border-box}
-:root{--purple:#5b2d8e;--pink:#ef3f98;--blue:#3c84ee;--c1:#e43b41;--c2:#0056b3}
-body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;min-height:100vh}
-.shell{width:min(980px,94vw);margin:0 auto;padding:12px 0 24px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:9px 14px;margin-bottom:12px}
-.logo{display:flex;align-items:center;gap:8px}.logo-mark{font-size:25px;font-weight:1000;color:#ffd329;text-shadow:0 3px 0 rgba(0,0,0,.18)}.logo-sub{font-size:12px;font-weight:900;color:#ff675b}.title{font-size:19px;font-weight:1000;color:#ffd329}.session{font-size:10px;color:#e7d9f1;direction:ltr}
-.layout{display:grid;grid-template-columns:minmax(360px,.95fr) minmax(330px,.8fr);gap:12px;align-items:start}
-.board-card{background:linear-gradient(145deg,var(--pink) 0 12%,var(--blue) 12% 88%,var(--pink) 88%);border-radius:18px;padding:12px;box-shadow:0 12px 26px rgba(0,0,0,.2);overflow:hidden}
+/* شبكة اللعبة — نفس بناء الخلية الحالي بدون تغيير */
+.board-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:24px;
+  padding:18px 16px;
+  min-height:565px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--c2,#0056b3);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 22px 50px rgba(14,5,24,.28);
+}
+.board-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--c1,#e43b41);
+  clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,50% 50%,0 100%);
+  pointer-events:none;
+}
+.board-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),transparent 28%,rgba(0,0,0,.08));
+  pointer-events:none;
+}
 .board-scale{
   width:560px;
   max-width:100%;
   margin:auto;
-  transform-origin:top center;
+  transform-origin:center;
+  position:relative;
+  z-index:2;
 }
-
 .hex-grid{
   position:relative;
   z-index:10;
@@ -43,17 +148,14 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
   transform:translate(-10px,0);
   padding:8px 0 24px;
 }
-
 .row{
   display:flex;
   justify-content:center;
   margin-bottom:-30px;
 }
-
 .hex-grid .row:nth-child(even){
   transform:translateX(35px);
 }
-
 .hexagon{
   width:100px;
   height:120px;
@@ -68,82 +170,217 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
   text-align:center;
   pointer-events:none;
 }
+.hexagon polygon{pointer-events:auto}
+.hexagon.side{opacity:0;pointer-events:none}
 
-.hexagon polygon{
-  pointer-events:auto;
+/* لوحة التحكم */
+.panel{
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+  background:rgba(24,10,38,.58);
+  backdrop-filter:blur(16px);
+  box-shadow:0 22px 50px rgba(14,5,24,.24);
 }
-
-.hexagon.side{
-  opacity:0;
-  pointer-events:none;
+.panel-head{
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.055);
 }
-.panel{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.17);border-radius:18px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,.14)}
-.panel-head{background:linear-gradient(90deg,#9b5cf0,#e43f9c);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:1000;font-size:13px}
+.current-letter{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:12px;
+  color:#dac6e8;
+}
+.current-letter b{
+  display:grid;
+  place-items:center;
+  width:36px;height:36px;
+  border-radius:12px;
+  background:var(--gold);
+  color:var(--purple);
+  font-size:21px;
+}
 .qbox{padding:14px}
-.qa-label{font-size:11px;color:#eadcf4;font-weight:900;margin:0 0 5px}
-.question,.answer{
- border-radius:13px;padding:12px 13px;text-align:center;display:grid;place-items:center;font-weight:1000;
+.qa-block{
+  padding:14px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:17px;
+  background:rgba(255,255,255,.055);
 }
-.question{font-size:17px;line-height:1.55;min-height:72px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13)}
-.answer{font-size:18px;line-height:1.5;min-height:58px;background:#fff;color:#5b2d8e;border:2px solid #ffd54f;margin-top:6px}
-.hint{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:8px;border-radius:11px;text-align:center;color:#eadcf4;font-size:10px;margin:10px 0}
-.teams{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.team{min-height:62px;border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;background:rgba(255,255,255,.07)}.team b{font-size:12px}.score{font-size:21px;font-weight:1000}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.btn{min-height:43px;border:0;border-radius:12px;font-family:inherit;font-size:12px;font-weight:1000;cursor:pointer;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.11);padding:7px}.btn.gold{background:#c39179;color:#39204f}.btn.c1{background:var(--c1)}.btn.c2{background:var(--c2)}.btn.wide{grid-column:1/-1}.fast{margin-top:9px;background:#ffd54f;color:#51217b;border-radius:10px;padding:8px 10px;text-align:center;font-size:12px;font-weight:1000;display:none}.status{font-size:9px;color:#e4d3ef;text-align:center;margin-top:8px}
-@media(max-width:760px){.layout{grid-template-columns:1fr}.shell{width:min(620px,96vw)}.board-card{padding:8px}.board-scale{transform:scale(.88);margin-bottom:-52px}.top{border-radius:14px}.title{font-size:16px}}
-@media(max-width:420px){.shell{width:100%;padding:6px}.top{padding:8px 10px}.logo-mark{font-size:20px}.logo-sub{font-size:10px}.title{font-size:14px}.board-scale{transform:scale(.72);margin-bottom:-115px}.qbox{padding:10px}.question{font-size:16px;min-height:60px}.btn{font-size:11px;min-height:40px}}.top{padding:8px 10px}.logo-mark{font-size:20px}.logo-sub{font-size:10px}.title{font-size:14px}.qbox{padding:10px}.question{font-size:16px;min-height:60px}.btn{font-size:11px;min-height:40px}}
-
+.qa-block + .qa-block{margin-top:10px}
+.qa-label{
+  margin:0 0 7px;
+  font-size:10px;
+  color:#cdb8dc;
+}
+.question{
+  min-height:74px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  font-size:18px;
+  line-height:1.55;
+  font-weight:1000;
+  color:#fff;
+}
+.answer-card{
+  background:#fff;
+  color:var(--purple);
+  border-color:rgba(255,213,79,.55);
+}
+.answer{
+  min-height:52px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  font-size:20px;
+  line-height:1.45;
+  font-weight:1000;
+}
+.teams{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:11px;
+}
 .team{
-  transition:background .15s ease,border-color .15s ease,transform .15s ease,box-shadow .15s ease;
+  min-height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:3px;
+  padding:10px;
+  border:2px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  background:rgba(255,255,255,.055);
+  transition:.15s ease;
 }
+.team b{font-size:11px}
+.score{font-size:25px;font-weight:1000}
 .team.active-team{
   transform:translateY(-1px);
-  border-color:rgba(255,255,255,.55);
-  box-shadow:0 0 0 2px rgba(255,255,255,.12) inset,0 7px 16px rgba(0,0,0,.16);
+  box-shadow:0 0 0 2px rgba(255,255,255,.12) inset,0 8px 18px rgba(0,0,0,.18);
 }
 #team1Box.active-team{background:var(--c1,#e43b41)}
 #team2Box.active-team{background:var(--c2,#0056b3)}
 #team1Box.active-team *,#team2Box.active-team *{color:#fff}
+
+.controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:11px;
+}
+.btn{
+  min-height:46px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  padding:8px 10px;
+  cursor:pointer;
+  color:#fff;
+  background:rgba(255,255,255,.075);
+  font-size:11px;
+  font-weight:1000;
+  transition:transform .12s ease,filter .12s ease,background .12s ease;
+}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn.c1{background:var(--c1)}
+.btn.c2{background:var(--c2)}
+.btn.gold{
+  color:#42205f;
+  background:linear-gradient(135deg,#ffd54f,#ffb82e);
+  border-color:transparent;
+}
+.btn.wide{grid-column:1/-1}
 .fast{
-  transition:background .15s ease,color .15s ease,border-color .15s ease;
+  display:none;
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  text-align:center;
+  font-size:12px;
+  font-weight:1000;
+  background:var(--gold);
+  color:#51217b;
   border:1px solid transparent;
 }
-.fast.c1{background:var(--c1,#e43b41);color:#fff;border-color:rgba(255,255,255,.45)}
-.fast.c2{background:var(--c2,#0056b3);color:#fff;border-color:rgba(255,255,255,.45)}
+.fast.c1{background:var(--c1);color:#fff;border-color:rgba(255,255,255,.32)}
+.fast.c2{background:var(--c2);color:#fff;border-color:rgba(255,255,255,.32)}
 
-
-.board-card{position:relative!important;overflow:hidden!important;background:var(--c2,#0056b3)!important;}
-.board-card::before{content:"";position:absolute;inset:0;background:var(--c1,#e43b41);clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,50% 50%,0 100%);pointer-events:none;}
-.board-card .hex-grid{position:relative;z-index:2;}
+@media(max-width:930px){
+  .layout{grid-template-columns:1fr}
+  .board-card{min-height:auto}
+  .panel{max-width:720px;margin:0 auto;width:100%}
+}
+@media(max-width:620px){
+  .shell{width:100%;padding:8px}
+  .top{border-radius:16px;padding:9px 11px}
+  .title{font-size:12px}
+  .session{display:none}
+  .board-card{padding:9px;border-radius:18px}
+  .board-scale{transform:scale(.80);margin-top:-42px;margin-bottom:-42px}
+  .panel{border-radius:18px}
+  .qbox{padding:10px}
+  .question{font-size:16px;min-height:62px}
+  .answer{font-size:18px}
+  .controls{gap:7px}
+  .btn{font-size:10px;min-height:43px}
+}
+@media(max-width:420px){
+  .top-right .title{display:none}
+  .logo-mark{font-size:21px}
+  .board-scale{transform:scale(.68);margin-top:-86px;margin-bottom:-86px}
+  .teams{gap:7px}
+}
 </style>
 </head>
 <body>
 <div class="shell">
   <div class="top">
-    <div class="logo">
+    <div class="brand">
       <div class="logo-mark">حروف</div>
-      <div class="logo-sub">شاشة المقدم</div>
+      <div class="logo-sub">لوحة المقدم</div>
     </div>
-    <div>
-      <div class="title">شاشة المقدم البشري</div>
+    <div class="top-right">
+      <div class="title">تحكم مباشر باللعبة</div>
+      <div class="connection" id="sync">جاري الربط...</div>
       <div class="session" id="sessionText"></div>
     </div>
   </div>
 
   <div class="layout">
     <section class="board-card">
-      <div class="board-scale"><div class="hex-grid" id="grid"></div></div>
+      <div class="board-scale">
+        <div class="hex-grid" id="grid"></div>
+      </div>
     </section>
 
     <section class="panel">
       <div class="panel-head">
-        <span>حرف: <b id="letter">-</b></span>
-        <span id="sync">جاري الربط...</span>
+        <div class="current-letter">
+          <span>الحرف الحالي</span>
+          <b id="letter">-</b>
+        </div>
       </div>
+
       <div class="qbox">
-        <div class="qa-label">السؤال</div>
-        <div class="question" id="question">اختر خلية من اللوحة ليظهر السؤال هنا</div>
-        <div class="qa-label" style="margin-top:10px">الإجابة</div>
-        <div class="answer" id="answer">—</div>
-        <div class="hint">السؤال والإجابة يظهران هنا للمقدم فقط، والتحكم ينعكس على شاشة اللعبة الأساسية.</div>
+        <div class="qa-block">
+          <div class="qa-label">السؤال</div>
+          <div class="question" id="question">اختر حرفًا من الشبكة</div>
+        </div>
+
+        <div class="qa-block answer-card">
+          <div class="qa-label" style="color:#8763a2">الإجابة</div>
+          <div class="answer" id="answer">—</div>
+        </div>
 
         <div class="teams">
           <div class="team" id="team1Box">
@@ -160,11 +397,11 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
           <button class="btn c1" id="team1Btn">نقطة للفريق الأول</button>
           <button class="btn c2" id="team2Btn">نقطة للفريق الثاني</button>
           <button class="btn gold" id="nextBtn">تغيير السؤال</button>
-          <button class="btn" id="buzzerBtn">إعادة تعيين الجرس</button>
+          <button class="btn" id="buzzerBtn">إعادة الجرس</button>
           <button class="btn wide" id="newGameBtn">بداية لعبة جديدة</button>
         </div>
+
         <div class="fast" id="fast"></div>
-        <div class="status" id="status">بانتظار بيانات اللعبة...</div>
       </div>
     </section>
   </div>
@@ -377,11 +614,9 @@ function render(st){
    fast.style.display="none";
  }
  document.getElementById("sync").textContent="● متصل";
- document.getElementById("status").textContent="آخر مزامنة: "+new Date(state.ts||Date.now()).toLocaleTimeString("ar-SA");
 }
 if(!session){
  controls.forEach(b=>b.disabled=true);
- document.getElementById("status").textContent="افتح الصفحة من زر «شاشة المقدم البشري» داخل اللعبة.";
 }else{
  db.ref("games/"+session+"/presenterState").on("value",snap=>{
    const st=snap.val();
@@ -389,7 +624,6 @@ if(!session){
    else { document.getElementById("sync").textContent="بانتظار اللعبة"; }
  },()=>{
    document.getElementById("sync").textContent="تعذر الربط";
-   document.getElementById("status").textContent="تأكد أن شاشة اللعبة الأساسية مفتوحة على نفس الجلسة.";
  });
 }
 document.getElementById("team1Btn").addEventListener("click",()=>send("givePoint",{team:"c1"}));
