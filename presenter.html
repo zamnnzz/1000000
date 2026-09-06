@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>شاشة المقدم | حروف</title>
 <style>
+
+@font-face{
+  font-family:"AA Galaxy";
+  src:url("https://raw.githubusercontent.com/zamnnzz/fonts/main/hroffont-B6Zk_0ya.woff2") format("woff2");
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
+html,body,button,input,textarea,select{
+  font-family:"AA Galaxy",sans-serif !important;
+}
+*:not(svg):not(path):not(polygon):not(circle):not(rect){
+  font-family:"AA Galaxy",sans-serif !important;
+}
+
 *{box-sizing:border-box}
 :root{--purple:#5b2d8e;--pink:#ef3f98;--blue:#3c84ee;--c1:#e43b41;--c2:#0056b3}
 body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;min-height:100vh}
@@ -223,7 +238,7 @@ style="transition: 0.2s;"
      const text = hex.querySelector("text");
 
      // لا نرسم حالة من عندنا؛ نطبق نفس ألوان اللعبة على الحالة القادمة منها.
-     if(item.status === "selected"){
+     if(item.status === "selected" || st.selectedId === item.id){
        poly.setAttribute("fill", "#FFD54F");
        text.setAttribute("fill", "#5B2D8E");
        hex.classList.add("selected");
@@ -242,6 +257,27 @@ style="transition: 0.2s;"
      // اللعبة الأصلية هي التي تقرر التحديد/الإلغاء/التلوين ثم ترسل الحالة للهوست.
      poly.addEventListener("click",(e)=>{
        e.stopPropagation();
+
+       // نفس منطق اللعبة الأساسية بشكل فوري على شاشة المقدم
+       // ثم ترسل الضغطة للعبة الأساسية لتكون هي المصدر النهائي للحالة.
+       if(state && Array.isArray(state.board)){
+         const clicked = state.board.find(x=>x.id===item.id);
+         if(clicked){
+           if(clicked.status !== "neutral"){
+             clicked.status = "neutral";
+             if(state.selectedId === item.id) state.selectedId = null;
+           }else{
+             state.board.forEach(x=>{
+               if(x.status === "selected") x.status = "neutral";
+             });
+             clicked.status = "selected";
+             state.selectedId = item.id;
+           }
+           lastBoardKey = "";
+           renderBoard(state);
+         }
+       }
+
        send("selectHex",{id:item.id});
      });
 
