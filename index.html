@@ -1291,13 +1291,35 @@ color:white;
 
 </div>
 </div>
-<div id="buzzerQuickModal" style="position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;z-index:9998;padding:18px;box-sizing:border-box;">
-  <div style="width:min(360px,100%);background:white;border-radius:24px;padding:22px;text-align:center;color:#5b2d8e;box-shadow:0 22px 55px rgba(0,0,0,.3);direction:rtl;">
-    <div style="font-size:21px;font-weight:900;margin-bottom:12px;">باركود الجرس</div>
-    <div id="quickBuzzerQR" style="background:#fff;padding:10px;border-radius:14px;width:fit-content;margin:0 auto 12px;"></div>
-    <a id="quickBuzzerLink" href="#" target="_blank" rel="noopener" style="display:block;direction:ltr;word-break:break-all;color:#5b2d8e;font-size:13px;margin:8px 0 14px;text-decoration:underline;"></a>
-    <button type="button" id="quickBuzzerOpen" class="btn-action" style="width:100%;margin-bottom:8px;">فتح الجرس مباشرة</button>
-    <button type="button" class="btn-action" onclick="closeBuzzerQuick()" style="width:100%;background:#eee;color:#5b2d8e;">إغلاق</button>
+
+<div id="shareOpenModal" style="position:fixed;inset:0;background:rgba(19,12,30,.78);backdrop-filter:blur(7px);display:none;align-items:center;justify-content:center;z-index:9998;padding:18px;box-sizing:border-box;">
+  <div style="width:min(430px,94vw);background:#5d2f89;border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:22px;text-align:center;color:white;box-shadow:0 24px 60px rgba(0,0,0,.35);direction:rtl;position:relative;">
+    <button type="button" onclick="closeShareOpenModal()" aria-label="إغلاق"
+      style="position:absolute;top:15px;right:15px;width:42px;height:42px;border-radius:13px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:white;font-size:24px;font-weight:900;cursor:pointer;">×</button>
+
+    <div id="shareOpenTitle" style="font-size:24px;font-weight:1000;margin:18px 0 20px;">مشاركة الرابط</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <button type="button" id="shareCopyBtn"
+        style="min-height:112px;border-radius:20px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:white;font-family:inherit;font-size:18px;font-weight:1000;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;">
+        <span style="font-size:31px;line-height:1;">🔗</span>
+        <span>نسخ الرابط</span>
+      </button>
+
+      <button type="button" id="shareQrBtn"
+        style="min-height:112px;border-radius:20px;border:1px solid #f6b82f;background:rgba(246,184,47,.16);color:#ffd238;font-family:inherit;font-size:18px;font-weight:1000;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;">
+        <span style="font-size:31px;line-height:1;">▦</span>
+        <span>باركود</span>
+      </button>
+    </div>
+
+    <div id="shareQrArea" style="display:none;margin:16px auto 0;background:white;border-radius:18px;padding:12px;width:fit-content;"></div>
+    <div id="shareCopyStatus" style="min-height:22px;margin-top:10px;font-size:13px;color:#ffe08a;font-weight:800;"></div>
+
+    <button type="button" onclick="closeShareOpenModal()"
+      style="width:100%;min-height:58px;margin-top:6px;border-radius:18px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:white;font-family:inherit;font-size:17px;font-weight:1000;cursor:pointer;">
+      إغلاق
+    </button>
   </div>
 </div>
 <div id="optionsMenu" class="options-menu-modern">
@@ -1314,14 +1336,14 @@ color:white;
     </span>
   </button>
 
-  <button type="button" class="options-row" onclick="openPresenterScreen(); toggleOptions();">
+  <button type="button" id="presenterScreenRow" class="options-row" style="display:none" onclick="openPresenterShareOptions(); toggleOptions();">
     <span>شاشة المقدم البشري</span>
     <span class="row-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
     </span>
   </button>
 
-  <button type="button" class="options-row" onclick="openBuzzerQuick(); toggleOptions();">
+  <button type="button" class="options-row" onclick="openBuzzerShareOptions(); toggleOptions();">
     <span>الجرس</span>
     <span class="row-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
@@ -4746,6 +4768,7 @@ createHexGrid();
     btn.classList.add('active');
 
     isHumanHost = (type === 'human');
+    if(typeof syncPresenterScreenOption === 'function') syncPresenterScreenOption();
     const qrCont = document.getElementById('qrContainer');
     const qrDiv = document.getElementById('qrcode');
 
@@ -5033,6 +5056,9 @@ currentLetter = hex.dataset.letter;
 
     document.querySelector(".show-answer-btn").innerHTML = "💡 إظهار الإجابة";
     document.getElementById("teamButtons").style.display = "none";
+
+    // شاشة المقدم البشري تبدأ دائمًا من أول سؤال للحرف المختار
+    if(isHumanHost){ qIndex = 0; }
 
    if(isHumanHost){
     // في الوضع البشري لا تفتح بطاقة السؤال
@@ -5776,28 +5802,89 @@ function getBuzzerPlayerUrl(){
     let directory = currentPath.substring(0, currentPath.lastIndexOf('/')) + '/';
     return window.location.origin + directory + "player.html?session=" + session;
 }
-function openBuzzerQuick(){
-    const modal = document.getElementById('buzzerQuickModal');
-    const qr = document.getElementById('quickBuzzerQR');
-    const link = document.getElementById('quickBuzzerLink');
-    const openBtn = document.getElementById('quickBuzzerOpen');
-    if(!modal || !qr || !link || !openBtn) return;
-    const url = getBuzzerPlayerUrl();
-    qr.innerHTML = '';
-    new QRCode(qr, { text:url, width:180, height:180, correctLevel:QRCode.CorrectLevel.H });
-    link.href = url;
-    link.textContent = url;
-    openBtn.onclick = ()=>window.open(url,'_blank','noopener');
+
+let currentShareUrl = "";
+
+function openShareOpenModal(title, url){
+    const modal = document.getElementById('shareOpenModal');
+    const titleEl = document.getElementById('shareOpenTitle');
+    const qrArea = document.getElementById('shareQrArea');
+    const status = document.getElementById('shareCopyStatus');
+    const copyBtn = document.getElementById('shareCopyBtn');
+    const qrBtn = document.getElementById('shareQrBtn');
+    if(!modal || !titleEl || !qrArea || !copyBtn || !qrBtn) return;
+
+    currentShareUrl = url;
+    titleEl.textContent = title;
+    qrArea.innerHTML = '';
+    qrArea.style.display = 'none';
+    if(status) status.textContent = '';
+
+    copyBtn.onclick = async ()=>{
+        try{
+            if(navigator.clipboard && window.isSecureContext){
+                await navigator.clipboard.writeText(currentShareUrl);
+            }else{
+                const ta = document.createElement('textarea');
+                ta.value = currentShareUrl;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+            }
+            if(status) status.textContent = 'تم نسخ الرابط ✓';
+        }catch(e){
+            if(status) status.textContent = 'تعذر النسخ تلقائياً';
+        }
+    };
+
+    qrBtn.onclick = ()=>{
+        qrArea.innerHTML = '';
+        new QRCode(qrArea, {
+            text: currentShareUrl,
+            width: 190,
+            height: 190,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        qrArea.style.display = 'block';
+        if(status) status.textContent = '';
+    };
+
     modal.style.display = 'flex';
 }
-function closeBuzzerQuick(){
-    const modal = document.getElementById('buzzerQuickModal');
+
+function closeShareOpenModal(){
+    const modal = document.getElementById('shareOpenModal');
     if(modal) modal.style.display = 'none';
 }
+
+function openBuzzerShareOptions(){
+    openShareOpenModal('مشاركة رابط الجرس', getBuzzerPlayerUrl());
+}
+
+function openPresenterShareOptions(){
+    try{
+        isHumanHost = true;
+        const humanBtn = document.getElementById('quickHostHuman');
+        const autoBtn = document.getElementById('quickHostAuto');
+        if(humanBtn) humanBtn.classList.add('active');
+        if(autoBtn) autoBtn.classList.remove('active');
+    }catch(e){}
+    openShareOpenModal('مشاركة رابط شاشة المقدم', getPresenterUrl());
+}
+
 function toggleOptions(){
     const menu = document.getElementById("optionsMenu");
     const visible = getComputedStyle(menu).display !== "none";
     menu.style.display = visible ? "none" : "block";
+}
+
+
+function syncPresenterScreenOption(){
+    const row = document.getElementById('presenterScreenRow');
+    if(row) row.style.display = isHumanHost ? 'flex' : 'none';
 }
 
 function setQuickHostType(type, btn){
@@ -5805,6 +5892,7 @@ function setQuickHostType(type, btn){
     if(btn) btn.classList.add('active');
     const target = type === 'human' ? document.getElementById('hostHuman') : document.getElementById('hostAuto');
     if(target) setHostType(type, target);
+    syncPresenterScreenOption();
 }
 
 let quickSoundEnabled = true;
@@ -5959,7 +6047,22 @@ window.addEventListener("orientationchange", checkOrientation);
       board: collectBoard(),
       selectedId: selected,
       currentLetter: (typeof currentLetter !== "undefined" && currentLetter) ? currentLetter : "",
-      questionText: questionEl ? questionEl.innerText : "",
+      questionText: (
+        (typeof currentLetter !== "undefined" && currentLetter &&
+         typeof questionsDatabase !== "undefined" &&
+         questionsDatabase[currentLetter] &&
+         questionsDatabase[currentLetter][qIndex])
+          ? questionsDatabase[currentLetter][qIndex].q
+          : (questionEl ? questionEl.innerText : "")
+      ),
+      answerText: (
+        (typeof currentLetter !== "undefined" && currentLetter &&
+         typeof questionsDatabase !== "undefined" &&
+         questionsDatabase[currentLetter] &&
+         questionsDatabase[currentLetter][qIndex])
+          ? questionsDatabase[currentLetter][qIndex].a
+          : ""
+      ),
       answerVisible: !!(answerBtn && answerBtn.innerText.includes("إخفاء")),
       scores: {
         c1: Number((document.getElementById('s1')||{}).innerText || 0),

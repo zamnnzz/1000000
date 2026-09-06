@@ -13,10 +13,32 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
 .logo{display:flex;align-items:center;gap:8px}.logo-mark{font-size:25px;font-weight:1000;color:#ffd329;text-shadow:0 3px 0 rgba(0,0,0,.18)}.logo-sub{font-size:12px;font-weight:900;color:#ff675b}.title{font-size:19px;font-weight:1000;color:#ffd329}.session{font-size:10px;color:#e7d9f1;direction:ltr}
 .layout{display:grid;grid-template-columns:minmax(360px,.95fr) minmax(330px,.8fr);gap:12px;align-items:start}
 .board-card{background:linear-gradient(145deg,var(--pink) 0 12%,var(--blue) 12% 88%,var(--pink) 88%);border-radius:18px;padding:15px;box-shadow:0 12px 26px rgba(0,0,0,.2)}
-.hex-grid{display:flex;flex-direction:column;align-items:center;padding:3px 0}.hex-row{display:flex;justify-content:center;margin-top:-7px}.hex{width:67px;height:61px;margin:0 -1px;display:grid;place-items:center;background:#fff;color:var(--purple);font-size:23px;font-weight:1000;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%);border:0;cursor:pointer;position:relative;transition:.12s ease}.hex::after{content:"";position:absolute;inset:2px;clip-path:inherit;border:3px solid var(--purple);pointer-events:none}.hex.selected{background:#ffd54f}.hex.c1{background:var(--c1);color:transparent}.hex.c2{background:var(--c2);color:transparent}.hex:hover{transform:scale(1.035);z-index:3}
-.panel{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.17);border-radius:18px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,.14)}.panel-head{background:linear-gradient(90deg,#9b5cf0,#e43f9c);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:1000;font-size:13px}.qbox{padding:14px}.question{font-size:18px;line-height:1.55;font-weight:1000;text-align:center;min-height:72px;display:grid;place-items:center}.hint{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:8px;border-radius:11px;text-align:center;color:#eadcf4;font-size:10px;margin-bottom:10px}.teams{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.team{min-height:62px;border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;background:rgba(255,255,255,.07)}.team b{font-size:12px}.score{font-size:21px;font-weight:1000}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.btn{min-height:43px;border:0;border-radius:12px;font-family:inherit;font-size:12px;font-weight:1000;cursor:pointer;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.11);padding:7px}.btn.gold{background:#c39179;color:#39204f}.btn.c1{background:var(--c1)}.btn.c2{background:var(--c2)}.btn.wide{grid-column:1/-1}.fast{margin-top:9px;background:#ffd54f;color:#51217b;border-radius:10px;padding:8px 10px;text-align:center;font-size:12px;font-weight:1000;display:none}.status{font-size:9px;color:#e4d3ef;text-align:center;margin-top:8px}
-@media(max-width:760px){.layout{grid-template-columns:1fr}.shell{width:min(560px,96vw)}.board-card{padding:10px}.hex{width:58px;height:53px;font-size:20px}.top{border-radius:14px}.title{font-size:16px}}
-@media(max-width:420px){.shell{width:100%;padding:6px}.top{padding:8px 10px}.logo-mark{font-size:20px}.logo-sub{font-size:10px}.title{font-size:14px}.hex{width:50px;height:46px;font-size:18px}.qbox{padding:10px}.question{font-size:16px;min-height:60px}.btn{font-size:11px;min-height:40px}}
+.hex-grid{position:relative;line-height:0;margin:auto;transform:translate(-5px,0);padding:6px 0 12px}
+.hex-row{display:flex;justify-content:center;margin-bottom:-23px}
+.hex-row:nth-child(even){transform:translateX(28px)}
+.hex{
+ width:78px;height:94px;margin:-11px;border:0;background:transparent;padding:0;
+ cursor:pointer;position:relative;transition:transform .12s ease;
+}
+.hex svg{width:100%;height:100%;overflow:visible;display:block}
+.hex:hover{transform:scale(1.035);z-index:3}
+.hex.selected polygon{fill:#FFD54F}
+.hex.c1 polygon{fill:var(--c1,#e43b41)}
+.hex.c2 polygon{fill:var(--c2,#0056b3)}
+.hex.c1 text,.hex.c2 text{fill:transparent}
+.panel{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.17);border-radius:18px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,.14)}
+.panel-head{background:linear-gradient(90deg,#9b5cf0,#e43f9c);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:1000;font-size:13px}
+.qbox{padding:14px}
+.qa-label{font-size:11px;color:#eadcf4;font-weight:900;margin:0 0 5px}
+.question,.answer{
+ border-radius:13px;padding:12px 13px;text-align:center;display:grid;place-items:center;font-weight:1000;
+}
+.question{font-size:17px;line-height:1.55;min-height:72px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13)}
+.answer{font-size:18px;line-height:1.5;min-height:58px;background:#fff;color:#5b2d8e;border:2px solid #ffd54f;margin-top:6px}
+.hint{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:8px;border-radius:11px;text-align:center;color:#eadcf4;font-size:10px;margin:10px 0}
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.team{min-height:62px;border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;background:rgba(255,255,255,.07)}.team b{font-size:12px}.score{font-size:21px;font-weight:1000}.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.btn{min-height:43px;border:0;border-radius:12px;font-family:inherit;font-size:12px;font-weight:1000;cursor:pointer;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.11);padding:7px}.btn.gold{background:#c39179;color:#39204f}.btn.c1{background:var(--c1)}.btn.c2{background:var(--c2)}.btn.wide{grid-column:1/-1}.fast{margin-top:9px;background:#ffd54f;color:#51217b;border-radius:10px;padding:8px 10px;text-align:center;font-size:12px;font-weight:1000;display:none}.status{font-size:9px;color:#e4d3ef;text-align:center;margin-top:8px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.shell{width:min(560px,96vw)}.board-card{padding:10px}.hex{width:64px;height:77px;margin:-9px}.hex-row{margin-bottom:-19px}.hex-row:nth-child(even){transform:translateX(23px)}.top{border-radius:14px}.title{font-size:16px}}
+@media(max-width:420px){.shell{width:100%;padding:6px}.top{padding:8px 10px}.logo-mark{font-size:20px}.logo-sub{font-size:10px}.title{font-size:14px}.hex{width:54px;height:65px;margin:-8px}.hex-row{margin-bottom:-16px}.hex-row:nth-child(even){transform:translateX(20px)}.qbox{padding:10px}.question{font-size:16px;min-height:60px}.btn{font-size:11px;min-height:40px}}
 </style>
 </head>
 <body>
@@ -43,8 +65,11 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
         <span id="sync">جاري الربط...</span>
       </div>
       <div class="qbox">
+        <div class="qa-label">السؤال</div>
         <div class="question" id="question">اختر خلية من اللوحة ليظهر السؤال هنا</div>
-        <div class="hint">هذه الصفحة تتحكم في شاشة اللعبة الأساسية مباشرة.</div>
+        <div class="qa-label" style="margin-top:10px">الإجابة</div>
+        <div class="answer" id="answer">—</div>
+        <div class="hint">السؤال والإجابة يظهران هنا للمقدم فقط، والتحكم ينعكس على شاشة اللعبة الأساسية.</div>
 
         <div class="teams">
           <div class="team" id="team1Box">
@@ -60,7 +85,6 @@ body{margin:0;background:#5b2d8e;color:#fff;font-family:Tahoma,Arial,sans-serif;
         <div class="controls">
           <button class="btn c1" id="team1Btn">نقطة للفريق الأول</button>
           <button class="btn c2" id="team2Btn">نقطة للفريق الثاني</button>
-          <button class="btn" id="answerBtn">إظهار الإجابة</button>
           <button class="btn gold" id="nextBtn">تغيير السؤال</button>
           <button class="btn" id="cancelBtn">إلغاء التحديد</button>
           <button class="btn" id="buzzerBtn">إعادة تعيين الجرس</button>
@@ -115,8 +139,15 @@ function renderBoard(st){
      const b=document.createElement("button");
      b.type="button";
      b.className="hex "+(item.status||"neutral");
-     b.textContent=item.letter||"";
      b.title="اختيار حرف "+(item.letter||"");
+     b.innerHTML=`<svg viewBox="90 0 120 110" aria-hidden="true">
+       <polygon points="142,4 184,28 184,76 142,100 100,76 100,28"
+         fill="${item.status==='selected' ? '#FFD54F' : item.status==='c1' ? (state?.teamColors?.c1||'#e43b41') : item.status==='c2' ? (state?.teamColors?.c2||'#0056b3') : 'white'}"
+         stroke="#5B2D8E" stroke-width="6" stroke-linejoin="round"></polygon>
+       <text x="142" y="54" text-anchor="middle" dominant-baseline="middle"
+         fill="${item.status==='c1'||item.status==='c2' ? 'transparent' : '#5B2D8E'}"
+         style="font-family:'AA Galaxy',Tahoma,Arial,sans-serif;font-size:48px;pointer-events:none">${item.letter||''}</text>
+     </svg>`;
      b.addEventListener("click",()=>send("selectHex",{id:item.id}));
      row.appendChild(b);
    }
@@ -130,13 +161,13 @@ function render(st){
  renderBoard(state);
  document.getElementById("letter").textContent=state.currentLetter||"-";
  document.getElementById("question").textContent=state.questionText||"اختر خلية من اللوحة ليظهر السؤال هنا";
+ document.getElementById("answer").textContent=state.answerText||"—";
  document.getElementById("team1Name").textContent=state.teamNames?.c1||"الفريق الأول";
  document.getElementById("team2Name").textContent=state.teamNames?.c2||"الفريق الثاني";
  document.getElementById("score1").textContent=state.scores?.c1??0;
  document.getElementById("score2").textContent=state.scores?.c2??0;
  document.getElementById("team1Btn").textContent="نقطة لـ "+(state.teamNames?.c1||"الفريق الأول");
  document.getElementById("team2Btn").textContent="نقطة لـ "+(state.teamNames?.c2||"الفريق الثاني");
- document.getElementById("answerBtn").textContent=state.answerVisible?"إخفاء الإجابة":"إظهار الإجابة";
  const fast=document.getElementById("fast");
  if(state.buzzer){fast.textContent=state.buzzer;fast.style.display="block"}else{fast.style.display="none"}
  document.getElementById("sync").textContent="● متصل";
@@ -157,7 +188,6 @@ if(!session){
 }
 document.getElementById("team1Btn").addEventListener("click",()=>send("givePoint",{team:"c1"}));
 document.getElementById("team2Btn").addEventListener("click",()=>send("givePoint",{team:"c2"}));
-document.getElementById("answerBtn").addEventListener("click",()=>send("showAnswer"));
 document.getElementById("nextBtn").addEventListener("click",()=>send("nextQuestion"));
 document.getElementById("cancelBtn").addEventListener("click",()=>send("cancelSelection"));
 document.getElementById("buzzerBtn").addEventListener("click",()=>send("resetBuzzer"));
