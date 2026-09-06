@@ -5763,10 +5763,14 @@ window.closeBuzzer = function() {
  console.log("🔴 تم قفل الأزرار");
 };
 
+let presenterBuzzerTeam = "";
+
 firebase.database().ref("games/"+session+"/buzzer").on("value", snap=>{
  const data = snap.val();
 
  if(data && data.name){
+
+  presenterBuzzerTeam = data.team || "";
 
   const box = document.getElementById("fastPlayerName");
 
@@ -5783,6 +5787,7 @@ box.style.boxShadow = "0 8px 20px rgba(0,0,0,.45)"; closeBuzzer();
     firebase.database().ref("games/"+session+"/buzzer").set(null);
     openBuzzer();
 
+presenterBuzzerTeam = "";
 box.innerText = "";
 box.style.background = "transparent";
 box.style.border = "0";
@@ -6074,6 +6079,7 @@ window.addEventListener("orientationchange", checkOrientation);
         c2: getComputedStyle(document.documentElement).getPropertyValue('--team2').trim() || '#0056b3'
       },
       buzzer: ((document.getElementById('fastPlayerName')||{}).innerText || "").trim(),
+      buzzerTeam: (typeof presenterBuzzerTeam !== "undefined" ? presenterBuzzerTeam : ""),
       humanHost: (typeof isHumanHost !== "undefined") ? !!isHumanHost : false
     };
   }
