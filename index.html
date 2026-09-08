@@ -9463,16 +9463,12 @@ window.addEventListener("orientationchange", checkOrientation);
   function fitGameSidesAndGrid(){
     const game = document.getElementById('gameMain');
     const sidebar = game && game.querySelector('.sidebar');
+    const gameArea = game && game.querySelector('.game-area');
     const wrapper = game && game.querySelector('.grid-wrapper');
     const grid = game && game.querySelector('#hexGrid');
-    if(!game || !sidebar || !wrapper || !grid) return;
+    if(!game || !sidebar || !gameArea || !wrapper || !grid) return;
 
-    const {w, h} = visibleViewport();
-
-    /* عرض الجنب لا نلمسه نهائيًا؛ نقرأ عرضه الأصلي فقط لاستخدامه في حساب مساحة الخلية. */
-    const sidebarW = Math.max(1, sidebar.getBoundingClientRect().width);
-
-    /* نجمع عناصر الجنب داخل غلاف واحد مرة واحدة، ثم نضغطه رأسيًا فقط إذا نقص الارتفاع. */
+    /* الجنب: العرض الأصلي كما هو. الضغط رأسي فقط إذا احتاج. */
     let sideInner = sidebar.querySelector('.sidebar-fit-inner');
     if(!sideInner){
       sideInner = document.createElement('div');
@@ -9487,33 +9483,27 @@ window.addEventListener("orientationchange", checkOrientation);
     root.style.setProperty('--adaptive-side-y', '1');
     const sideStyle = getComputedStyle(sidebar);
     const padY = (parseFloat(sideStyle.paddingTop)||0) + (parseFloat(sideStyle.paddingBottom)||0);
-    const naturalSideH = Math.max(sideInner.scrollHeight, sideInner.getBoundingClientRect().height, 1);
-    const visibleSideH = Math.max(80, Math.min(sidebar.clientHeight || h, h) - padY - 8);
+    const naturalSideH = Math.max(sideInner.scrollHeight, 1);
+    const visibleSideH = Math.max(1, sidebar.clientHeight - padY - 6);
     const sideY = Math.min(1, visibleSideH / naturalSideH) * 0.995;
-    root.style.setProperty('--adaptive-side-y', Math.max(0.50, sideY).toFixed(4));
+    root.style.setProperty('--adaptive-side-y', Math.max(0.18, sideY).toFixed(4));
 
-    /* مساحة اللعب المتبقية بعد عرض الجنب الأصلي. */
-    const availableW = Math.max(120, w - sidebarW - 20);
-    const availableH = Math.max(120, h - 18);
+    /* المرجع الحقيقي الوحيد: المساحة التي أعطاها flex فعليًا لمنطقة اللعب بعد الجنب. */
+    const areaStyle = getComputedStyle(gameArea);
+    const padX = (parseFloat(areaStyle.paddingLeft)||0) + (parseFloat(areaStyle.paddingRight)||0);
+    const padH = (parseFloat(areaStyle.paddingTop)||0) + (parseFloat(areaStyle.paddingBottom)||0);
+    const availableW = Math.max(1, gameArea.clientWidth - padX - 12);
+    const availableH = Math.max(1, gameArea.clientHeight - padH - 12);
 
-    /* القياس الطبيعي للشبكة قبل أي scale. */
-    const oldTransform = wrapper.style.transform;
-    const oldTransition = wrapper.style.transition;
-    wrapper.style.transition = 'none';
-    wrapper.style.transform = 'scale(1)';
-
+    /* scrollWidth/scrollHeight لا يتأثران بالـ transform، لذلك يعطون المقاس الطبيعي الصحيح. */
+    root.style.setProperty('--adaptive-grid-scale', '1');
     const naturalW = Math.max(grid.scrollWidth, grid.offsetWidth, 1);
     const naturalH = Math.max(grid.scrollHeight, grid.offsetHeight, 1);
-
-    wrapper.style.transform = oldTransform;
-    wrapper.style.transition = oldTransition;
-
     const fitW = availableW / naturalW;
     const fitH = availableH / naturalH;
-    const scale = clamp(0.55, Math.min(fitW, fitH) * 0.965, 2.35);
+    const scale = clamp(0.12, Math.min(fitW, fitH) * 0.985, 2.35);
     root.style.setProperty('--adaptive-grid-scale', scale.toFixed(4));
   }
-
   let raf = 0;
   function scheduleFit(){
     cancelAnimationFrame(raf);
@@ -9564,6 +9554,8 @@ window.addEventListener("orientationchange", checkOrientation);
 :root{
   --vvw:100vw;
   --vvh:100vh;
+  --vvo-x:0px;
+  --vvo-y:0px;
   --q-fit:1;
   --overlay-fit:1;
 }
@@ -9579,6 +9571,11 @@ body{position:fixed;inset:0;}
 
 /* شاشة اللعب نفسها لا تتجاوز المساحة المرئية الفعلية */
 #gameMain{
+  position:fixed !important;
+  left:var(--vvo-x) !important;
+  top:var(--vvo-y) !important;
+  right:auto !important;
+  bottom:auto !important;
   width:var(--vvw) !important;
   height:var(--vvh) !important;
   max-width:var(--vvw) !important;
@@ -9614,7 +9611,7 @@ body{position:fixed;inset:0;}
 
 /* بطاقة السؤال: نفس شكلها، وإذا لم تكف المساحة تُصغّر كاملة بنسبة موحدة */
 #qCard.q-flip-container{
-  left:calc((var(--vvw) - var(--sidebar-live-w, 0px)) / 2) !important;
+  left:50% !important;
   top:50% !important;
   transform:translate(-50%,-50%) scale(var(--q-fit)) !important;
   transform-origin:center center !important;
@@ -9656,7 +9653,6 @@ body{position:fixed;inset:0;}
 /* في الشاشات الطولية الضيقة جدًا: لا نغير عرض الجنب؛ نعطي الشبكة المساحة الباقية فقط */
 @media (orientation:portrait){
   #gameMain .game-area{min-width:0 !important;}
-  #qCard.q-flip-container{left:50% !important;}
 }
 
 /* الشاشات القصيرة جدًا: قلل المسافات الخارجية فقط، لا تغيّر عرض الجنب */
@@ -9675,7 +9671,9 @@ body{position:fixed;inset:0;}
     const vv = window.visualViewport;
     return {
       w: Math.max(1, vv ? vv.width : window.innerWidth),
-      h: Math.max(1, vv ? vv.height : window.innerHeight)
+      h: Math.max(1, vv ? vv.height : window.innerHeight),
+      x: Math.max(0, vv ? vv.offsetLeft : 0),
+      y: Math.max(0, vv ? vv.offsetTop : 0)
     };
   }
 
@@ -9683,29 +9681,25 @@ body{position:fixed;inset:0;}
     const v = viewport();
     root.style.setProperty('--vvw', v.w.toFixed(2) + 'px');
     root.style.setProperty('--vvh', v.h.toFixed(2) + 'px');
+    root.style.setProperty('--vvo-x', v.x.toFixed(2) + 'px');
+    root.style.setProperty('--vvo-y', v.y.toFixed(2) + 'px');
     return v;
   }
 
   function fitQuestionCard(v){
     const game = document.getElementById('gameMain');
+    const gameArea = game && game.querySelector('.game-area');
     const card = document.getElementById('qCard');
-    const sidebar = game && game.querySelector('.sidebar');
-    if(!game || !card || !sidebar || game.style.display !== 'flex') return;
+    if(!game || !gameArea || !card || getComputedStyle(game).display === 'none') return;
 
-    const sw = Math.max(0, sidebar.getBoundingClientRect().width);
-    root.style.setProperty('--sidebar-live-w', sw.toFixed(2) + 'px');
-
-    /* نقرأ المقاس الطبيعي للبطاقة عند scale=1 ثم نصغّر فقط عند الضرورة. */
+    /* البطاقة absolute داخل game-area؛ لذلك نحسب من game-area نفسها، لا من عرض الشاشة. */
     root.style.setProperty('--q-fit','1');
-    const rect = card.getBoundingClientRect();
-    const naturalW = Math.max(1, rect.width);
-    const naturalH = Math.max(1, rect.height);
-
-    const portrait = v.h >= v.w;
-    const areaW = portrait ? Math.max(80, v.w - 16) : Math.max(80, v.w - sw - 20);
-    const areaH = Math.max(80, v.h - 16);
+    const naturalW = Math.max(1, card.offsetWidth);
+    const naturalH = Math.max(1, card.offsetHeight);
+    const areaW = Math.max(1, gameArea.clientWidth - 20);
+    const areaH = Math.max(1, gameArea.clientHeight - 20);
     const fit = Math.min(1, areaW / naturalW, areaH / naturalH) * 0.985;
-    root.style.setProperty('--q-fit', Math.max(0.48, fit).toFixed(4));
+    root.style.setProperty('--q-fit', Math.max(0.18, fit).toFixed(4));
   }
 
   function guardFixedElement(el, v){
@@ -9728,6 +9722,7 @@ body{position:fixed;inset:0;}
 
   function fitAll(){
     const v = setViewportVars();
+    if(typeof window.fitGameSidesAndGrid === 'function') window.fitGameSidesAndGrid();
     fitQuestionCard(v);
 
     const opts = document.getElementById('optionsMenu');
