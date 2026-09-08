@@ -5,7 +5,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>حروف نسخة زامن الاصليه</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
@@ -3776,7 +3776,9 @@ transition:.25s;
 }
 
 
-/* ===== بطاقة السؤال: تكيفية داخل مساحة اللعب فقط، بدون تمرير ===== */
+/* ===== تعديلان فقط: بطاقة سؤال تكيفية + تثبيت الحروف داخل الخلايا ===== */
+
+/* 1) بطاقة السؤال داخل منطقة اللعب نفسها، بدون تمرير وبدون دخول فوق الجنب */
 #qCard.q-flip-container{
   position:absolute !important;
   top:50% !important;
@@ -3858,7 +3860,6 @@ transition:.25s;
   border-radius:clamp(12px,2vh,16px) !important;
 }
 
-/* الجوال العرضي: أصغر وأكثر إحكاماً حتى لا تخرج البطاقة إطلاقاً */
 @media (max-height:620px){
   #qCard.q-flip-container{
     width:min(72%,680px) !important;
@@ -3898,13 +3899,8 @@ transition:.25s;
     padding:7px 9px !important;
     font-size:14px !important;
   }
-
-  #qCard .draw-icon{
-    transform:scale(.82) !important;
-  }
 }
 
-/* الجوال الطولي */
 @media (max-width:520px) and (orientation:portrait){
   #qCard.q-flip-container{
     width:min(92%,430px) !important;
@@ -3912,45 +3908,7 @@ transition:.25s;
   }
 }
 
-
-/* ===== تثبيت الشاشة على الجوال بدون تمرير أو تكبير خاطئ ===== */
-html, body{
-  width:100% !important;
-  height:100% !important;
-  max-width:100% !important;
-  max-height:100% !important;
-  overflow:hidden !important;
-}
-
-body{
-  position:fixed !important;
-  inset:0 !important;
-}
-
-.app-container,
-#gameMain,
-.game-area{
-  max-width:100% !important;
-  max-height:100% !important;
-  overflow:hidden !important;
-}
-
-/* استخدام ارتفاع viewport الحقيقي على الجوال */
-@supports (height: 100dvh){
-  html, body{
-    height:100dvh !important;
-    max-height:100dvh !important;
-  }
-  .app-container,
-  #gameMain,
-  .game-area{
-    height:100dvh !important;
-    max-height:100dvh !important;
-  }
-}
-
-
-/* ===== تثبيت الحروف داخل الخلايا: بدون أي transform على النص ===== */
+/* 2) الحروف تبقى داخل نفس السداسي */
 .hexagon > svg{
   overflow:hidden !important;
 }
@@ -3981,118 +3939,31 @@ body{
 }
 
 
-/* ===== ضبط مساحة الجوال حسب الـ Visual Viewport الحقيقي ===== */
-:root{
-  --game-vw:100vw;
-  --game-vh:100dvh;
+/* ===== تعديل واحد فقط: مقاس "مبروك الفوز" مثل مقاسات انتقالات حروف/الجولة ===== */
+#roundWinOverlay .round-win-red{
+  font-size:clamp(70px,7.8vw,110px) !important;
 }
 
-html,body{
-  width:var(--game-vw) !important;
-  height:var(--game-vh) !important;
-  min-width:0 !important;
-  min-height:0 !important;
-  max-width:var(--game-vw) !important;
-  max-height:var(--game-vh) !important;
-  margin:0 !important;
-  padding:0 !important;
-  overflow:hidden !important;
+#roundWinOverlay .round-win-yellow{
+  font-size:clamp(72px,7.2vw,100px) !important;
 }
 
-body{
-  position:fixed !important;
-  left:0 !important;
-  top:0 !important;
-  right:auto !important;
-  bottom:auto !important;
+#roundWinOverlay .round-win-team{
+  font-size:clamp(20px,2.2vw,28px) !important;
 }
 
-.app-container,
-#gameMain{
-  position:fixed !important;
-  left:0 !important;
-  top:0 !important;
-  right:auto !important;
-  bottom:auto !important;
-  width:var(--game-vw) !important;
-  height:var(--game-vh) !important;
-  max-width:var(--game-vw) !important;
-  max-height:var(--game-vh) !important;
-  margin:0 !important;
-  padding:0 !important;
-  overflow:hidden !important;
-  box-sizing:border-box !important;
-}
-
-.game-area{
-  min-width:0 !important;
-  min-height:0 !important;
-  height:100% !important;
-  overflow:hidden !important;
-}
-
-/* في الشاشات القصيرة مثل Safari وهو ظاهر: صغّر عناصر الجنب عموديًا فقط */
-@media (max-height:700px){
-  .sidebar{
-    height:100% !important;
-    min-height:0 !important;
-    padding:6px 8px !important;
-    gap:8px !important;
-    overflow:hidden !important;
-    box-sizing:border-box !important;
+/* نفس الفكرة على الشاشات القصيرة/الجوال: يتناسب بدون ما يصغر زيادة */
+@media(max-width:700px), (max-height:650px){
+  #roundWinOverlay .round-win-red{
+    font-size:clamp(58px,15vw,92px) !important;
   }
 
-  .round-info{
-    margin-bottom:4px !important;
-    flex:0 0 auto !important;
+  #roundWinOverlay .round-win-yellow{
+    font-size:clamp(62px,16vw,98px) !important;
   }
 
-  .round-word{
-    font-size:clamp(34px,8vh,58px) !important;
-    transform:
-      translateX(6px)
-      translateY(0)
-      rotate(-10deg)
-      skewX(-8deg) !important;
-  }
-
-  .round-num{
-    font-size:clamp(38px,9vh,64px) !important;
-    margin-top:-18px !important;
-    transform:
-      translateX(-6px)
-      translateY(24px)
-      rotate(-10deg)
-      skewX(-8deg) !important;
-  }
-
-  #fastPlayerName{
-    top:24px !important;
-    padding:4px 10px !important;
-    min-height:20px !important;
-    font-size:14px !important;
-  }
-
-  .score-bars{
-    gap:7px !important;
-    margin-top:auto !important;
-    margin-bottom:10px !important;
-  }
-
-  .team-score-bar{
-    --bar-down:0px !important;
-    height:44px !important;
-    min-height:44px !important;
-  }
-
-  .team-score-bar .team-name{
-    font-size:clamp(14px,3vh,20px) !important;
-  }
-
-  .score-badge{
-    width:30px !important;
-    height:34px !important;
-    font-size:20px !important;
+  #roundWinOverlay .round-win-team{
+    font-size:clamp(18px,4.6vw,26px) !important;
   }
 }
 
@@ -7781,10 +7652,6 @@ btn.classList.add('active');
 }
   function startIntro() {
 
-if(typeof window.requestGameFullscreen === "function"){
-  window.requestGameFullscreen();
-}
-
 document.getElementById('mainMenu').style.display = 'none';
 document.getElementById('floatBtn').style.display = 'block';
 
@@ -7926,7 +7793,7 @@ style="transition: 0.2s;"
     font-weight:400;
     letter-spacing:0;
     pointer-events:none;
-  "
+    "
 >
   ${letter}
 </text>
@@ -8028,13 +7895,6 @@ wrapper.classList.remove("grid-4","grid-5","grid-6");
 
 // إضافة الكلاس حسب الحجم
 wrapper.classList.add("grid-" + currentGridSize);
-
-/* ضبط القياس بعد اكتمال بناء الشبكة */
-requestAnimationFrame(()=>{
-  requestAnimationFrame(()=>{
-    if(typeof updateGameScale === "function") updateGameScale();
-  });
-});
 
 /* ترتيب نفس الشبكة بعد إنشائها */
 setTimeout(()=>{
@@ -9074,52 +8934,45 @@ for(let r = 0; r < currentGridSize; r++){
 
 
 function updateGameScale(){
-  const vv = window.visualViewport;
-  const viewportWidth = Math.round(vv ? vv.width : window.innerWidth);
-  const viewportHeight = Math.round(vv ? vv.height : window.innerHeight);
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
-  /* Safari يغير المساحة الحقيقية مع ظهور/اختفاء أشرطة المتصفح */
-  document.documentElement.style.setProperty("--game-vw", viewportWidth + "px");
-  document.documentElement.style.setProperty("--game-vh", viewportHeight + "px");
+  /*
+    المقاس الأساسي:
+    عرض 1400
+    ارتفاع 800
 
-  const gameArea = document.querySelector(".game-area");
-  const grid = document.getElementById("hexGrid");
-
-  if(!gameArea || !grid || !grid.children.length){
-    return;
-  }
-
-  /* نقيس الشبكة قبل scale، ثم نلائمها داخل مساحة اللعب نفسها لا داخل الشاشة كاملة */
-  const baseWidth = Math.max(grid.offsetWidth, 1);
-  const baseHeight = Math.max(grid.offsetHeight, 1);
-
-  const availableWidth = Math.max(gameArea.clientWidth - 34, 120);
-  const availableHeight = Math.max(gameArea.clientHeight - 28, 120);
-
-  const fitScale = Math.min(
-    availableWidth / baseWidth,
-    availableHeight / baseHeight
+    نستخدم أصغر نسبة حتى لا تخرج الشبكة من الشاشة.
+  */
+  const screenFactor = Math.min(
+    width / 1400,
+    height / 800
   );
 
-  /* حدود تحافظ على نفس إحساس المقاسات القديمة ولا تسمح بقص الشبكة */
-  const maxScale =
-    currentGridSize === 4 ? 2.20 :
-    currentGridSize === 5 ? 2.00 : 1.80;
+  const safeFactor = Math.max(0.40, Math.min(screenFactor, 1.15));
 
-  const safeScale = Math.max(.52, Math.min(fitScale, maxScale));
+const grid4Scale = 2.20 * safeFactor;
+const grid5Scale = 2.00 * safeFactor;
+const grid6Scale = 1.80 * safeFactor;
 
   document.documentElement.style.setProperty(
-    "--grid-" + currentGridSize + "-scale",
-    safeScale.toFixed(3)
+    "--grid-4-scale",
+    grid4Scale.toFixed(3)
+  );
+
+  document.documentElement.style.setProperty(
+    "--grid-5-scale",
+    grid5Scale.toFixed(3)
+  );
+
+  document.documentElement.style.setProperty(
+    "--grid-6-scale",
+    grid6Scale.toFixed(3)
   );
 }
 
 window.addEventListener("resize", updateGameScale);
 window.addEventListener("orientationchange", updateGameScale);
-if(window.visualViewport){
-  window.visualViewport.addEventListener("resize", updateGameScale);
-  window.visualViewport.addEventListener("scroll", updateGameScale);
-}
 window.addEventListener("DOMContentLoaded", updateGameScale);
 
 updateGameScale();
@@ -9546,63 +9399,6 @@ window.addEventListener("orientationchange", checkOrientation);
       src.stop(ctx.currentTime + dur + .02);
     }catch(e){}
   };
-})();
-</script>
-
-
-<script>
-/* ===== وضع شاشة ثابت بدون تكبير خاطئ على الجوال ===== */
-(function(){
-  function isIOS(){
-    return /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  }
-
-  function isMobileLike(){
-    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-      (navigator.maxTouchPoints > 1 && Math.min(screen.width,screen.height) < 1024);
-  }
-
-  async function requestGameFullscreen(){
-    if(!isMobileLike()) return;
-
-    /* على iPhone/iPad لا نجبر Fullscreen لأنه قد يكبر الصفحة ويقص نصفها */
-    if(isIOS()) return;
-
-    try{
-      if(document.fullscreenElement || document.webkitFullscreenElement) return;
-
-      const el = document.documentElement;
-      const fn = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
-      if(fn){
-        await fn.call(el);
-      }
-    }catch(e){}
-  }
-
-  function lockGameViewport(){
-    document.documentElement.style.width = "100%";
-    document.documentElement.style.height = "100%";
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.width = "100%";
-    document.body.style.height = "100%";
-    document.body.style.overflow = "hidden";
-    document.body.style.position = "fixed";
-    document.body.style.inset = "0";
-  }
-
-  lockGameViewport();
-
-  window.addEventListener("orientationchange", ()=>{
-    setTimeout(lockGameViewport, 120);
-    setTimeout(()=>{
-      if(!isIOS()) requestGameFullscreen();
-    }, 350);
-  });
-
-  window.addEventListener("resize", lockGameViewport);
-
-  window.requestGameFullscreen = requestGameFullscreen;
 })();
 </script>
 
