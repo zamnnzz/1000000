@@ -9607,6 +9607,10 @@ window.addEventListener("orientationchange", checkOrientation);
 
       menu.style.setProperty('--menu-visible-w', vw + 'px');
       menu.style.setProperty('--menu-visible-h', vh + 'px');
+      menu.style.left = (vv ? vv.offsetLeft : 0) + 'px';
+      menu.style.top = (vv ? vv.offsetTop : 0) + 'px';
+      menu.style.right = 'auto';
+      menu.style.bottom = 'auto';
 
       // نقيس المقاس الأصلي الحقيقي قبل أي تصغير.
       fit.style.setProperty('--menu-fit-scale', '1');
@@ -9616,13 +9620,24 @@ window.addEventListener("orientationchange", checkOrientation);
       const availableW = Math.max(1, vw - padX);
       const availableH = Math.max(1, vh - padY);
 
-      const rect = fit.getBoundingClientRect();
-      const naturalW = Math.max(fit.scrollWidth, fit.offsetWidth, rect.width, 1);
-      const naturalH = Math.max(fit.scrollHeight, fit.offsetHeight, rect.height, 1);
+      // احسب الحدود الحقيقية لكل عناصر واجهة البداية، بما فيها العناصر
+      // المزاحة بـ transform مثل كلمة "مع"؛ قياس الحاوية وحدها لا يلتقط هذا الخروج.
+      const nodes = [fit, ...fit.querySelectorAll('*')];
+      let minL = Infinity, minT = Infinity, maxR = -Infinity, maxB = -Infinity;
+      for (const el of nodes) {
+        const r = el.getBoundingClientRect();
+        if (!r.width && !r.height) continue;
+        minL = Math.min(minL, r.left);
+        minT = Math.min(minT, r.top);
+        maxR = Math.max(maxR, r.right);
+        maxB = Math.max(maxB, r.bottom);
+      }
+      const naturalW = Math.max(1, maxR - minL);
+      const naturalH = Math.max(1, maxB - minT);
 
-      // لا نكبّر التصميم فوق حجمه الأصلي؛ نصغّره فقط بالقدر اللازم كي لا يخرج أي جزء.
+      // هامش أمان بسيط؛ لا نكبّر التصميم، ونصغّره بالقدر اللازم فقط.
       let scale = Math.min(1, availableW / naturalW, availableH / naturalH);
-      scale = Math.max(0.2, scale * 0.985);
+      scale = Math.max(0.12, scale * 0.96);
       fit.style.setProperty('--menu-fit-scale', scale.toFixed(4));
     });
   }
