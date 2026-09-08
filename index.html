@@ -3973,6 +3973,7 @@ transition:.25s;
 :root{
   --adaptive-sidebar-w: 280px;
   --adaptive-grid-scale: 1;
+  --adaptive-side-scale: 1;
 }
 
 /* الجنب: عرضه يأتي من قياس Visual Viewport الفعلي */
@@ -3981,6 +3982,20 @@ transition:.25s;
   width:var(--adaptive-sidebar-w) !important;
   max-width:var(--adaptive-sidebar-w) !important;
   min-width:var(--adaptive-sidebar-w) !important;
+  overflow:hidden !important;
+}
+
+/* محتوى الجنب كله يصغر كقطعة واحدة إذا كان ارتفاع الشاشة لا يكفي. */
+#gameMain .sidebar-fit-inner{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:20px;
+  transform:scale(var(--adaptive-side-scale));
+  transform-origin:top center;
+  flex:0 0 auto;
 }
 
 /* الخلية/شبكة الحروف: نلغي قيم الـ scale الثابتة فقط ونستخدم الحساب الفعلي */
@@ -9459,11 +9474,37 @@ window.addEventListener("orientationchange", checkOrientation);
 
     const {w, h} = visibleViewport();
 
-    /* الجنب يحسب من العرض والارتفاع معًا حتى لا يلتهم شاشة قصيرة أو ضيقة. */
+    /* الجنب: العرض يتكيف، لكن الارتفاع هو القيد النهائي حتى لا يخرج أي جزء منه. */
     const sidebarByWidth = w * 0.205;
     const sidebarByHeight = h * 0.38;
-    const sidebarW = clamp(190, Math.min(sidebarByWidth, sidebarByHeight), 360);
+    const sidebarW = clamp(150, Math.min(sidebarByWidth, sidebarByHeight), 360);
     root.style.setProperty('--adaptive-sidebar-w', sidebarW.toFixed(2) + 'px');
+
+    /* نجمع الجزأين المرئيين للجنب في كتلة واحدة حتى نصغرهما معًا عند الحاجة. */
+    let sideInner = sidebar.querySelector('.sidebar-fit-inner');
+    if(!sideInner){
+      sideInner = document.createElement('div');
+      sideInner.className = 'sidebar-fit-inner';
+      const roundInfo = sidebar.querySelector(':scope > .round-info');
+      const scoreBars = sidebar.querySelector(':scope > .score-bars');
+      if(roundInfo) sideInner.appendChild(roundInfo);
+      if(scoreBars) sideInner.appendChild(scoreBars);
+      sidebar.insertBefore(sideInner, sidebar.firstChild);
+    }
+
+    /* القياس يبدأ من 1 ثم ينقص فقط عند الحاجة. الأولوية: لا يخرج الجنب من الشاشة إطلاقًا. */
+    root.style.setProperty('--adaptive-side-scale', '1');
+    const sideStyle = getComputedStyle(sidebar);
+    const padY = (parseFloat(sideStyle.paddingTop)||0) + (parseFloat(sideStyle.paddingBottom)||0);
+    const padX = (parseFloat(sideStyle.paddingLeft)||0) + (parseFloat(sideStyle.paddingRight)||0);
+    const naturalSideH = Math.max(sideInner.scrollHeight, sideInner.getBoundingClientRect().height, 1);
+    const naturalSideW = Math.max(sideInner.scrollWidth, 1);
+    const sideAvailH = Math.max(80, Math.min(sidebar.clientHeight || h, h) - padY - 8);
+    const sideAvailW = Math.max(80, sidebarW - padX - 6);
+    const sideFitH = sideAvailH / naturalSideH;
+    const sideFitW = sideAvailW / naturalSideW;
+    const sideScale = Math.min(1, sideFitH, sideFitW) * 0.985;
+    root.style.setProperty('--adaptive-side-scale', Math.max(0.35, sideScale).toFixed(4));
 
     /* مساحة اللعب المتبقية بعد الجنب؛ نترك هامش أمان بسيط فقط لمنع القص. */
     const availableW = Math.max(120, w - sidebarW - 20);
