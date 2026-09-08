@@ -5,7 +5,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>حروف نسخة زامن الاصليه</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
@@ -3965,6 +3965,36 @@ transition:.25s;
   #roundWinOverlay .round-win-team{
     font-size:clamp(18px,4.6vw,26px) !important;
   }
+}
+
+
+
+/* ===== التوب ٢٣-1: الجنب + الخلية فقط — قياس تكيفي حسب المساحة المرئية الفعلية ===== */
+:root{
+  --adaptive-sidebar-w: 280px;
+  --adaptive-grid-scale: 1;
+}
+
+/* الجنب: عرضه يأتي من قياس Visual Viewport الفعلي */
+#gameMain .sidebar{
+  flex:0 0 var(--adaptive-sidebar-w) !important;
+  width:var(--adaptive-sidebar-w) !important;
+  max-width:var(--adaptive-sidebar-w) !important;
+  min-width:var(--adaptive-sidebar-w) !important;
+}
+
+/* الخلية/شبكة الحروف: نلغي قيم الـ scale الثابتة فقط ونستخدم الحساب الفعلي */
+#gameMain .grid-wrapper.grid-4,
+#gameMain .grid-wrapper.grid-5,
+#gameMain .grid-wrapper.grid-6{
+  transform:scale(var(--adaptive-grid-scale)) !important;
+  transform-origin:center center !important;
+}
+
+/* داخل شاشة اللعب فقط: منع إيماءات التكبير اليدوي */
+#gameMain{
+  touch-action:none;
+  overscroll-behavior:none;
 }
 
 </style>
@@ -9399,6 +9429,106 @@ window.addEventListener("orientationchange", checkOrientation);
       src.stop(ctx.currentTime + dur + .02);
     }catch(e){}
   };
+})();
+</script>
+
+
+<script>
+/* ===== التوب ٢٣-1: حساب الجنب والخلية من مساحة المتصفح الفعلية ===== */
+(function(){
+  const root = document.documentElement;
+
+  function visibleViewport(){
+    const vv = window.visualViewport;
+    return {
+      w: Math.max(1, vv ? vv.width : window.innerWidth),
+      h: Math.max(1, vv ? vv.height : window.innerHeight)
+    };
+  }
+
+  function clamp(min, value, max){
+    return Math.max(min, Math.min(value, max));
+  }
+
+  function fitGameSidesAndGrid(){
+    const game = document.getElementById('gameMain');
+    const sidebar = game && game.querySelector('.sidebar');
+    const wrapper = game && game.querySelector('.grid-wrapper');
+    const grid = game && game.querySelector('#hexGrid');
+    if(!game || !sidebar || !wrapper || !grid) return;
+
+    const {w, h} = visibleViewport();
+
+    /* الجنب يحسب من العرض والارتفاع معًا حتى لا يلتهم شاشة قصيرة أو ضيقة. */
+    const sidebarByWidth = w * 0.205;
+    const sidebarByHeight = h * 0.38;
+    const sidebarW = clamp(190, Math.min(sidebarByWidth, sidebarByHeight), 360);
+    root.style.setProperty('--adaptive-sidebar-w', sidebarW.toFixed(2) + 'px');
+
+    /* مساحة اللعب المتبقية بعد الجنب؛ نترك هامش أمان بسيط فقط لمنع القص. */
+    const availableW = Math.max(120, w - sidebarW - 20);
+    const availableH = Math.max(120, h - 18);
+
+    /* القياس الطبيعي للشبكة قبل أي scale. */
+    const oldTransform = wrapper.style.transform;
+    const oldTransition = wrapper.style.transition;
+    wrapper.style.transition = 'none';
+    wrapper.style.transform = 'scale(1)';
+
+    const naturalW = Math.max(grid.scrollWidth, grid.offsetWidth, 1);
+    const naturalH = Math.max(grid.scrollHeight, grid.offsetHeight, 1);
+
+    wrapper.style.transform = oldTransform;
+    wrapper.style.transition = oldTransition;
+
+    const fitW = availableW / naturalW;
+    const fitH = availableH / naturalH;
+    const scale = clamp(0.55, Math.min(fitW, fitH) * 0.965, 2.35);
+    root.style.setProperty('--adaptive-grid-scale', scale.toFixed(4));
+  }
+
+  let raf = 0;
+  function scheduleFit(){
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(fitGameSidesAndGrid);
+  }
+
+  window.fitGameSidesAndGrid = fitGameSidesAndGrid;
+  window.addEventListener('resize', scheduleFit, {passive:true});
+  window.addEventListener('orientationchange', scheduleFit, {passive:true});
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize', scheduleFit, {passive:true});
+    window.visualViewport.addEventListener('scroll', scheduleFit, {passive:true});
+  }
+
+  /* Safari/iOS: منع pinch gesture فوق اللعبة. */
+  ['gesturestart','gesturechange','gestureend'].forEach(function(type){
+    document.addEventListener(type, function(e){
+      const game = document.getElementById('gameMain');
+      if(game && game.style.display === 'flex') e.preventDefault();
+    }, {passive:false});
+  });
+
+  /* سطح المكتب/التراكباد: منع Ctrl/Cmd + wheel من تكبير الصفحة أثناء اللعب. */
+  document.addEventListener('wheel', function(e){
+    const game = document.getElementById('gameMain');
+    if(game && game.style.display === 'flex' && (e.ctrlKey || e.metaKey)) e.preventDefault();
+  }, {passive:false});
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', scheduleFit, {once:true});
+  }else{
+    scheduleFit();
+  }
+
+  /* الشبكة تُبنى عند بدء اللعبة؛ راقب تغير محتواها وأعد الحساب فقط. */
+  const startObserver = function(){
+    const grid = document.getElementById('hexGrid');
+    if(!grid) return;
+    new MutationObserver(scheduleFit).observe(grid, {childList:true, subtree:true});
+  };
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startObserver, {once:true});
+  else startObserver();
 })();
 </script>
 
