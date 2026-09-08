@@ -359,6 +359,31 @@
     }catch(e){ message(e.message||"تعذر حفظ الرمز","error"); }
   }
 
+  // لون منطقة شريط الحالة أثناء اللعب — يتغير حسب هوية كل لعبة.
+  // يمكن لأي لعبة جديدة تحديد statusBarBg داخل games.js، وإلا نستخدم اللون المعروف هنا.
+  const PLAYER_STATUS_THEMES={
+    "horof-bell":"linear-gradient(115deg,#4b176f 0%,#64258f 52%,#762ca1 100%)",
+    "photos-1":"linear-gradient(115deg,#ead9b8 0%,#f4e7cc 58%,#e7d2aa 100%)",
+    "family-feud":"linear-gradient(115deg,#001129 0%,#00285c 55%,#063b7a 100%)",
+    "fawazeer":"linear-gradient(115deg,#eee7d4 0%,#f7f1df 58%,#e8dfc8 100%)",
+    "guess-link":"linear-gradient(115deg,#b94d45 0%,#d86557 55%,#e37967 100%)",
+    "alatrash":"linear-gradient(115deg,#f1e2c9 0%,#f8edda 58%,#ead7b8 100%)",
+    "top-ten":"linear-gradient(115deg,#07090f 0%,#111522 55%,#1b2030 100%)",
+    "mn-ana":"linear-gradient(115deg,#e9efdc 0%,#f1f5e7 58%,#dfe8cf 100%)"
+  };
+
+  function applyPlayerStatusTheme(game){
+    const bg=(game && game.statusBarBg) || PLAYER_STATUS_THEMES[game?.slug] ||
+      "linear-gradient(115deg,#2e1065 0%,#5b21b6 46%,#7c3aed 76%,#6d28d9 100%)";
+    document.documentElement.style.setProperty("--zamn-player-status-bg",bg);
+    document.body.dataset.playerGame=game?.slug||"";
+  }
+
+  function clearPlayerStatusTheme(){
+    document.documentElement.style.removeProperty("--zamn-player-status-bg");
+    delete document.body.dataset.playerGame;
+  }
+
   function openPlayer(game,entryType){
     modal("codeModal",false);
     // أثناء تشغيل اللعبة نُظهر مسار اللعبة القديم فقط، بدون تغيير رابط التشغيل نفسه.
@@ -368,6 +393,7 @@
       history.replaceState(history.state||{},"",legacyPath);
     }catch(_){}
     const overlay=$("gamePlayerOverlay"), iframe=$("gameIframe");
+    applyPlayerStatusTheme(game);
     $("playingGameName").textContent=game.name;
     $("trialCounter").textContent="";
     overlay.hidden=false; document.body.classList.add("player-open"); document.documentElement.classList.add("player-open"); settleZamnViewport(true);
@@ -399,7 +425,7 @@
     const playerTop=document.querySelector(".game-player-top");
     if(playerTop) playerTop.classList.remove("player-top-hidden");
     $("gameIframe").src="about:blank"; $("gamePlayerOverlay").hidden=true;
-    $("trialCounter").textContent=""; document.body.classList.remove("player-open"); document.documentElement.classList.remove("player-open"); settleZamnViewport(true);
+    $("trialCounter").textContent=""; document.body.classList.remove("player-open"); document.documentElement.classList.remove("player-open"); clearPlayerStatusTheme(); settleZamnViewport(true);
     updatePresence();
   }
 
