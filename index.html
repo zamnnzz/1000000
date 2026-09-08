@@ -5,7 +5,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>حروف نسخة زامن الاصليه</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
@@ -3980,6 +3980,122 @@ body{
   }
 }
 
+
+/* ===== ضبط مساحة الجوال حسب الـ Visual Viewport الحقيقي ===== */
+:root{
+  --game-vw:100vw;
+  --game-vh:100dvh;
+}
+
+html,body{
+  width:var(--game-vw) !important;
+  height:var(--game-vh) !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  max-width:var(--game-vw) !important;
+  max-height:var(--game-vh) !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+
+body{
+  position:fixed !important;
+  left:0 !important;
+  top:0 !important;
+  right:auto !important;
+  bottom:auto !important;
+}
+
+.app-container,
+#gameMain{
+  position:fixed !important;
+  left:0 !important;
+  top:0 !important;
+  right:auto !important;
+  bottom:auto !important;
+  width:var(--game-vw) !important;
+  height:var(--game-vh) !important;
+  max-width:var(--game-vw) !important;
+  max-height:var(--game-vh) !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+}
+
+.game-area{
+  min-width:0 !important;
+  min-height:0 !important;
+  height:100% !important;
+  overflow:hidden !important;
+}
+
+/* في الشاشات القصيرة مثل Safari وهو ظاهر: صغّر عناصر الجنب عموديًا فقط */
+@media (max-height:700px){
+  .sidebar{
+    height:100% !important;
+    min-height:0 !important;
+    padding:6px 8px !important;
+    gap:8px !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+  }
+
+  .round-info{
+    margin-bottom:4px !important;
+    flex:0 0 auto !important;
+  }
+
+  .round-word{
+    font-size:clamp(34px,8vh,58px) !important;
+    transform:
+      translateX(6px)
+      translateY(0)
+      rotate(-10deg)
+      skewX(-8deg) !important;
+  }
+
+  .round-num{
+    font-size:clamp(38px,9vh,64px) !important;
+    margin-top:-18px !important;
+    transform:
+      translateX(-6px)
+      translateY(24px)
+      rotate(-10deg)
+      skewX(-8deg) !important;
+  }
+
+  #fastPlayerName{
+    top:24px !important;
+    padding:4px 10px !important;
+    min-height:20px !important;
+    font-size:14px !important;
+  }
+
+  .score-bars{
+    gap:7px !important;
+    margin-top:auto !important;
+    margin-bottom:10px !important;
+  }
+
+  .team-score-bar{
+    --bar-down:0px !important;
+    height:44px !important;
+    min-height:44px !important;
+  }
+
+  .team-score-bar .team-name{
+    font-size:clamp(14px,3vh,20px) !important;
+  }
+
+  .score-badge{
+    width:30px !important;
+    height:34px !important;
+    font-size:20px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -7913,6 +8029,13 @@ wrapper.classList.remove("grid-4","grid-5","grid-6");
 // إضافة الكلاس حسب الحجم
 wrapper.classList.add("grid-" + currentGridSize);
 
+/* ضبط القياس بعد اكتمال بناء الشبكة */
+requestAnimationFrame(()=>{
+  requestAnimationFrame(()=>{
+    if(typeof updateGameScale === "function") updateGameScale();
+  });
+});
+
 /* ترتيب نفس الشبكة بعد إنشائها */
 setTimeout(()=>{
   if(typeof animateSameGridArrange === "function"){
@@ -8951,45 +9074,52 @@ for(let r = 0; r < currentGridSize; r++){
 
 
 function updateGameScale(){
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const vv = window.visualViewport;
+  const viewportWidth = Math.round(vv ? vv.width : window.innerWidth);
+  const viewportHeight = Math.round(vv ? vv.height : window.innerHeight);
 
-  /*
-    المقاس الأساسي:
-    عرض 1400
-    ارتفاع 800
+  /* Safari يغير المساحة الحقيقية مع ظهور/اختفاء أشرطة المتصفح */
+  document.documentElement.style.setProperty("--game-vw", viewportWidth + "px");
+  document.documentElement.style.setProperty("--game-vh", viewportHeight + "px");
 
-    نستخدم أصغر نسبة حتى لا تخرج الشبكة من الشاشة.
-  */
-  const screenFactor = Math.min(
-    width / 1400,
-    height / 800
+  const gameArea = document.querySelector(".game-area");
+  const grid = document.getElementById("hexGrid");
+
+  if(!gameArea || !grid || !grid.children.length){
+    return;
+  }
+
+  /* نقيس الشبكة قبل scale، ثم نلائمها داخل مساحة اللعب نفسها لا داخل الشاشة كاملة */
+  const baseWidth = Math.max(grid.offsetWidth, 1);
+  const baseHeight = Math.max(grid.offsetHeight, 1);
+
+  const availableWidth = Math.max(gameArea.clientWidth - 34, 120);
+  const availableHeight = Math.max(gameArea.clientHeight - 28, 120);
+
+  const fitScale = Math.min(
+    availableWidth / baseWidth,
+    availableHeight / baseHeight
   );
 
-  const safeFactor = Math.max(0.40, Math.min(screenFactor, 1.15));
+  /* حدود تحافظ على نفس إحساس المقاسات القديمة ولا تسمح بقص الشبكة */
+  const maxScale =
+    currentGridSize === 4 ? 2.20 :
+    currentGridSize === 5 ? 2.00 : 1.80;
 
-const grid4Scale = 2.20 * safeFactor;
-const grid5Scale = 2.00 * safeFactor;
-const grid6Scale = 1.80 * safeFactor;
-
-  document.documentElement.style.setProperty(
-    "--grid-4-scale",
-    grid4Scale.toFixed(3)
-  );
+  const safeScale = Math.max(.52, Math.min(fitScale, maxScale));
 
   document.documentElement.style.setProperty(
-    "--grid-5-scale",
-    grid5Scale.toFixed(3)
-  );
-
-  document.documentElement.style.setProperty(
-    "--grid-6-scale",
-    grid6Scale.toFixed(3)
+    "--grid-" + currentGridSize + "-scale",
+    safeScale.toFixed(3)
   );
 }
 
 window.addEventListener("resize", updateGameScale);
 window.addEventListener("orientationchange", updateGameScale);
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize", updateGameScale);
+  window.visualViewport.addEventListener("scroll", updateGameScale);
+}
 window.addEventListener("DOMContentLoaded", updateGameScale);
 
 updateGameScale();
