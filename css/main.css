@@ -4450,18 +4450,43 @@ body.game-mode .game-seo-faq{
 .game-seo-features{margin:12px 0 24px;padding:0;list-style:none;display:grid;gap:10px}.game-seo-features li{position:relative;padding:12px 42px 12px 14px;border:1px solid rgba(109,40,217,.18);border-radius:14px;background:rgba(255,255,255,.7);line-height:1.8}.game-seo-features li::before{content:"✓";position:absolute;right:14px;top:11px;font-weight:900;color:#6d28d9}@media(max-width:640px){.game-seo-features li{padding-right:38px}}
 
 /* =====================================================
-   ZAMN app fullscreen top-safe zone — 2026-09-09
-   الخلفية تملأ الشاشة، لكن كل محتوى التطبيق يبدأ أسفل
-   مساحة علوية آمنة حتى عندما يعيد الجهاز safe-area = 0.
+   ZAMN adaptive fullscreen safe zone — 2026-09-09 v2
+   يعتمد على Safe Area الحقيقي، مع fallback صغير فقط.
+   المنطقة أعلى الشاشة لها خلفية من هوية الموقع بدل الفراغ الأبيض.
 ===================================================== */
 :root{
-  --zamn-app-top-safe:max(30px, env(safe-area-inset-top, 0px));
+  /* iPhone/Android الحديثة تأخذ قيمة env الفعلية. fallback فقط للأغلفة التي تعيد 0. */
+  --zamn-app-top-fallback:clamp(10px, 3.6vw, 18px);
+  --zamn-app-top-safe:max(var(--zamn-app-top-fallback), env(safe-area-inset-top, 0px));
+  --zamn-top-bg:
+    radial-gradient(circle at 18% 28%, rgba(255,255,255,.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 74% 55%, rgba(255,255,255,.12) 0 1px, transparent 2px),
+    linear-gradient(115deg,#2e1065 0%,#5b21b6 42%,#7c3aed 72%,#6d28d9 100%);
 }
 
 @media (max-width: 760px){
   html{
     min-height:100%;
-    background-color:#f4f0ff;
+    background:#4c1d95;
+  }
+
+  body{
+    min-height:100%;
+    position:relative;
+  }
+
+  /* غطاء خلف شريط الحالة والنوتش، حتى لا تظهر مساحة بيضاء منفصلة. */
+  body::before{
+    content:"";
+    position:fixed;
+    z-index:999999;
+    top:0;
+    left:0;
+    right:0;
+    height:var(--zamn-app-top-safe);
+    pointer-events:none;
+    background:var(--zamn-top-bg);
+    background-size:auto,auto,100% 100%;
   }
 
   body:not(.player-open){
@@ -4469,33 +4494,32 @@ body.game-mode .game-seo-faq{
     padding-top:var(--zamn-app-top-safe) !important;
   }
 
-  /* العناصر الثابتة لا تتأثر بـ padding الصفحة، لذلك ننزلها صراحة. */
+  /* العناصر الثابتة لا تتأثر بـ padding الصفحة، لذلك ننزلها حسب Safe Area فقط. */
   .login-float{
-    top:calc(var(--zamn-app-top-safe) + 10px) !important;
+    top:calc(var(--zamn-app-top-safe) + 8px) !important;
   }
 
   .game-view-topbar{
-    padding-top:calc(var(--zamn-app-top-safe) + 10px) !important;
+    padding-top:calc(var(--zamn-app-top-safe) + 8px) !important;
   }
 
   .retro-home-btn{
-    top:calc(var(--zamn-app-top-safe) + 12px) !important;
+    top:calc(var(--zamn-app-top-safe) + 10px) !important;
   }
 
   .player-login-back,
   .player-login-logout{
-    top:calc(var(--zamn-app-top-safe) + 11px) !important;
+    top:calc(var(--zamn-app-top-safe) + 9px) !important;
   }
 
   .code-entry-back{
-    top:calc(var(--zamn-app-top-safe) + 12px) !important;
+    top:calc(var(--zamn-app-top-safe) + 10px) !important;
   }
 
   .game-player-top{
     top:var(--zamn-app-top-safe) !important;
   }
 
-  /* النوافذ الكاملة تبقى بخلفية ممتدة، ومحتواها يلتزم بالمنطقة الآمنة. */
   .zamn-lightbox,
   .z-modal,
   .player-login-overlay{
@@ -4504,9 +4528,15 @@ body.game-mode .game-seo-faq{
   }
 }
 
-/* الأفقي يحتاج مساحة أصغر مع احترام النوتش إن وجد. */
+/* الشاشات القصيرة جدًا: fallback أضيق، لكن النوتش الحقيقي يظل محفوظًا بواسطة env(). */
+@media (max-width: 380px) and (orientation: portrait){
+  :root{ --zamn-app-top-fallback:10px; }
+}
+
+/* الأفقي يحتاج مساحة صغيرة جدًا، مع احترام notch الفعلي إن وجد. */
 @media (orientation: landscape) and (max-height: 600px){
   :root{
-    --zamn-app-top-safe:max(14px, env(safe-area-inset-top, 0px));
+    --zamn-app-top-fallback:8px;
+    --zamn-app-top-safe:max(var(--zamn-app-top-fallback), env(safe-area-inset-top, 0px));
   }
 }
