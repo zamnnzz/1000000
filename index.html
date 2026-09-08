@@ -7723,6 +7723,18 @@ btn.classList.add('active');
 }
   function startIntro() {
 
+try {
+  const el = document.documentElement;
+  if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+    if (el.requestFullscreen) {
+      const fsPromise = el.requestFullscreen();
+      if (fsPromise && typeof fsPromise.catch === 'function') fsPromise.catch(()=>{});
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    }
+  }
+} catch (e) {}
+
 document.getElementById('mainMenu').style.display = 'none';
 document.getElementById('floatBtn').style.display = 'block';
 
