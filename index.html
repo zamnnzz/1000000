@@ -3969,23 +3969,18 @@ transition:.25s;
 
 
 
-/* ===== التوب ٢٣-1: الجنب + الخلية فقط — قياس تكيفي حسب المساحة المرئية الفعلية ===== */
+/* ===== التوب ٢٣-3: لا نغيّر عرض الجنب — التكيّف رأسي فقط ===== */
 :root{
-  --adaptive-sidebar-w: 280px;
   --adaptive-grid-scale: 1;
-  --adaptive-side-scale: 1;
+  --adaptive-side-y: 1;
 }
 
-/* الجنب: عرضه يأتي من قياس Visual Viewport الفعلي */
+/* مهم: عرض الجنب يبقى من CSS الأصلي كما هو، والخط الجانبي ::before يبقى خارج الحافة ظاهرًا. */
 #gameMain .sidebar{
-  flex:0 0 var(--adaptive-sidebar-w) !important;
-  width:var(--adaptive-sidebar-w) !important;
-  max-width:var(--adaptive-sidebar-w) !important;
-  min-width:var(--adaptive-sidebar-w) !important;
-  overflow:hidden !important;
+  overflow:visible !important;
 }
 
-/* محتوى الجنب كله يصغر كقطعة واحدة إذا كان ارتفاع الشاشة لا يكفي. */
+/* محتوى الجنب فقط يضغط رأسيًا عند نقص الارتفاع؛ العرض لا يتغيّر إطلاقًا. */
 #gameMain .sidebar-fit-inner{
   width:100%;
   display:flex;
@@ -3993,12 +3988,12 @@ transition:.25s;
   align-items:center;
   justify-content:flex-start;
   gap:20px;
-  transform:scale(var(--adaptive-side-scale));
+  transform:scaleY(var(--adaptive-side-y));
   transform-origin:top center;
   flex:0 0 auto;
 }
 
-/* الخلية/شبكة الحروف: نلغي قيم الـ scale الثابتة فقط ونستخدم الحساب الفعلي */
+/* الخلية/شبكة الحروف تبقى تكيفية مع المساحة المتبقية. */
 #gameMain .grid-wrapper.grid-4,
 #gameMain .grid-wrapper.grid-5,
 #gameMain .grid-wrapper.grid-6{
@@ -9449,7 +9444,7 @@ window.addEventListener("orientationchange", checkOrientation);
 
 
 <script>
-/* ===== التوب ٢٣-1: حساب الجنب والخلية من مساحة المتصفح الفعلية ===== */
+/* ===== التوب ٢٣-3: عرض الجنب ثابت + تكيّف رأسي فقط + خلية تكيفية ===== */
 (function(){
   const root = document.documentElement;
 
@@ -9474,13 +9469,10 @@ window.addEventListener("orientationchange", checkOrientation);
 
     const {w, h} = visibleViewport();
 
-    /* الجنب: العرض يتكيف، لكن الارتفاع هو القيد النهائي حتى لا يخرج أي جزء منه. */
-    const sidebarByWidth = w * 0.205;
-    const sidebarByHeight = h * 0.38;
-    const sidebarW = clamp(150, Math.min(sidebarByWidth, sidebarByHeight), 360);
-    root.style.setProperty('--adaptive-sidebar-w', sidebarW.toFixed(2) + 'px');
+    /* عرض الجنب لا نلمسه نهائيًا؛ نقرأ عرضه الأصلي فقط لاستخدامه في حساب مساحة الخلية. */
+    const sidebarW = Math.max(1, sidebar.getBoundingClientRect().width);
 
-    /* نجمع الجزأين المرئيين للجنب في كتلة واحدة حتى نصغرهما معًا عند الحاجة. */
+    /* نجمع عناصر الجنب داخل غلاف واحد مرة واحدة، ثم نضغطه رأسيًا فقط إذا نقص الارتفاع. */
     let sideInner = sidebar.querySelector('.sidebar-fit-inner');
     if(!sideInner){
       sideInner = document.createElement('div');
@@ -9492,21 +9484,15 @@ window.addEventListener("orientationchange", checkOrientation);
       sidebar.insertBefore(sideInner, sidebar.firstChild);
     }
 
-    /* القياس يبدأ من 1 ثم ينقص فقط عند الحاجة. الأولوية: لا يخرج الجنب من الشاشة إطلاقًا. */
-    root.style.setProperty('--adaptive-side-scale', '1');
+    root.style.setProperty('--adaptive-side-y', '1');
     const sideStyle = getComputedStyle(sidebar);
     const padY = (parseFloat(sideStyle.paddingTop)||0) + (parseFloat(sideStyle.paddingBottom)||0);
-    const padX = (parseFloat(sideStyle.paddingLeft)||0) + (parseFloat(sideStyle.paddingRight)||0);
     const naturalSideH = Math.max(sideInner.scrollHeight, sideInner.getBoundingClientRect().height, 1);
-    const naturalSideW = Math.max(sideInner.scrollWidth, 1);
-    const sideAvailH = Math.max(80, Math.min(sidebar.clientHeight || h, h) - padY - 8);
-    const sideAvailW = Math.max(80, sidebarW - padX - 6);
-    const sideFitH = sideAvailH / naturalSideH;
-    const sideFitW = sideAvailW / naturalSideW;
-    const sideScale = Math.min(1, sideFitH, sideFitW) * 0.985;
-    root.style.setProperty('--adaptive-side-scale', Math.max(0.35, sideScale).toFixed(4));
+    const visibleSideH = Math.max(80, Math.min(sidebar.clientHeight || h, h) - padY - 8);
+    const sideY = Math.min(1, visibleSideH / naturalSideH) * 0.995;
+    root.style.setProperty('--adaptive-side-y', Math.max(0.50, sideY).toFixed(4));
 
-    /* مساحة اللعب المتبقية بعد الجنب؛ نترك هامش أمان بسيط فقط لمنع القص. */
+    /* مساحة اللعب المتبقية بعد عرض الجنب الأصلي. */
     const availableW = Math.max(120, w - sidebarW - 20);
     const availableH = Math.max(120, h - 18);
 
