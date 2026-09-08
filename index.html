@@ -3775,6 +3775,90 @@ transition:.25s;
   z-index:1;
 }
 
+
+/* ===== إصلاحات Responsive للجوال فقط: بطاقة السؤال + مبروك الفوز + الحروف داخل الخلايا ===== */
+@media (max-width: 900px), (max-height: 760px){
+  #qCard{
+    position:fixed !important;
+    left:50% !important;
+    top:50% !important;
+    right:auto !important;
+    bottom:auto !important;
+    transform:translate(-50%,-50%) !important;
+    width:min(92vw,760px) !important;
+    max-width:92vw !important;
+    height:auto !important;
+    max-height:88dvh !important;
+    margin:0 !important;
+    overflow:auto !important;
+    overscroll-behavior:contain !important;
+    box-sizing:border-box !important;
+  }
+  #qCard .q-front,#qCard .q-back{
+    min-height:0 !important;
+    height:auto !important;
+    padding:clamp(16px,3vw,26px) !important;
+    box-sizing:border-box !important;
+  }
+  #qTextMain{
+    font-size:clamp(16px,3.2vw,22px) !important;
+    line-height:1.5 !important;
+    margin-bottom:clamp(14px,2.4vh,22px) !important;
+    overflow-wrap:anywhere !important;
+  }
+  #qCharSmall{
+    width:clamp(42px,8vw,54px) !important;
+    height:clamp(42px,8vw,54px) !important;
+    font-size:clamp(20px,4vw,26px) !important;
+    margin-bottom:clamp(10px,1.8vh,14px) !important;
+    flex:0 0 auto !important;
+  }
+  #qCard .show-answer-btn{
+    min-height:clamp(54px,9vh,74px) !important;
+    height:auto !important;
+    padding:clamp(12px,2.2vh,18px) clamp(14px,2.6vw,22px) !important;
+    font-size:clamp(18px,3.6vw,24px) !important;
+    box-sizing:border-box !important;
+  }
+}
+@media (max-width: 520px){
+  #qCard{width:94vw !important;max-width:94vw !important;max-height:86dvh !important;border-radius:24px !important;}
+  #qCard .q-front,#qCard .q-back{padding:14px !important;border-radius:20px !important;}
+  #qTextMain{font-size:clamp(15px,4.2vw,19px) !important;line-height:1.45 !important;}
+  #qCard .show-answer-btn{min-height:54px !important;font-size:clamp(17px,4.6vw,21px) !important;}
+}
+#roundWinOverlay .round-win-wrap{
+  width:100% !important;min-height:100% !important;padding:clamp(18px,4vh,42px) clamp(14px,4vw,42px) !important;box-sizing:border-box !important;
+}
+#roundWinOverlay .round-win-red{font-size:clamp(72px,11vw,150px) !important;}
+#roundWinOverlay .round-win-yellow{font-size:clamp(82px,12.5vw,168px) !important;}
+#roundWinOverlay .round-win-team{font-size:clamp(22px,3.4vw,38px) !important;max-width:88vw !important;text-align:center !important;overflow-wrap:anywhere !important;}
+@media (max-width:700px){
+  #roundWinOverlay .round-win-wrap{gap:clamp(8px,1.6vh,14px) !important;}
+  #roundWinOverlay .round-win-red{font-size:clamp(64px,18vw,104px) !important;}
+  #roundWinOverlay .round-win-yellow{font-size:clamp(74px,20vw,116px) !important;}
+  #roundWinOverlay .round-win-team{font-size:clamp(20px,6vw,30px) !important;}
+}
+@media (max-height:560px){
+  #roundWinOverlay .round-win-red{font-size:clamp(54px,12vh,88px) !important;}
+  #roundWinOverlay .round-win-yellow{font-size:clamp(62px,14vh,98px) !important;}
+  #roundWinOverlay .round-win-team{font-size:clamp(18px,4.6vh,26px) !important;}
+}
+.hexagon > svg{overflow:visible !important;}
+.hexagon > svg text{
+  font-family:'AA Galaxy',sans-serif !important;
+  font-size:46px !important;
+  transform-box:fill-box !important;
+  transform-origin:center center !important;
+  transform:scaleX(.88) scaleY(.96) !important;
+}
+@media (max-width:900px), (max-height:760px){
+  .hexagon > svg text{font-size:42px !important;transform:scaleX(.86) scaleY(.94) !important;}
+}
+@media (max-width:600px), (max-height:620px){
+  .hexagon > svg text{font-size:38px !important;transform:scaleX(.84) scaleY(.92) !important;}
+}
+
 </style>
 </head>
 <body>
@@ -7597,7 +7681,7 @@ style="transition: 0.2s;"
   fill="#5B2D8E"
   style="
     font-family:'AA Galaxy', sans-serif;
-    font-size:48px;
+    font-size:46px;
     font-weight:400;
     letter-spacing:0;
     pointer-events:none;
