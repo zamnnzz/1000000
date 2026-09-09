@@ -211,6 +211,263 @@
       .change-btn{grid-column:1;grid-row:3;position:static;justify-self:end}
     }
 
+
+    /* ===== التوب 27-3: واجهة طولية دائماً + ملء المساحة المتوفرة بلا تمرير ===== */
+    #setupScreen,#buzzScreen{
+      overflow:hidden !important;
+      padding:max(8px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left)) !important;
+      place-items:stretch !important;
+    }
+
+    /* شعار مطابق لترتيب واجهة اللعبة الأصلية، لكن بمقاس تكيفي */
+    .brand,.buzz-brand{
+      --logo-size:clamp(54px,min(15vw,15vh),110px);
+      position:relative !important;
+      width:min(92vw,560px) !important;
+      margin:0 auto !important;
+      text-align:center !important;
+      line-height:.9 !important;
+      align-self:center !important;
+      justify-self:center !important;
+      text-shadow:none !important;
+    }
+    .brand .h,.buzz-brand .h{
+      font-size:var(--logo-size) !important;
+      font-weight:900 !important;
+      color:#FFD400 !important;
+      line-height:.9 !important;
+      margin:0 !important;
+      text-shadow:0 .055em 0 #3b2563,0 .073em 0 #2b1b49,0 .091em .11em rgba(0,0,0,.4) !important;
+    }
+    .brand .with,.buzz-brand .withline{
+      display:block !important;
+      width:max-content !important;
+      font-size:calc(var(--logo-size) * .5) !important;
+      font-weight:900 !important;
+      color:#63d6c7 !important;
+      line-height:.9 !important;
+      margin:calc(var(--logo-size) * -.091) auto 0 !important;
+      transform:translateX(calc(var(--logo-size) * -.636)) !important;
+      text-shadow:0 .109em 0 #2e7f79,0 .145em 0 #1d5e59,0 .182em .218em rgba(0,0,0,.4) !important;
+    }
+    .brand .host,.buzz-brand .host{
+      display:block !important;
+      width:min(92vw,560px) !important;
+      max-width:none !important;
+      font-size:calc(var(--logo-size) * .864) !important;
+      font-weight:900 !important;
+      color:#ff5a4f !important;
+      line-height:.9 !important;
+      margin:calc(var(--logo-size) * -.045) auto 0 !important;
+      transform:translateX(calc(var(--logo-size) * -.091)) !important;
+      white-space:nowrap !important;
+      overflow:hidden !important;
+      text-overflow:ellipsis !important;
+      text-shadow:0 .063em 0 #7a2323,0 .084em 0 #4b1515,0 .105em .126em rgba(0,0,0,.5) !important;
+    }
+
+    /* شاشة الدخول تبقى طولية دائماً وتملأ الارتفاع */
+    .setup-shell{
+      width:100% !important;
+      height:100% !important;
+      max-width:none !important;
+      max-height:none !important;
+      display:grid !important;
+      grid-template-columns:1fr !important;
+      grid-template-rows:minmax(0,36fr) minmax(0,64fr) !important;
+      align-items:stretch !important;
+      justify-items:center !important;
+      gap:clamp(5px,1vh,12px) !important;
+      padding:0 !important;
+    }
+    .setup-shell .brand{
+      align-self:center !important;
+      justify-self:center !important;
+      width:min(92vw,560px) !important;
+    }
+    .setup-card{
+      width:min(92vw,560px) !important;
+      height:100% !important;
+      max-height:100% !important;
+      align-self:stretch !important;
+      justify-self:center !important;
+      display:flex !important;
+      flex-direction:column !important;
+      justify-content:center !important;
+      overflow:hidden !important;
+      padding:clamp(10px,2vh,24px) clamp(14px,3vw,25px) !important;
+    }
+    .setup-title{font-size:clamp(17px,2.7vh,25px) !important;margin:0 0 clamp(5px,1vh,12px) !important}
+    .label{font-size:clamp(12px,2vh,16px) !important;margin:0 4px clamp(4px,.7vh,7px) !important}
+    .input{height:clamp(39px,6.5vh,56px) !important;font-size:clamp(14px,2.3vh,18px) !important}
+    .teams-label{margin-top:clamp(6px,1.2vh,12px) !important}
+    .team-option{min-height:clamp(43px,7.5vh,68px) !important;padding:clamp(6px,1vh,10px) !important}
+    .save-btn{height:clamp(42px,6.8vh,56px) !important;margin-top:clamp(7px,1.2vh,12px) !important;font-size:clamp(16px,2.4vh,20px) !important}
+    .session{margin-top:clamp(3px,.8vh,8px) !important;font-size:clamp(9px,1.5vh,12px) !important}
+
+    /* شاشة الجرس: ترتيب طولي دائم، موزع على كامل المساحة المرئية */
+    .buzz-shell{
+      width:100% !important;
+      height:100% !important;
+      max-width:none !important;
+      max-height:none !important;
+      display:grid !important;
+      grid-template-columns:1fr !important;
+      grid-template-rows:minmax(0,27fr) auto minmax(0,58fr) auto auto !important;
+      align-items:center !important;
+      justify-items:center !important;
+      gap:clamp(3px,.75vh,8px) !important;
+      padding:0 !important;
+      text-align:center !important;
+    }
+    .buzz-shell .buzz-brand{
+      grid-column:1 !important;
+      grid-row:1 !important;
+      align-self:center !important;
+      justify-self:center !important;
+      width:min(92vw,560px) !important;
+    }
+    .player-line{
+      grid-column:1 !important;
+      grid-row:2 !important;
+      position:static !important;
+      transform:none !important;
+      justify-self:center !important;
+      align-self:center !important;
+      max-width:min(90vw,600px) !important;
+      padding:clamp(5px,.9vh,9px) 15px !important;
+      font-size:clamp(13px,2vh,19px) !important;
+    }
+    .buzzer-stage{
+      grid-column:1 !important;
+      grid-row:3 !important;
+      justify-self:center !important;
+      align-self:center !important;
+      width:min(82vw,47vh,440px) !important;
+      max-width:100% !important;
+      max-height:100% !important;
+    }
+    .status{
+      grid-column:1 !important;
+      grid-row:4 !important;
+      position:static !important;
+      left:auto !important;
+      bottom:auto !important;
+      transform:none !important;
+      white-space:normal !important;
+      min-height:0 !important;
+      font-size:clamp(13px,2vh,19px) !important;
+    }
+    .change-btn{
+      grid-column:1 !important;
+      grid-row:5 !important;
+      position:static !important;
+      top:auto !important;
+      left:auto !important;
+      justify-self:center !important;
+      padding:clamp(3px,.55vh,6px) 8px !important;
+      font-size:clamp(11px,1.65vh,14px) !important;
+    }
+
+    /* حتى في الوضع العرضي: لا يتحول التصميم إلى عمودين */
+    @media (orientation:landscape){
+      .brand,.buzz-brand{--logo-size:clamp(48px,min(8.8vw,14vh),96px)}
+      .setup-shell{
+        grid-template-columns:1fr !important;
+        grid-template-rows:minmax(0,34fr) minmax(0,66fr) !important;
+      }
+      .setup-shell .brand,.setup-card{justify-self:center !important;align-self:center !important}
+      .setup-card{width:min(72vw,620px) !important}
+      .buzz-shell{
+        grid-template-columns:1fr !important;
+        grid-template-rows:minmax(0,25fr) auto minmax(0,59fr) auto auto !important;
+      }
+      .buzz-shell .buzz-brand,.player-line,.buzzer-stage,.status,.change-btn{
+        grid-column:1 !important;
+        justify-self:center !important;
+      }
+      .buzz-shell .buzz-brand{grid-row:1 !important;align-self:center !important;width:min(70vw,560px) !important}
+      .player-line{grid-row:2 !important;max-width:min(70vw,600px) !important}
+      .buzzer-stage{grid-row:3 !important;width:min(52vw,48vh,430px) !important}
+      .status{grid-row:4 !important}
+      .change-btn{grid-row:5 !important}
+    }
+
+    /* الشاشات القصيرة جداً: نصغّر فقط بقدر ما يلزم، بدون تمرير */
+    @media (max-height:520px){
+      .brand,.buzz-brand{--logo-size:clamp(42px,min(8vw,12.5vh),76px)}
+      .buzz-shell{grid-template-rows:minmax(0,23fr) auto minmax(0,62fr) auto auto !important;gap:2px !important}
+      .buzzer-stage{width:min(44vw,45vh,330px) !important}
+      .setup-shell{grid-template-rows:minmax(0,28fr) minmax(0,72fr) !important}
+      .setup-card{padding:7px 14px !important}
+      .setup-title{margin-bottom:4px !important}
+      .input{height:36px !important}
+      .team-option{min-height:38px !important}
+      .save-btn{height:38px !important;margin-top:6px !important}
+      .session{display:none !important}
+    }
+
+
+    /* ===== التوب 27-4: الحساب من المساحة المرئية الفعلية فقط ===== */
+    :root{
+      --vvw:100vw;
+      --vvh:100dvh;
+      --vvx:0px;
+      --vvy:0px;
+      --buzz-size:280px;
+    }
+    #setupScreen,#buzzScreen{
+      position:fixed !important;
+      left:var(--vvx) !important;
+      top:var(--vvy) !important;
+      right:auto !important;
+      bottom:auto !important;
+      width:var(--vvw) !important;
+      height:var(--vvh) !important;
+      min-width:0 !important;
+      min-height:0 !important;
+      overflow:hidden !important;
+      overscroll-behavior:none !important;
+    }
+    .brand,.buzz-brand{
+      max-width:calc(var(--vvw) - 20px) !important;
+      overflow:visible !important;
+    }
+    .brand .host,.buzz-brand .host{
+      overflow:visible !important;
+      text-overflow:clip !important;
+      padding-bottom:.12em !important;
+    }
+    .buzz-shell{
+      grid-template-rows:auto auto minmax(0,1fr) auto auto !important;
+      align-content:stretch !important;
+      min-height:0 !important;
+    }
+    .buzz-shell .buzz-brand{
+      align-self:start !important;
+      padding-top:clamp(2px,.45vh,6px) !important;
+    }
+    .buzzer-stage{
+      width:var(--buzz-size) !important;
+      height:var(--buzz-size) !important;
+      max-width:none !important;
+      max-height:none !important;
+      align-self:center !important;
+    }
+    .buzz-btn span{
+      max-width:78%;
+      text-align:center;
+      white-space:normal;
+      line-height:1.05;
+    }
+    @media (orientation:landscape){
+      .buzz-shell{
+        grid-template-rows:auto auto minmax(0,1fr) auto auto !important;
+      }
+      .buzz-shell .buzz-brand{width:min(70vw,560px) !important}
+      .buzzer-stage{width:var(--buzz-size) !important;height:var(--buzz-size) !important}
+    }
+
   </style>
 </head>
 <body>
@@ -262,23 +519,54 @@
     let selectedTeam="c1"; let playerData={name:"",team:"c1"};
     document.getElementById("sessionBox").innerText="جلسة "+session.toUpperCase();
 
-    function syncViewport(){const h=window.visualViewport?window.visualViewport.height:window.innerHeight;document.documentElement.style.setProperty('--vvh',Math.round(h)+'px')}
-    syncViewport(); addEventListener('resize',syncViewport); if(window.visualViewport){visualViewport.addEventListener('resize',syncViewport);visualViewport.addEventListener('scroll',syncViewport)}
+    function syncViewport(){
+      const vv=window.visualViewport;
+      const w=Math.max(1,Math.round(vv?vv.width:window.innerWidth));
+      const h=Math.max(1,Math.round(vv?vv.height:window.innerHeight));
+      const x=Math.round(vv?vv.offsetLeft:0), y=Math.round(vv?vv.offsetTop:0);
+      const root=document.documentElement.style;
+      root.setProperty('--vvw',w+'px');root.setProperty('--vvh',h+'px');root.setProperty('--vvx',x+'px');root.setProperty('--vvy',y+'px');
+      requestAnimationFrame(fitVisibleBuzzer);
+    }
+    function fitVisibleBuzzer(){
+      const screen=document.getElementById('buzzScreen');
+      if(!screen||screen.classList.contains('hidden'))return;
+      const shell=screen.querySelector('.buzz-shell'), brand=shell.querySelector('.buzz-brand'), player=shell.querySelector('.player-line'), status=shell.querySelector('.status'), change=shell.querySelector('.change-btn');
+      if(!shell||!brand)return;
+      const cs=getComputedStyle(shell);const gap=parseFloat(cs.rowGap||cs.gap)||0;
+      const sr=getComputedStyle(screen);const padY=(parseFloat(sr.paddingTop)||0)+(parseFloat(sr.paddingBottom)||0);const padX=(parseFloat(sr.paddingLeft)||0)+(parseFloat(sr.paddingRight)||0);
+      const visibleH=screen.clientHeight-padY, visibleW=screen.clientWidth-padX;
+      const fixed=[brand,player,status,change].reduce((n,el)=>n+(el?el.getBoundingClientRect().height:0),0)+(gap*4);
+      const byHeight=Math.max(120,visibleH-fixed-4);
+      const byWidth=Math.max(120,visibleW*.82);
+      const size=Math.max(120,Math.min(byHeight,byWidth,440));
+      document.documentElement.style.setProperty('--buzz-size',Math.floor(size)+'px');
+    }
+    syncViewport(); addEventListener('resize',syncViewport); addEventListener('orientationchange',()=>setTimeout(syncViewport,60)); if(window.visualViewport){visualViewport.addEventListener('resize',syncViewport);visualViewport.addEventListener('scroll',syncViewport)}
 
     function selectTeam(team,el){selectedTeam=team;document.querySelectorAll('.team-option').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
-    function savePlayerData(){const name=document.getElementById('playerName').value.trim();if(!name){alert('اكتب اسمك أولاً');return}playerData.name=name;playerData.team=selectedTeam;localStorage.setItem('horofPlayer_'+session,JSON.stringify(playerData));document.getElementById('setupScreen').classList.add('hidden');document.getElementById('buzzScreen').classList.remove('hidden');updatePlayerSummary()}
+    function savePlayerData(){const name=document.getElementById('playerName').value.trim();if(!name){alert('اكتب اسمك أولاً');return}playerData.name=name;playerData.team=selectedTeam;localStorage.setItem('horofPlayer_'+session,JSON.stringify(playerData));document.getElementById('setupScreen').classList.add('hidden');document.getElementById('buzzScreen').classList.remove('hidden');updatePlayerSummary();requestAnimationFrame(fitVisibleBuzzer)}
     function backToSetup(){document.getElementById('buzzScreen').classList.add('hidden');document.getElementById('setupScreen').classList.remove('hidden')}
     function updatePlayerSummary(){const t=playerData.team==='c1'?document.getElementById('team1CardName').innerText:document.getElementById('team2CardName').innerText;document.getElementById('playerSummary').innerText=playerData.name+' • '+t}
     function loadSavedPlayer(){const saved=localStorage.getItem('horofPlayer_'+session);if(!saved)return;try{const data=JSON.parse(saved);if(data&&data.name&&data.team){playerData=data;selectedTeam=data.team;document.getElementById('playerName').value=data.name;const card=document.querySelector('.team-option[data-team="'+data.team+'"]');if(card){document.querySelectorAll('.team-option').forEach(x=>x.classList.remove('active'));card.classList.add('active')}document.getElementById('setupScreen').classList.add('hidden');document.getElementById('buzzScreen').classList.remove('hidden');updatePlayerSummary()}}catch(e){}}
 
+    let buzzerOutcome='none';
     function firstPressAnimation(){const s=document.getElementById('buzzerStage');s.classList.remove('winner');void s.offsetWidth;s.classList.add('winner');setTimeout(()=>s.classList.remove('winner'),950)}
+    function setBuzzerOutcome(kind){
+      buzzerOutcome=kind;
+      const btn=document.getElementById('buzzBtn'), label=btn.querySelector('span'), status=document.getElementById('statusMsg');
+      if(kind==='mine'){
+        btn.disabled=true;label.innerText='الإجابة عندك';status.innerText='أنت الأول';status.style.color='#fff';
+      }else if(kind==='other'){
+        btn.disabled=true;label.innerText='سبقك';status.innerText='سبقك لاعب آخر';status.style.color='#FFD166';
+      }
+    }
     function pressBuzzer(){
       if(!playerData.name){alert('احفظ بياناتك أولاً');return}
-      const btn=document.getElementById('buzzBtn'), status=document.getElementById('statusMsg');
       const buzzerRef=db.ref('games/'+session+'/buzzer');
       buzzerRef.transaction(current=>current===null?{name:playerData.name,team:playerData.team,time:Date.now()}:undefined).then(result=>{
-        if(result.committed){firstPressAnimation();btn.disabled=true;btn.querySelector('span').innerText='الأول!';status.innerText='أنت الأسرع';status.style.color='#fff';if(navigator.vibrate)navigator.vibrate([80,45,140])}
-        else{status.innerText='سبقك لاعب آخر';status.style.color='#FFD166'}
+        if(result.committed){firstPressAnimation();setBuzzerOutcome('mine');if(navigator.vibrate)navigator.vibrate([80,45,140])}
+        else{setBuzzerOutcome('other')}
       });
     }
 
@@ -295,10 +583,22 @@
     db.ref('games/'+session+'/settings').on('value',snap=>applyHostData(snap.val()));
     db.ref('games/'+session+'/status').on('value',snap=>{
       const data=snap.val(),btn=document.getElementById('buzzBtn'),status=document.getElementById('statusMsg'),label=btn.querySelector('span');
-      if(!data||data.locked===false){btn.disabled=false;label.innerText='اضغط';status.innerText='الجرس مفتوح';status.style.color='#7CFFB2'}
-      else{btn.disabled=true;label.innerText='مغلق';status.innerText='انتظر فتح الجرس...';status.style.color='#fff'}
+      if(!data||data.locked===false){
+        buzzerOutcome='none';btn.disabled=false;label.innerText='اضغط';status.innerText='الجرس مفتوح';status.style.color='#7CFFB2';
+      }else if(buzzerOutcome==='none'){
+        btn.disabled=true;label.innerText='مغلق';status.innerText='انتظر فتح الجرس...';status.style.color='#fff';
+      }
+      requestAnimationFrame(fitVisibleBuzzer);
     });
-    loadSavedPlayer();
+    db.ref('games/'+session+'/buzzer').on('value',snap=>{
+      const b=snap.val();
+      if(!b){return}
+      if(!playerData.name)return;
+      if(b.name===playerData.name&&b.team===playerData.team){if(buzzerOutcome!=='mine')setBuzzerOutcome('mine')}
+      else if(buzzerOutcome!=='mine'){setBuzzerOutcome('other')}
+      requestAnimationFrame(fitVisibleBuzzer);
+    });
+    loadSavedPlayer();requestAnimationFrame(fitVisibleBuzzer);
   </script>
 </body>
 </html>
