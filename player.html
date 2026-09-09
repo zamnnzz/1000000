@@ -77,6 +77,140 @@
       .setup-shell{width:min(88vw,760px);display:grid;grid-template-columns:.75fr 1.25fr;align-items:center;gap:22px}.brand{padding-inline:10px}.setup-card{padding:15px 18px}.setup-title{margin-bottom:10px}.input{height:48px}.teams-label{margin-top:10px}.team-option{min-height:55px}.save-btn{height:50px;margin-top:10px}.session{display:none}
       .buzz-shell{width:min(92vw,900px);height:calc(var(--vvh) - 18px);display:grid;grid-template-columns:.75fr 1.25fr;grid-template-rows:auto auto;column-gap:20px}.buzz-brand{grid-column:1;grid-row:1}.player-line{grid-column:1;grid-row:2;align-self:start}.buzzer-stage{grid-column:2;grid-row:1 / span 2;width:clamp(190px,min(48vh,33vw),290px);justify-self:center}.status{position:absolute;bottom:max(8px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);white-space:nowrap}.change-btn{position:absolute;top:max(7px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left))}
     }
+
+
+    /* ===== التوب 27-2: توزيع عناصر صفحة الجرس على كامل المساحة + شعار اللعبة الأصلي ===== */
+    #setupScreen,#buzzScreen{
+      overflow:hidden;
+      place-items:stretch;
+    }
+
+    /* نفس منطق وترتيب شعار واجهة اللعبة: حروف ثم «مع» متداخلة يساراً ثم اسم المقدم */
+    .brand,.buzz-brand{
+      position:relative;
+      width:min(92vw,520px);
+      margin-inline:auto;
+      text-align:center;
+      line-height:1;
+      text-shadow:none;
+      flex:none;
+    }
+    .brand .h,.buzz-brand .h{
+      font-size:clamp(62px,min(17vw,16vh),110px);
+      font-weight:900;
+      color:#FFD400;
+      text-shadow:0 .055em 0 #3b2563,0 .075em 0 #2b1b49,0 .09em .11em rgba(0,0,0,.4);
+      margin:0;
+      line-height:.88;
+    }
+    .brand .with,.buzz-brand .withline{
+      display:block;
+      width:max-content;
+      margin:-.08em auto 0;
+      font-size:clamp(32px,min(8.5vw,8vh),55px);
+      font-weight:900;
+      color:#63d6c7;
+      text-shadow:0 .11em 0 #2e7f79,0 .145em 0 #1d5e59,0 .18em .21em rgba(0,0,0,.4);
+      transform:translateX(-1.27em);
+      line-height:.95;
+    }
+    .brand .host,.buzz-brand .host{
+      display:block;
+      width:min(90vw,520px);
+      max-width:none;
+      margin:-.03em auto 0;
+      font-size:clamp(48px,min(14.7vw,13.8vh),95px);
+      font-weight:900;
+      color:#ff5a4f;
+      text-shadow:0 .063em 0 #7a2323,0 .084em 0 #4b1515,0 .105em .126em rgba(0,0,0,.5);
+      transform:translateX(-.105em);
+      line-height:.9;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .buzz-brand .withline .host{ /* إلغاء تنسيق span القديم؛ اسم المقدم يصبح سطراً مستقلاً مثل اللعبة */
+      margin-top:.04em;
+    }
+
+    /* شاشة الدخول: تستفيد من كامل الارتفاع المتاح وتوزع الشعار والبطاقة داخله */
+    .setup-shell{
+      width:100%;
+      max-width:none;
+      height:100%;
+      max-height:none;
+      display:grid;
+      grid-template-rows:minmax(0,44fr) minmax(0,56fr);
+      align-items:center;
+      justify-items:center;
+      gap:clamp(8px,1.6vh,18px);
+      padding:0;
+    }
+    .setup-shell .brand{align-self:end}
+    .setup-card{
+      width:min(92vw,520px);
+      max-height:100%;
+      align-self:start;
+      overflow:hidden;
+      padding:clamp(14px,2.4vh,25px) clamp(17px,4vw,25px);
+    }
+    .setup-title{font-size:clamp(18px,2.8vh,25px);margin-bottom:clamp(8px,1.8vh,16px)}
+    .label{font-size:clamp(13px,2.1vh,16px);margin-bottom:clamp(5px,.9vh,8px)}
+    .input{height:clamp(44px,7vh,56px);font-size:clamp(15px,2.4vh,18px)}
+    .teams-label{margin-top:clamp(8px,1.7vh,16px)}
+    .team-option{min-height:clamp(50px,8.5vh,70px);padding:clamp(8px,1.5vh,12px) 10px}
+    .save-btn{height:clamp(46px,7.4vh,58px);margin-top:clamp(9px,1.8vh,17px);font-size:clamp(17px,2.6vh,20px)}
+    .session{margin-top:clamp(5px,1.2vh,11px);font-size:clamp(10px,1.7vh,13px)}
+
+    /* شاشة الجرس: كامل المساحة موزعة بين الشعار والبيانات والجرس والحالة */
+    .buzz-shell{
+      width:100%;
+      max-width:none;
+      height:100%;
+      max-height:none;
+      display:grid;
+      grid-template-rows:minmax(0,30fr) auto minmax(0,54fr) auto auto;
+      align-items:center;
+      justify-items:center;
+      gap:clamp(5px,1.15vh,12px);
+      padding:0;
+    }
+    .buzz-shell .buzz-brand{align-self:end}
+    .player-line{max-width:min(88vw,560px);font-size:clamp(14px,2.2vh,19px);padding:clamp(6px,1.1vh,9px) 15px}
+    .buzzer-stage{
+      width:min(76vw,46vh,340px);
+      max-width:100%;
+      max-height:100%;
+    }
+    .status{min-height:0;font-size:clamp(14px,2.2vh,20px)}
+    .change-btn{font-size:clamp(12px,1.8vh,14px);padding:clamp(4px,.8vh,8px)}
+
+    /* الوضع العرضي: نستغل العرض كاملاً بدلاً من ضغط العناصر فوق بعض */
+    @media (orientation:landscape){
+      .setup-shell{
+        grid-template-columns:minmax(0,44fr) minmax(0,56fr);
+        grid-template-rows:1fr;
+        gap:clamp(12px,3vw,38px);
+      }
+      .setup-shell .brand{align-self:center;justify-self:end;width:min(42vw,500px)}
+      .setup-card{align-self:center;justify-self:start;width:min(48vw,520px)}
+      .brand .h,.buzz-brand .h{font-size:clamp(52px,min(9.7vw,18vh),110px)}
+      .brand .with,.buzz-brand .withline{font-size:clamp(27px,min(4.9vw,9vh),55px)}
+      .brand .host,.buzz-brand .host{font-size:clamp(44px,min(8.4vw,15.5vh),95px);width:min(44vw,520px)}
+
+      .buzz-shell{
+        grid-template-columns:minmax(0,42fr) minmax(0,58fr);
+        grid-template-rows:minmax(0,1fr) auto auto;
+        column-gap:clamp(12px,3vw,38px);
+        row-gap:clamp(4px,1vh,10px);
+      }
+      .buzz-shell .buzz-brand{grid-column:1;grid-row:1;align-self:center;justify-self:end;width:min(40vw,500px)}
+      .player-line{grid-column:1;grid-row:2;justify-self:end;max-width:40vw}
+      .buzzer-stage{grid-column:2;grid-row:1 / span 2;width:min(50vw,72vh,390px);justify-self:center;align-self:center}
+      .status{grid-column:2;grid-row:3;position:static;transform:none;white-space:normal}
+      .change-btn{grid-column:1;grid-row:3;position:static;justify-self:end}
+    }
+
   </style>
 </head>
 <body>
@@ -84,7 +218,7 @@
     <div class="setup-shell">
       <div class="brand">
         <div class="h">حروف</div>
-        <div class="with">مع</div>
+        <div class="with">مـع</div>
         <div class="host" id="hostNameTop">المقدم</div>
       </div>
       <div class="setup-card">
@@ -106,7 +240,8 @@
     <div class="buzz-shell">
       <div class="buzz-brand">
         <div class="h">حروف</div>
-        <div class="withline">مع <span class="host" id="hostNameBuzz">المقدم</span></div>
+        <div class="withline">مـع</div>
+        <div class="host" id="hostNameBuzz">المقدم</div>
       </div>
       <div class="player-line" id="playerSummary">اللاعب / الفريق</div>
       <div class="buzzer-stage" id="buzzerStage">
