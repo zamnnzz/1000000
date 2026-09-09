@@ -8569,10 +8569,50 @@ window.closeBuzzer = function() {
 
 let presenterBuzzerTeam = "";
 
+// صوت الجرس في شاشة اللعبة فقط عند تسجيل أول ضغطة
+function playGameBuzzerSound(){
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return;
+    const ctx = window.__horofBuzzerAudioCtx || (window.__horofBuzzerAudioCtx = new AC());
+    if(ctx.state === "suspended") ctx.resume();
+    const now = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.exponentialRampToValueAtTime(0.28, now + 0.012);
+    master.gain.exponentialRampToValueAtTime(0.0001, now + 0.48);
+    master.connect(ctx.destination);
+    [[740,0],[980,0.055],[1240,0.11]].forEach(([freq,delay],i)=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.type=i===0?"square":"sine"; o.frequency.setValueAtTime(freq,now+delay);
+      g.gain.setValueAtTime(i===0?0.5:0.35,now+delay);
+      g.gain.exponentialRampToValueAtTime(0.0001,now+delay+0.28);
+      o.connect(g); g.connect(master); o.start(now+delay); o.stop(now+delay+0.3);
+    });
+  }catch(e){}
+}
+
+// فتح قناة الصوت بعد أول تفاعل داخل شاشة اللعبة حتى يسمح المتصفح بالصوت لاحقاً
+document.addEventListener("pointerdown", ()=>{
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return;
+    const ctx = window.__horofBuzzerAudioCtx || (window.__horofBuzzerAudioCtx = new AC());
+    if(ctx.state === "suspended") ctx.resume();
+  }catch(e){}
+},{once:true,capture:true});
+
+let __lastBuzzerSoundKey = "";
 firebase.database().ref("games/"+session+"/buzzer").on("value", snap=>{
  const data = snap.val();
 
  if(data && data.name){
+
+  const buzzerSoundKey = String(data.time || "") + "|" + String(data.name || "");
+  if(buzzerSoundKey !== __lastBuzzerSoundKey){
+    __lastBuzzerSoundKey = buzzerSoundKey;
+    playGameBuzzerSound();
+  }
 
   presenterBuzzerTeam = data.team || "";
 

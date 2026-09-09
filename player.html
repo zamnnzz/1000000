@@ -2,284 +2,168 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>جرس الفريق</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
-  <style>@font-face{font-family:"AA Galaxy";src:url("https://raw.githubusercontent.com/zamnnzz/fonts/main/hroffont-B6Zk_0ya.woff2") format("woff2");font-display:swap}</style>
-
   <style>
-    :root{--bg:#633f8a;--panel:rgba(255,255,255,.09);--line:rgba(255,255,255,.18);--text:#fff;--muted:rgba(255,255,255,.72);--yellow:#ffd43b;--team1:#8b5cf5;--team2:#f97317;--vh:100dvh}
-    *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden}
-    body{font-family:"AA Galaxy",Cairo,sans-serif;color:var(--text);background:radial-gradient(circle at 50% -10%,rgba(255,255,255,.18),transparent 35%),linear-gradient(145deg,#4b286f,var(--bg) 55%,#42235f);display:grid;place-items:center;padding:clamp(8px,2vmin,20px)}
-    button,input{font-family:inherit}.wrap{width:min(94vw,520px);height:min(calc(var(--vh) - 16px),900px);display:flex;flex-direction:column;gap:clamp(8px,1.5vmin,16px);transform:scale(var(--page-scale,1));transform-origin:center center}
-    .card{background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.055));border:1px solid var(--line);border-radius:clamp(20px,4vmin,34px);box-shadow:0 22px 60px rgba(20,6,35,.3),inset 0 1px rgba(255,255,255,.12);backdrop-filter:blur(12px)}
-    .hero{position:relative;text-align:center;padding:clamp(10px,2vmin,18px);overflow:hidden;flex:0 0 auto}.hero:after{content:"";position:absolute;inset:auto 12% -55px;height:70px;background:rgba(255,212,59,.22);filter:blur(35px)}
-    .brand{display:flex;align-items:baseline;justify-content:center;gap:8px;line-height:1}.hero .title1{font-size:clamp(31px,7vmin,50px);font-weight:900;color:var(--yellow);text-shadow:0 5px rgba(0,0,0,.2)}.hero .title2{font-size:clamp(24px,5.5vmin,39px);font-weight:900;color:#fff}.hero .title3{font-size:clamp(18px,4vmin,29px);font-weight:900;color:#fff;margin-top:3px}.hero .subtitle{margin-top:5px;font-size:clamp(13px,2.6vmin,18px);color:var(--yellow)}.hero .desc{display:none}.session-pill{display:inline-block;margin-top:6px;padding:5px 13px;border-radius:99px;background:rgba(0,0,0,.14);border:1px solid rgba(255,255,255,.13);font-size:clamp(10px,2vmin,13px);color:var(--muted)}
-    #setupScreen{padding:clamp(13px,2.5vmin,22px);flex:1;min-height:0;overflow:auto;scrollbar-width:none}#setupScreen::-webkit-scrollbar{display:none}.bell-icon{width:clamp(46px,8vmin,66px);height:clamp(46px,8vmin,66px);margin:0 auto clamp(8px,1.5vmin,14px);border-radius:20px;display:grid;place-items:center;background:rgba(255,212,59,.13);border:1px solid rgba(255,212,59,.28);font-size:clamp(22px,4vmin,31px);box-shadow:0 10px 30px rgba(0,0,0,.14)}
-    .label{font-size:clamp(12px,2.3vmin,15px);font-weight:900;margin:0 3px 6px}.input{width:100%;border:1px solid rgba(255,255,255,.13);outline:none;border-radius:16px;padding:clamp(11px,2vmin,15px);background:rgba(28,12,47,.28);color:#fff;font-size:clamp(14px,2.7vmin,18px);margin-bottom:clamp(10px,1.8vmin,16px)}.input:focus{border-color:rgba(255,212,59,.65);box-shadow:0 0 0 3px rgba(255,212,59,.08)}.input::placeholder{color:rgba(255,255,255,.45)}
-    .team-option{border-radius:18px;padding:clamp(11px,2vmin,16px);margin-bottom:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);cursor:pointer;position:relative;transition:.18s}.team-option.active{border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.12);transform:translateY(-1px)}.team-dot{position:absolute;top:50%;left:15px;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;box-shadow:0 0 0 5px rgba(255,255,255,.07)}.team-title{font-size:clamp(15px,2.8vmin,19px);font-weight:900}.team-sub{font-size:clamp(10px,2vmin,13px);color:var(--muted)}
-    .save-btn{width:100%;border:0;border-radius:17px;padding:clamp(11px,2vmin,15px);margin-top:3px;font-size:clamp(16px,3vmin,20px);font-weight:900;cursor:pointer;background:linear-gradient(180deg,#fff,#eee8f6);color:#59377d;box-shadow:0 7px 0 rgba(29,12,45,.32)}.save-btn:active{transform:translateY(3px);box-shadow:0 4px 0 rgba(29,12,45,.32)}
+    @font-face{
+      font-family:"AA Galaxy";
+      src:url("https://raw.githubusercontent.com/zamnnzz/fonts/main/hroffont-B6Zk_0ya.woff2") format("woff2");
+      font-weight:normal;font-style:normal;font-display:swap;
+    }
+    :root{
+      --bg:#633f8a;
+      --panel:rgba(255,255,255,.095);
+      --line:rgba(255,255,255,.18);
+      --text:#fff;
+      --muted:rgba(255,255,255,.72);
+      --gold:#ffd400;
+      --team1:#8b5cf5;
+      --team2:#f97317;
+      --vvh:100dvh;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:"AA Galaxy",sans-serif}
+    button,input{font:inherit}
+    body{min-height:100dvh;background:
+      radial-gradient(circle at 50% -10%,rgba(255,255,255,.16),transparent 38%),
+      linear-gradient(145deg,#4d2c70 0%,var(--bg) 50%,#3f235f 100%)}
+    .screen{position:fixed;inset:0;width:100%;height:var(--vvh);padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:grid;place-items:center;overflow:auto}
     .hidden{display:none!important}
-    .buzz-card{position:relative;flex:1;min-height:0;text-align:center;padding:clamp(14px,3vmin,28px);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}.buzz-card:before{content:"";position:absolute;width:min(70vw,340px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,212,59,.11),transparent 68%);pointer-events:none}.top-mini,.player-badge,.buzz-btn,.status,.change-btn{position:relative;z-index:1}.top-mini{margin-bottom:clamp(7px,1.5vmin,14px)}.top-mini .host{font-size:clamp(24px,5vmin,36px);font-weight:900;color:var(--yellow);text-shadow:0 5px rgba(0,0,0,.2)}.top-mini .meta{margin-top:2px;color:var(--muted);font-size:clamp(11px,2vmin,14px)}
-    .player-badge{margin-bottom:clamp(8px,1.5vmin,14px);padding:7px 15px;border-radius:99px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);font-size:clamp(12px,2.3vmin,15px)}
-    .buzz-btn{width:min(46vmin,230px);height:min(46vmin,230px);min-width:120px;min-height:120px;border-radius:50%;border:clamp(5px,1vmin,9px) solid rgba(255,255,255,.16);cursor:pointer;font-size:clamp(19px,4.2vmin,29px);font-weight:900;color:#fff;background:radial-gradient(circle at 38% 28%,#ff8185,#ef4d56 45%,#c72f3a 100%);box-shadow:0 0 0 9px rgba(255,255,255,.045),0 13px 0 #982631,0 24px 45px rgba(24,6,35,.38);margin:clamp(5px,1vmin,10px) auto clamp(12px,2vmin,18px);transition:.12s}.buzz-btn:active{transform:translateY(6px);box-shadow:0 0 0 9px rgba(255,255,255,.045),0 7px 0 #982631,0 15px 30px rgba(24,6,35,.35)}.buzz-btn:disabled{filter:saturate(.25);opacity:.72;cursor:not-allowed}.status{min-height:26px;font-size:clamp(13px,2.6vmin,18px);font-weight:900}.change-btn{margin-top:clamp(8px,1.5vmin,14px);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:14px;padding:8px 13px;font-size:clamp(11px,2vmin,14px);cursor:pointer}
-    @media (orientation:landscape) and (max-height:560px){.wrap{width:min(94vw,760px);height:calc(var(--vh) - 12px);display:grid;grid-template-columns:minmax(180px,.62fr) minmax(300px,1.38fr);grid-template-rows:1fr;gap:10px}.hero{display:flex;flex-direction:column;justify-content:center}.brand{flex-wrap:wrap}.hero .title1{font-size:clamp(27px,7vh,42px)}.hero .title2{font-size:clamp(22px,6vh,34px)}.hero .title3{font-size:clamp(18px,5vh,27px)}#setupScreen,.buzz-card{height:100%;}.bell-icon{display:none}.buzz-btn{width:min(42vh,200px);height:min(42vh,200px);min-width:110px;min-height:110px}.team-option{padding:9px 13px}.input{padding:10px 13px;margin-bottom:9px}.save-btn{padding:10px}.top-mini{margin-bottom:4px}.player-badge{margin-bottom:4px}.change-btn{margin-top:7px}}
+
+    /* شاشة الدخول */
+    .setup-shell{width:min(92vw,460px);max-height:calc(var(--vvh) - 28px);display:flex;flex-direction:column;gap:clamp(12px,2vh,20px)}
+    .brand{text-align:center;flex:none;line-height:.9;text-shadow:0 5px 0 rgba(0,0,0,.2)}
+    .brand .h{font-size:clamp(46px,12vw,72px);color:var(--gold)}
+    .brand .with{font-size:clamp(28px,7vw,42px);color:#74ddd3;margin-top:-5px}
+    .brand .host{font-size:clamp(24px,6vw,36px);color:#ff6c72;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .setup-card{background:linear-gradient(180deg,rgba(255,255,255,.11),rgba(255,255,255,.065));border:1px solid var(--line);border-radius:28px;padding:clamp(17px,4vw,25px);box-shadow:0 20px 55px rgba(0,0,0,.24);backdrop-filter:blur(10px)}
+    .setup-title{text-align:center;font-size:clamp(19px,5vw,25px);margin:0 0 16px}
+    .label{font-size:16px;margin:0 4px 8px;color:rgba(255,255,255,.92)}
+    .input{width:100%;height:56px;border:1px solid rgba(255,255,255,.16);outline:none;border-radius:17px;padding:0 16px;background:rgba(32,15,50,.35);color:#fff;font-size:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+    .input:focus{border-color:rgba(255,255,255,.42);box-shadow:0 0 0 3px rgba(255,255,255,.07)}
+    .input::placeholder{color:rgba(255,255,255,.48)}
+    .teams-label{margin-top:16px}
+    .teams{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .team-option{min-height:70px;border-radius:18px;padding:12px 10px;border:2px solid transparent;background:rgba(255,255,255,.075);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;text-align:center;transition:.16s ease;position:relative;overflow:hidden}
+    .team-option::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--dot);box-shadow:0 0 0 5px color-mix(in srgb,var(--dot) 20%,transparent)}
+    .team-option.active{border-color:var(--dot);background:color-mix(in srgb,var(--dot) 14%,rgba(255,255,255,.06));transform:translateY(-1px)}
+    .team-title{font-size:clamp(15px,4vw,18px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+    .save-btn{width:100%;height:58px;margin-top:17px;border:0;border-radius:18px;background:#fff;color:#583578;font-size:20px;cursor:pointer;box-shadow:0 7px 0 rgba(28,11,43,.35);transition:.12s ease}
+    .save-btn:active{transform:translateY(4px);box-shadow:0 3px 0 rgba(28,11,43,.35)}
+    .session{margin-top:11px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* شاشة الجرس */
+    .buzz-shell{width:min(94vw,560px);height:min(calc(var(--vvh) - 28px),760px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(10px,2vh,18px)}
+    .buzz-brand{flex:none;line-height:.95;text-shadow:0 4px 0 rgba(0,0,0,.2)}
+    .buzz-brand .h{font-size:clamp(38px,10vw,60px);color:var(--gold)}
+    .buzz-brand .withline{font-size:clamp(22px,5.5vw,32px);color:#76ddd5;margin-top:2px}
+    .buzz-brand .host{display:inline-block;color:#ff6c72;max-width:70vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+    .player-line{font-size:clamp(15px,4vw,19px);color:rgba(255,255,255,.9);padding:9px 15px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);border-radius:999px;max-width:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .buzzer-stage{position:relative;width:clamp(190px,min(60vw,45vh),300px);aspect-ratio:1;display:grid;place-items:center;isolation:isolate;flex:none}
+    .buzzer-stage::before{content:"";position:absolute;inset:5%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.12),rgba(255,255,255,.03) 58%,transparent 70%);filter:blur(2px);z-index:-2}
+    .buzz-btn{position:relative;width:78%;aspect-ratio:1;border-radius:50%;border:clamp(7px,1.6vw,11px) solid rgba(255,255,255,.9);cursor:pointer;color:#fff;background:radial-gradient(circle at 40% 28%,#ff7b80 0 12%,#f04f59 35%,#ce3340 72%,#a52531 100%);box-shadow:0 15px 0 #8e2029,0 24px 42px rgba(0,0,0,.36),inset 0 5px 12px rgba(255,255,255,.24);display:grid;place-items:center;transition:transform .12s,box-shadow .12s;z-index:2}
+    .buzz-btn span{font-size:clamp(25px,6vw,38px);line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.2)}
+    .buzz-btn:active:not(:disabled){transform:translateY(7px);box-shadow:0 8px 0 #8e2029,0 15px 28px rgba(0,0,0,.32),inset 0 5px 12px rgba(255,255,255,.2)}
+    .buzz-btn:disabled{cursor:not-allowed;filter:saturate(.15) brightness(.82)}
+    .rays{position:absolute;inset:-9%;border-radius:50%;opacity:0;pointer-events:none;z-index:1;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,0) 0deg 9deg,rgba(255,255,255,.95) 10deg 12deg,rgba(255,255,255,0) 13deg 24deg);-webkit-mask:radial-gradient(circle,transparent 0 51%,#000 53% 69%,transparent 72%);mask:radial-gradient(circle,transparent 0 51%,#000 53% 69%,transparent 72%);filter:drop-shadow(0 0 10px #fff)}
+    .buzzer-stage.winner .rays{animation:rayBurst .85s ease-out both}
+    .buzzer-stage.winner::after{content:"";position:absolute;inset:18%;border-radius:50%;border:4px solid rgba(255,255,255,.95);animation:whiteRing .75s ease-out both;z-index:3;pointer-events:none}
+    @keyframes rayBurst{0%{opacity:0;transform:scale(.65) rotate(0)}20%{opacity:1}100%{opacity:0;transform:scale(1.3) rotate(10deg)}}
+    @keyframes whiteRing{0%{opacity:1;transform:scale(.7)}100%{opacity:0;transform:scale(1.6)}}
+    .status{min-height:28px;font-size:clamp(16px,4vw,20px);color:#fff}
+    .change-btn{border:0;background:transparent;color:rgba(255,255,255,.72);font-size:14px;text-decoration:underline;cursor:pointer;padding:8px}
+
+    @media (max-height:620px) and (orientation:landscape){
+      .setup-shell{width:min(88vw,760px);display:grid;grid-template-columns:.75fr 1.25fr;align-items:center;gap:22px}.brand{padding-inline:10px}.setup-card{padding:15px 18px}.setup-title{margin-bottom:10px}.input{height:48px}.teams-label{margin-top:10px}.team-option{min-height:55px}.save-btn{height:50px;margin-top:10px}.session{display:none}
+      .buzz-shell{width:min(92vw,900px);height:calc(var(--vvh) - 18px);display:grid;grid-template-columns:.75fr 1.25fr;grid-template-rows:auto auto;column-gap:20px}.buzz-brand{grid-column:1;grid-row:1}.player-line{grid-column:1;grid-row:2;align-self:start}.buzzer-stage{grid-column:2;grid-row:1 / span 2;width:clamp(190px,min(48vh,33vw),290px);justify-self:center}.status{position:absolute;bottom:max(8px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);white-space:nowrap}.change-btn{position:absolute;top:max(7px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left))}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-
-    <div class="card hero">
-      <div class="title1">حروف</div>
-      <div class="title2">مع</div>
-      <div class="title3" id="hostNameTop">المقدم</div>
-
-      <div class="subtitle">جرس الفريق</div>
-      <div class="desc">ادخل اسمك، اختر فريقك، ثم احفظ للدخول إلى صفحة الزر</div>
-      <div class="session-pill" id="sessionBox">جلسة ...</div>
+  <section class="screen" id="setupScreen">
+    <div class="setup-shell">
+      <div class="brand">
+        <div class="h">حروف</div>
+        <div class="with">مع</div>
+        <div class="host" id="hostNameTop">المقدم</div>
+      </div>
+      <div class="setup-card">
+        <h1 class="setup-title">دخول الجرس</h1>
+        <div class="label">اسم اللاعب</div>
+        <input id="playerName" class="input" type="text" placeholder="اكتب اسمك هنا" maxlength="20" autocomplete="name">
+        <div class="label teams-label">اختر فريقك</div>
+        <div class="teams">
+          <button type="button" class="team-option active" data-team="c1" style="--dot:var(--team1)" onclick="selectTeam('c1',this)"><span class="team-title" id="team1CardName">الفريق الأول</span></button>
+          <button type="button" class="team-option" data-team="c2" style="--dot:var(--team2)" onclick="selectTeam('c2',this)"><span class="team-title" id="team2CardName">الفريق الثاني</span></button>
+        </div>
+        <button class="save-btn" onclick="savePlayerData()">دخول</button>
+        <div class="session" id="sessionBox">جلسة ...</div>
+      </div>
     </div>
+  </section>
 
-    <!-- شاشة الدخول -->
-    <div class="card" id="setupScreen">
-      <div class="bell-icon">🔔</div>
-
-      <div class="label">اسم اللاعب</div>
-      <input id="playerName" class="input" type="text" placeholder="اكتب اسمك هنا" maxlength="20">
-
-      <div class="label">اختر الفريق</div>
-
-      <div class="team-option active" data-team="c1" onclick="selectTeam('c1', this)">
-        <div class="team-dot" style="background:var(--team1)"></div>
-        <div class="team-title" id="team1CardName">الفريق الأول</div>
-        <div class="team-sub">فريق 1</div>
+  <section class="screen hidden" id="buzzScreen">
+    <div class="buzz-shell">
+      <div class="buzz-brand">
+        <div class="h">حروف</div>
+        <div class="withline">مع <span class="host" id="hostNameBuzz">المقدم</span></div>
       </div>
-
-      <div class="team-option" data-team="c2" onclick="selectTeam('c2', this)">
-        <div class="team-dot" style="background:var(--team2)"></div>
-        <div class="team-title" id="team2CardName">الفريق الثاني</div>
-        <div class="team-sub">فريق 2</div>
+      <div class="player-line" id="playerSummary">اللاعب / الفريق</div>
+      <div class="buzzer-stage" id="buzzerStage">
+        <div class="rays"></div>
+        <button id="buzzBtn" class="buzz-btn" onclick="pressBuzzer()"><span>اضغط</span></button>
       </div>
-
-      <button class="save-btn" onclick="savePlayerData()">حفظ</button>
-    </div>
-
-    <!-- شاشة الزر -->
-    <div class="card buzz-card hidden" id="buzzScreen">
-      <div class="top-mini">
-        <div class="host" id="hostNameBuzz">المقدم</div>
-        <div class="meta">جرس الفريق</div>
-      </div>
-
-      <div class="player-badge" id="playerSummary">اللاعب / الفريق</div>
-
-      <button id="buzzBtn" class="buzz-btn" onclick="pressBuzzer()">اضغط الآن!</button>
-
-      <div class="status" id="statusMsg">⏳ انتظر فتح الجرس...</div>
-
+      <div class="status" id="statusMsg">انتظر فتح الجرس...</div>
       <button class="change-btn" onclick="backToSetup()">تعديل الاسم أو الفريق</button>
     </div>
+  </section>
 
-  </div>
-
-  <script>
-    (function(){
-      function fitPlayerPage(){
-        const vv=window.visualViewport;
-        const h=vv?vv.height:window.innerHeight;
-        document.documentElement.style.setProperty('--vh',h+'px');
-        const wrap=document.querySelector('.wrap');
-        if(!wrap)return;
-        wrap.style.setProperty('--page-scale','1');
-        requestAnimationFrame(()=>{
-          const r=wrap.getBoundingClientRect();
-          const aw=(vv?vv.width:window.innerWidth)-12, ah=h-12;
-          const scale=Math.min(1,aw/r.width,ah/r.height);
-          wrap.style.setProperty('--page-scale',String(Math.max(.55,scale)));
-        });
-      }
-      addEventListener('resize',fitPlayerPage);addEventListener('orientationchange',fitPlayerPage);
-      if(window.visualViewport){visualViewport.addEventListener('resize',fitPlayerPage);visualViewport.addEventListener('scroll',fitPlayerPage)}
-      addEventListener('DOMContentLoaded',fitPlayerPage);
-    })();
-  </script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCgwvqKj2BQ4nepbUk1gJ9Yb4o3hJWUwOs",
-      authDomain: "horof-game-9934e.firebaseapp.com",
-      databaseURL: "https://horof-game-9934e-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "horof-game-9934e",
-      appId: "1:44896634225:web:62a672d8c94be6e0d762d0"
-    };
+    const firebaseConfig={apiKey:"AIzaSyCgwvqKj2BQ4nepbUk1gJ9Yb4o3hJWUwOs",authDomain:"horof-game-9934e.firebaseapp.com",databaseURL:"https://horof-game-9934e-default-rtdb.europe-west1.firebasedatabase.app",projectId:"horof-game-9934e",appId:"1:44896634225:web:62a672d8c94be6e0d762d0"};
+    firebase.initializeApp(firebaseConfig); const db=firebase.database();
+    const urlParams=new URLSearchParams(window.location.search); const session=urlParams.get("session")||"default";
+    let selectedTeam="c1"; let playerData={name:"",team:"c1"};
+    document.getElementById("sessionBox").innerText="جلسة "+session.toUpperCase();
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    function syncViewport(){const h=window.visualViewport?window.visualViewport.height:window.innerHeight;document.documentElement.style.setProperty('--vvh',Math.round(h)+'px')}
+    syncViewport(); addEventListener('resize',syncViewport); if(window.visualViewport){visualViewport.addEventListener('resize',syncViewport);visualViewport.addEventListener('scroll',syncViewport)}
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const session = urlParams.get("session") || "default";
+    function selectTeam(team,el){selectedTeam=team;document.querySelectorAll('.team-option').forEach(x=>x.classList.remove('active'));el.classList.add('active')}
+    function savePlayerData(){const name=document.getElementById('playerName').value.trim();if(!name){alert('اكتب اسمك أولاً');return}playerData.name=name;playerData.team=selectedTeam;localStorage.setItem('horofPlayer_'+session,JSON.stringify(playerData));document.getElementById('setupScreen').classList.add('hidden');document.getElementById('buzzScreen').classList.remove('hidden');updatePlayerSummary()}
+    function backToSetup(){document.getElementById('buzzScreen').classList.add('hidden');document.getElementById('setupScreen').classList.remove('hidden')}
+    function updatePlayerSummary(){const t=playerData.team==='c1'?document.getElementById('team1CardName').innerText:document.getElementById('team2CardName').innerText;document.getElementById('playerSummary').innerText=playerData.name+' • '+t}
+    function loadSavedPlayer(){const saved=localStorage.getItem('horofPlayer_'+session);if(!saved)return;try{const data=JSON.parse(saved);if(data&&data.name&&data.team){playerData=data;selectedTeam=data.team;document.getElementById('playerName').value=data.name;const card=document.querySelector('.team-option[data-team="'+data.team+'"]');if(card){document.querySelectorAll('.team-option').forEach(x=>x.classList.remove('active'));card.classList.add('active')}document.getElementById('setupScreen').classList.add('hidden');document.getElementById('buzzScreen').classList.remove('hidden');updatePlayerSummary()}}catch(e){}}
 
-    let selectedTeam = "c1";
-    let playerData = {
-      name: "",
-      team: "c1"
-    };
-
-    document.getElementById("sessionBox").innerText = "جلسة " + session.toUpperCase();
-
-    function selectTeam(team, el){
-      selectedTeam = team;
-      document.querySelectorAll(".team-option").forEach(card => card.classList.remove("active"));
-      el.classList.add("active");
-    }
-
-    function savePlayerData(){
-      const name = document.getElementById("playerName").value.trim();
-
-      if(!name){
-        alert("اكتب اسمك أولاً");
-        return;
-      }
-
-      playerData.name = name;
-      playerData.team = selectedTeam;
-
-      localStorage.setItem("horofPlayer_" + session, JSON.stringify(playerData));
-
-      document.getElementById("setupScreen").classList.add("hidden");
-      document.getElementById("buzzScreen").classList.remove("hidden");
-
-      updatePlayerSummary();
-    }
-
-    function backToSetup(){
-      document.getElementById("buzzScreen").classList.add("hidden");
-      document.getElementById("setupScreen").classList.remove("hidden");
-    }
-
-    function updatePlayerSummary(){
-      const teamName =
-        playerData.team === "c1"
-          ? document.getElementById("team1CardName").innerText
-          : document.getElementById("team2CardName").innerText;
-
-     document.getElementById("playerSummary").innerText =
-"👤 " + playerData.name + " |  " + teamName;
-    }
-
-    function loadSavedPlayer(){
-      const saved = localStorage.getItem("horofPlayer_" + session);
-      if(!saved) return;
-
-      try{
-        const data = JSON.parse(saved);
-        if(data && data.name && data.team){
-          playerData = data;
-          selectedTeam = data.team;
-          document.getElementById("playerName").value = data.name;
-
-          const teamCard = document.querySelector('.team-option[data-team="' + data.team + '"]');
-          if(teamCard){
-            document.querySelectorAll(".team-option").forEach(card => card.classList.remove("active"));
-            teamCard.classList.add("active");
-          }
-
-          document.getElementById("setupScreen").classList.add("hidden");
-          document.getElementById("buzzScreen").classList.remove("hidden");
-          updatePlayerSummary();
-        }
-      }catch(e){}
-    }
-
+    function firstPressAnimation(){const s=document.getElementById('buzzerStage');s.classList.remove('winner');void s.offsetWidth;s.classList.add('winner');setTimeout(()=>s.classList.remove('winner'),950)}
     function pressBuzzer(){
-      if(!playerData.name){
-        alert("احفظ بياناتك أولاً");
-        return;
-      }
-
-      const btn = document.getElementById("buzzBtn");
-      const status = document.getElementById("statusMsg");
-
-      const buzzerRef = db.ref("games/" + session + "/buzzer");
-
-      buzzerRef.transaction(current => {
-        if(current === null){
-          return {
-            name: playerData.name,
-            team: playerData.team,
-            time: Date.now()
-          };
-        }
-        return;
-      }).then(result => {
-        if(result.committed){
-          btn.disabled = true;
-          btn.innerText = "تم الإرسال!";
-          status.innerText = "✅ وصل اسمك للمقدم";
-          status.style.color = "#7CFFB2";
-          if(navigator.vibrate) navigator.vibrate(150);
-        }else{
-          status.innerText = "⌛ سبقك لاعب آخر";
-          status.style.color = "#FFD166";
-        }
+      if(!playerData.name){alert('احفظ بياناتك أولاً');return}
+      const btn=document.getElementById('buzzBtn'), status=document.getElementById('statusMsg');
+      const buzzerRef=db.ref('games/'+session+'/buzzer');
+      buzzerRef.transaction(current=>current===null?{name:playerData.name,team:playerData.team,time:Date.now()}:undefined).then(result=>{
+        if(result.committed){firstPressAnimation();btn.disabled=true;btn.querySelector('span').innerText='الأول!';status.innerText='أنت الأسرع';status.style.color='#fff';if(navigator.vibrate)navigator.vibrate([80,45,140])}
+        else{status.innerText='سبقك لاعب آخر';status.style.color='#FFD166'}
       });
     }
 
     function applyHostData(data){
-      const hostName = (data && data.hostName) ? data.hostName : "المقدم";
-      const team1 = (data && data.teamNames && data.teamNames.c1) ? data.teamNames.c1 : "الفريق الأول";
-      const team2 = (data && data.teamNames && data.teamNames.c2) ? data.teamNames.c2 : "الفريق الثاني";
-      const team1Color = (data && data.teamColors && data.teamColors.c1) ? data.teamColors.c1 : "#e67e22";
-      const team2Color = (data && data.teamColors && data.teamColors.c2) ? data.teamColors.c2 : "#7b61ff";
-
-
-document.getElementById("hostNameTop").innerText = hostName;
-document.getElementById("hostNameBuzz").innerText = hostName;
-
-document.getElementById("team1CardName").innerText = team1;
-document.getElementById("team2CardName").innerText = team2;
-
-      document.documentElement.style.setProperty("--team1", team1Color);
-      document.documentElement.style.setProperty("--team2", team2Color);
-
-      updatePlayerSummary();
+      const hostName=data&&data.hostName?data.hostName:'المقدم';
+      const team1=data&&data.teamNames&&data.teamNames.c1?data.teamNames.c1:'الفريق الأول';
+      const team2=data&&data.teamNames&&data.teamNames.c2?data.teamNames.c2:'الفريق الثاني';
+      const team1Color=data&&data.teamColors&&data.teamColors.c1?data.teamColors.c1:'#8b5cf5';
+      const team2Color=data&&data.teamColors&&data.teamColors.c2?data.teamColors.c2:'#f97317';
+      document.getElementById('hostNameTop').innerText=hostName;document.getElementById('hostNameBuzz').innerText=hostName;
+      document.getElementById('team1CardName').innerText=team1;document.getElementById('team2CardName').innerText=team2;
+      document.documentElement.style.setProperty('--team1',team1Color);document.documentElement.style.setProperty('--team2',team2Color);updatePlayerSummary();
     }
-
-    db.ref("games/" + session + "/settings").on("value", snap => {
-      applyHostData(snap.val());
+    db.ref('games/'+session+'/settings').on('value',snap=>applyHostData(snap.val()));
+    db.ref('games/'+session+'/status').on('value',snap=>{
+      const data=snap.val(),btn=document.getElementById('buzzBtn'),status=document.getElementById('statusMsg'),label=btn.querySelector('span');
+      if(!data||data.locked===false){btn.disabled=false;label.innerText='اضغط';status.innerText='الجرس مفتوح';status.style.color='#7CFFB2'}
+      else{btn.disabled=true;label.innerText='مغلق';status.innerText='انتظر فتح الجرس...';status.style.color='#fff'}
     });
-
-    db.ref("games/" + session + "/status").on("value", snap => {
-      const data = snap.val();
-      const btn = document.getElementById("buzzBtn");
-      const status = document.getElementById("statusMsg");
-
-    if(!data){
-  btn.disabled = false;
-  btn.innerText = "اضغط الآن!";
-  status.innerText = "🚀 الجرس مفتوح";
-  status.style.color = "#7CFFB2";
-  return;
-}
-
-      if(data.locked === false){
-        btn.disabled = false;
-        btn.innerText = "اضغط الآن!";
-        status.innerText = "🚀 الجرس مفتوح";
-        status.style.color = "#7CFFB2";
-      }else{
-        btn.disabled = true;
-        btn.innerText = "مغلق";
-        status.innerText = "⏳ انتظر فتح الجرس...";
-        status.style.color = "#ffffff";
-      }
-    });
-
     loadSavedPlayer();
   </script>
 </body>
-</html
+</html>
