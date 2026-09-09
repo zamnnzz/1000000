@@ -7736,6 +7736,7 @@ if(gridStatus[id] !== 'neutral'){
 
     gridStatus[id] = 'selected';
     hex.classList.add("selected");
+    playLetterPickClick();
 
     // 🟡 لون التحديد
     if(poly){
@@ -8154,6 +8155,57 @@ if(window.innerHeight > window.innerWidth){
 }
 
 }
+
+/* ===== أصوات تفاعل الخلايا فقط ===== */
+let __cellAudioCtx = null;
+function __getCellAudioCtx(){
+  try{
+    if(!__cellAudioCtx){
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if(!AC) return null;
+      __cellAudioCtx = new AC();
+    }
+    if(__cellAudioCtx.state === 'suspended') __cellAudioCtx.resume();
+    return __cellAudioCtx;
+  }catch(e){ return null; }
+}
+
+function playLetterPickClick(){
+  const ctx = __getCellAudioCtx();
+  if(!ctx) return;
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(620, now);
+  osc.frequency.exponentialRampToValueAtTime(430, now + 0.045);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.075, now + 0.004);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(now); osc.stop(now + 0.065);
+}
+
+function playCellAwardChime(){
+  const ctx = __getCellAudioCtx();
+  if(!ctx) return;
+  const now = ctx.currentTime;
+  const notes = [659.25, 783.99, 987.77];
+  notes.forEach((freq, i)=>{
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const t = now + i * 0.055;
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, t);
+    gain.gain.setValueAtTime(0.0001, t);
+    gain.gain.exponentialRampToValueAtTime(0.055, t + 0.012);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.17);
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.start(t); osc.stop(t + 0.18);
+  });
+}
+/* ===== نهاية أصوات تفاعل الخلايا ===== */
+
 function givePoint(team){
 
 if(!lastSelectedHex) return;
@@ -8166,6 +8218,7 @@ stats[team].cells++;
 
 /* تغيير حالة الخلية */
 gridStatus[id] = team;
+playCellAwardChime();
 
 /* عناصر SVG */
 const poly = hex.querySelector("polygon");
