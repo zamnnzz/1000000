@@ -8,287 +8,25 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>@font-face{font-family:"AA Galaxy";src:url("https://raw.githubusercontent.com/zamnnzz/fonts/main/hroffont-B6Zk_0ya.woff2") format("woff2");font-display:swap}</style>
 
   <style>
-    :root{
-      --bg1:#4b237c;
-      --bg2:#6d44a6;
-      --card:#7c5aa8;
-      --card2:#6f4f98;
-      --line:rgba(255,255,255,0.15);
-      --text:#ffffff;
-      --muted:rgba(255,255,255,0.8);
-      --yellow:#ffd400;
-      --team1:#e67e22;
-      --team2:#7b61ff;
-      --input:#5e437f;
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:'Cairo',sans-serif;
-      color:var(--text);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0)),
-        linear-gradient(135deg, var(--bg1), var(--bg2));
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      padding:20px 12px 40px;
-    }
-
-    .wrap{
-      width:100%;
-      max-width:460px;
-    }
-
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:22px;
-      box-shadow:0 20px 40px rgba(0,0,0,0.18);
-      margin-bottom:18px;
-    }
-
-    .hero{
-      text-align:center;
-      padding-top:26px;
-      padding-bottom:26px;
-    }
-
-    .hero .title1{
-      font-size:52px;
-      font-weight:900;
-      color:var(--yellow);
-      line-height:0.9;
-      text-shadow:0 6px 0 rgba(0,0,0,0.28);
-    }
-
-    .hero .title2{
-      font-size:44px;
-      font-weight:900;
-      color:#5fd1c8;
-      line-height:0.9;
-      margin-top:-4px;
-      text-shadow:0 6px 0 rgba(0,0,0,0.28);
-    }
-
-    .hero .title3{
-      font-size:40px;
-      font-weight:900;
-      color:#ff5b62;
-      line-height:1;
-      margin-top:2px;
-      text-shadow:0 6px 0 rgba(0,0,0,0.28);
-    }
-
-    .hero .subtitle{
-      margin-top:14px;
-      font-size:20px;
-      font-weight:900;
-      color:var(--yellow);
-    }
-
-    .hero .desc{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.8;
-    }
-
-    .session-pill{
-      display:inline-block;
-      margin-top:16px;
-      padding:10px 20px;
-      border-radius:20px;
-      background:rgba(255,255,255,0.08);
-      border:1px solid rgba(255,255,255,0.12);
-      font-weight:800;
-      color:#fff;
-    }
-
-    .bell-icon{
-      width:78px;
-      height:78px;
-      margin:6px auto 18px;
-      border-radius:22px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(180deg, rgba(108,142,255,0.28), rgba(255,255,255,0.08));
-      border:1px solid rgba(255,255,255,0.18);
-      font-size:34px;
-    }
-
-    .label{
-      font-size:16px;
-      font-weight:800;
-      margin-bottom:10px;
-      text-align:right;
-    }
-
-    .input{
-      width:100%;
-      border:none;
-      outline:none;
-      border-radius:20px;
-      padding:18px 16px;
-      background:var(--input);
-      color:#fff;
-      font-size:18px;
-      font-family:'Cairo',sans-serif;
-      margin-bottom:18px;
-    }
-
-    .input::placeholder{
-      color:rgba(255,255,255,0.55);
-    }
-
-    .team-option{
-      border-radius:24px;
-      padding:18px;
-      margin-bottom:14px;
-      border:2px solid transparent;
-      background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      cursor:pointer;
-      transition:0.2s;
-      position:relative;
-    }
-
-    .team-option.active{
-      border-color:rgba(255,255,255,0.28);
-      box-shadow:0 0 0 2px rgba(255,255,255,0.06) inset;
-    }
-
-    .team-dot{
-      position:absolute;
-      top:18px;
-      left:18px;
-      width:20px;
-      height:20px;
-      border-radius:50%;
-    }
-
-    .team-title{
-      font-size:20px;
-      font-weight:900;
-      margin-bottom:4px;
-    }
-
-    .team-sub{
-      font-size:15px;
-      color:rgba(255,255,255,0.78);
-    }
-
-    .save-btn{
-      width:100%;
-      border:none;
-      border-radius:22px;
-      padding:16px;
-      margin-top:10px;
-      font-size:20px;
-      font-weight:900;
-      font-family:'Cairo',sans-serif;
-      cursor:pointer;
-      background:#fff;
-      color:#5d3c86;
-      box-shadow:0 8px 0 rgba(0,0,0,0.18);
-    }
-
-    .save-btn:active{
-      transform:translateY(3px);
-      box-shadow:0 3px 0 rgba(0,0,0,0.18);
-    }
-
-    .hidden{
-      display:none !important;
-    }
-
-    .top-mini{
-      text-align:center;
-      margin-bottom:18px;
-    }
-
-    .top-mini .host{
-      font-size:34px;
-      font-weight:900;
-      color:var(--yellow);
-      line-height:1.1;
-      text-shadow:0 5px 0 rgba(0,0,0,0.25);
-    }
-
-    .top-mini .meta{
-      margin-top:8px;
-      color:rgba(255,255,255,0.85);
-      font-size:15px;
-    }
-
-    .buzz-card{
-      text-align:center;
-      padding:26px 20px 30px;
-    }
-
-    .player-badge{
-      display:inline-block;
-      margin-bottom:16px;
-      padding:10px 16px;
-      border-radius:18px;
-      background:rgba(255,255,255,0.08);
-      border:1px solid rgba(255,255,255,0.12);
-      font-weight:800;
-      font-size:15px;
-    }
-
-    .buzz-btn{
-      width:230px;
-      height:230px;
-      border-radius:50%;
-      border:none;
-      cursor:pointer;
-      font-size:28px;
-      font-weight:900;
-      font-family:'Cairo',sans-serif;
-      color:#fff;
-      background:linear-gradient(180deg,#ff5a5f,#d83d48);
-      box-shadow:0 14px 0 #a92b34, 0 20px 40px rgba(0,0,0,0.28);
-      margin:14px auto 18px;
-      display:block;
-      transition:0.15s;
-    }
-
-    .buzz-btn:active{
-      transform:translateY(6px);
-      box-shadow:0 8px 0 #a92b34, 0 14px 24px rgba(0,0,0,0.28);
-    }
-
-    .buzz-btn:disabled{
-      cursor:not-allowed;
-      background:linear-gradient(180deg,#8c8c98,#73737d);
-      box-shadow:0 10px 0 #595963, 0 18px 30px rgba(0,0,0,0.2);
-    }
-
-    .status{
-      min-height:32px;
-      font-size:18px;
-      font-weight:800;
-      color:#fff;
-    }
-
-    .change-btn{
-      margin-top:16px;
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.2);
-      color:#fff;
-      border-radius:16px;
-      padding:10px 14px;
-      font-family:'Cairo',sans-serif;
-      font-weight:700;
-      cursor:pointer;
-    }
+    :root{--bg:#633f8a;--panel:rgba(255,255,255,.09);--line:rgba(255,255,255,.18);--text:#fff;--muted:rgba(255,255,255,.72);--yellow:#ffd43b;--team1:#8b5cf5;--team2:#f97317;--vh:100dvh}
+    *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden}
+    body{font-family:"AA Galaxy",Cairo,sans-serif;color:var(--text);background:radial-gradient(circle at 50% -10%,rgba(255,255,255,.18),transparent 35%),linear-gradient(145deg,#4b286f,var(--bg) 55%,#42235f);display:grid;place-items:center;padding:clamp(8px,2vmin,20px)}
+    button,input{font-family:inherit}.wrap{width:min(94vw,520px);height:min(calc(var(--vh) - 16px),900px);display:flex;flex-direction:column;gap:clamp(8px,1.5vmin,16px);transform:scale(var(--page-scale,1));transform-origin:center center}
+    .card{background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.055));border:1px solid var(--line);border-radius:clamp(20px,4vmin,34px);box-shadow:0 22px 60px rgba(20,6,35,.3),inset 0 1px rgba(255,255,255,.12);backdrop-filter:blur(12px)}
+    .hero{position:relative;text-align:center;padding:clamp(10px,2vmin,18px);overflow:hidden;flex:0 0 auto}.hero:after{content:"";position:absolute;inset:auto 12% -55px;height:70px;background:rgba(255,212,59,.22);filter:blur(35px)}
+    .brand{display:flex;align-items:baseline;justify-content:center;gap:8px;line-height:1}.hero .title1{font-size:clamp(31px,7vmin,50px);font-weight:900;color:var(--yellow);text-shadow:0 5px rgba(0,0,0,.2)}.hero .title2{font-size:clamp(24px,5.5vmin,39px);font-weight:900;color:#fff}.hero .title3{font-size:clamp(18px,4vmin,29px);font-weight:900;color:#fff;margin-top:3px}.hero .subtitle{margin-top:5px;font-size:clamp(13px,2.6vmin,18px);color:var(--yellow)}.hero .desc{display:none}.session-pill{display:inline-block;margin-top:6px;padding:5px 13px;border-radius:99px;background:rgba(0,0,0,.14);border:1px solid rgba(255,255,255,.13);font-size:clamp(10px,2vmin,13px);color:var(--muted)}
+    #setupScreen{padding:clamp(13px,2.5vmin,22px);flex:1;min-height:0;overflow:auto;scrollbar-width:none}#setupScreen::-webkit-scrollbar{display:none}.bell-icon{width:clamp(46px,8vmin,66px);height:clamp(46px,8vmin,66px);margin:0 auto clamp(8px,1.5vmin,14px);border-radius:20px;display:grid;place-items:center;background:rgba(255,212,59,.13);border:1px solid rgba(255,212,59,.28);font-size:clamp(22px,4vmin,31px);box-shadow:0 10px 30px rgba(0,0,0,.14)}
+    .label{font-size:clamp(12px,2.3vmin,15px);font-weight:900;margin:0 3px 6px}.input{width:100%;border:1px solid rgba(255,255,255,.13);outline:none;border-radius:16px;padding:clamp(11px,2vmin,15px);background:rgba(28,12,47,.28);color:#fff;font-size:clamp(14px,2.7vmin,18px);margin-bottom:clamp(10px,1.8vmin,16px)}.input:focus{border-color:rgba(255,212,59,.65);box-shadow:0 0 0 3px rgba(255,212,59,.08)}.input::placeholder{color:rgba(255,255,255,.45)}
+    .team-option{border-radius:18px;padding:clamp(11px,2vmin,16px);margin-bottom:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);cursor:pointer;position:relative;transition:.18s}.team-option.active{border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.12);transform:translateY(-1px)}.team-dot{position:absolute;top:50%;left:15px;transform:translateY(-50%);width:16px;height:16px;border-radius:50%;box-shadow:0 0 0 5px rgba(255,255,255,.07)}.team-title{font-size:clamp(15px,2.8vmin,19px);font-weight:900}.team-sub{font-size:clamp(10px,2vmin,13px);color:var(--muted)}
+    .save-btn{width:100%;border:0;border-radius:17px;padding:clamp(11px,2vmin,15px);margin-top:3px;font-size:clamp(16px,3vmin,20px);font-weight:900;cursor:pointer;background:linear-gradient(180deg,#fff,#eee8f6);color:#59377d;box-shadow:0 7px 0 rgba(29,12,45,.32)}.save-btn:active{transform:translateY(3px);box-shadow:0 4px 0 rgba(29,12,45,.32)}
+    .hidden{display:none!important}
+    .buzz-card{position:relative;flex:1;min-height:0;text-align:center;padding:clamp(14px,3vmin,28px);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}.buzz-card:before{content:"";position:absolute;width:min(70vw,340px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,212,59,.11),transparent 68%);pointer-events:none}.top-mini,.player-badge,.buzz-btn,.status,.change-btn{position:relative;z-index:1}.top-mini{margin-bottom:clamp(7px,1.5vmin,14px)}.top-mini .host{font-size:clamp(24px,5vmin,36px);font-weight:900;color:var(--yellow);text-shadow:0 5px rgba(0,0,0,.2)}.top-mini .meta{margin-top:2px;color:var(--muted);font-size:clamp(11px,2vmin,14px)}
+    .player-badge{margin-bottom:clamp(8px,1.5vmin,14px);padding:7px 15px;border-radius:99px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);font-size:clamp(12px,2.3vmin,15px)}
+    .buzz-btn{width:min(46vmin,230px);height:min(46vmin,230px);min-width:120px;min-height:120px;border-radius:50%;border:clamp(5px,1vmin,9px) solid rgba(255,255,255,.16);cursor:pointer;font-size:clamp(19px,4.2vmin,29px);font-weight:900;color:#fff;background:radial-gradient(circle at 38% 28%,#ff8185,#ef4d56 45%,#c72f3a 100%);box-shadow:0 0 0 9px rgba(255,255,255,.045),0 13px 0 #982631,0 24px 45px rgba(24,6,35,.38);margin:clamp(5px,1vmin,10px) auto clamp(12px,2vmin,18px);transition:.12s}.buzz-btn:active{transform:translateY(6px);box-shadow:0 0 0 9px rgba(255,255,255,.045),0 7px 0 #982631,0 15px 30px rgba(24,6,35,.35)}.buzz-btn:disabled{filter:saturate(.25);opacity:.72;cursor:not-allowed}.status{min-height:26px;font-size:clamp(13px,2.6vmin,18px);font-weight:900}.change-btn{margin-top:clamp(8px,1.5vmin,14px);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:14px;padding:8px 13px;font-size:clamp(11px,2vmin,14px);cursor:pointer}
+    @media (orientation:landscape) and (max-height:560px){.wrap{width:min(94vw,760px);height:calc(var(--vh) - 12px);display:grid;grid-template-columns:minmax(180px,.62fr) minmax(300px,1.38fr);grid-template-rows:1fr;gap:10px}.hero{display:flex;flex-direction:column;justify-content:center}.brand{flex-wrap:wrap}.hero .title1{font-size:clamp(27px,7vh,42px)}.hero .title2{font-size:clamp(22px,6vh,34px)}.hero .title3{font-size:clamp(18px,5vh,27px)}#setupScreen,.buzz-card{height:100%;}.bell-icon{display:none}.buzz-btn{width:min(42vh,200px);height:min(42vh,200px);min-width:110px;min-height:110px}.team-option{padding:9px 13px}.input{padding:10px 13px;margin-bottom:9px}.save-btn{padding:10px}.top-mini{margin-bottom:4px}.player-badge{margin-bottom:4px}.change-btn{margin-top:7px}}
   </style>
 </head>
 <body>
@@ -346,6 +84,27 @@
 
   </div>
 
+  <script>
+    (function(){
+      function fitPlayerPage(){
+        const vv=window.visualViewport;
+        const h=vv?vv.height:window.innerHeight;
+        document.documentElement.style.setProperty('--vh',h+'px');
+        const wrap=document.querySelector('.wrap');
+        if(!wrap)return;
+        wrap.style.setProperty('--page-scale','1');
+        requestAnimationFrame(()=>{
+          const r=wrap.getBoundingClientRect();
+          const aw=(vv?vv.width:window.innerWidth)-12, ah=h-12;
+          const scale=Math.min(1,aw/r.width,ah/r.height);
+          wrap.style.setProperty('--page-scale',String(Math.max(.55,scale)));
+        });
+      }
+      addEventListener('resize',fitPlayerPage);addEventListener('orientationchange',fitPlayerPage);
+      if(window.visualViewport){visualViewport.addEventListener('resize',fitPlayerPage);visualViewport.addEventListener('scroll',fitPlayerPage)}
+      addEventListener('DOMContentLoaded',fitPlayerPage);
+    })();
+  </script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
