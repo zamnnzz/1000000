@@ -34,7 +34,7 @@
       <button id="copyBtn" class="secondary small">نسخ الرابط</button>
     </div>
     <div class="grid2">
-      <div class="card qrCard"><img id="qrImg" alt="QR"><p>امسح الرمز من الجوال</p></div>
+      <div class="card qrCard"><div id="qrImg" class="qrBox"></div><p>امسح الرمز من الجوال</p></div>
       <div class="card"><h3>اللاعبون <span id="countBadge" class="badge">0</span></h3><div id="players" class="players"></div><p class="muted">الحد الأدنى 4 لاعبين</p></div>
     </div>
     <button id="startBtn" class="primary hidden">ابدأ اللعبة</button>
@@ -58,7 +58,7 @@
 
   <div id="toast" class="toast hidden"></div>
 </main>
-<script src="/socket.io/socket.io.js"></script>
-<script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
