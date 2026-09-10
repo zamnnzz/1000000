@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>الجواب المجهول</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="grain"></div>
+<main class="shell">
+  <header class="topbar"><div class="brand">؟ الجواب المجهول</div><button id="leaveBtn" class="iconBtn hidden">خروج</button></header>
+
+  <section id="home" class="screen card hero">
+    <div class="tv">؟</div>
+    <h1>الجواب المجهول</h1>
+    <p>اخدع أصحابك بإجابة مقنعة… ولا تطيح في فخهم.</p>
+    <div class="stack">
+      <button class="primary" id="createBtn">إنشاء غرفة</button>
+      <button class="secondary" id="joinOpenBtn">دخول غرفة</button>
+    </div>
+  </section>
+
+  <section id="nameScreen" class="screen card hidden">
+    <h2 id="nameTitle">اكتب اسمك</h2>
+    <input id="nameInput" maxlength="20" placeholder="اسم اللاعب" autocomplete="off" />
+    <input id="codeInput" maxlength="5" placeholder="كود الغرفة" autocomplete="off" />
+    <button class="primary" id="confirmJoinBtn">دخول</button>
+  </section>
+
+  <section id="lobby" class="screen hidden">
+    <div class="card roomHead">
+      <div><span class="muted">كود الغرفة</span><strong id="roomCode">-----</strong></div>
+      <button id="copyBtn" class="secondary small">نسخ الرابط</button>
+    </div>
+    <div class="grid2">
+      <div class="card qrCard"><img id="qrImg" alt="QR"><p>امسح الرمز من الجوال</p></div>
+      <div class="card"><h3>اللاعبون <span id="countBadge" class="badge">0</span></h3><div id="players" class="players"></div><p class="muted">الحد الأدنى 4 لاعبين</p></div>
+    </div>
+    <button id="startBtn" class="primary hidden">ابدأ اللعبة</button>
+  </section>
+
+  <section id="game" class="screen hidden">
+    <div class="scoreStrip" id="scoreStrip"></div>
+    <div class="card gameCard">
+      <div class="phase" id="phaseLabel">السؤال</div>
+      <h2 id="questionText"></h2>
+      <div id="answerArea" class="stack">
+        <input id="answerInput" maxlength="60" placeholder="اكتب إجابة تخدع البقية" autocomplete="off" />
+        <button id="submitAnswerBtn" class="primary">ثبت الإجابة</button>
+      </div>
+      <div id="voteArea" class="hidden"><div id="options" class="options"></div></div>
+      <div id="waiting" class="waiting hidden">تم الإرسال… ننتظر البقية</div>
+      <div id="resultsArea" class="hidden"></div>
+    </div>
+    <button id="nextBtn" class="primary hidden">السؤال التالي</button>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+</main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
