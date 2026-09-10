@@ -43,13 +43,13 @@
   <section id="game" class="screen hidden">
     <div class="scoreStrip" id="scoreStrip"></div>
     <div class="card gameCard">
-      <div class="phase" id="phaseLabel">السؤال</div>
+      <div class="phaseRow"><div class="phase" id="phaseLabel">السؤال</div><div id="timer" class="timer hidden"><div class="timerTrack"><div id="timerFill" class="timerFill"></div></div><b id="timerNum">15</b></div></div>
       <h2 id="questionText"></h2>
       <div id="answerArea" class="stack">
         <input id="answerInput" maxlength="60" placeholder="اكتب إجابة تخدع البقية" autocomplete="off" />
         <button id="submitAnswerBtn" class="primary">ثبت الإجابة</button>
       </div>
-      <div id="voteArea" class="hidden"><div id="options" class="options"></div></div>
+      <div id="voteArea" class="hidden"><div id="options" class="options"></div><button id="confirmVoteBtn" class="primary voteConfirm" disabled>تأكيد الاختيار</button></div>
       <div id="waiting" class="waiting hidden">تم الإرسال… ننتظر البقية</div>
       <div id="resultsArea" class="hidden"></div>
     </div>
