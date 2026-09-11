@@ -26,16 +26,15 @@
     <input id="nameInput" maxlength="20" placeholder="اسم اللاعب" autocomplete="off" />
     <input id="codeInput" maxlength="5" placeholder="كود الغرفة" autocomplete="off" />
     <button class="primary" id="confirmJoinBtn">دخول</button>
-    <div class="nameActions">
+    <div class="nameActions singleAction">
       <button class="secondary" id="nameBackBtn">رجوع</button>
-      <button class="secondary" id="switchModeBtn">إنشاء جلسة</button>
     </div>
   </section>
 
   <section id="lobby" class="screen hidden">
     <div class="card roomHead">
       <div><span class="muted">كود الغرفة</span><strong id="roomCode">-----</strong></div>
-      <button id="copyBtn" class="secondary small">نسخ الرابط</button>
+      <button id="copyBtn" class="secondary small">مشاركة الجلسة</button>
     </div>
     <div class="grid2">
       <div class="card qrCard"><div id="qrImg" class="qrBox"></div><p>امسح الرمز من الجوال</p></div>

@@ -82,3 +82,13 @@
 .sessionModalActions{display:grid;gap:10px}
 @keyframes sessionPop{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}
 @media(max-width:420px){.nameActions{grid-template-columns:1fr}.sessionModal{padding:18px}.sessionModalActions button{min-height:46px}}
+
+
+/* v11: cleaner join/create flow, fixed exit position, locked deep-link room code */
+.topbar{position:relative;justify-content:center;min-height:44px}
+.topbar .brand{text-align:center}
+#leaveBtn{position:absolute;right:0;top:0;background:#d9342b;color:#fff;border-color:var(--navy);z-index:3}
+#leaveBtn:hover{filter:brightness(.96)}
+.nameActions.singleAction{display:grid;grid-template-columns:1fr;margin-top:12px}
+#codeInput.lockedCode{background:rgba(101,215,206,.18);font-weight:900;letter-spacing:4px;text-align:center;cursor:not-allowed;opacity:1}
+@media(max-width:520px){#leaveBtn{right:0;padding:7px 12px;min-height:40px}.topbar{min-height:42px}.topbar .brand{padding-inline:64px}}
