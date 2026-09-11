@@ -26,6 +26,10 @@
     <input id="nameInput" maxlength="20" placeholder="اسم اللاعب" autocomplete="off" />
     <input id="codeInput" maxlength="5" placeholder="كود الغرفة" autocomplete="off" />
     <button class="primary" id="confirmJoinBtn">دخول</button>
+    <div class="nameActions">
+      <button class="secondary" id="nameBackBtn">رجوع</button>
+      <button class="secondary" id="switchModeBtn">إنشاء جلسة</button>
+    </div>
   </section>
 
   <section id="lobby" class="screen hidden">
@@ -58,6 +62,18 @@
 
   <div id="toast" class="toast hidden"></div>
 </main>
+
+<div id="sessionModal" class="modalOverlay hidden" role="dialog" aria-modal="true" aria-labelledby="sessionModalTitle">
+  <div class="sessionModal card">
+    <div class="sessionIcon">↩</div>
+    <h2 id="sessionModalTitle">عندك جلسة سابقة</h2>
+    <p id="sessionModalText">تبغى ترجع لها؟</p>
+    <div class="sessionModalActions">
+      <button id="resumeSessionBtn" class="primary">الرجوع للجلسة</button>
+      <button id="discardSessionBtn" class="secondary">لا، ابدأ من جديد</button>
+    </div>
+  </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script type="module" src="app.js"></script>
 </body>
