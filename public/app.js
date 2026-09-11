@@ -4,7 +4,7 @@ import { getDatabase, ref, set, get, update, onValue, remove, runTransaction, se
 
 const firebaseConfig={apiKey:'AIzaSyDOZNZp5F-t9AouL9xsthU3OiAyO_HQBBI',authDomain:'jawab-majhoo1.firebaseapp.com',databaseURL:'https://jawab-majhoo1-default-rtdb.europe-west1.firebasedatabase.app',projectId:'jawab-majhoo1',storageBucket:'jawab-majhoo1.firebasestorage.app',messagingSenderId:'314192717840',appId:'1:314192717840:web:688b94bbb5a8915098c295'};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
-const $=id=>document.getElementById(id); const screens=['home','nameScreen','lobby','game'];
+const $=id=>document.getElementById(id); const screens=['home','howToScreen','nameScreen','lobby','game'];
 let uid=null,roomCode=null,isHost=false,unsubRoom=null,joinMode='join',lastRoom=null,phaseTimer=null,selectedVoteKey=null,votePhaseKey='',voteUIReadyAt=0,answerPhaseKey='',interactionGuardUntil=0,selectedEmojiIndex=null,emojiRoomCode=null,unsubEmojiRoom=null;
 const SESSION_KEY='jawabMajhoolSessionV1';
 const AVATARS=[
@@ -146,6 +146,19 @@ function watchRoom(c){if(unsubRoom)unsubRoom();unsubRoom=onValue(ref(db,`rooms/$
 
 $('createBtn').onclick=openCreate;
 $('joinOpenBtn').onclick=openJoin;
+let howStep=0;
+function renderHowTo(){
+  document.querySelectorAll('.howCard').forEach((card,i)=>card.classList.toggle('active',i===howStep));
+  document.querySelectorAll('.howDot').forEach((dot,i)=>dot.classList.toggle('active',i===howStep));
+  $('howPrevBtn').classList.toggle('hidden',howStep===0);
+  $('howNextBtn').classList.toggle('hidden',howStep===3);
+  $('howPlayBtn').classList.toggle('hidden',howStep!==3);
+}
+$('howToBtn').onclick=()=>{howStep=0;renderHowTo();show('howToScreen')};
+$('howToBackBtn').onclick=()=>show('home');
+$('howPrevBtn').onclick=()=>{if(howStep>0){howStep--;renderHowTo()}};
+$('howNextBtn').onclick=()=>{if(howStep<3){howStep++;renderHowTo()}};
+$('howPlayBtn').onclick=()=>show('home');
 $('homeExitBtn').onclick=()=>{$('homeExitModal').classList.remove('hidden')};
 $('cancelHomeExitBtn').onclick=()=>{$('homeExitModal').classList.add('hidden')};
 $('confirmHomeExitBtn').onclick=()=>{location.href='https://zamn.games/'};

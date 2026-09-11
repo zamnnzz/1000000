@@ -242,3 +242,51 @@ body{min-height:100dvh;}
 /* بعد إزالة اسم اللعبة من الشريط العلوي يبقى الشريط مخصصاً لزر الخروج داخل الجلسة فقط */
 .topbar{justify-content:flex-end}
 #leaveBtn{position:static!important;right:auto!important}
+
+
+/* التوب 8 — توحيد أزرار الواجهة + شرح اللعبة بالبطاقات */
+.homeMenu{gap:12px}
+.homeMenuBtn{
+  width:100%;min-height:56px;padding:13px 20px;border:3px solid var(--navy);
+  border-radius:16px;background:var(--paper);color:var(--navy);font-weight:900;
+  box-shadow:0 5px 0 var(--navy);
+}
+.homeMenuBtnPrimary{background:var(--coral);color:#fff}
+.homeMenuBtnDanger{background:#d94b45;color:#fff}
+.homeMenuBtn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--navy)}
+#home .homeMenuBtn{font-size:clamp(16px,1.8vw,19px)}
+.howToScreen{
+  flex:1;min-height:calc(100dvh - 95px);display:flex;flex-direction:column;
+  justify-content:center;max-width:900px;margin:0 auto;padding:clamp(18px,3vw,30px);
+}
+.howToHeader{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
+.howToHeader h2{margin:3px 0 0;font-size:clamp(28px,4vw,42px)}
+.howToEyebrow{font-weight:900;color:var(--coral);font-size:14px}
+.howToProgress{display:flex;gap:8px;justify-content:center;margin:2px 0 18px}
+.howDot{width:11px;height:11px;border-radius:999px;background:rgba(23,22,54,.18);border:2px solid var(--navy);transition:.18s}
+.howDot.active{width:34px;background:var(--teal)}
+.howToViewport{position:relative;min-height:330px;display:grid;place-items:center}
+.howCard{
+  display:none;width:min(640px,100%);background:#fff;border:3px solid var(--navy);
+  border-radius:22px;padding:clamp(24px,4vw,38px);text-align:center;box-shadow:0 7px 0 rgba(23,22,54,.12)
+}
+.howCard.active{display:block;animation:howIn .18s ease-out}
+.howIcon{
+  width:72px;height:72px;margin:0 auto 18px;display:grid;place-items:center;border-radius:22px;
+  background:var(--yellow);border:3px solid var(--navy);font-size:30px;font-weight:900;box-shadow:0 4px 0 var(--navy)
+}
+.howCard:nth-child(2) .howIcon{background:var(--coral);color:#fff}
+.howCard:nth-child(3) .howIcon{background:var(--teal)}
+.howCard:nth-child(4) .howIcon{background:#9d7bff;color:#fff}
+.howCard h3{font-size:clamp(25px,3.5vw,34px);margin:0 0 12px}
+.howCard p{font-size:clamp(16px,2.1vw,19px);line-height:1.9;margin:0;opacity:.82}
+.howToFooter{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(640px,100%);margin:18px auto 0}
+.howToFooter .howNavBtn:only-child{grid-column:1/-1}
+#howPlayBtn{grid-column:1/-1}
+@keyframes howIn{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+@media(max-width:600px){
+  .howToScreen{min-height:calc(100dvh - 82px);padding:14px}
+  .howToViewport{min-height:300px}
+  .howCard{padding:22px 18px}
+  .howToHeader .small{min-height:44px;padding:8px 13px}
+}

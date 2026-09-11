@@ -15,10 +15,53 @@
     <div class="tv">؟</div>
     <h1>الجواب المجهول</h1>
     <p>اخدع أصحابك بإجابة مقنعة… ولا تطيح في فخهم.</p>
-    <div class="stack">
-      <button class="primary" id="createBtn">إنشاء غرفة</button>
-      <button class="secondary" id="joinOpenBtn">دخول غرفة</button>
-      <button class="homeExitBtn" id="homeExitBtn">خروج</button>
+    <div class="stack homeMenu">
+      <button class="homeMenuBtn homeMenuBtnPrimary" id="createBtn">إنشاء غرفة</button>
+      <button class="homeMenuBtn" id="joinOpenBtn">دخول غرفة</button>
+      <button class="homeMenuBtn" id="howToBtn">طريقة اللعب</button>
+      <button class="homeMenuBtn homeMenuBtnDanger" id="homeExitBtn">خروج</button>
+    </div>
+  </section>
+
+
+
+  <section id="howToScreen" class="screen card howToScreen hidden">
+    <div class="howToHeader">
+      <div>
+        <span class="howToEyebrow">شرح سريع</span>
+        <h2>طريقة اللعب</h2>
+      </div>
+      <button id="howToBackBtn" class="secondary small">رجوع</button>
+    </div>
+    <div class="howToProgress" aria-hidden="true">
+      <span class="howDot active"></span><span class="howDot"></span><span class="howDot"></span><span class="howDot"></span>
+    </div>
+    <div class="howToViewport">
+      <article class="howCard active" data-step="0">
+        <div class="howIcon">1</div>
+        <h3>ادخلوا الجلسة</h3>
+        <p>المضيف ينشئ غرفة، والبقية يدخلون بالكود أو الرابط ويختار كل لاعب اسمه وشخصيته.</p>
+      </article>
+      <article class="howCard" data-step="1">
+        <div class="howIcon">2</div>
+        <h3>اكتب فخ مقنع</h3>
+        <p>يظهر سؤال للجميع. اكتب إجابة خاطئة تبدو صحيحة. إذا كتبت الإجابة الصحيحة من البداية تأخذ نقطة وتختفي إجابتك من خيارات التصويت.</p>
+      </article>
+      <article class="howCard" data-step="2">
+        <div class="howIcon">3</div>
+        <h3>اختَر الصحيح</h3>
+        <p>تظهر الإجابة الصحيحة مع فخاخ اللاعبين. اختر الإجابة التي تعتقد أنها الصحيحة، ولا يمكنك اختيار الفخ الذي كتبته بنفسك.</p>
+      </article>
+      <article class="howCard" data-step="3">
+        <div class="howIcon">4</div>
+        <h3>اجمع النقاط</h3>
+        <p>نقطة إذا عرفت الإجابة الصحيحة، ونقطة عن كل لاعب وقع في فخك. بعد كل جولة تظهر النتيجة ومن خدع من.</p>
+      </article>
+    </div>
+    <div class="howToFooter">
+      <button id="howPrevBtn" class="homeMenuBtn howNavBtn hidden">السابق</button>
+      <button id="howNextBtn" class="homeMenuBtn homeMenuBtnPrimary howNavBtn">التالي</button>
+      <button id="howPlayBtn" class="homeMenuBtn homeMenuBtnPrimary howNavBtn hidden">العب الآن</button>
     </div>
   </section>
 
