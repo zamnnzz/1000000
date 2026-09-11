@@ -7,16 +7,6 @@ const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
 const $=id=>document.getElementById(id); const screens=['home','nameScreen','lobby','game'];
 let uid=null,roomCode=null,isHost=false,unsubRoom=null,joinMode='join',lastRoom=null,phaseTimer=null,selectedVoteKey=null,votePhaseKey='',voteUIReadyAt=0,answerPhaseKey='',interactionGuardUntil=0,selectedEmojiIndex=null,emojiRoomCode=null,unsubEmojiRoom=null;
 const SESSION_KEY='jawabMajhoolSessionV1';
-function syncViewportHeight(){
-  const h=Math.round(window.visualViewport?.height||window.innerHeight||document.documentElement.clientHeight);
-  document.documentElement.style.setProperty('--app-h',`${h}px`);
-}
-syncViewportHeight();
-window.addEventListener('resize',syncViewportHeight,{passive:true});
-window.addEventListener('orientationchange',()=>setTimeout(syncViewportHeight,120),{passive:true});
-window.visualViewport?.addEventListener('resize',syncViewportHeight,{passive:true});
-window.visualViewport?.addEventListener('scroll',syncViewportHeight,{passive:true});
-
 const AVATARS=[
   {name:'المحقق',body:'#ff684d',accent:'#ffd24a',face:'detective'},
   {name:'المقنّع',body:'#65d7ce',accent:'#171636',face:'mask'},
