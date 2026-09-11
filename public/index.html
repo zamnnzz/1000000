@@ -9,7 +9,7 @@
 <body>
 <div class="grain"></div>
 <main class="shell">
-  <header class="topbar"><div class="brand">؟ الجواب المجهول</div><button id="leaveBtn" class="iconBtn hidden">خروج</button></header>
+  <header class="topbar"><button id="leaveBtn" class="iconBtn hidden">خروج</button></header>
 
   <section id="home" class="screen card hero">
     <div class="tv">؟</div>
@@ -18,6 +18,7 @@
     <div class="stack">
       <button class="primary" id="createBtn">إنشاء غرفة</button>
       <button class="secondary" id="joinOpenBtn">دخول غرفة</button>
+      <button class="homeExitBtn" id="homeExitBtn">خروج</button>
     </div>
   </section>
 
@@ -75,6 +76,18 @@
     <div class="sessionModalActions">
       <button id="resumeSessionBtn" class="primary">الرجوع للجلسة</button>
       <button id="discardSessionBtn" class="secondary">لا، ابدأ من جديد</button>
+    </div>
+  </div>
+</div>
+
+<div id="homeExitModal" class="modalOverlay hidden" role="dialog" aria-modal="true" aria-labelledby="homeExitModalTitle">
+  <div class="sessionModal card exitConfirmModal">
+    <div class="exitGameLogo">؟</div>
+    <h2 id="homeExitModalTitle">تبي تطلع من اللعبة؟</h2>
+    <p>بنرجعك لصفحة الألعاب.</p>
+    <div class="sessionModalActions">
+      <button id="confirmHomeExitBtn" class="dangerAction">نعم، خروج</button>
+      <button id="cancelHomeExitBtn" class="secondary">إلغاء</button>
     </div>
   </div>
 </div>
