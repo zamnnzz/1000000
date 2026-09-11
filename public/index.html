@@ -25,6 +25,11 @@
     <h2 id="nameTitle">اكتب اسمك</h2>
     <input id="nameInput" maxlength="20" placeholder="اسم اللاعب" autocomplete="off" />
     <input id="codeInput" maxlength="5" placeholder="كود الغرفة" autocomplete="off" />
+    <div class="emojiPickerWrap">
+      <div class="emojiPickerTitle">اختر شخصيتك</div>
+      <div id="emojiPicker" class="emojiPicker" aria-label="اختيار شخصية اللاعب"></div>
+      <div id="emojiHint" class="emojiHint">اختر إيموجي واحد</div>
+    </div>
     <button class="primary" id="confirmJoinBtn">دخول</button>
     <div class="nameActions singleAction">
       <button class="secondary" id="nameBackBtn">رجوع</button>
@@ -34,10 +39,10 @@
   <section id="lobby" class="screen hidden">
     <div class="card roomHead">
       <div><span class="muted">كود الغرفة</span><strong id="roomCode">-----</strong></div>
-      <button id="copyBtn" class="secondary small">مشاركة الجلسة</button>
+      <button id="copyBtn" class="secondary small hostOnlyInvite">مشاركة الجلسة</button>
     </div>
     <div class="grid2">
-      <div class="card qrCard"><div id="qrImg" class="qrBox"></div><p>امسح الرمز من الجوال</p></div>
+      <div id="qrCard" class="card qrCard hostOnlyInvite"><div id="qrImg" class="qrBox"></div><p>امسح الرمز من الجوال</p></div>
       <div class="card"><h3>اللاعبون <span id="countBadge" class="badge">0</span></h3><div id="players" class="players"></div><p class="muted">الحد الأدنى لاعبين</p></div>
     </div>
     <button id="startBtn" class="primary hidden">ابدأ اللعبة</button>
