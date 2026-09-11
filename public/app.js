@@ -7,6 +7,16 @@ const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
 const $=id=>document.getElementById(id); const screens=['home','nameScreen','lobby','game'];
 let uid=null,roomCode=null,isHost=false,unsubRoom=null,joinMode='join',lastRoom=null,phaseTimer=null,selectedVoteKey=null,votePhaseKey='',voteUIReadyAt=0,answerPhaseKey='',interactionGuardUntil=0,selectedEmojiIndex=null,emojiRoomCode=null,unsubEmojiRoom=null;
 const SESSION_KEY='jawabMajhoolSessionV1';
+function syncViewportHeight(){
+  const h=Math.round(window.visualViewport?.height||window.innerHeight||document.documentElement.clientHeight);
+  document.documentElement.style.setProperty('--app-h',`${h}px`);
+}
+syncViewportHeight();
+window.addEventListener('resize',syncViewportHeight,{passive:true});
+window.addEventListener('orientationchange',()=>setTimeout(syncViewportHeight,120),{passive:true});
+window.visualViewport?.addEventListener('resize',syncViewportHeight,{passive:true});
+window.visualViewport?.addEventListener('scroll',syncViewportHeight,{passive:true});
+
 const AVATARS=[
   {name:'المحقق',body:'#ff684d',accent:'#ffd24a',face:'detective'},
   {name:'المقنّع',body:'#65d7ce',accent:'#171636',face:'mask'},
@@ -21,18 +31,46 @@ const AVATARS=[
 ];
 function avatarSvg(i,extra=''){
   const a=AVATARS[(Number(i)||0)%AVATARS.length];
-  let face='';
-  if(a.face==='detective')face=`<path d="M20 22h24l-3 6H23z" fill="${a.accent}"/><path d="M25 19c5-5 11-5 16 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/><circle cx="29" cy="34" r="2.4"/><circle cx="39" cy="34" r="2.4"/><path d="M29 42c3 2 7 2 10 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/>`;
-  else if(a.face==='mask')face=`<path d="M22 29c7-5 17-5 24 0l-3 9c-6 4-12 4-18 0z" fill="${a.accent}"/><circle cx="29" cy="33" r="2" fill="#fff4db"/><circle cx="39" cy="33" r="2" fill="#fff4db"/><path d="M31 44h6" stroke="#171636" stroke-width="3" stroke-linecap="round"/>`;
-  else if(a.face==='glasses')face=`<circle cx="28" cy="34" r="6" fill="none" stroke="#171636" stroke-width="3"/><circle cx="40" cy="34" r="6" fill="none" stroke="#171636" stroke-width="3"/><path d="M34 34h1" stroke="#171636" stroke-width="3"/><path d="M30 44c3 2 5 2 8 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/><path d="M34 17v-5M27 19l-3-5M41 19l3-5" stroke="${a.accent}" stroke-width="3" stroke-linecap="round"/>`;
-  else if(a.face==='horns')face=`<path d="M22 22l-5-8 10 5M46 22l5-8-10 5" fill="${a.accent}" stroke="#171636" stroke-width="2"/><path d="M25 33l6 2M43 33l-6 2" stroke="#171636" stroke-width="3" stroke-linecap="round"/><path d="M29 44c4 3 7 3 11 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/>`;
-  else if(a.face==='calm')face=`<path d="M25 34c2-2 4-2 6 0M37 34c2-2 4-2 6 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/><path d="M29 43c3 1 7 1 10 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/><circle cx="47" cy="27" r="3" fill="${a.accent}"/>`;
-  else if(a.face==='wide')face=`<circle cx="28" cy="34" r="4" fill="#fff" stroke="#171636" stroke-width="2"/><circle cx="40" cy="34" r="4" fill="#fff" stroke="#171636" stroke-width="2"/><circle cx="29" cy="34" r="1.7"/><circle cx="39" cy="34" r="1.7"/><circle cx="34" cy="44" r="4" fill="${a.accent}" stroke="#171636" stroke-width="2"/>`;
-  else if(a.face==='wink')face=`<circle cx="28" cy="34" r="2.5"/><path d="M37 34c2-2 4-2 6 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/><path d="M29 43c4 4 8 4 12 0" fill="none" stroke="#171636" stroke-width="3" stroke-linecap="round"/><path d="M46 23l4-3" stroke="${a.accent}" stroke-width="3" stroke-linecap="round"/>`;
-  else if(a.face==='ghost')face=`<circle cx="28" cy="34" r="2.5"/><circle cx="40" cy="34" r="2.5"/><ellipse cx="34" cy="44" rx="4" ry="6" fill="${a.accent}"/><path d="M20 51l5-4 5 4 5-4 5 4 5-4 3 3" fill="none" stroke="#171636" stroke-width="2.5"/>`;
-  else if(a.face==='robot')face=`<rect x="22" y="25" width="24" height="23" rx="6" fill="${a.body}" stroke="#171636" stroke-width="3"/><circle cx="29" cy="35" r="3" fill="${a.accent}"/><circle cx="39" cy="35" r="3" fill="${a.accent}"/><path d="M29 43h10" stroke="#171636" stroke-width="3"/><path d="M34 25v-7" stroke="#171636" stroke-width="3"/><circle cx="34" cy="16" r="3" fill="${a.accent}" stroke="#171636" stroke-width="2"/>`;
-  else face=`<circle cx="28" cy="34" r="2.5" fill="#fff4db"/><circle cx="40" cy="34" r="2.5" fill="#fff4db"/><path d="M31 43h6" stroke="#fff4db" stroke-width="3" stroke-linecap="round"/><text x="34" y="22" text-anchor="middle" font-size="13" font-weight="900" fill="${a.accent}">?</text>`;
-  return `<span class="gameAvatar ${extra}" title="${a.name}"><svg viewBox="0 0 68 68" aria-hidden="true"><path d="M13 37c0-16 8-25 21-25s21 9 21 25v13c0 6-5 10-11 10H24c-6 0-11-4-11-10z" fill="${a.body}" stroke="#171636" stroke-width="3" stroke-linejoin="round"/>${face}</svg></span>`;
+  const skin=['#f2b58f','#d99368','#b86f4f','#f0bf9a','#cc8966'][i%5];
+  const dark='#171636',cream='#fff4db';
+  let hair='',face='',gear='';
+  if(a.face==='detective'){
+    hair=`<path d="M20 25c3-10 24-12 29 1-8-3-20-3-29-1z" fill="${dark}"/>`;
+    gear=`<path d="M17 25h34l-5-8H25z" fill="${a.accent}" stroke="${dark}" stroke-width="2.4"/><path d="M13 25h42" stroke="${dark}" stroke-width="3.2" stroke-linecap="round"/>`;
+    face=`<circle cx="28" cy="38" r="2.1"/><circle cx="40" cy="38" r="2.1"/><path d="M29 47c3 2 7 2 10 0" fill="none" stroke="${dark}" stroke-width="2.7" stroke-linecap="round"/><circle cx="28" cy="38" r="6" fill="none" stroke="${dark}" stroke-width="2.4"/><path d="M34 38h7" stroke="${dark}" stroke-width="2.4"/>`;
+  }else if(a.face==='mask'){
+    hair=`<path d="M20 28c2-12 25-13 29 0l-7-4-7 3-8-3z" fill="${dark}"/>`;
+    gear=`<path d="M20 33c8-7 20-7 28 0l-4 11c-7 5-14 5-21 0z" fill="${a.accent}" stroke="${dark}" stroke-width="2.5"/>`;
+    face=`<path d="M26 37h5M38 37h5" stroke="${cream}" stroke-width="3" stroke-linecap="round"/><path d="M31 49h7" stroke="${dark}" stroke-width="2.5" stroke-linecap="round"/>`;
+  }else if(a.face==='glasses'){
+    hair=`<path d="M19 28c4-14 28-14 31 0-9-5-21-5-31 0z" fill="${a.accent}" stroke="${dark}" stroke-width="2"/>`;
+    gear=`<circle cx="27" cy="38" r="6.2" fill="none" stroke="${dark}" stroke-width="2.7"/><circle cx="41" cy="38" r="6.2" fill="none" stroke="${dark}" stroke-width="2.7"/><path d="M33 38h2" stroke="${dark}" stroke-width="2.7"/>`;
+    face=`<circle cx="27" cy="38" r="1.6"/><circle cx="41" cy="38" r="1.6"/><path d="M30 48c3 2 6 2 9 0" fill="none" stroke="${dark}" stroke-width="2.6" stroke-linecap="round"/>`;
+  }else if(a.face==='horns'){
+    hair=`<path d="M20 28c2-11 26-13 29 1l-8-5-7 4-7-4z" fill="${dark}"/>`;
+    gear=`<path d="M23 23l-7-10 12 5M45 23l7-10-12 5" fill="${a.accent}" stroke="${dark}" stroke-width="2.4"/>`;
+    face=`<path d="M24 37l7 2M44 37l-7 2" stroke="${dark}" stroke-width="2.8" stroke-linecap="round"/><path d="M29 48c4 3 7 3 11 0" fill="none" stroke="${dark}" stroke-width="2.8" stroke-linecap="round"/>`;
+  }else if(a.face==='calm'){
+    hair=`<path d="M20 28c5-12 25-13 29 0-8-3-20-3-29 0z" fill="${dark}"/>`;
+    face=`<path d="M24 39c2-2 5-2 7 0M37 39c2-2 5-2 7 0" fill="none" stroke="${dark}" stroke-width="2.8" stroke-linecap="round"/><path d="M30 48c3 1 6 1 9 0" fill="none" stroke="${dark}" stroke-width="2.6" stroke-linecap="round"/>`;
+    gear=`<path d="M48 28c4 1 5 6 2 9" fill="none" stroke="${a.accent}" stroke-width="3" stroke-linecap="round"/>`;
+  }else if(a.face==='wide'){
+    hair=`<path d="M18 29c3-15 29-15 33 0l-9-6-8 4-8-4z" fill="${dark}"/>`;
+    face=`<circle cx="27" cy="39" r="4.4" fill="#fff" stroke="${dark}" stroke-width="2.2"/><circle cx="41" cy="39" r="4.4" fill="#fff" stroke="${dark}" stroke-width="2.2"/><circle cx="28" cy="39" r="1.5"/><circle cx="40" cy="39" r="1.5"/><ellipse cx="34" cy="49" rx="3.7" ry="4.8" fill="${a.accent}" stroke="${dark}" stroke-width="2"/>`;
+  }else if(a.face==='wink'){
+    hair=`<path d="M19 29c5-13 27-13 31 0-10-5-20-3-31 0z" fill="${dark}"/>`;
+    gear=`<path d="M47 26l5-4M48 31h5" stroke="${a.accent}" stroke-width="2.8" stroke-linecap="round"/>`;
+    face=`<circle cx="27" cy="39" r="2.2"/><path d="M38 39c2-2 5-2 7 0" fill="none" stroke="${dark}" stroke-width="2.8" stroke-linecap="round"/><path d="M29 48c4 4 8 4 12 0" fill="none" stroke="${dark}" stroke-width="2.8" stroke-linecap="round"/>`;
+  }else if(a.face==='ghost'){
+    return `<span class="gameAvatar ${extra}" title="${a.name}"><svg viewBox="0 0 68 68" aria-hidden="true"><path d="M14 58V34c0-14 8-23 20-23s20 9 20 23v24l-7-5-6 5-7-5-7 5-6-5z" fill="${a.body}" stroke="${dark}" stroke-width="3" stroke-linejoin="round"/><circle cx="27" cy="35" r="2.5"/><circle cx="41" cy="35" r="2.5"/><ellipse cx="34" cy="46" rx="4" ry="5.5" fill="${a.accent}" stroke="${dark}" stroke-width="2"/></svg></span>`;
+  }else if(a.face==='robot'){
+    return `<span class="gameAvatar ${extra}" title="${a.name}"><svg viewBox="0 0 68 68" aria-hidden="true"><path d="M34 13v8" stroke="${dark}" stroke-width="3"/><circle cx="34" cy="11" r="3.5" fill="${a.accent}" stroke="${dark}" stroke-width="2"/><rect x="15" y="20" width="38" height="38" rx="11" fill="${a.body}" stroke="${dark}" stroke-width="3"/><path d="M20 31h28v18H20z" fill="#eef2f6" stroke="${dark}" stroke-width="2"/><circle cx="28" cy="39" r="3" fill="${a.accent}"/><circle cx="40" cy="39" r="3" fill="${a.accent}"/><path d="M28 46h12" stroke="${dark}" stroke-width="2.5" stroke-linecap="round"/><path d="M15 32h-5v13h5M53 32h5v13h-5" fill="${a.accent}" stroke="${dark}" stroke-width="2"/></svg></span>`;
+  }else{
+    hair=`<path d="M19 28c3-13 27-14 31 0l-8-5-8 4-8-4z" fill="#0d0c22"/>`;
+    gear=`<path d="M18 33c10-8 23-8 32 0v17c-10 7-22 7-32 0z" fill="${dark}" opacity=".96"/><text x="34" y="47" text-anchor="middle" font-size="18" font-weight="900" fill="${a.accent}">?</text>`;
+    face='';
+  }
+  return `<span class="gameAvatar ${extra}" title="${a.name}"><svg viewBox="0 0 68 68" aria-hidden="true"><path d="M15 58c1-11 8-17 19-17s18 6 19 17" fill="${a.body}" stroke="${dark}" stroke-width="3" stroke-linecap="round"/><circle cx="34" cy="36" r="18" fill="${skin}" stroke="${dark}" stroke-width="3"/>${hair}${gear}${face}<path d="M23 57c3-7 19-7 22 0" fill="${a.body}" stroke="${dark}" stroke-width="3" stroke-linecap="round"/></svg></span>`;
 }
 let pendingSession=null,booted=false;
 const QUESTIONS=[
