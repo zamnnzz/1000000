@@ -81,13 +81,16 @@ function clearSession(){localStorage.removeItem(SESSION_KEY);pendingSession=null
 function readSession(){try{return JSON.parse(localStorage.getItem(SESSION_KEY)||'null')}catch{return null}}
 function renderEmojiPicker(room=null){
   const claims=room?.emojiClaims||{};
+  const playerCount=Object.keys(room?.players||{}).length;
+  // أول 10 لاعبين: كل شخصية تكون حصرية. من اللاعب 11 وما بعده نسمح بتكرار الشخصيات.
+  const repeatsAllowed=playerCount>=AVATARS.length;
   $('emojiPicker').innerHTML=AVATARS.map((avatar,i)=>{
     const owner=claims[i];
     const mine=selectedEmojiIndex===i;
-    const locked=!!owner&&owner!==uid;
+    const locked=!repeatsAllowed&&!!owner&&owner!==uid;
     return `<button type="button" class="emojiChoice ${mine?'selected':''} ${locked?'taken':''}" data-emoji-index="${i}" ${locked?'disabled':''} aria-label="${locked?'الشخصية محجوزة':`اختيار شخصية ${avatar.name}`}">${avatarSvg(i)}<span class="avatarName">${avatar.name}</span></button>`;
   }).join('');
-  $('emojiHint').textContent=selectedEmojiIndex===null?'اختر شخصية واحدة':`اختيارك: ${AVATARS[selectedEmojiIndex].name}`;
+  $('emojiHint').textContent=selectedEmojiIndex===null?(repeatsAllowed?'اختر شخصيتك — التكرار متاح الآن':'اختر شخصية واحدة'):`اختيارك: ${AVATARS[selectedEmojiIndex].name}`;
   document.querySelectorAll('.emojiChoice:not(.taken)').forEach(btn=>btn.onclick=()=>selectEmoji(Number(btn.dataset.emojiIndex)));
 }
 function stopEmojiWatch(){if(unsubEmojiRoom){unsubEmojiRoom();unsubEmojiRoom=null}emojiRoomCode=null}
@@ -110,12 +113,21 @@ async function selectEmoji(i){
   if(c.length!==5)return toast('اكتب رقم الجلسة أول');
   const roomSnap=await get(ref(db,`rooms/${c}`));
   if(!roomSnap.exists())return toast('الغرفة غير موجودة');
-  if(roomSnap.val().phase!=='lobby')return toast('اللعبة بدأت بالفعل');
-  const claimRef=ref(db,`rooms/${c}/emojiClaims/${i}`);
-  const tx=await runTransaction(claimRef,current=>(!current||current===uid)?uid:undefined);
-  if(!tx.committed)return toast('هذه الشخصية اختارها لاعب قبلك');
-  const old=selectedEmojiIndex;selectedEmojiIndex=i;emojiRoomCode=c;
-  if(old!==null&&old!==i){const oldRef=ref(db,`rooms/${c}/emojiClaims/${old}`);const oldSnap=await get(oldRef);if(oldSnap.val()===uid)await remove(oldRef)}
+  const room=roomSnap.val();
+  if(room.phase!=='lobby')return toast('اللعبة بدأت بالفعل');
+  const repeatsAllowed=Object.keys(room.players||{}).length>=AVATARS.length;
+  const old=selectedEmojiIndex;
+  if(repeatsAllowed){
+    // بعد امتلاء الشخصيات العشر لا نحجز الشخصية حصريًا؛ يسمح بتكرارها.
+    selectedEmojiIndex=i;emojiRoomCode=c;
+    if(old!==null&&old!==i){const oldRef=ref(db,`rooms/${c}/emojiClaims/${old}`);const oldSnap=await get(oldRef);if(oldSnap.val()===uid)await remove(oldRef)}
+  }else{
+    const claimRef=ref(db,`rooms/${c}/emojiClaims/${i}`);
+    const tx=await runTransaction(claimRef,current=>(!current||current===uid)?uid:undefined);
+    if(!tx.committed)return toast('هذه الشخصية اختارها لاعب قبلك');
+    selectedEmojiIndex=i;emojiRoomCode=c;
+    if(old!==null&&old!==i){const oldRef=ref(db,`rooms/${c}/emojiClaims/${old}`);const oldSnap=await get(oldRef);if(oldSnap.val()===uid)await remove(oldRef)}
+  }
   await watchEmojiRoom(c);renderEmojiPicker((await get(ref(db,`rooms/${c}`))).val());
 }
 
@@ -136,7 +148,7 @@ $('createBtn').onclick=openCreate;
 $('joinOpenBtn').onclick=openJoin;
 $('nameBackBtn').onclick=async()=>{await releaseEmojiClaim();stopEmojiWatch();selectedEmojiIndex=null;show('home')};
 $('codeInput').addEventListener('input',async()=>{if(joinMode!=='join'||$('codeInput').readOnly)return;const c=$('codeInput').value.trim().toUpperCase();$('codeInput').value=c;if(c.length===5)await watchEmojiRoom(c);else{await releaseEmojiClaim();selectedEmojiIndex=null;stopEmojiWatch();renderEmojiPicker()}});
-$('confirmJoinBtn').onclick=async()=>{try{await ensureAuth();const name=$('nameInput').value.trim().slice(0,20);if(!name)return toast('اكتب اسمك');if(selectedEmojiIndex===null)return toast('اختر شخصيتك');if(joinMode==='create'){let c=code();while((await get(ref(db,`rooms/${c}`))).exists())c=code();roomCode=c;isHost=true;await set(ref(db,`rooms/${c}`),{code:c,hostId:uid,phase:'lobby',questionIndex:0,emojiClaims:{[selectedEmojiIndex]:uid},players:{[uid]:{name,avatarIndex:selectedEmojiIndex,emojiIndex:selectedEmojiIndex,score:0,host:true,submitted:false}}});saveSession(name);stopEmojiWatch();setQR();watchRoom(c);show('lobby')}else{const c=$('codeInput').value.trim().toUpperCase();const snap=await get(ref(db,`rooms/${c}`));if(!snap.exists())return toast('الغرفة غير موجودة');if(snap.val().phase!=='lobby')return toast('اللعبة بدأت بالفعل');const claimSnap=await get(ref(db,`rooms/${c}/emojiClaims/${selectedEmojiIndex}`));if(claimSnap.val()!==uid){selectedEmojiIndex=null;renderEmojiPicker(snap.val());return toast('اختر شخصية متاحة')}roomCode=c;isHost=false;await set(ref(db,`rooms/${c}/players/${uid}`),{name,avatarIndex:selectedEmojiIndex,emojiIndex:selectedEmojiIndex,score:0,host:false,submitted:false});saveSession(name);stopEmojiWatch();watchRoom(c);show('lobby')}}catch(e){console.error(e);toast('تعذر الاتصال بـ Firebase — راجع Rules')}};
+$('confirmJoinBtn').onclick=async()=>{try{await ensureAuth();const name=$('nameInput').value.trim().slice(0,20);if(!name)return toast('اكتب اسمك');if(selectedEmojiIndex===null)return toast('اختر شخصيتك');if(joinMode==='create'){let c=code();while((await get(ref(db,`rooms/${c}`))).exists())c=code();roomCode=c;isHost=true;await set(ref(db,`rooms/${c}`),{code:c,hostId:uid,phase:'lobby',questionIndex:0,emojiClaims:{[selectedEmojiIndex]:uid},players:{[uid]:{name,avatarIndex:selectedEmojiIndex,emojiIndex:selectedEmojiIndex,score:0,host:true,submitted:false}}});saveSession(name);stopEmojiWatch();setQR();watchRoom(c);show('lobby')}else{const c=$('codeInput').value.trim().toUpperCase();const snap=await get(ref(db,`rooms/${c}`));if(!snap.exists())return toast('الغرفة غير موجودة');if(snap.val().phase!=='lobby')return toast('اللعبة بدأت بالفعل');const joiningRoom=snap.val();const repeatsAllowed=Object.keys(joiningRoom.players||{}).length>=AVATARS.length;if(!repeatsAllowed){const claimSnap=await get(ref(db,`rooms/${c}/emojiClaims/${selectedEmojiIndex}`));if(claimSnap.val()!==uid){selectedEmojiIndex=null;renderEmojiPicker(joiningRoom);return toast('اختر شخصية متاحة')}}roomCode=c;isHost=false;await set(ref(db,`rooms/${c}/players/${uid}`),{name,avatarIndex:selectedEmojiIndex,emojiIndex:selectedEmojiIndex,score:0,host:false,submitted:false});saveSession(name);stopEmojiWatch();watchRoom(c);show('lobby')}}catch(e){console.error(e);toast('تعذر الاتصال بـ Firebase — راجع Rules')}};
 function setQR(){const url=`${location.origin}${location.pathname}?room=${roomCode}`;$('qrImg').innerHTML='';new QRCode($('qrImg'),{text:url,width:240,height:240,correctLevel:QRCode.CorrectLevel.M})}
 $('copyBtn').onclick=async()=>{const url=`${location.origin}${location.pathname}?room=${roomCode}`;const text=`قاعدين نلعب الجواب المجهول حياك\n${url}`;try{if(navigator.share){await navigator.share({title:'الجواب المجهول',text:'قاعدين نلعب الجواب المجهول حياك',url});toast('تم فتح المشاركة')}else{await navigator.clipboard.writeText(text);toast('تم نسخ الدعوة')}}catch(e){if(e?.name==='AbortError')return;try{await navigator.clipboard.writeText(text);toast('تم نسخ الدعوة')}catch{toast('تعذر مشاركة الرابط')}}};
 $('startBtn').onclick=async()=>{if(!isHost)return;const players=lastRoom?.players||{};if(Object.keys(players).length<2)return toast('الحد الأدنى لاعبين');await startRound(lastRoom.questionIndex||0)};
