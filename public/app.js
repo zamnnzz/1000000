@@ -69,20 +69,41 @@ const QUESTIONS=[
  {text:'الدماغ البشري يستهلك حوالي ٪---- من طاقة الجسم.',answer:'20٪',accepted:['20٪','20%','٢٠٪','٢٠%','20','٢٠']}
 ];
 
+const questionImageCache=new Map();
 function renderQuestionMedia(room){
   const box=$('questionMedia');
   if(!box)return;
-  const imageId=room.questionImage;
-  if(!imageId){box.innerHTML='';box.classList.add('hidden');return}
-  const candidates=['png','jpg','jpeg','webp'];
-  let i=0;
+  const imageId=String(room.questionImage||'').trim();
+  if(!imageId){box.innerHTML='';box.classList.add('hidden');delete box.dataset.imageId;return}
+
+  // لا نعيد تحميل الصورة مع كل تحديث من Firebase؛ هذا مهم خصوصاً على الجوال.
+  if(box.dataset.imageId===imageId && box.querySelector('img'))return;
+  box.dataset.imageId=imageId;
+  box.innerHTML='';box.classList.add('hidden');
+
   const img=document.createElement('img');
   img.alt=`صورة السؤال ${imageId}`;
   img.className='questionImage';
-  img.onload=()=>box.classList.remove('hidden');
-  img.onerror=()=>{i++;if(i<candidates.length)img.src=`assets/questions/${imageId}.${candidates[i]}`;else{box.innerHTML='';box.classList.add('hidden')}};
-  box.innerHTML='';box.classList.add('hidden');box.appendChild(img);
-  img.src=`assets/questions/${imageId}.${candidates[0]}`;
+  img.decoding='async';
+  img.loading='eager';
+  box.appendChild(img);
+
+  const cached=questionImageCache.get(imageId);
+  const candidates=cached?[cached]:['webp','png','jpg','jpeg'];
+  let i=0;
+  const tryNext=()=>{
+    if(i>=candidates.length){
+      // إذا كان المسار المخزّن فشل، جرّب كل الامتدادات من جديد.
+      if(cached){questionImageCache.delete(imageId);i=0;candidates.splice(0,candidates.length,'webp','png','jpg','jpeg');return tryNext()}
+      box.innerHTML='';box.classList.add('hidden');delete box.dataset.imageId;return;
+    }
+    const ext=candidates[i++];
+    const src=`assets/questions/${imageId}.${ext}`;
+    img.onload=()=>{questionImageCache.set(imageId,ext);box.classList.remove('hidden')};
+    img.onerror=tryNext;
+    img.src=src;
+  };
+  tryNext();
 }
 
 
