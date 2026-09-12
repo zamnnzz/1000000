@@ -379,3 +379,10 @@ input{border-radius:18px;box-shadow:inset 0 2px 0 rgba(23,22,54,.04),0 4px 12px 
 @keyframes podiumRise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes confettiFall{0%{opacity:0;transform:translateY(-30px) rotate(0deg)}10%{opacity:1}100%{opacity:1;transform:translateY(760px) rotate(720deg)}}
 @media(max-width:520px){.finalScreen{gap:12px}.finalHero{padding:14px 12px 12px}.trophyStage{height:96px}.trophyCup{font-size:64px}.trophyGlow{width:105px;height:105px}.championAvatar .gameAvatar{width:74px;height:74px}.podium{gap:6px}.podiumAvatar .gameAvatar{width:52px;height:52px}.place1 .podiumAvatar .gameAvatar{width:64px;height:64px}.podiumName{font-size:13px}.podiumScore{font-size:11px}.place1 .podiumBlock{height:92px}.place2 .podiumBlock{height:68px}.place3 .podiumBlock{height:54px}.podiumBlock span{font-size:26px}}
+
+
+/* التوب 15 — صور الأسئلة: ضع الصور في assets/questions باسم الرقم مثل 1.png */
+.questionMedia{display:flex;justify-content:center;align-items:center;margin:10px auto 16px;max-width:560px}
+.questionMedia.hidden{display:none}
+.questionImage{display:block;max-width:100%;max-height:300px;width:auto;height:auto;object-fit:contain;border-radius:24px;box-shadow:0 12px 28px rgba(18,18,35,.16)}
+@media(max-width:600px){.questionImage{max-height:220px;border-radius:20px}}
