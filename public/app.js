@@ -69,39 +69,51 @@ const QUESTIONS=[
  {text:'الدماغ البشري يستهلك حوالي ٪---- من طاقة الجسم.',answer:'20٪',accepted:['20٪','20%','٢٠٪','٢٠%','20','٢٠']}
 ];
 
-const questionImageCache=new Map();
 function renderQuestionMedia(room){
   const box=$('questionMedia');
   if(!box)return;
-  const imageId=String(room.questionImage||'').trim();
+
+  // رقم الصورة يساوي رقم السؤال تلقائياً: السؤال 1 => 1.webp / 1.png ...
+  // لا نعتمد على questionImage داخل Firebase حتى تعمل أيضاً الغرف القديمة.
+  const qIndex=Number(room.questionIndex);
+  const imageId=Number.isFinite(qIndex)?String(qIndex+1):String(room.questionImage||'').trim();
   if(!imageId){box.innerHTML='';box.classList.add('hidden');delete box.dataset.imageId;return}
 
-  // لا نعيد تحميل الصورة مع كل تحديث من Firebase؛ هذا مهم خصوصاً على الجوال.
-  if(box.dataset.imageId===imageId && box.querySelector('img'))return;
+  // إذا الصورة الحالية محملة فعلاً لا نعيد تحميلها مع كل تحديث Firebase.
+  const oldImg=box.querySelector('img');
+  if(box.dataset.imageId===imageId && oldImg && oldImg.complete && oldImg.naturalWidth>0){
+    box.classList.remove('hidden');
+    return;
+  }
+
   box.dataset.imageId=imageId;
-  box.innerHTML='';box.classList.add('hidden');
+  box.innerHTML='';
+  box.classList.add('hidden');
 
   const img=document.createElement('img');
   img.alt=`صورة السؤال ${imageId}`;
   img.className='questionImage';
-  img.decoding='async';
   img.loading='eager';
+  img.decoding='async';
   box.appendChild(img);
 
-  const cached=questionImageCache.get(imageId);
-  const candidates=cached?[cached]:['webp','png','jpg','jpeg'];
+  // نجرب الامتدادات تلقائياً. query لمنع بقاء نتيجة فشل قديمة في كاش الجوال.
+  const candidates=['webp','png','jpg','jpeg'];
   let i=0;
   const tryNext=()=>{
     if(i>=candidates.length){
-      // إذا كان المسار المخزّن فشل، جرّب كل الامتدادات من جديد.
-      if(cached){questionImageCache.delete(imageId);i=0;candidates.splice(0,candidates.length,'webp','png','jpg','jpeg');return tryNext()}
-      box.innerHTML='';box.classList.add('hidden');delete box.dataset.imageId;return;
+      box.innerHTML='';
+      box.classList.add('hidden');
+      delete box.dataset.imageId;
+      return;
     }
     const ext=candidates[i++];
-    const src=`assets/questions/${imageId}.${ext}`;
-    img.onload=()=>{questionImageCache.set(imageId,ext);box.classList.remove('hidden')};
+    img.onload=()=>{
+      if(img.naturalWidth>0){box.classList.remove('hidden')}
+      else{tryNext()}
+    };
     img.onerror=tryNext;
-    img.src=src;
+    img.src=`./assets/questions/${encodeURIComponent(imageId)}.${ext}?v=18`;
   };
   tryNext();
 }
