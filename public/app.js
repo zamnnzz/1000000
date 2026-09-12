@@ -71,18 +71,17 @@ const QUESTIONS=[
 
 
 /* التوب 12 — مؤثرات صوتية خفيفة مولدة داخل المتصفح (بدون ملفات خارجية) */
-let audioCtx=null,soundMuted=localStorage.getItem('jawabSoundMuted')==='1',lastFxPhaseKey='',lastFxPlayerCount=null;
+let audioCtx=null,lastFxPhaseKey='',lastFxPlayerCount=null,currentScreenId='';
 function ensureAudio(){
   try{if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}catch{}
 }
 function tone(freq=440,duration=.08,type='sine',gain=.035,delay=0){
-  if(soundMuted)return;ensureAudio();if(!audioCtx)return;
+  ensureAudio();if(!audioCtx)return;
   const t=audioCtx.currentTime+delay,o=audioCtx.createOscillator(),g=audioCtx.createGain();
   o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(gain,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+duration);
   o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.02);
 }
 function sfx(kind='tap'){
-  if(soundMuted)return;
   if(kind==='tap'){tone(520,.055,'sine',.022);tone(700,.045,'sine',.012,.025)}
   else if(kind==='join'){tone(420,.08,'triangle',.028);tone(620,.09,'triangle',.025,.065)}
   else if(kind==='start'){tone(330,.08,'triangle',.03);tone(495,.09,'triangle',.03,.07);tone(660,.12,'triangle',.035,.14)}
@@ -92,13 +91,21 @@ function sfx(kind='tap'){
   else if(kind==='result'){tone(523,.1,'triangle',.03);tone(659,.11,'triangle',.03,.08);tone(784,.16,'triangle',.035,.16)}
   else if(kind==='error'){tone(180,.09,'sawtooth',.018);tone(145,.13,'sawtooth',.014,.07)}
 }
-function syncSoundButton(){const b=$('soundBtn');if(!b)return;b.textContent=soundMuted?'🔇':'🔊';b.classList.toggle('muted',soundMuted)}
 function visualPop(el){if(!el)return;el.classList.remove('fx-pop');void el.offsetWidth;el.classList.add('fx-pop');setTimeout(()=>el.classList.remove('fx-pop'),320)}
 window.addEventListener('pointerdown',ensureAudio,{once:true});
-document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.id==='soundBtn'||b.disabled)return;sfx('tap')});
-queueMicrotask(()=>{syncSoundButton();if($('soundBtn'))$('soundBtn').onclick=()=>{soundMuted=!soundMuted;localStorage.setItem('jawabSoundMuted',soundMuted?'1':'0');syncSoundButton();if(!soundMuted)sfx('start')}});
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;sfx('tap')});
 
-function show(id){screens.forEach(s=>$(s).classList.toggle('hidden',s!==id));$('leaveBtn').classList.toggle('hidden',id==='home'||id==='nameScreen'||id==='howToScreen');const el=$(id);if(el&&!el.classList.contains('hidden'))visualPop(el)}
+function show(id){
+  const changed=currentScreenId!==id;
+  screens.forEach(s=>$(s).classList.toggle('hidden',s!==id));
+  $('leaveBtn').classList.toggle('hidden',id==='home'||id==='nameScreen'||id==='howToScreen');
+  if(changed){
+    const el=$(id);
+    document.querySelectorAll('.screen.entering').forEach(x=>x.classList.remove('entering'));
+    if(el){void el.offsetWidth;el.classList.add('entering');setTimeout(()=>el.classList.remove('entering'),1150)}
+    currentScreenId=id;
+  }
+}
 function toast(t){$('toast').textContent=t;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2200)}
 function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':'&quot;',"'":"&#39;"}[m]))}
 function norm(s=''){return String(s).trim().toLowerCase().normalize('NFD').replace(/[\u064B-\u065F\u0670]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/[^\p{L}\p{N}\s]/gu,'').replace(/\s+/g,' ')}
