@@ -349,3 +349,33 @@ input{border-radius:18px;box-shadow:inset 0 2px 0 rgba(23,22,54,.04),0 4px 12px 
 @keyframes tapPop{50%{transform:scale(1.018)}100%{transform:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-delay:0ms!important;transition-duration:.001ms!important}}
 @media(max-width:520px){.card{border-radius:24px}.options .option{border-radius:18px}}
+
+/* توب 14 — نهائي بطولة بسؤال واحد */
+.finalScreen{position:relative;display:grid;gap:18px;align-content:start;padding:6px 0 30px;overflow:hidden}
+.finalHero{text-align:center;padding:20px 18px 18px;position:relative;overflow:hidden;background:linear-gradient(180deg,#fff9e9 0%,#fff4db 100%)}
+.finalEyebrow{display:inline-block;background:var(--navy);color:#fff;padding:7px 14px;border-radius:999px;font-weight:900;font-size:14px;margin-bottom:4px}
+.trophyStage{height:122px;display:grid;place-items:center;position:relative}
+.trophyGlow{position:absolute;width:128px;height:128px;border-radius:50%;background:radial-gradient(circle,rgba(255,210,74,.55),rgba(255,210,74,0) 70%);animation:trophyGlow 1.8s ease-in-out infinite alternate}
+.trophyCup{position:relative;font-size:78px;filter:drop-shadow(0 10px 10px rgba(23,22,54,.2));animation:trophyDrop .9s cubic-bezier(.22,.9,.25,1.2) both}
+.finalTitle{font-size:clamp(24px,5vw,42px);margin:0 0 10px;color:var(--navy)}
+.championAvatar{display:grid;place-items:center;margin:0 auto 4px}.championAvatar .gameAvatar{width:92px;height:92px}
+.championName{font-size:clamp(28px,6vw,48px);font-weight:1000;color:var(--navy)}
+.championScore{font-size:19px;font-weight:900;color:var(--coral);margin-top:2px}
+.podium{display:grid;grid-template-columns:1fr 1.08fr 1fr;align-items:end;gap:10px;max-width:760px;width:100%;margin:0 auto;padding:0 6px;direction:ltr}
+.podiumPlayer{text-align:center;direction:rtl;display:flex;flex-direction:column;align-items:center;min-width:0}
+.podiumAvatar .gameAvatar{width:66px;height:66px}.place1 .podiumAvatar .gameAvatar{width:82px;height:82px}
+.podiumName{font-weight:1000;font-size:clamp(14px,2.8vw,20px);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.podiumScore{font-size:13px;font-weight:800;opacity:.7;margin:2px 0 7px}
+.podiumBlock{width:100%;border:3px solid var(--navy);border-bottom-width:6px;border-radius:18px 18px 8px 8px;display:grid;place-items:center;background:#65d7ce;color:var(--navy);box-shadow:0 7px 0 rgba(23,22,54,.12)}
+.podiumBlock span{font-size:34px;font-weight:1000}.place1 .podiumBlock{height:118px;background:var(--yellow)}.place2 .podiumBlock{height:86px;background:#d9e1e8}.place3 .podiumBlock{height:66px;background:#e5a36f}
+.place1{animation:championRise .8s .2s cubic-bezier(.2,.85,.25,1.25) both}.place2,.place3{animation:podiumRise .65s .42s ease-out both}
+.finalScoresCard{padding:18px;max-width:760px;width:100%;margin:0 auto}.finalScoresCard h3{margin:0 0 12px;text-align:center}
+.finalAllScores{display:grid;gap:8px}.finalScoreRow{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:9px;padding:9px 12px;border:2px solid rgba(23,22,54,.14);border-radius:16px;background:#fffdf7}.finalScoreRow>span:first-child{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#ece9df;font-weight:1000}.finalScoreRow.winnerRow{border-color:#eab627;background:#fff7cf}.finalScoreRow.winnerRow>span:first-child{background:var(--yellow)}
+.finalScoreIdentity{display:flex;align-items:center;gap:8px;font-weight:900;min-width:0}.finalMiniAvatar.gameAvatar{width:36px;height:36px;flex:0 0 36px}
+.confettiLayer{position:absolute;inset:0;pointer-events:none;z-index:10;overflow:hidden}.confettiLayer i{position:absolute;top:-18px;width:10px;height:18px;border-radius:3px;animation:confettiFall 3s linear forwards}
+@keyframes trophyDrop{0%{opacity:0;transform:translateY(-90px) rotate(-8deg) scale(.65)}70%{opacity:1;transform:translateY(8px) rotate(4deg) scale(1.08)}100%{transform:none}}
+@keyframes trophyGlow{from{transform:scale(.88);opacity:.55}to{transform:scale(1.08);opacity:1}}
+@keyframes championRise{from{opacity:0;transform:translateY(36px) scale(.85)}to{opacity:1;transform:none}}
+@keyframes podiumRise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes confettiFall{0%{opacity:0;transform:translateY(-30px) rotate(0deg)}10%{opacity:1}100%{opacity:1;transform:translateY(760px) rotate(720deg)}}
+@media(max-width:520px){.finalScreen{gap:12px}.finalHero{padding:14px 12px 12px}.trophyStage{height:96px}.trophyCup{font-size:64px}.trophyGlow{width:105px;height:105px}.championAvatar .gameAvatar{width:74px;height:74px}.podium{gap:6px}.podiumAvatar .gameAvatar{width:52px;height:52px}.place1 .podiumAvatar .gameAvatar{width:64px;height:64px}.podiumName{font-size:13px}.podiumScore{font-size:11px}.place1 .podiumBlock{height:92px}.place2 .podiumBlock{height:68px}.place3 .podiumBlock{height:54px}.podiumBlock span{font-size:26px}}
