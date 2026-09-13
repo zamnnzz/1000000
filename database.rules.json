@@ -1,1 +1,33 @@
-{"rules":{"rooms":{"$roomId":{".read":"auth != null",".write":"auth != null"}}}}
+{
+  "rules": {
+    "rooms": {
+      "$roomId": {
+        ".read": "auth != null",
+        ".write": "auth != null && ((!data.exists() && newData.child('hostId').val() === auth.uid) || (data.exists() && data.child('hostId').val() === auth.uid))",
+        "players": {
+          "$playerId": {
+            ".write": "auth != null && auth.uid === $playerId && ((!data.exists() && root.child('rooms').child($roomId).child('phase').val() === 'lobby' && newData.child('host').val() === false && newData.child('score').val() === 0) || (data.exists() && !newData.exists()) || (data.exists() && newData.exists() && newData.child('score').val() === data.child('score').val() && newData.child('host').val() === data.child('host').val() && newData.child('name').val() === data.child('name').val() && newData.child('avatarIndex').val() === data.child('avatarIndex').val() && newData.child('emojiIndex').val() === data.child('emojiIndex').val()))",
+            ".validate": "!newData.exists() || (newData.hasChildren(['name','avatarIndex','emojiIndex','score','host','submitted']) && newData.child('name').isString() && newData.child('name').val().length > 0 && newData.child('name').val().length <= 20 && newData.child('avatarIndex').isNumber() && newData.child('emojiIndex').isNumber() && newData.child('score').isNumber() && newData.child('score').val() >= 0 && newData.child('host').isBoolean() && newData.child('submitted').isBoolean())"
+          }
+        },
+        "emojiClaims": {
+          "$emojiIndex": {
+            ".write": "auth != null && ((newData.exists() && root.child('rooms').child($roomId).child('phase').val() === 'lobby' && newData.val() === auth.uid && (!data.exists() || data.val() === auth.uid)) || (!newData.exists() && data.val() === auth.uid))",
+            ".validate": "!newData.exists() || newData.isString()"
+          }
+        },
+        "answers": {
+          "$playerId": {
+            ".write": "auth != null && auth.uid === $playerId && root.child('rooms').child($roomId).child('phase').val() === 'answer' && !data.exists() && newData.exists()",
+            ".validate": "newData.hasChildren(['text','correct']) && newData.child('text').isString() && newData.child('text').val().length > 0 && newData.child('text').val().length <= 60 && newData.child('correct').isBoolean()"
+          }
+        },
+        "votes": {
+          "$playerId": {
+            ".write": "auth != null && auth.uid === $playerId && root.child('rooms').child($roomId).child('phase').val() === 'vote' && !data.exists() && newData.isString()"
+          }
+        }
+      }
+    }
+  }
+}
