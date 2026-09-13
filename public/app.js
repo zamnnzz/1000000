@@ -316,7 +316,7 @@ $('startBtn').onclick=async()=>{
   if(!isHost)return;
   sfx('start');
   const players=lastRoom?.players||{};
-  if(Object.keys(players).length<2)return toast('الحد الأدنى لاعبين');
+  if(Object.keys(players).length<3)return toast('الحد الأدنى 3 لاعبين');
   const wanted=[5,10,15,20].includes(Number(lastRoom?.selectedQuestionCount))?Number(lastRoom.selectedQuestionCount):5;
   const actual=Math.min(wanted,QUESTIONS.length);
   if(actual<1)return toast('لا توجد أسئلة في بنك اللعبة');
