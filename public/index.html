@@ -87,15 +87,16 @@
       <div id="qrCard" class="card qrCard hostOnlyInvite"><div id="qrImg" class="qrBox"></div><p>امسح الرمز من الجوال</p></div>
       <div class="card"><h3>اللاعبون <span id="countBadge" class="badge">0</span></h3><div id="players" class="players"></div><p class="muted">الحد الأدنى 3 لاعبين</p></div>
     </div>
-    <div id="questionCountCard" class="card questionCountCard hostOnlyInvite">
-      <h3>حدد عدد الأسئلة</h3>
-      <div id="questionCountOptions" class="questionCountOptions" aria-label="اختيار عدد أسئلة الجولة">
-        <button type="button" class="questionCountBtn selected" data-count="5">٥</button>
-        <button type="button" class="questionCountBtn" data-count="10">١٠</button>
-        <button type="button" class="questionCountBtn" data-count="15">١٥</button>
-        <button type="button" class="questionCountBtn" data-count="20">٢٠</button>
+    <div id="doorCard" class="card questionCountCard hostOnlyInvite">
+      <h3>اختر باب التحدي</h3>
+      <p class="doorIntro">كل باب يحتوي على ١٥ سؤالًا مختلفًا. اختر بابًا مختلفًا في كل لعبة حتى لا تتكرر عليكم الأسئلة.</p>
+      <div id="doorOptions" class="questionCountOptions" aria-label="اختيار باب التحدي">
+        <button type="button" class="questionCountBtn doorBtn selected" data-door="1"><b>الباب ١</b><small>١٥ سؤال</small></button>
+        <button type="button" class="questionCountBtn doorBtn" data-door="2"><b>الباب ٢</b><small>١٥ سؤال</small></button>
+        <button type="button" class="questionCountBtn doorBtn" data-door="3"><b>الباب ٣</b><small>١٥ سؤال</small></button>
+        <button type="button" class="questionCountBtn doorBtn" data-door="4"><b>الباب ٤</b><small>١٥ سؤال</small></button>
       </div>
-      <p class="questionCountNote">ملاحظة: أسئلة اللعبة كاملة ٥١ سؤال</p>
+      <p class="questionCountNote">كل باب ثابت ومستقل عن الأبواب الأخرى — لا يوجد تكرار للأسئلة بين الأبواب.</p>
     </div>
     <button id="startBtn" class="primary hidden">ابدأ اللعبة</button>
   </section>
