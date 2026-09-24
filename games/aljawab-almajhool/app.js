@@ -2,6 +2,31 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.2.1/firebas
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js';
 import { getDatabase, ref, set, get, update, onValue, remove, runTransaction, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js';
 
+
+// التوب 36: احسب الارتفاع المرئي الحقيقي للجوال من أول فتح.
+// visualViewport يتعامل مع أشرطة Safari/Chrome المتحركة أفضل من 100vh وحده.
+function syncVisibleViewportHeight(){
+  const vv = window.visualViewport;
+  const h = Math.round(vv && vv.height ? vv.height : window.innerHeight);
+  if(h > 0) document.documentElement.style.setProperty('--app-height', `${h}px`);
+}
+syncVisibleViewportHeight();
+requestAnimationFrame(syncVisibleViewportHeight);
+setTimeout(syncVisibleViewportHeight, 80);
+setTimeout(syncVisibleViewportHeight, 300);
+setTimeout(syncVisibleViewportHeight, 800);
+window.addEventListener('resize', syncVisibleViewportHeight, {passive:true});
+window.addEventListener('orientationchange', ()=>{
+  syncVisibleViewportHeight();
+  setTimeout(syncVisibleViewportHeight, 120);
+  setTimeout(syncVisibleViewportHeight, 450);
+}, {passive:true});
+window.addEventListener('pageshow', syncVisibleViewportHeight, {passive:true});
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', syncVisibleViewportHeight, {passive:true});
+  window.visualViewport.addEventListener('scroll', syncVisibleViewportHeight, {passive:true});
+}
+
 const firebaseConfig={apiKey:'AIzaSyDOZNZp5F-t9AouL9xsthU3OiAyO_HQBBI',authDomain:'jawab-majhoo1.firebaseapp.com',databaseURL:'https://jawab-majhoo1-default-rtdb.europe-west1.firebasedatabase.app',projectId:'jawab-majhoo1',storageBucket:'jawab-majhoo1.firebasestorage.app',messagingSenderId:'314192717840',appId:'1:314192717840:web:688b94bbb5a8915098c295'};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app);
 const $=id=>document.getElementById(id); const screens=['home','howToScreen','nameScreen','lobby','game','finalScreen'];
