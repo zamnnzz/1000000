@@ -1,0 +1,58 @@
+[
+  {
+    "name": "بدر حكيم",
+    "image": "portraits/new30/newer-17-01.jpg",
+    "size": [
+      3000,
+      3000
+    ],
+    "crop": [
+      1450,
+      1080,
+      700,
+      350
+    ],
+    "face": [
+      1610,
+      400,
+      950,
+      1350
+    ],
+    "source": "https://music.apple.com/us/album/dheeq-el-shawaree/1719321425",
+    "old": {
+      "id": "reviewed-saudi-17-mouth",
+      "name": "بدر حكيم",
+      "answers": [
+        "بدر حكيم"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "image": "portraits/new30/newer-17-01.jpg",
+      "imageSize": [
+        3000,
+        3000
+      ],
+      "crop": [
+        1581,
+        1140,
+        583,
+        238
+      ],
+      "revealCrop": [
+        1382,
+        419,
+        982,
+        1227
+      ],
+      "largeDisplay": true,
+      "source": "https://music.apple.com/us/album/dheeq-el-shawaree/1719321425?i=1719321837&uo=4",
+      "originalSource": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/78/6d/5d/786d5d8c-5c1b-c416-4099-d9c4545c220e/6290190047402.jpg/3000x3000bb.jpg",
+      "nationality": "سعودي",
+      "gender": "male",
+      "reviewed": true,
+      "svg": "<image href=\"portraits/new30/newer-17-01.jpg\" width=\"3000\" height=\"3000\"/>",
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

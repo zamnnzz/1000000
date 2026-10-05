@@ -1,0 +1,54 @@
+[
+  {
+    "name": "سعيد صالح",
+    "image": "portraits/new30/actor-12.jpg",
+    "size": [
+      6000,
+      4000
+    ],
+    "crop": [
+      3425,
+      1840,
+      800,
+      400
+    ],
+    "face": [
+      3140,
+      1000,
+      1450,
+      1500
+    ],
+    "source": "https://www.lahamag.com/article/233892",
+    "old": {
+      "name": "سعيد صالح",
+      "image": "portraits/new30/actor-12.jpg",
+      "id": "approved-face-mouth",
+      "answers": [
+        "سعيد صالح"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "imageSize": [
+        6000,
+        4000
+      ],
+      "revealCrop": [
+        3310,
+        1127,
+        1042,
+        1302
+      ],
+      "largeDisplay": true,
+      "crop": [
+        3522,
+        1892,
+        619,
+        252
+      ],
+      "svg": "<image href=\"portraits/new30/actor-12.jpg\" width=\"6000\" height=\"4000\"/>",
+      "source": "https://www.lahamag.com/article/233892",
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

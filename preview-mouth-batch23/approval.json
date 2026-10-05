@@ -1,0 +1,54 @@
+[
+  {
+    "name": "خالد الفراج",
+    "image": "portraits/mouth-final/mouth-13.jpg",
+    "size": [
+      1956,
+      1080
+    ],
+    "crop": [
+      660,
+      435,
+      610,
+      305
+    ],
+    "face": [
+      570,
+      30,
+      800,
+      760
+    ],
+    "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1737131-%D8%B1%D9%85%D8%B6%D8%A7%D9%86-2024-%D8%AE%D8%A7%D9%84%D8%AF-%D8%A7%D9%84%D9%81%D8%B1%D8%A7%D8%AC-%D9%84%D8%B3%D9%8A%D8%AF%D8%AA%D9%8A-%D9%8A%D8%A7%D9%87%D9%84%D9%8A-%D8%AC%D8%AF%D9%8A%D8%AF%D9%8A-%D9%81%D9%8A-%D8%B1%D9%85%D8%B6%D8%A7%D9%86",
+    "old": {
+      "id": "saudi-30-mouth",
+      "name": "خالد الفراج",
+      "answers": [
+        "خالد الفراج"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-13.jpg\" width=\"1956\" height=\"1080\"/>",
+      "image": "portraits/mouth-final/mouth-13.jpg",
+      "crop": [
+        710,
+        502,
+        413,
+        168
+      ],
+      "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1737131-%D8%B1%D9%85%D8%B6%D8%A7%D9%86-2024-%D8%AE%D8%A7%D9%84%D8%AF-%D8%A7%D9%84%D9%81%D8%B1%D8%A7%D8%AC-%D9%84%D8%B3%D9%8A%D8%AF%D8%AA%D9%8A-%D9%8A%D8%A7%D9%87%D9%84%D9%8A-%D8%AC%D8%AF%D9%8A%D8%AF%D9%8A-%D9%81%D9%8A-%D8%B1%D9%85%D8%B6%D8%A7%D9%86",
+      "imageSize": [
+        1956,
+        1080
+      ],
+      "revealCrop": [
+        569,
+        0,
+        695,
+        869
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

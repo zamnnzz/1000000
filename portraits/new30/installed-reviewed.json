@@ -1,0 +1,654 @@
+[
+  {
+    "name": "عبدالمحسن النمر",
+    "image": "portraits/new30/candidate-14.jpg",
+    "id": "approved-face-eye",
+    "answers": [
+      "عبدالمحسن النمر"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "imageSize": [
+      8256,
+      5504
+    ],
+    "revealCrop": [
+      3853,
+      510,
+      1548,
+      1934
+    ],
+    "largeDisplay": true,
+    "crop": [
+      4058,
+      1163,
+      1136,
+      339
+    ],
+    "svg": "<image href=\"portraits/new30/candidate-14.jpg\" width=\"8256\" height=\"5504\"/>",
+    "source": "https://www.lahamag.com/article/233779"
+  },
+  {
+    "id": "reviewed-saudi-1-eye",
+    "name": "محمد الربيعي",
+    "answers": [
+      "محمد الربيعي"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-01.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      841,
+      563,
+      361,
+      108
+    ],
+    "revealCrop": [
+      775,
+      356,
+      492,
+      614
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/0kd0sVQ7xCAyrbGoNw4fb/99c024e9d35e345136e8dd227ec5c16f/_Mohammed_Al-Rubaie.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-01.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-2-eye",
+    "name": "علي لاجامي",
+    "answers": [
+      "علي لاجامي"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-02.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      763,
+      501,
+      457,
+      136
+    ],
+    "revealCrop": [
+      680,
+      238,
+      622,
+      778
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/1jQIoITFPeMcJ7IeunUGc7/c709f1dbd517a91fdf67ddca0d3122aa/Ali_Lajami.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-02.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-3-eye",
+    "name": "محمد العويس",
+    "answers": [
+      "محمد العويس"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-03.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      787,
+      561,
+      462,
+      137
+    ],
+    "revealCrop": [
+      703,
+      296,
+      628,
+      786
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/2HO1imZduvOzoh6xYYIHvZ/5fc854c9ceb2f195e2a11df18209d74e/Mohammed_Al-Owais.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-03.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-4-eye",
+    "name": "ناصر الدوسري",
+    "answers": [
+      "ناصر الدوسري"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-04.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      781,
+      507,
+      406,
+      121
+    ],
+    "revealCrop": [
+      708,
+      273,
+      553,
+      691
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/4FgpKNSrTxGuw2dWG5uVQ8/7e266a59c84f88937d5a5269d67548bf/_Nasser_Al-Dawsari.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-04.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-5-eye",
+    "name": "متعب الحربي",
+    "answers": [
+      "متعب الحربي"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-05.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      797,
+      546,
+      431,
+      128
+    ],
+    "revealCrop": [
+      719,
+      299,
+      586,
+      733
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/5EANQ26HME2wBedX24GRlP/472579b1ee62a1aebc2f0b0a2e38c5f0/_Moteb_Al-Harbi.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-05.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-6-eye",
+    "name": "محمد كنو",
+    "answers": [
+      "محمد كنو"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-06.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      812,
+      522,
+      379,
+      113
+    ],
+    "revealCrop": [
+      744,
+      304,
+      516,
+      645
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/5gtt03tna69eTk3Xug97Jz/9dc17966dc6b25d67446c1c3a8383a58/Mohamed_Kanno.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-06.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-7-eye",
+    "name": "سالم الدوسري",
+    "answers": [
+      "سالم الدوسري"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-07.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      738,
+      629,
+      498,
+      148
+    ],
+    "revealCrop": [
+      648,
+      343,
+      678,
+      848
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/5vnkdADwRaBoloY06H2tn6/302259719a80a21bfb2aa947e607b258/Salem_Al-Dawsari.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-07.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-8-eye",
+    "name": "حسان تمبكتي",
+    "answers": [
+      "حسان تمبكتي"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/new-08.png",
+    "imageSize": [
+      2016,
+      3053
+    ],
+    "crop": [
+      800,
+      546,
+      396,
+      118
+    ],
+    "revealCrop": [
+      728,
+      319,
+      539,
+      674
+    ],
+    "largeDisplay": true,
+    "source": "https://alhilal.com/en/teams/mens-team",
+    "originalSource": "https://images.ctfassets.net/eyc25wndlima/7d0rr0qXXtasKSJA9vSupg/2bae4f46bf756aedb1cf17a39a260cb0/Hassan_Tambakti.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/new-08.png\" width=\"2016\" height=\"3053\"/>"
+  },
+  {
+    "id": "reviewed-saudi-9-eye",
+    "name": "عبدالله الحمدان",
+    "answers": [
+      "عبدالله الحمدان"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/new30/last-11.jpg",
+    "imageSize": [
+      1920,
+      1080
+    ],
+    "crop": [
+      890,
+      337,
+      364,
+      108
+    ],
+    "revealCrop": [
+      824,
+      128,
+      495,
+      619
+    ],
+    "largeDisplay": true,
+    "source": "https://www.goal.com/ar-sa/",
+    "originalSource": "https://assets.goal.com/images/v3/bltdc85eec9728650cf/8e3d092ee1cc35760872c0d9739f2d332f95bffd.png",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/last-11.jpg\" width=\"1920\" height=\"1080\"/>"
+  },
+  {
+    "name": "سعيد صالح",
+    "image": "portraits/new30/actor-12.jpg",
+    "id": "approved-face-mouth",
+    "answers": [
+      "سعيد صالح"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "imageSize": [
+      6000,
+      4000
+    ],
+    "revealCrop": [
+      3310,
+      1214,
+      1050,
+      1312
+    ],
+    "largeDisplay": true,
+    "crop": [
+      3573,
+      1870,
+      525,
+      197
+    ],
+    "svg": "<image href=\"portraits/new30/actor-12.jpg\" width=\"6000\" height=\"4000\"/>",
+    "source": "https://www.lahamag.com/article/233892"
+  },
+  {
+    "id": "reviewed-saudi-10-mouth",
+    "name": "نايف البحر",
+    "answers": [
+      "نايف البحر"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/laha-13.jpg",
+    "imageSize": [
+      2048,
+      1152
+    ],
+    "crop": [
+      1064,
+      639,
+      356,
+      133
+    ],
+    "revealCrop": [
+      886,
+      83,
+      712,
+      890
+    ],
+    "largeDisplay": true,
+    "source": "https://www.lahamag.com/article/206103",
+    "originalSource": "https://s.lahamag.com/storage/attachments/206/2Shahid-_721718.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/laha-13.jpg\" width=\"2048\" height=\"1152\"/>"
+  },
+  {
+    "id": "reviewed-saudi-11-mouth",
+    "name": "أحمد الكعبي",
+    "answers": [
+      "أحمد الكعبي"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/laha-14.jpg",
+    "imageSize": [
+      2048,
+      1152
+    ],
+    "crop": [
+      581,
+      669,
+      557,
+      209
+    ],
+    "revealCrop": [
+      302,
+      0,
+      1114,
+      1392
+    ],
+    "largeDisplay": true,
+    "source": "https://www.lahamag.com/article/206103",
+    "originalSource": "https://s.lahamag.com/storage/attachments/206/3Shahid-_660208.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/laha-14.jpg\" width=\"2048\" height=\"1152\"/>"
+  },
+  {
+    "id": "reviewed-saudi-12-mouth",
+    "name": "ياسر الرميان",
+    "answers": [
+      "ياسر الرميان"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/public-07.jpg",
+    "imageSize": [
+      3333,
+      5000
+    ],
+    "crop": [
+      1000,
+      1084,
+      573,
+      215
+    ],
+    "revealCrop": [
+      714,
+      188,
+      1147,
+      1434
+    ],
+    "largeDisplay": true,
+    "source": "https://en.wikipedia.org/wiki/Yasir_Al-Rumayyan",
+    "originalSource": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Yasir_Al-Rumayyan_Argentina_v_Spain_19_July_2026-285.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/public-07.jpg\" width=\"3333\" height=\"5000\"/>"
+  },
+  {
+    "id": "reviewed-saudi-13-mouth",
+    "name": "تركي آل الشيخ",
+    "answers": [
+      "تركي آل الشيخ"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/public-08.jpg",
+    "imageSize": [
+      1701,
+      2266
+    ],
+    "crop": [
+      560,
+      943,
+      551,
+      207
+    ],
+    "revealCrop": [
+      284,
+      82,
+      1102,
+      1378
+    ],
+    "largeDisplay": true,
+    "source": "https://en.wikipedia.org/wiki/Turki_Al-Sheikh",
+    "originalSource": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Turki_Al-Sheikh_%28cropped%29.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/public-08.jpg\" width=\"1701\" height=\"2266\"/>"
+  },
+  {
+    "id": "reviewed-saudi-14-mouth",
+    "name": "سلطان بن سلمان",
+    "answers": [
+      "سلطان بن سلمان"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/public-09.jpg",
+    "imageSize": [
+      2880,
+      1920
+    ],
+    "crop": [
+      1383,
+      781,
+      404,
+      152
+    ],
+    "revealCrop": [
+      1181,
+      149,
+      809,
+      1011
+    ],
+    "largeDisplay": true,
+    "source": "https://en.wikipedia.org/wiki/Sultan_bin_Salman_Al_Saud",
+    "originalSource": "https://upload.wikimedia.org/wikipedia/commons/f/fd/HRH_Prince_Sultan_bin_Salman_bin_Abdulaziz_Al-Saud%2C_the_Chairman_%26_President_of_the_Saudi_Commission_for_Tourism_and_National_Heritage_%2826006959140%29.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/public-09.jpg\" width=\"2880\" height=\"1920\"/>"
+  },
+  {
+    "id": "reviewed-saudi-15-mouth",
+    "name": "عبدالرحمن غريب",
+    "answers": [
+      "عبدالرحمن غريب"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/sport-23.jpg",
+    "imageSize": [
+      3886,
+      2959
+    ],
+    "crop": [
+      2288,
+      956,
+      371,
+      139
+    ],
+    "revealCrop": [
+      2103,
+      376,
+      742,
+      928
+    ],
+    "largeDisplay": true,
+    "source": "https://www.winwin.com/%D9%83%D8%B1%D8%A9-%D9%82%D8%AF%D9%85/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A7%D9%84%D9%83%D8%B4%D9%81-%D8%B9%D9%86-%D9%82%D9%8A%D9%85%D8%A9-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86-%D8%BA%D8%B1%D9%8A%D8%A8-%D9%84%D9%86%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D9%86%D8%B5%D8%B1-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A",
+    "originalSource": "https://www.winwin.com/sites/default/files/2022-08/%D8%B9%D8%A8%D8%AF%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86%20%D8%BA%D8%B1%D9%8A%D8%A8.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/sport-23.jpg\" width=\"3886\" height=\"2959\"/>"
+  },
+  {
+    "id": "reviewed-saudi-16-mouth",
+    "name": "غريب آل مخلص",
+    "answers": [
+      "غريب آل مخلص"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/artist-16.jpg",
+    "imageSize": [
+      3000,
+      3000
+    ],
+    "crop": [
+      826,
+      1211,
+      649,
+      243
+    ],
+    "revealCrop": [
+      501,
+      197,
+      1298,
+      1622
+    ],
+    "largeDisplay": true,
+    "source": "https://music.apple.com/us/album/%D9%8A%D8%A7%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%B1%D9%88%D8%AD/1874673160?i=1874673172&uo=4",
+    "originalSource": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/93/53/37/9353370e-a98f-1226-a8f6-352ca00f2520/6678990020076.jpg/3000x3000bb.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/artist-16.jpg\" width=\"3000\" height=\"3000\"/>"
+  },
+  {
+    "id": "reviewed-saudi-17-mouth",
+    "name": "بدر حكيم",
+    "answers": [
+      "بدر حكيم"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/newer-17-01.jpg",
+    "imageSize": [
+      3000,
+      3000
+    ],
+    "crop": [
+      1618,
+      1187,
+      493,
+      185
+    ],
+    "revealCrop": [
+      1371,
+      416,
+      987,
+      1234
+    ],
+    "largeDisplay": true,
+    "source": "https://music.apple.com/us/album/dheeq-el-shawaree/1719321425?i=1719321837&uo=4",
+    "originalSource": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/78/6d/5d/786d5d8c-5c1b-c416-4099-d9c4545c220e/6290190047402.jpg/3000x3000bb.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/newer-17-01.jpg\" width=\"3000\" height=\"3000\"/>"
+  },
+  {
+    "id": "reviewed-saudi-18-mouth",
+    "name": "إبراهيم الخيرالله",
+    "answers": [
+      "إبراهيم الخيرالله"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "image": "portraits/new30/creator-23.jpg",
+    "imageSize": [
+      5302,
+      3534
+    ],
+    "crop": [
+      2820,
+      840,
+      510,
+      215
+    ],
+    "revealCrop": [
+      2514,
+      109,
+      1062,
+      1552
+    ],
+    "largeDisplay": true,
+    "source": "https://www.imdb.com/name/nm6803991/news/",
+    "originalSource": "https://m.media-amazon.com/images/M/MV5BNGNiMGJkODktOWQyZC00MTZhLWEwMDktYzc3NjY3MDUyMzY4XkEyXkFqcGc%40._V1_.jpg",
+    "nationality": "سعودي",
+    "gender": "male",
+    "reviewed": true,
+    "svg": "<image href=\"portraits/new30/creator-23.jpg\" width=\"5302\" height=\"3534\"/>"
+  }
+]

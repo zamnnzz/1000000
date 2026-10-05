@@ -1,0 +1,1638 @@
+[
+  {
+    "name": "غازي الذيابي",
+    "original": "https://www.khaberni.com/upload/news/thumb/news_model/2022/10/main_image63558c400f91d.png",
+    "source": "https://www.khaberni.com/news/%D9%85%D8%B4%D9%87%D9%88%D8%B1-%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-%D9%8A%D8%B4%D8%AA%D9%83%D9%8A-%D9%85%D9%86-%D8%B2%D9%88%D8%AC%D8%AA%D9%87-%D8%A3%D9%86%D8%A7-%D8%A7%D8%AC%D8%AA%D9%85%D8%A7%D8%B9%D9%8A-%D9%88%D8%A3%D8%AD%D8%A8-%D8%A7%D9%84%D8%B3%D9%88%D8%A7%D9%84%D9%81-545921",
+    "id": "saudi-01",
+    "image": "portraits/men/saudi-01.jpg",
+    "size": [
+      500,
+      408
+    ],
+    "faces": [
+      [
+        157,
+        48,
+        249,
+        249
+      ]
+    ],
+    "face": [
+      157,
+      48,
+      249,
+      249
+    ],
+    "eye": [
+      167,
+      110,
+      229,
+      67
+    ],
+    "mouth": [
+      204,
+      210,
+      159,
+      57
+    ],
+    "answers": [
+      "غازي الذيابي"
+    ]
+  },
+  {
+    "name": "ابراهيم العسيري",
+    "original": "https://www.khaberni.com/upload/news/thumb/news_model/2022/07/main_image62d290481c0e5.jpg",
+    "source": "https://www.khaberni.com/news/%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84-%D9%85%D8%B1%D8%B6-%D8%A7%D9%84%D9%86%D8%A7%D8%B4%D8%B7-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-%D8%A7%D9%84%D8%B4%D9%87%D9%8A%D8%B1-%D8%A5%D8%A8%D8%B1%D8%A7%D9%87%D9%8A%D9%85-%D8%A7%D9%84%D8%B9%D8%B3%D9%8A%D8%B1%D9%8A-523440",
+    "id": "saudi-02",
+    "image": "portraits/men/saudi-02.jpg",
+    "size": [
+      800,
+      450
+    ],
+    "faces": [
+      [
+        458,
+        213,
+        67,
+        67
+      ],
+      [
+        367,
+        58,
+        134,
+        134
+      ]
+    ],
+    "face": [
+      367,
+      58,
+      134,
+      134
+    ],
+    "eye": [
+      372,
+      92,
+      123,
+      36
+    ],
+    "mouth": [
+      392,
+      145,
+      86,
+      31
+    ],
+    "answers": [
+      "ابراهيم العسيري"
+    ]
+  },
+  {
+    "name": "منصور الرقيبة",
+    "original": "https://www.marefa.org/w/images/b/be/%D9%85%D9%86%D8%B5%D9%88%D8%B1_%D8%A7%D9%84%D8%B1%D9%82%D9%8A%D8%A8.jpeg",
+    "source": "https://www.foochia.com/celebrities/425915",
+    "id": "saudi-03",
+    "image": "portraits/men/saudi-03.jpg",
+    "size": [
+      1021,
+      1113
+    ],
+    "faces": [
+      [
+        402,
+        148,
+        292,
+        292
+      ]
+    ],
+    "face": [
+      402,
+      148,
+      292,
+      292
+    ],
+    "eye": [
+      414,
+      221,
+      269,
+      79
+    ],
+    "mouth": [
+      457,
+      338,
+      187,
+      67
+    ],
+    "answers": [
+      "منصور الرقيبة"
+    ]
+  },
+  {
+    "name": "فهد البتيري",
+    "original": "https://fmcdn.alqaheranews.net/e258feb0-8d1b-11ed-8799-d7bd52395482-file-1672938641929-934878754",
+    "source": "https://www.aflami.tv/profile/2490/%D9%81%D9%87%D8%AF-%D8%A7%D9%84%D8%A8%D8%AA%D9%8A%D8%B1%D9%8A",
+    "id": "saudi-04",
+    "image": "portraits/men/saudi-04.jpg",
+    "size": [
+      1280,
+      720
+    ],
+    "faces": [
+      [
+        490,
+        65,
+        230,
+        230
+      ]
+    ],
+    "face": [
+      490,
+      65,
+      230,
+      230
+    ],
+    "eye": [
+      499,
+      122,
+      212,
+      62
+    ],
+    "mouth": [
+      534,
+      214,
+      147,
+      53
+    ],
+    "answers": [
+      "فهد البتيري"
+    ]
+  },
+  {
+    "name": "طلال مداح",
+    "original": "https://i1.sndcdn.com/artworks-000239581501-14vta5-t500x500.jpg",
+    "source": "https://soundcloud.com/talal_maddah/6jwrppvx6qw5",
+    "id": "saudi-05",
+    "image": "portraits/men/saudi-05.jpg",
+    "size": [
+      500,
+      500
+    ],
+    "face": [
+      70,
+      140,
+      350,
+      300
+    ],
+    "eye": [
+      70,
+      190,
+      320,
+      100
+    ],
+    "mouth": [
+      140,
+      325,
+      210,
+      85
+    ],
+    "answers": [
+      "طلال مداح"
+    ]
+  },
+  {
+    "name": "هشام فقيه",
+    "original": "https://m.media-amazon.com/images/M/MV5BN2QxMjIyNDktMzJjOC00NzQ4LWFhN2EtMjE4Y2UzYThiODI5XkEyXkFqcGc%40._V1_CR197%2C8%2C1094%2C1641_.jpg",
+    "source": "https://www.imdb.com/name/nm5041798/",
+    "id": "saudi-06",
+    "image": "portraits/men/saudi-06-clear.jpg",
+    "size": [
+      1094,
+      1641
+    ],
+    "faces": [
+      [
+        368,
+        102,
+        216,
+        216
+      ]
+    ],
+    "face": [
+      321,
+      313,
+      457,
+      457
+    ],
+    "eye": [
+      339,
+      427,
+      420,
+      123
+    ],
+    "mouth": [
+      408,
+      610,
+      292,
+      105
+    ],
+    "answers": [
+      "هشام فقيه"
+    ]
+  },
+  {
+    "name": "عبادي الجوهر",
+    "original": "https://cdn.alweb.com/thumbs/mashaheeralfann/article/fit710x532/%D9%83%D9%84-%D9%85%D8%A7-%D8%AA%D8%B1%D8%BA%D8%A8-%D9%81%D9%8A-%D9%85%D8%B9%D8%B1%D9%81%D8%AA%D9%87-%D8%B9%D9%86-%D8%B9%D8%A8%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D8%AC%D9%88%D9%87%D8%B1.jpg",
+    "source": "https://www.sayidaty.net/node/1221316/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D8%B9%D8%A8%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D8%AC%D9%88%D9%87%D8%B1-%D9%8A%D8%B9%D8%A7%D9%8A%D8%AF-%D8%AC%D9%85%D9%87%D9%88%D8%B1%D9%87-%D8%A8%D8%A7%D9%84%D8%A3%D9%84%D8%A8%D9%88%D9%85-%D9%88%D9%87%D8%B0%D9%87-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%D9%87",
+    "id": "saudi-07",
+    "image": "portraits/men/saudi-07.jpg",
+    "size": [
+      710,
+      532
+    ],
+    "faces": [
+      [
+        199,
+        98,
+        265,
+        265
+      ]
+    ],
+    "face": [
+      199,
+      98,
+      265,
+      265
+    ],
+    "eye": [
+      210,
+      164,
+      244,
+      72
+    ],
+    "mouth": [
+      249,
+      270,
+      170,
+      61
+    ],
+    "answers": [
+      "عبادي الجوهر"
+    ]
+  },
+  {
+    "name": "خالد عبدالرحمن",
+    "original": "https://cdn.eremnews.com/media/b6eb79c2-3c2c-4edc-b86e-9a9d4397603e",
+    "source": "https://www.eremnews.com/entertainment/1545614",
+    "id": "saudi-08",
+    "image": "portraits/men/saudi-08-quality.jpg",
+    "size": [
+      1200,
+      596
+    ],
+    "faces": [
+      [
+        286,
+        149,
+        205,
+        205
+      ]
+    ],
+    "face": [
+      773,
+      279,
+      74,
+      74
+    ],
+    "eye": [
+      595,
+      195,
+      430,
+      110
+    ],
+    "mouth": [
+      675,
+      405,
+      300,
+      125
+    ],
+    "answers": [
+      "خالد عبدالرحمن"
+    ]
+  },
+  {
+    "name": "عايض يوسف",
+    "original": "https://i.pinimg.com/originals/8d/e6/4e/8de64e3969ba9302a9a04b208bae15b5.jpg",
+    "source": "https://www.pinterest.com/pin/ayed-in-2024--1090645234779171305/",
+    "id": "saudi-09",
+    "image": "portraits/hq/saudi-09-clear.jpg",
+    "size": [
+      963,
+      1200
+    ],
+    "faces": [
+      [
+        432,
+        46,
+        154,
+        154
+      ]
+    ],
+    "face": [
+      201,
+      244,
+      414,
+      414
+    ],
+    "eye": [
+      285,
+      455,
+      499,
+      147
+    ],
+    "mouth": [
+      366,
+      671,
+      347,
+      124
+    ],
+    "answers": [
+      "عايض يوسف"
+    ]
+  },
+  {
+    "name": "فيصل العيسى",
+    "original": "https://media.almashhad.com/storage/attachments/3311/%D8%A5%D9%84%D9%8A%D9%83%D9%85-%D9%85%D9%88%D8%B9%D8%AF-%D8%B9%D8%B1%D8%B6-%D9%81%D9%8A%D9%84%D9%85-%D8%B4%D8%A8%D8%A7%D8%A8-%D8%A7%D9%84%D8%A8%D9%88%D9%85%D8%A8-2-1741335701451_highres.webp",
+    "source": "https://www.almashhad.com/article/459217420284850-entertainment/331027734930796-%D8%A5%D9%84%D9%8A%D9%83%D9%85-%D9%85%D9%88%D8%B9%D8%AF-%D8%B9%D8%B1%D8%B6-%D9%81%D9%8A%D9%84%D9%85-%D8%B4%D8%A8%D8%A7%D8%A8-%D8%A7%D9%84%D8%A8%D9%88%D9%85%D8%A8-2/",
+    "id": "saudi-10",
+    "image": "portraits/men/saudi-10-clear.jpg",
+    "size": [
+      889,
+      500
+    ],
+    "faces": [
+      [
+        326,
+        95,
+        176,
+        176
+      ]
+    ],
+    "face": [
+      342,
+      83,
+      215,
+      215
+    ],
+    "eye": [
+      351,
+      137,
+      198,
+      58
+    ],
+    "mouth": [
+      383,
+      223,
+      138,
+      49
+    ],
+    "answers": [
+      "فيصل العيسى"
+    ]
+  },
+  {
+    "name": "خالد صقر",
+    "original": "https://1.bp.blogspot.com/-8zVmhsrPhNg/XrxcUUF2FNI/AAAAAAAAC9w/eSVDZjGcPAAx-XVVSJteZlYW35wG8P0jQCLcBGAsYHQ/s1600/%25D8%25AE%25D8%25A7%25D9%2584%25D8%25AF.jpg",
+    "source": "https://www.coolshe.net/حقيقة-خطوبة-الفنان-خالد-صقر-مع-الفنان-ا/",
+    "id": "saudi-11",
+    "image": "portraits/men/saudi-11.jpg",
+    "size": [
+      600,
+      450
+    ],
+    "faces": [
+      [
+        179,
+        53,
+        234,
+        234
+      ]
+    ],
+    "face": [
+      179,
+      53,
+      234,
+      234
+    ],
+    "eye": [
+      188,
+      112,
+      215,
+      63
+    ],
+    "mouth": [
+      223,
+      205,
+      150,
+      54
+    ],
+    "answers": [
+      "خالد صقر"
+    ]
+  },
+  {
+    "name": "حبيب الحبيب",
+    "original": "https://cdn.sbisiali.com/news/main_images/square/bf08f7a2-2a29-4e36-85ef-6ca0913f44d0.jpeg",
+    "source": "https://sbisiali.com/en/news/article/habib-al-habib-the-saudi-character-king-his-artistic-career-and-most-prominent-works",
+    "id": "saudi-12",
+    "image": "portraits/men/saudi-12.jpg",
+    "size": [
+      810,
+      810
+    ],
+    "faces": [
+      [
+        204,
+        202,
+        342,
+        342
+      ]
+    ],
+    "face": [
+      204,
+      202,
+      342,
+      342
+    ],
+    "eye": [
+      218,
+      288,
+      315,
+      92
+    ],
+    "mouth": [
+      269,
+      424,
+      219,
+      79
+    ],
+    "answers": [
+      "حبيب الحبيب"
+    ]
+  },
+  {
+    "name": "بندريتا",
+    "original": "https://1.bp.blogspot.com/-FBW0WiOcNvs/YUCzY4LMZUI/AAAAAAAAFjo/2TEUgJqXzbAhx771vskFw93yaTG6xgLQQCLcBGAsYHQ/s16000/1_11zon.webp",
+    "source": "https://wikistarbio.com/banderitax/",
+    "id": "saudi-14",
+    "image": "portraits/men/bander-front.webp",
+    "size": [
+      477,
+      581
+    ],
+    "faces": [
+      [
+        662,
+        150,
+        69,
+        69
+      ]
+    ],
+    "face": [
+      150,
+      130,
+      350,
+      350
+    ],
+    "eye": [
+      145,
+      140,
+      210,
+      70
+    ],
+    "mouth": [
+      216,
+      358,
+      224,
+      80
+    ],
+    "answers": [
+      "بندريتا"
+    ]
+  },
+  {
+    "name": "دحومي 999",
+    "original": "https://i.pinimg.com/1200x/82/c5/a9/82c5a9928b7311699800966dabc9af3e.jpg",
+    "source": "https://www.pinterest.com/pin/881579695794832989/",
+    "id": "saudi-15",
+    "image": "portraits/men/saudi-15.jpg",
+    "size": [
+      600,
+      600
+    ],
+    "faces": [
+      [
+        62,
+        241,
+        83,
+        83
+      ],
+      [
+        429,
+        302,
+        119,
+        119
+      ],
+      [
+        144,
+        95,
+        238,
+        238
+      ]
+    ],
+    "face": [
+      144,
+      95,
+      238,
+      238
+    ],
+    "eye": [
+      154,
+      154,
+      219,
+      64
+    ],
+    "mouth": [
+      189,
+      250,
+      152,
+      55
+    ],
+    "answers": [
+      "دحومي 999"
+    ]
+  },
+  {
+    "name": "شونق بونق",
+    "original": "https://i.pinimg.com/originals/07/6c/71/076c713af1bf32cf60f0be7e301df350.jpg",
+    "source": "https://www.pinterest.com/ftoo11430/%D8%B4%D9%88%D9%86%D9%82-%D8%A8%D9%88%D9%86%D9%82/",
+    "id": "saudi-16",
+    "image": "portraits/men/saudi-16.jpg",
+    "size": [
+      871,
+      874
+    ],
+    "faces": [
+      [
+        325,
+        176,
+        227,
+        227
+      ]
+    ],
+    "face": [
+      325,
+      176,
+      227,
+      227
+    ],
+    "eye": [
+      334,
+      233,
+      209,
+      61
+    ],
+    "mouth": [
+      368,
+      324,
+      145,
+      52
+    ],
+    "answers": [
+      "شونق بونق"
+    ]
+  },
+  {
+    "name": "ابو عبير",
+    "original": "https://i.pinimg.com/736x/95/08/05/950805e302bf9ca1d9857baaa0ad8648.jpg",
+    "source": "https://tr.pinterest.com/pin/800022321340631001/",
+    "id": "saudi-17",
+    "image": "portraits/men/saudi-17.jpg",
+    "size": [
+      731,
+      691
+    ],
+    "faces": [
+      [
+        158,
+        93,
+        376,
+        376
+      ]
+    ],
+    "face": [
+      158,
+      93,
+      376,
+      376
+    ],
+    "eye": [
+      173,
+      187,
+      346,
+      102
+    ],
+    "mouth": [
+      229,
+      337,
+      241,
+      86
+    ],
+    "answers": [
+      "ابو عبير"
+    ]
+  },
+  {
+    "name": "ناصر القصبي",
+    "original": "https://media.elbalad.news/2024/10/large/334/1/724.jpg",
+    "source": "https://www.elbalad.news/4591381",
+    "id": "saudi-20",
+    "image": "portraits/men/saudi-20-quality.jpg",
+    "size": [
+      1280,
+      853
+    ],
+    "faces": [
+      [
+        281,
+        78,
+        234,
+        234
+      ]
+    ],
+    "face": [
+      145,
+      176,
+      161,
+      161
+    ],
+    "eye": [
+      565,
+      315,
+      340,
+      115
+    ],
+    "mouth": [
+      595,
+      580,
+      235,
+      105
+    ],
+    "answers": [
+      "ناصر القصبي"
+    ]
+  },
+  {
+    "name": "عبدالله السدحان",
+    "original": "https://static.sayidaty.net/styles/681x999/public/2025-05/424051.jpg.webp?VersionId=EXt98eLLdJTJI6em0MZLRpsPn9Vpy52Z",
+    "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/1811866-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87-%D8%A7%D9%84%D8%B3%D8%AF%D8%AD%D8%A7%D9%86-%D9%85%D8%B9-%D8%A3%D8%A8%D9%86%D8%A7%D8%A1%D9%87",
+    "id": "saudi-21",
+    "image": "portraits/men/saudi-21.jpg",
+    "size": [
+      681,
+      999
+    ],
+    "faces": [
+      [
+        116,
+        166,
+        490,
+        490
+      ]
+    ],
+    "face": [
+      116,
+      166,
+      490,
+      490
+    ],
+    "eye": [
+      136,
+      288,
+      451,
+      132
+    ],
+    "mouth": [
+      209,
+      484,
+      314,
+      113
+    ],
+    "answers": [
+      "عبدالله السدحان"
+    ]
+  },
+  {
+    "name": "فايز المالكي",
+    "original": "https://cdn.eremnews.com/media/2bd23ac5-69b5-455b-846b-2d4ea56a06a3",
+    "source": "https://www.eremnews.com/news/arab-world/2397341",
+    "id": "saudi-22",
+    "image": "portraits/men/saudi-22.jpg",
+    "size": [
+      1200,
+      675
+    ],
+    "face": [
+      445,
+      100,
+      330,
+      360
+    ],
+    "eye": [
+      480,
+      190,
+      255,
+      135
+    ],
+    "mouth": [
+      520,
+      340,
+      225,
+      105
+    ],
+    "answers": [
+      "فايز المالكي"
+    ]
+  },
+  {
+    "name": "عبدالإله السناني",
+    "original": "https://media.filfan.com/NewsPics/FilfanNew/large/470458_0.jpeg",
+    "source": "https://www.filfan.com/news/166426",
+    "id": "saudi-23",
+    "image": "portraits/men/saudi-23.jpg",
+    "size": [
+      1080,
+      1080
+    ],
+    "faces": [
+      [
+        520,
+        499,
+        68,
+        68
+      ],
+      [
+        509,
+        948,
+        60,
+        60
+      ],
+      [
+        402,
+        604,
+        199,
+        199
+      ]
+    ],
+    "face": [
+      520,
+      230,
+      220,
+      210
+    ],
+    "eye": [
+      530,
+      275,
+      195,
+      75
+    ],
+    "mouth": [
+      570,
+      350,
+      130,
+      65
+    ],
+    "answers": [
+      "عبدالإله السناني"
+    ]
+  },
+  {
+    "name": "ابراهيم الحساوي",
+    "original": "https://static.hiamag.com/styles/autox754/public/article/16/05/2022/256755268_577016543376142_300340137553550622_n.jpg?itok=wFDl1b_5",
+    "source": "https://www.hiamag.com/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%86%D8%AC%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/1522771-%D9%85%D8%A7%D8%B0%D8%A7-%D9%82%D8%A7%D9%84-%D9%86%D8%AC%D9%88%D9%85-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9-%D8%B9%D9%86-%D9%86%D8%AC%D8%A7%D8%AD%D8%A7%D8%AA-%D8%B4%D8%A7%D8%A8%D8%A7%D8%AA-%D9%88%D8%B4%D8%A8%D8%A7%D8%A8-%D8%A7%D9%84%D9%85%D9%85%D9%84%D9%83%D8%A9-%D9%81%D9%8A-%D9%85%D8%B9%D8%B1%D8%B6-%D8%A2%D9%8A%D8%B3%D9%81-%D8%A7%D9%84%D8%AF%D9%88%D9%84%D9%8A",
+    "id": "saudi-24",
+    "image": "portraits/men/saudi-24-quality.jpg",
+    "size": [
+      754,
+      754
+    ],
+    "face": [
+      233,
+      106,
+      289,
+      289
+    ],
+    "eye": [
+      245,
+      178,
+      266,
+      78
+    ],
+    "mouth": [
+      288,
+      294,
+      185,
+      66
+    ],
+    "answers": [
+      "ابراهيم الحساوي"
+    ]
+  },
+  {
+    "name": "علي المدفع",
+    "original": "https://cdn.eremnews.io/media/7c01ee31-07ef-4d51-8025-afa6b6368c8a",
+    "source": "https://saudipedia.com/en/article/3477/figures/intellectuals-and-artists/ali-al-mdfa",
+    "id": "saudi-25",
+    "image": "portraits/men/saudi-25.jpg",
+    "size": [
+      1200,
+      731
+    ],
+    "faces": [
+      [
+        388,
+        84,
+        409,
+        409
+      ]
+    ],
+    "face": [
+      388,
+      84,
+      409,
+      409
+    ],
+    "eye": [
+      404,
+      186,
+      376,
+      110
+    ],
+    "mouth": [
+      466,
+      350,
+      262,
+      94
+    ],
+    "answers": [
+      "علي المدفع"
+    ]
+  },
+  {
+    "name": "محمد عبده",
+    "original": "https://static.sayidaty.net/2023-05/252428.jpg",
+    "source": "https://www.sayidaty.net/node/1598101/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D8%A8%D8%A7%D9%84%D9%81%D9%8A%D8%AF%D9%8A%D9%88-%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D8%AA-%D9%85%D8%AD%D9%85%D8%AF-%D8%B9%D8%A8%D8%AF%D9%87-%D9%84%D8%A5%D8%AD%D9%8A%D8%A7%D8%A1-%D8%AD%D9%81%D9%84%D8%A9-%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA",
+    "id": "saudi-26",
+    "image": "portraits/hq/saudi-26.jpg",
+    "size": [
+      2208,
+      1080
+    ],
+    "faces": [
+      [
+        340,
+        73,
+        346,
+        346
+      ]
+    ],
+    "face": [
+      340,
+      73,
+      346,
+      346
+    ],
+    "eye": [
+      651,
+      294,
+      585,
+      171
+    ],
+    "mouth": [
+      747,
+      548,
+      407,
+      147
+    ],
+    "answers": [
+      "محمد عبده"
+    ]
+  },
+  {
+    "name": "راشد الماجد",
+    "original": "https://static.aljamila.com/2023-02/5006216-1556070711.jpg",
+    "source": "https://www.aljamila.com/node/712821/%D9%81%D9%86-%D9%88%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D9%85%D8%A7-%D8%B9%D9%84%D8%A7%D9%82%D8%A9-%D9%85%D8%AC%D8%B3%D9%85-%D9%85%D8%AD%D9%85%D8%AF-%D8%B9%D8%A8%D8%AF%D9%87-%D8%A8%D8%AA%D8%B5%D8%AF%D8%B1-%D8%B1%D8%A7%D8%B4%D8%AF-%D8%A7%D9%84%D9%85%D8%A7%D8%AC%D8%AF-%D8%A7%D9%84%D8%AA%D8%B1%D9%86%D8%AF%D8%9F",
+    "id": "saudi-27",
+    "image": "portraits/hq/saudi-27.jpg",
+    "size": [
+      1900,
+      1068
+    ],
+    "face": [
+      450,
+      170,
+      268,
+      265
+    ],
+    "eye": [
+      796,
+      408,
+      427,
+      124
+    ],
+    "mouth": [
+      865,
+      591,
+      297,
+      105
+    ],
+    "answers": [
+      "راشد الماجد"
+    ]
+  },
+  {
+    "name": "عبدالمجيد عبدالله",
+    "original": "https://s.lahamag.com/storage/attachments/145/3E4002F2-8D70-44D6-B686-7F76E0A360C5_363268.jpeg/r/640/3E4002F2-8D70-44D6-B686-7F76E0A360C5_363268.jpeg",
+    "source": "https://www.lahamag.com/article/145774-%D8%A8%D8%B3%D8%A8%D8%A8-%D9%83%D9%84%D9%85%D8%A7%D8%AA-%D8%AE%D8%A7%D8%AF%D8%B4%D8%A9-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D9%85%D8%AC%D9%8A%D8%AF-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87-%D9%8A%D8%B9%D8%AA%D8%B2%D9%84-%D8%AA%D9%88%D9%8A%D8%AA%D8%B1-%D9%88%D9%8A%D9%86%D9%81%D8%AC%D8%B1-%D8%BA%D8%B6%D8%A8%D8%A7",
+    "id": "saudi-28",
+    "image": "portraits/men/saudi-28.jpg",
+    "size": [
+      640,
+      640
+    ],
+    "faces": [
+      [
+        203,
+        147,
+        309,
+        309
+      ]
+    ],
+    "face": [
+      203,
+      147,
+      309,
+      309
+    ],
+    "eye": [
+      215,
+      224,
+      284,
+      83
+    ],
+    "mouth": [
+      262,
+      348,
+      198,
+      71
+    ],
+    "answers": [
+      "عبدالمجيد عبدالله"
+    ]
+  },
+  {
+    "name": "رابح صقر",
+    "original": "https://www.aljarida.com/uploads/imported_images/images/1606400838379166700/1606412710000/1280x960.jpg",
+    "source": "https://www.aljarida.com/articles/1606400848729167000",
+    "id": "saudi-29",
+    "image": "portraits/men/saudi-29-quality.jpg",
+    "size": [
+      800,
+      600
+    ],
+    "faces": [
+      [
+        274,
+        136,
+        206,
+        206
+      ],
+      [
+        453,
+        323,
+        138,
+        138
+      ]
+    ],
+    "face": [
+      268,
+      150,
+      324,
+      324
+    ],
+    "eye": [
+      281,
+      231,
+      298,
+      87
+    ],
+    "mouth": [
+      330,
+      361,
+      207,
+      75
+    ],
+    "answers": [
+      "رابح صقر"
+    ]
+  },
+  {
+    "name": "خالد الفراج",
+    "original": "https://assets.annahar.com/ContentFilesArchive/819509Image1-1180x677_d.jpg?version=6228587",
+    "source": "https://www.annahar.com/arabic/section/6-%D9%81%D9%86-%D9%88%D9%85%D8%AC%D8%AA%D9%85%D8%B9/22042022064436666",
+    "id": "saudi-30",
+    "image": "portraits/men/saudi-30.jpg",
+    "size": [
+      1180,
+      677
+    ],
+    "faces": [
+      [
+        912,
+        265,
+        61,
+        61
+      ],
+      [
+        427,
+        11,
+        401,
+        401
+      ],
+      [
+        999,
+        456,
+        74,
+        74
+      ]
+    ],
+    "face": [
+      427,
+      11,
+      401,
+      401
+    ],
+    "eye": [
+      443,
+      111,
+      369,
+      108
+    ],
+    "mouth": [
+      490,
+      290,
+      245,
+      110
+    ],
+    "answers": [
+      "خالد الفراج"
+    ]
+  },
+  {
+    "name": "يعقوب الفرحان",
+    "original": "https://ar.esquireme.com/wp-content/uploads/sites/5/cloud/2024/01/16/%D9%8A%D8%B9%D9%82%D9%88%D8%A8-%D9%81%D8%B1%D8%AD%D8%A7%D9%86.jpg",
+    "source": "https://ar.esquireme.com/%D8%AB%D9%82%D8%A7%D9%81%D8%A9/%D8%A3%D9%81%D9%84%D8%A7%D9%85-%D9%88%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA/%D8%A8%D8%AF%D8%A3-%D8%AA%D8%B5%D9%88%D9%8A%D8%B1-%D9%81%D9%8A%D9%84%D9%85-%D8%A7%D9%84%D9%82%D9%8A%D8%AF-%D9%85%D9%86-%D8%A5%D9%86%D8%AA%D8%A7%D8%AC-%D8%AA%D9%84%D9%81%D8%A7%D8%B2%D9%A1%D9%A1-%D8%8C",
+    "id": "saudi-31",
+    "image": "portraits/men/saudi-31.jpg",
+    "size": [
+      640,
+      640
+    ],
+    "faces": [
+      [
+        58,
+        73,
+        397,
+        397
+      ]
+    ],
+    "face": [
+      58,
+      73,
+      397,
+      397
+    ],
+    "eye": [
+      74,
+      172,
+      365,
+      107
+    ],
+    "mouth": [
+      155,
+      338,
+      210,
+      95
+    ],
+    "answers": [
+      "يعقوب الفرحان"
+    ]
+  },
+  {
+    "name": "عبدالعزيز الفريحي",
+    "original": "https://static.sayidaty.net/styles/900_scale/public/2019/05/17/5291066-1617368304.jpg.webp",
+    "source": "https://www.sayidaty.net/node/890996/%D9%81%D9%86-%D9%88%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D8%A7%D9%84%D9%88%D8%AC%D9%88%D9%87-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-%D9%81%D9%8A-%D8%A7%D9%84%D8%AF%D8%B1%D8%A7%D9%85%D8%A7-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9-%D8%A8%D8%B1%D9%85%D8%B6%D8%A7%D9%86-2019-%D9%87%D9%84-%D8%B3%D8%AA%D9%83%D8%B3%D8%A8-%D8%A7%D9%84%D8%B1%D9%87%D8%A7%D9%86%D8%9F",
+    "id": "saudi-32",
+    "image": "portraits/men/saudi-32-quality.jpg",
+    "size": [
+      900,
+      900
+    ],
+    "faces": [
+      [
+        116,
+        54,
+        218,
+        218
+      ]
+    ],
+    "face": [
+      47,
+      70,
+      782,
+      782
+    ],
+    "eye": [
+      78,
+      266,
+      719,
+      211
+    ],
+    "mouth": [
+      196,
+      578,
+      500,
+      180
+    ],
+    "answers": [
+      "عبدالعزيز الفريحي"
+    ]
+  },
+  {
+    "name": "علي الحميدي",
+    "original": "https://www.okaz.com.sa/uploads/images/2024/08/04/2411664.jpg",
+    "source": "https://www.okaz.com.sa/variety/na/2167187",
+    "id": "saudi-33",
+    "image": "portraits/men/saudi-33.jpg",
+    "size": [
+      1000,
+      653
+    ],
+    "faces": [
+      [
+        582,
+        181,
+        186,
+        186
+      ]
+    ],
+    "face": [
+      582,
+      181,
+      186,
+      186
+    ],
+    "eye": [
+      589,
+      228,
+      171,
+      50
+    ],
+    "mouth": [
+      617,
+      302,
+      119,
+      43
+    ],
+    "answers": [
+      "علي الحميدي"
+    ]
+  },
+  {
+    "name": "طارق الحربي",
+    "original": "https://etbilarabi.com/sites/default/files/inline-images/%D8%B7%D8%A7%D8%B1%D9%82%20%D8%A7%D9%84%D8%AD%D8%B1%D8%A8%D9%8A%C2%A0.jpg",
+    "source": "https://etbilarabi.com/%D9%85%D9%8A%D9%83%D8%B3/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%AE%D9%84%D9%8A%D8%AC-%D9%88%D8%A7%D9%84%D8%B9%D8%B1%D8%A8-%D9%85%D9%86-%D8%AA%D9%8A%D9%83-%D8%AA%D9%88%D9%83-%D8%A5%D9%84%D9%89-%D8%B9%D8%A7%D9%84%D9%85-%D8%A7%D9%84%D8%AA%D9%85%D8%AB%D9%8A%D9%84-%D9%88%D8%A7%D9%84%D8%BA%D9%86%D8%A7%D8%A1",
+    "id": "saudi-34",
+    "image": "portraits/men/saudi-34.jpg",
+    "size": [
+      960,
+      1200
+    ],
+    "faces": [
+      [
+        376,
+        343,
+        174,
+        174
+      ],
+      [
+        195,
+        311,
+        223,
+        223
+      ],
+      [
+        261,
+        888,
+        262,
+        262
+      ]
+    ],
+    "face": [
+      390,
+      250,
+      330,
+      340
+    ],
+    "eye": [
+      403,
+      335,
+      304,
+      92
+    ],
+    "mouth": [
+      453,
+      471,
+      211,
+      78
+    ],
+    "answers": [
+      "طارق الحربي"
+    ]
+  },
+  {
+    "name": "أحمد الشقيري",
+    "original": "https://i1.sndcdn.com/avatars-000491628357-hzkyiu-t1080x1080.jpg",
+    "source": "https://soundcloud.com/ahmadalshugairi",
+    "id": "saudi-35",
+    "image": "portraits/men/saudi-35-quality.jpg",
+    "size": [
+      1080,
+      1080
+    ],
+    "faces": [
+      [
+        249,
+        69,
+        255,
+        255
+      ]
+    ],
+    "face": [
+      121,
+      241,
+      794,
+      794
+    ],
+    "eye": [
+      153,
+      440,
+      730,
+      214
+    ],
+    "mouth": [
+      272,
+      757,
+      508,
+      183
+    ],
+    "answers": [
+      "أحمد الشقيري"
+    ]
+  },
+  {
+    "name": "يزيد الراجحي",
+    "original": "https://forbesme-prestaging-media.s3.us-east-2.amazonaws.com/lists/uploads/2024/03/13103034/58-Rajhi-Invest.jpg",
+    "source": "https://www.forbesmiddleeast.com/lists/top-100-arab-family-businesses-2024/rajhi-invest/",
+    "id": "saudi-36",
+    "image": "portraits/men/saudi-36.jpg",
+    "size": [
+      2000,
+      2000
+    ],
+    "faces": [
+      [
+        703,
+        1283,
+        135,
+        135
+      ],
+      [
+        603,
+        1637,
+        162,
+        162
+      ],
+      [
+        580,
+        385,
+        622,
+        622
+      ]
+    ],
+    "face": [
+      580,
+      385,
+      622,
+      622
+    ],
+    "eye": [
+      605,
+      540,
+      572,
+      168
+    ],
+    "mouth": [
+      698,
+      789,
+      398,
+      143
+    ],
+    "answers": [
+      "يزيد الراجحي"
+    ]
+  },
+  {
+    "name": "ابو فلة",
+    "original": "https://i.pinimg.com/originals/b3/de/e0/b3dee0791d68551d9d87c5f6c8dabcd9.jpg",
+    "source": "https://www.pinterest.com/pin/aboflah-on-instagram--641763015655378602/",
+    "id": "saudi-37",
+    "image": "portraits/hq/saudi-37.jpg",
+    "size": [
+      1080,
+      1350
+    ],
+    "faces": [
+      [
+        209,
+        227,
+        326,
+        326
+      ],
+      [
+        408,
+        141,
+        209,
+        209
+      ]
+    ],
+    "face": [
+      209,
+      227,
+      326,
+      326
+    ],
+    "eye": [
+      326,
+      452,
+      440,
+      129
+    ],
+    "mouth": [
+      398,
+      644,
+      307,
+      110
+    ],
+    "answers": [
+      "ابو فلة"
+    ]
+  },
+  {
+    "name": "حسن عسيري",
+    "original": "https://static.sayidaty.net/styles/1375_scale/public/2022-04/97876.PNG",
+    "source": "https://www.sayidaty.net/node/1394221/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D8%AD%D8%B3%D9%86-%D8%B9%D8%B3%D9%8A%D8%B1%D9%8A-%D9%8A%D8%AE%D8%AA%D8%A7%D8%B1-%D8%AD%D8%A8%D9%8A%D8%A8-%D8%A7%D9%84%D8%AD%D8%A8%D9%8A%D8%A8-%D8%A7%D9%84%D9%83%D9%88%D9%85%D9%8A%D8%AF%D9%8A-%D8%BA%D9%8A%D8%B1-%D8%A7%D9%84%D8%AA%D9%82%D9%84%D9%8A%D8%AF%D9%8A",
+    "id": "saudi-38",
+    "image": "portraits/men/saudi-38-quality.jpg",
+    "size": [
+      1375,
+      858
+    ],
+    "faces": [
+      [
+        328,
+        65,
+        191,
+        191
+      ]
+    ],
+    "face": [
+      299,
+      202,
+      586,
+      586
+    ],
+    "eye": [
+      322,
+      348,
+      539,
+      158
+    ],
+    "mouth": [
+      410,
+      583,
+      375,
+      135
+    ],
+    "answers": [
+      "حسن عسيري"
+    ]
+  },
+  {
+    "name": "راشد الشمراني",
+    "original": "https://cdn.arageek.com/magazine/2019/10/16430869081496398058.jpg",
+    "source": "https://www.arageek.com/bio/rashid-alshamrani",
+    "id": "saudi-39",
+    "image": "portraits/men/saudi-39-quality.jpg",
+    "size": [
+      749,
+      749
+    ],
+    "faces": [
+      [
+        357,
+        54,
+        156,
+        156
+      ]
+    ],
+    "face": [
+      253,
+      142,
+      334,
+      334
+    ],
+    "eye": [
+      266,
+      226,
+      307,
+      90
+    ],
+    "mouth": [
+      316,
+      359,
+      214,
+      77
+    ],
+    "answers": [
+      "راشد الشمراني"
+    ]
+  },
+  {
+    "name": "محمد العيسى",
+    "original": "https://cdn.arageek.com/magazine/2019/10/%D8%A7%D9%84%D8%B9%D9%8A%D8%B3%D9%89.jpg",
+    "source": "https://www.arageek.com/bio/mohammed-alissa",
+    "id": "saudi-40",
+    "image": "portraits/men/saudi-40.jpg",
+    "size": [
+      800,
+      800
+    ],
+    "face": [
+      190,
+      320,
+      370,
+      380
+    ],
+    "eye": [
+      205,
+      415,
+      340,
+      103
+    ],
+    "mouth": [
+      260,
+      675,
+      220,
+      95
+    ],
+    "answers": [
+      "محمد العيسى"
+    ]
+  },
+  {
+    "name": "عبدالرحمن المطيري",
+    "original": "https://static.aljamila.com/styles/1100x732/public/2022-07/4759906-1976025307.jpg",
+    "source": "https://www.aljamila.com/section/%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86-%D8%A7%D9%84%D9%85%D8%B7%D9%8A%D8%B1%D9%8A",
+    "id": "saudi-41",
+    "image": "portraits/men/saudi-41.jpg",
+    "size": [
+      1100,
+      732
+    ],
+    "face": [
+      510,
+      130,
+      350,
+      410
+    ],
+    "eye": [
+      530,
+      170,
+      290,
+      150
+    ],
+    "mouth": [
+      576,
+      396,
+      224,
+      94
+    ],
+    "answers": [
+      "عبدالرحمن المطيري"
+    ]
+  },
+  {
+    "name": "دربحه",
+    "original": "https://pbs.twimg.com/media/EwCQY1QXMAY56Me.jpg",
+    "source": "https://x.com/ldum3xsfo1r9szq",
+    "id": "saudi-42",
+    "image": "portraits/men/saudi-42.jpg",
+    "size": [
+      720,
+      720
+    ],
+    "faces": [
+      [
+        307,
+        70,
+        243,
+        243
+      ]
+    ],
+    "face": [
+      307,
+      70,
+      243,
+      243
+    ],
+    "eye": [
+      317,
+      131,
+      224,
+      66
+    ],
+    "mouth": [
+      353,
+      228,
+      156,
+      56
+    ],
+    "answers": [
+      "دربحه"
+    ]
+  },
+  {
+    "name": "صالح الزهيري",
+    "original": "https://arriyadiyah.com/media/thumb/e5/32/800_a8ac60ce5b.jpeg",
+    "source": "https://arriyadiyah.com/539676/%D8%A7%D9%84%D8%B2%D9%87%D9%8A%D8%B1%D9%8A%D9%8A%D9%83%D8%B0%D8%A8%D9%88%D9%86-%D8%B9%D9%84%D9%89-%D8%A7%D9%84%D9%8A%D9%88%D8%AA%D9%8A%D9%88%D8%A8",
+    "id": "saudi-43",
+    "image": "portraits/men/saudi-43.jpg",
+    "size": [
+      800,
+      879
+    ],
+    "faces": [
+      [
+        238,
+        45,
+        60,
+        60
+      ],
+      [
+        286,
+        84,
+        200,
+        200
+      ]
+    ],
+    "face": [
+      286,
+      84,
+      200,
+      200
+    ],
+    "eye": [
+      294,
+      134,
+      184,
+      54
+    ],
+    "mouth": [
+      324,
+      214,
+      128,
+      46
+    ],
+    "answers": [
+      "صالح الزهيري"
+    ]
+  }
+]

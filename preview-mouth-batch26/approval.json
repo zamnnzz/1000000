@@ -1,0 +1,23 @@
+{
+  "name": "عزيز بن محمد",
+  "image": "preview-mouth-batch26/aziz.jpg",
+  "size": [
+    1188,
+    2048
+  ],
+  "crop": [
+    505,
+    910,
+    395,
+    197
+  ],
+  "face": [
+    475,
+    510,
+    490,
+    650
+  ],
+  "source": "https://x.com/3zez12l",
+  "old": null,
+  "status": "pending_approval"
+}

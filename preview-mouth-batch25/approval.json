@@ -1,0 +1,52 @@
+{
+  "name": "علي الحميدي",
+  "image": "portraits/mouth-final/mouth-16.jpg",
+  "size": [
+    675,
+    1200
+  ],
+  "crop": [
+    150,
+    395,
+    350,
+    175
+  ],
+  "face": [
+    65,
+    80,
+    500,
+    620
+  ],
+  "source": "https://x.com/Al7my",
+  "old": {
+    "id": "saudi-33-mouth",
+    "name": "علي الحميدي",
+    "answers": [
+      "علي الحميدي"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "svg": "<image href=\"portraits/mouth-final/mouth-16.jpg\" width=\"675\" height=\"1200\"/>",
+    "image": "portraits/mouth-final/mouth-16.jpg",
+    "crop": [
+      175,
+      414,
+      302,
+      123
+    ],
+    "source": "https://x.com/Al7my",
+    "imageSize": [
+      675,
+      1200
+    ],
+    "revealCrop": [
+      71,
+      41,
+      508,
+      635
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6
+  }
+}

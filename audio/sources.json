@@ -1,0 +1,280 @@
+[
+  {
+    "id": "voice-01",
+    "name": "أبو كايد",
+    "answers": [
+      "أبو كايد",
+      "ابو كايد"
+    ],
+    "title": "هاك هاك",
+    "type": "voice",
+    "audio": "audio/voice-01.wav",
+    "duration": 6.8,
+    "source": "https://www.myinstants.com/en/instant/bw-kyd-hk-hk-90635/",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-03",
+    "name": "عبدالعزيز الشهري",
+    "answers": [
+      "عبدالعزيز الشهري",
+      "عبد العزيز الشهري"
+    ],
+    "title": "ولد وشبك أنت",
+    "type": "voice",
+    "audio": "audio/voice-03.wav",
+    "duration": 6.557,
+    "source": "https://www.myinstants.com/en/instant/wld-wshbk-nt-bdl-zyz-lshhry-13754/",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-04",
+    "name": "بندريتا",
+    "answers": [
+      "بندريتا",
+      "بندر",
+      "بندريتا اكس",
+      "بندريتا X"
+    ],
+    "title": "مو لاق",
+    "type": "voice",
+    "audio": "audio/voice-04.wav",
+    "duration": 6.8,
+    "source": "https://www.myinstants.com/en/instant/bndryt-whd-yqwl-mw-lq-ytltm-20850/",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-05",
+    "name": "أسطورة الرياض",
+    "answers": [
+      "أسطورة الرياض",
+      "اسطورة الرياض"
+    ],
+    "title": "ياخي عيب عليكم",
+    "type": "voice",
+    "audio": "audio/voice-05.wav",
+    "duration": 6.8,
+    "source": "https://www.myinstants.com/en/instant/ykhy-yb-lykm-stwr-lryd-8780/",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-12",
+    "name": "دحومي 999",
+    "answers": [
+      "دحومي 999",
+      "دحومي",
+      "دحومي٩٩٩",
+      "دحومي ٩٩٩"
+    ],
+    "title": "ابلع",
+    "type": "voice",
+    "audio": "audio/voice-12.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/525f468d-2b27-4b9b-801c-ae6f76c58417",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-16",
+    "name": "شونق بونق",
+    "answers": [
+      "شونق بونق",
+      "شونق",
+      "احمد القحطاني",
+      "أحمد القحطاني"
+    ],
+    "title": "فري مايك",
+    "type": "voice",
+    "audio": "audio/voice-16.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/e0d0498b-ccc5-4fc7-895f-c66cf3d4b7a2",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-17",
+    "name": "أبو عبير",
+    "answers": [
+      "أبو عبير",
+      "ابو عبير",
+      "أبو عبير أوبلز",
+      "ابو عبير اوبلز",
+      "صالح أوبلز",
+      "صالح اوبلز"
+    ],
+    "title": "يا مجنون يا لعيب",
+    "type": "voice",
+    "audio": "audio/voice-17.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/2f8934ad-5bdc-425c-9294-5cd4a5d235ab",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-18",
+    "name": "ناصر القصبي",
+    "answers": [
+      "ناصر القصبي"
+    ],
+    "title": "رياكشن",
+    "type": "voice",
+    "audio": "audio/voice-18.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/22cefafe-0a6f-4049-83a0-517ac1e8fc41",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-21",
+    "name": "أحمد مكي",
+    "answers": [
+      "أحمد مكي"
+    ],
+    "title": "ميم أحمد مكي",
+    "type": "voice",
+    "audio": "audio/voice-21.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/374f4e76-bc8e-4384-b8ae-72f6063aea2a",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-23",
+    "name": "عمرو عبدالجليل",
+    "answers": [
+      "عمرو عبدالجليل"
+    ],
+    "title": "سوق الجمعة",
+    "type": "voice",
+    "audio": "audio/voice-23.wav",
+    "duration": 3.624,
+    "source": "https://tuna.voicemod.net/sound/3d4cc629-28f8-45f2-b37c-2213d65f3268",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-24",
+    "name": "عصام الشوالي",
+    "answers": [
+      "عصام الشوالي"
+    ],
+    "title": "تعليق رياضي",
+    "type": "voice",
+    "audio": "audio/voice-24.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/3be9715a-f4a8-4e14-aad4-4f5f42d44eb7",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-25",
+    "name": "رؤوف خليف",
+    "answers": [
+      "رؤوف خليف"
+    ],
+    "title": "تعليق رياضي",
+    "type": "voice",
+    "audio": "audio/voice-25.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/61ebd29c-63e3-4990-8484-4d402d943677",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-26",
+    "name": "أحمد حلمي",
+    "answers": [
+      "أحمد حلمي",
+      "احمد حلمي"
+    ],
+    "title": "مفيش أخبار عن فريدة",
+    "type": "voice",
+    "audio": "audio/voice-26.wav",
+    "duration": 6.8,
+    "source": "https://www.myinstants.com/en/instant/mfysh-khbr-n-fryd-56983/",
+    "attribution": "اسم المتحدث حسب وصف المصدر"
+  },
+  {
+    "id": "voice-27",
+    "name": "فهد سال",
+    "answers": [
+      "فهد سال"
+    ],
+    "title": "ميم فهد سال",
+    "type": "voice",
+    "audio": "audio/voice-27.wav",
+    "duration": 6.8,
+    "source": "https://tuna.voicemod.net/sound/60a9ee32-e980-4e71-8695-c645a001ecd6",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-22",
+    "name": "محمد سعد",
+    "answers": [
+      "محمد سعد"
+    ],
+    "title": "كتكوت",
+    "type": "voice",
+    "audio": "audio/voice-22.wav",
+    "duration": 3.0,
+    "source": "https://tuna.voicemod.net/sound/6f265088-d9f9-4a2e-b17c-3a4ed4db9fea",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-28",
+    "name": "عادل إمام",
+    "answers": [
+      "عادل إمام"
+    ],
+    "title": "قلبك عامر بالإيمان",
+    "type": "voice",
+    "audio": "audio/voice-28.wav",
+    "duration": 2.458,
+    "source": "https://www.voicy.network/sounds/yrL2r6Y4y0S_cluxAmuUlg-",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-29",
+    "name": "أبو فلة",
+    "answers": [
+      "أبو فلة"
+    ],
+    "title": "ربي ارحمني",
+    "type": "voice",
+    "audio": "audio/voice-29.wav",
+    "duration": 6.8,
+    "source": "https://www.voicy.network/sounds/8ozL03kByky38TWZNev7VQ-",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-31",
+    "name": "بهجت صابر",
+    "answers": [
+      "بهجت صابر"
+    ],
+    "title": "أستاذ لغة عربية",
+    "type": "voice",
+    "audio": "audio/voice-31.wav",
+    "duration": 5.783,
+    "source": "https://www.myinstants.com/en/instant/bhjt-sbr-stdh-lg-rby-52544/",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-30",
+    "name": "أيمن قنديل",
+    "answers": [
+      "أيمن قنديل"
+    ],
+    "title": "أيوه كده يا وديع",
+    "type": "voice",
+    "audio": "audio/voice-30.wav",
+    "duration": 5.448,
+    "source": "https://www.voicy.network/sounds/iGWIJZnNdEa8fsfaOVC_3A-",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  },
+  {
+    "id": "voice-32",
+    "name": "إسماعيل ياسين",
+    "answers": [
+      "إسماعيل ياسين"
+    ],
+    "title": "مونولوج ما تستعجبشي",
+    "type": "voice",
+    "audio": "audio/voice-32.wav",
+    "duration": 3.0,
+    "source": "https://tuna.voicemod.net/sound/3a887a8b-1d2a-4f80-bb1d-6e226e69895e",
+    "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"
+  }
+]

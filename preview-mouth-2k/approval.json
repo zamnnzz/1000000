@@ -1,0 +1,211 @@
+[
+  {
+    "name": "عبدالمجيد عبدالله",
+    "image": "preview-mouth-2k/candidate-2.jpg",
+    "size": [
+      3000,
+      3000
+    ],
+    "crop": [
+      1090,
+      1200,
+      860,
+      430
+    ],
+    "face": [
+      750,
+      430,
+      1500,
+      1900
+    ],
+    "source": "https://rotanamusic.com/ar/talents",
+    "old": {
+      "id": "saudi-28-mouth",
+      "name": "عبدالمجيد عبدالله",
+      "answers": [
+        "عبدالمجيد عبدالله"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-11.webp\" width=\"1200\" height=\"610\"/>",
+      "image": "portraits/mouth-final/mouth-11.webp",
+      "crop": [
+        457,
+        391,
+        284,
+        99
+      ],
+      "source": "https://www.foochia.com/archive/429095",
+      "imageSize": [
+        1200,
+        610
+      ],
+      "revealCrop": [
+        360,
+        23,
+        479,
+        587
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  },
+  {
+    "name": "راشد الماجد",
+    "image": "preview-mouth-2k/rotana-0.png",
+    "size": [
+      3000,
+      3000
+    ],
+    "crop": [
+      995,
+      1165,
+      860,
+      430
+    ],
+    "face": [
+      680,
+      350,
+      1750,
+      2000
+    ],
+    "source": "https://rotanamusic.com/ar/talents",
+    "old": {
+      "id": "saudi-27-mouth",
+      "name": "راشد الماجد",
+      "answers": [
+        "راشد الماجد",
+        "راشد"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-10.jpg\" width=\"960\" height=\"806\"/>",
+      "image": "portraits/mouth-final/mouth-10.jpg",
+      "crop": [
+        329,
+        499,
+        442,
+        180
+      ],
+      "source": "https://www.hiamag.com/%D8%A8%D8%B1%D9%88%D9%81%D9%8A%D9%84/189426-%D8%B1%D8%A7%D8%B4%D8%AF-%D8%A7%D9%84%D9%85%D8%A7%D8%AC%D8%AF%D8%A7%D9%84%D8%B3%D9%86%D8%AF%D8%A8%D8%A7%D8%AF-%D8%A7%D9%84%D8%A3%D8%B3%D9%85%D8%B1",
+      "imageSize": [
+        960,
+        806
+      ],
+      "revealCrop": [
+        178,
+        0,
+        744,
+        806
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  },
+  {
+    "name": "رابح صقر",
+    "image": "preview-mouth-2k/rotana-7.png",
+    "size": [
+      3000,
+      3000
+    ],
+    "crop": [
+      1050,
+      1145,
+      860,
+      430
+    ],
+    "face": [
+      750,
+      400,
+      1700,
+      2000
+    ],
+    "source": "https://rotanamusic.com/ar/talents",
+    "old": {
+      "id": "saudi-29-mouth",
+      "name": "رابح صقر",
+      "answers": [
+        "رابح صقر"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-12.jpg\" width=\"1258\" height=\"890\"/>",
+      "image": "portraits/mouth-final/mouth-12.jpg",
+      "crop": [
+        425,
+        389,
+        339,
+        138
+      ],
+      "source": "https://etbilarabi.com/%D9%85%D9%8A%D9%83%D8%B3/%D8%B1%D8%A7%D8%A8%D8%AD-%D8%B5%D9%82%D8%B1-%D9%8A%D9%87%D8%AF%D9%8A-%D9%86%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D9%86%D8%B5%D8%B1-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-%D8%A3%D8%BA%D9%86%D9%8A%D8%A9-%D8%A3%D9%86%D8%AA-%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+      "imageSize": [
+        1258,
+        890
+      ],
+      "revealCrop": [
+        309,
+        0,
+        571,
+        714
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  },
+  {
+    "name": "عبادي الجوهر",
+    "image": "preview-mouth-2k/rotana-14.png",
+    "size": [
+      3000,
+      3000
+    ],
+    "crop": [
+      1000,
+      1185,
+      860,
+      430
+    ],
+    "face": [
+      950,
+      400,
+      1600,
+      1900
+    ],
+    "source": "https://rotanamusic.com/ar/talents",
+    "old": {
+      "id": "saudi-07-mouth",
+      "name": "عبادي الجوهر",
+      "answers": [
+        "عبادي الجوهر"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-03.jpg\" width=\"1418\" height=\"1080\"/>",
+      "image": "portraits/mouth-final/mouth-03.jpg",
+      "crop": [
+        468,
+        544,
+        385,
+        157
+      ],
+      "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/1783316-%D9%85%D9%81%D8%A7%D8%AC%D8%A3%D8%A9-%D8%AD%D9%81%D9%84-%D9%84%D9%8A%D9%84%D8%A9-%D9%88%D8%B1%D8%AF%D8%A9-%D8%AA%D9%83%D8%B1%D9%8A%D9%85-%D8%A7%D9%84%D9%81%D9%86%D8%A7%D9%86-%D8%B9%D8%A8%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D8%AC%D9%88%D9%87%D8%B1-%D9%88%D8%BA%D9%86%D8%A7%D8%A1%D9%87-%D8%B2%D9%85%D8%A7%D9%86-%D9%85%D8%A7-%D8%B2%D9%85%D8%A7%D9%86%D9%8A",
+      "imageSize": [
+        1418,
+        1080
+      ],
+      "revealCrop": [
+        336,
+        68,
+        648,
+        810
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "عبدالرحمن غريب",
+    "image": "portraits/new30/sport-23.jpg",
+    "size": [
+      3886,
+      2959
+    ],
+    "crop": [
+      2190,
+      840,
+      630,
+      315
+    ],
+    "face": [
+      2140,
+      260,
+      720,
+      1070
+    ],
+    "source": "https://www.winwin.com/%D9%83%D8%B1%D8%A9-%D9%82%D8%AF%D9%85/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A7%D9%84%D9%83%D8%B4%D9%81-%D8%B9%D9%86-%D9%82%D9%8A%D9%85%D8%A9-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86-%D8%BA%D8%B1%D9%8A%D8%A8-%D9%84%D9%86%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D9%86%D8%B5%D8%B1-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A",
+    "old": {
+      "id": "reviewed-saudi-15-mouth",
+      "name": "عبدالرحمن غريب",
+      "answers": [
+        "عبدالرحمن غريب"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "image": "portraits/new30/sport-23.jpg",
+      "imageSize": [
+        3886,
+        2959
+      ],
+      "crop": [
+        2250,
+        950,
+        449,
+        161
+      ],
+      "revealCrop": [
+        2096,
+        373,
+        756,
+        946
+      ],
+      "largeDisplay": true,
+      "source": "https://www.winwin.com/%D9%83%D8%B1%D8%A9-%D9%82%D8%AF%D9%85/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A7%D9%84%D9%83%D8%B4%D9%81-%D8%B9%D9%86-%D9%82%D9%8A%D9%85%D8%A9-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86-%D8%BA%D8%B1%D9%8A%D8%A8-%D9%84%D9%86%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D9%86%D8%B5%D8%B1-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A",
+      "originalSource": "https://www.winwin.com/sites/default/files/2022-08/%D8%B9%D8%A8%D8%AF%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86%20%D8%BA%D8%B1%D9%8A%D8%A8.jpg",
+      "nationality": "سعودي",
+      "gender": "male",
+      "reviewed": true,
+      "svg": "<image href=\"portraits/new30/sport-23.jpg\" width=\"3886\" height=\"2959\"/>",
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

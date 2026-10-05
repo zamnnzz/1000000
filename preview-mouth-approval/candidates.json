@@ -1,0 +1,211 @@
+[
+  {
+    "name": "عايض يوسف",
+    "image": "preview-mouth-approval/candidate-021.jpg",
+    "size": [
+      1920,
+      920
+    ],
+    "crop": [
+      711,
+      356,
+      350,
+      140
+    ],
+    "face": [
+      601,
+      0,
+      568,
+      677
+    ],
+    "source": "https://alnahdanews.com/article/166011-%D8%B5%D9%88%D8%B1-%D8%B9%D9%82%D8%AF-%D9%82%D8%B1%D8%A7%D9%86-%D8%B9%D8%A7%D9%8A%D8%B6-%D9%8A%D9%88%D8%B3%D9%81-%D8%AA%D8%B4%D8%B9%D9%84-%D9%85%D9%86%D8%B5%D8%A7%D8%AA-%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84-%D9%88%D8%A7%D9%84%D8%AC%D9%85%D9%87%D9%88%D8%B1-%D9%8A%D8%AD%D8%AA%D9%81%D9%84",
+    "old": {
+      "id": "saudi-09-mouth",
+      "name": "عايض يوسف",
+      "answers": [
+        "عايض يوسف",
+        "عايض"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/hq/saudi-09-clear.jpg\" width=\"963\" height=\"1200\"/>",
+      "image": "portraits/hq/saudi-09-clear.jpg",
+      "crop": [
+        325,
+        662,
+        410,
+        167
+      ],
+      "source": "https://www.pinterest.com/pin/ayed-in-2024--1090645234779171305/",
+      "imageSize": [
+        963,
+        1200
+      ],
+      "revealCrop": [
+        184,
+        154,
+        691,
+        864
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  },
+  {
+    "name": "علي المدفع",
+    "image": "preview-mouth-approval/candidate-059.jpg",
+    "size": [
+      1200,
+      731
+    ],
+    "crop": [
+      428,
+      334,
+      338,
+      135
+    ],
+    "face": [
+      323,
+      0,
+      549,
+      654
+    ],
+    "source": "https://www.eremnews.com/latest-news/8fxfnta5ge",
+    "old": {
+      "id": "saudi-25-mouth",
+      "name": "علي المدفع",
+      "answers": [
+        "علي المدفع"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/men/saudi-25.jpg\" width=\"1200\" height=\"731\"/>",
+      "image": "portraits/men/saudi-25.jpg",
+      "crop": [
+        434,
+        349,
+        325,
+        132
+      ],
+      "source": "https://saudipedia.com/en/article/3477/figures/intellectuals-and-artists/ali-al-mdfa",
+      "imageSize": [
+        1200,
+        731
+      ],
+      "revealCrop": [
+        323,
+        0,
+        547,
+        683
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  },
+  {
+    "name": "رابح صقر",
+    "image": "preview-mouth-approval/candidate-080.jpg",
+    "size": [
+      1200,
+      610
+    ],
+    "crop": [
+      440,
+      385,
+      312,
+      125
+    ],
+    "face": [
+      342,
+      50,
+      507,
+      560
+    ],
+    "source": "https://www.foochia.com/archive/420419",
+    "old": {
+      "id": "saudi-29-mouth",
+      "name": "رابح صقر",
+      "answers": [
+        "رابح صقر"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-12.jpg\" width=\"1258\" height=\"890\"/>",
+      "image": "portraits/mouth-final/mouth-12.jpg",
+      "crop": [
+        425,
+        389,
+        339,
+        138
+      ],
+      "source": "https://etbilarabi.com/%D9%85%D9%8A%D9%83%D8%B3/%D8%B1%D8%A7%D8%A8%D8%AD-%D8%B5%D9%82%D8%B1-%D9%8A%D9%87%D8%AF%D9%8A-%D9%86%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D9%86%D8%B5%D8%B1-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-%D8%A3%D8%BA%D9%86%D9%8A%D8%A9-%D8%A3%D9%86%D8%AA-%D8%A7%D9%84%D8%A3%D9%88%D9%84",
+      "imageSize": [
+        1258,
+        890
+      ],
+      "revealCrop": [
+        309,
+        0,
+        571,
+        714
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  },
+  {
+    "name": "عبدالمجيد عبدالله",
+    "image": "preview-mouth-approval/candidate-071.jpg",
+    "size": [
+      1200,
+      675
+    ],
+    "crop": [
+      453,
+      408,
+      290,
+      116
+    ],
+    "face": [
+      363,
+      96,
+      472,
+      563
+    ],
+    "source": "https://www.foochia.com/archive/461259",
+    "old": {
+      "id": "saudi-28-mouth",
+      "name": "عبدالمجيد عبدالله",
+      "answers": [
+        "عبدالمجيد عبدالله"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-11.webp\" width=\"1200\" height=\"610\"/>",
+      "image": "portraits/mouth-final/mouth-11.webp",
+      "crop": [
+        457,
+        391,
+        284,
+        99
+      ],
+      "source": "https://www.foochia.com/archive/429095",
+      "imageSize": [
+        1200,
+        610
+      ],
+      "revealCrop": [
+        360,
+        23,
+        479,
+        587
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

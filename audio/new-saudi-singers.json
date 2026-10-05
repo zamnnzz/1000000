@@ -1,0 +1,302 @@
+[
+  {
+    "id": "saudi-singer-01",
+    "name": "راشد الفارس",
+    "answers": [
+      "راشد الفارس"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-01.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/al-hawa-ghallab/1607379437?i=1607379731&uo=4",
+    "artist": "Rashed Al Fares",
+    "title": "Al Hawa Ghallab",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-02",
+    "name": "إسماعيل مبارك",
+    "answers": [
+      "إسماعيل مبارك"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-02.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/ya-mtsayed/1814902593?i=1814902594&uo=4",
+    "artist": "Ismail Mubarak",
+    "title": "Ya Mtsayed",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-03",
+    "name": "إبراهيم الحكمي",
+    "answers": [
+      "إبراهيم الحكمي"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-03.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/sho-beni/386164700?i=386164898&uo=4",
+    "artist": "Ibrahim Al Hakami",
+    "title": "Sho Beni",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-04",
+    "name": "سلطان المرشد",
+    "answers": [
+      "سلطان المرشد"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-04.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/wala-ghaltah/1625826944?i=1625826953&uo=4",
+    "artist": "Sultan Al Murshed",
+    "title": "Wala Ghaltah",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-05",
+    "name": "راكان خالد",
+    "answers": [
+      "راكان خالد"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-05.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/qaleel-al-hz/952257635?i=952257648&uo=4",
+    "artist": "Rakan Khalid",
+    "title": "Qaleel Al Hz",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-06",
+    "name": "أصيل أبو بكر",
+    "answers": [
+      "أصيل أبو بكر"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-06.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/ya-samar/1310527608?i=1310527615&uo=4",
+    "artist": "Aseel Abou Bakr",
+    "title": "Ya Samar",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-07",
+    "name": "طلال سلامة",
+    "answers": [
+      "طلال سلامة"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-07.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/ma-khafeytak-bi-galbi/1781235637?i=1781235889&uo=4",
+    "artist": "Talal Salamah",
+    "title": "Ma Khafeytak Bi Galbi",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-08",
+    "name": "مزعل فرحان",
+    "answers": [
+      "مزعل فرحان"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-08.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/khazt-thari/977008100?i=977008105&uo=4",
+    "artist": "Mizel Farhan",
+    "title": "Khazt Thari",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-09",
+    "name": "عبدالعزيز المنصور",
+    "answers": [
+      "عبدالعزيز المنصور"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-09.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/wala-raddeet/1599770130?i=1599770132&uo=4",
+    "artist": "Abdulaziz Al Mansour",
+    "title": "Wala Raddeet",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-10",
+    "name": "فهد العمري",
+    "answers": [
+      "فهد العمري"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-10.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/saab-afhamek/1824649750?i=1824649942&uo=4",
+    "artist": "Fahad Alamri",
+    "title": "Saab Afhamek",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-11",
+    "name": "عبدالله المانع",
+    "answers": [
+      "عبدالله المانع"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-11.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/md-alsneen/1522895851?i=1522895853&uo=4",
+    "artist": "Abdullah Al Manea",
+    "title": "Md Alsneen",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-12",
+    "name": "عبدالعزيز المعنى",
+    "answers": [
+      "عبدالعزيز المعنى"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-12.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/an-qanaah/1824646173?i=1824646175&uo=4",
+    "artist": "Abdulaziz Elmuanna",
+    "title": "An Qanaah",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-13",
+    "name": "محمد عمر",
+    "answers": [
+      "محمد عمر"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-13.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/%D9%85%D8%AD%D9%85%D8%AF-%D8%B9%D9%85%D8%B1-%D8%A8%D8%B9%D9%84%D9%86-%D8%B9%D9%84%D9%8A%D9%87%D8%A7-%D8%A7%D9%84%D8%AD%D8%A8/1812111638?i=1812111639&uo=4",
+    "artist": "Mohammed Omer",
+    "title": "محمد عمر - بعلن عليها الحب",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-14",
+    "name": "دحوم الطلاّس",
+    "answers": [
+      "دحوم الطلاّس"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-14.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/%D9%8A%D8%A7-%D8%AC%D9%85%D8%A7%D8%B9%D8%A9/1874451490?i=1874451491&uo=4",
+    "artist": "دحوم الطلاسي",
+    "title": "يا جماعة",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-15",
+    "name": "محمد السليمان",
+    "answers": [
+      "محمد السليمان"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-15.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/ya-leit/979044230?i=979044243&uo=4",
+    "artist": "Mohammad Al Suleiman",
+    "title": "Ya Leit",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-16",
+    "name": "غريب آل مخلص",
+    "answers": [
+      "غريب آل مخلص"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-16.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/%D9%8A%D8%A7%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%B1%D9%88%D8%AD/1874673160?i=1874673172&uo=4",
+    "artist": "Ghareeb Almokhles",
+    "title": "ياروح الروح",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-17",
+    "name": "عبدالله آل مخلص",
+    "answers": [
+      "عبدالله آل مخلص"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-17.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/%D8%AA%D8%B1%D8%AC%D9%8A%D8%AA%D9%83-%D8%AA%D8%B1%D9%88%D9%81-feat-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87-%D8%A7%D9%84-%D9%85%D8%AE%D9%84%D8%B5/1874688627?i=1874688788&uo=4",
+    "artist": "Ghareeb Almokhles",
+    "title": "ترجيتك تروف (feat. عبدالله ال مخلص)",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-18",
+    "name": "عباس إبراهيم",
+    "answers": [
+      "عباس إبراهيم"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-18.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/fahem/506370349?i=506370356&uo=4",
+    "artist": "Abass Ibrahim",
+    "title": "Fahem",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-19",
+    "name": "عزازي",
+    "answers": [
+      "عزازي"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-19.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/%D9%85%D9%86-%D8%AD%D8%A8-%D9%85%D9%86-%D9%82%D9%84%D8%A8/1612939694?i=1612939715&uo=4",
+    "artist": "Azazi",
+    "title": "من حب من قلب",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  },
+  {
+    "id": "saudi-singer-20",
+    "name": "علي عبدالكريم",
+    "answers": [
+      "علي عبدالكريم"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-singer-20.wav",
+    "duration": 4.0,
+    "source": "https://music.apple.com/us/album/baher-al-etharah/524050694?i=524050695&uo=4",
+    "artist": "Ali Abdulkarim",
+    "title": "Baher Al Etharah",
+    "content": "مقتطف غنائي قصير من معاينة المصدر الرسمي"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "name": "صالح الزهيري",
+  "image": "portraits/mouth-final/mouth-20.jpg",
+  "size": [
+    3000,
+    3000
+  ],
+  "crop": [
+    1520,
+    1530,
+    940,
+    470
+  ],
+  "face": [
+    1490,
+    380,
+    1430,
+    1910
+  ],
+  "source": "https://www.shazam.com/song/1759866176/%D9%86%D8%B3%D8%A7%D9%86%D9%8A%D8%B3-%D8%A7%D9%84%D8%AE%D8%B1%D9%8A%D9%81",
+  "old": {
+    "id": "saudi-43-mouth",
+    "name": "صالح الزهيري",
+    "answers": [
+      "صالح الزهيري"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "svg": "<image href=\"portraits/mouth-final/mouth-20.jpg\" width=\"3000\" height=\"3000\"/>",
+    "image": "portraits/mouth-final/mouth-20.jpg",
+    "crop": [
+      1538,
+      1571,
+      811,
+      311
+    ],
+    "source": "https://www.shazam.com/song/1759866176/%D9%86%D8%B3%D8%A7%D9%86%D9%8A%D8%B3-%D8%A7%D9%84%D8%AE%D8%B1%D9%8A%D9%81",
+    "imageSize": [
+      3000,
+      3000
+    ],
+    "revealCrop": [
+      1261,
+      548,
+      1366,
+      1707
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6
+  },
+  "status": "pending_approval"
+}

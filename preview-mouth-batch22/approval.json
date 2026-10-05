@@ -1,0 +1,54 @@
+[
+  {
+    "name": "ابراهيم الحساوي",
+    "image": "portraits/mouth-final/mouth-08.jpg",
+    "size": [
+      1789,
+      1080
+    ],
+    "crop": [
+      555,
+      600,
+      660,
+      330
+    ],
+    "face": [
+      510,
+      0,
+      1020,
+      1080
+    ],
+    "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1782261-%D8%B4%D8%A7%D9%87%D8%AF%D9%88%D8%A7-%D8%A5%D8%A8%D8%B1%D8%A7%D9%87%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D8%B3%D8%A7%D9%88%D9%8A-%D9%8A%D9%86%D8%B4%D8%B1-%D8%AA%D9%83%D8%B1%D9%8A%D9%85-%D8%A3%D8%A8%D8%B7%D8%A7%D9%84-%D8%AE%D9%8A%D9%88%D8%B7-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B2%D9%8A%D8%A8-%D9%85%D9%86-%D9%82%D8%A8%D9%84-%D9%85%D8%AD%D8%A7%D9%81%D8%B8",
+    "old": {
+      "id": "saudi-24-mouth",
+      "name": "ابراهيم الحساوي",
+      "answers": [
+        "ابراهيم الحساوي"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-08.jpg\" width=\"1789\" height=\"1080\"/>",
+      "image": "portraits/mouth-final/mouth-08.jpg",
+      "crop": [
+        582,
+        684,
+        567,
+        231
+      ],
+      "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1782261-%D8%B4%D8%A7%D9%87%D8%AF%D9%88%D8%A7-%D8%A5%D8%A8%D8%B1%D8%A7%D9%87%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D8%B3%D8%A7%D9%88%D9%8A-%D9%8A%D9%86%D8%B4%D8%B1-%D8%AA%D9%83%D8%B1%D9%8A%D9%85-%D8%A3%D8%A8%D8%B7%D8%A7%D9%84-%D8%AE%D9%8A%D9%88%D8%B7-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B2%D9%8A%D8%A8-%D9%85%D9%86-%D9%82%D8%A8%D9%84-%D9%85%D8%AD%D8%A7%D9%81%D8%B8",
+      "imageSize": [
+        1789,
+        1080
+      ],
+      "revealCrop": [
+        388,
+        0,
+        955,
+        1080
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

@@ -1,0 +1,333 @@
+[
+  {
+    "id": "creator-eye-01",
+    "name": "أبو نوح",
+    "answers": [
+      "ابو نوح",
+      "أبو نوح",
+      "abunoo7"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-01.jpg",
+    "imageSize": [
+      1638,
+      2048
+    ],
+    "crop": [
+      487,
+      637,
+      685,
+      204
+    ],
+    "revealCrop": [
+      363,
+      243,
+      933,
+      1166
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-01.jpg\" width=\"1638\" height=\"2048\"/>",
+    "source": "https://x.com/POWReSports/status/1785768246844518906"
+  },
+  {
+    "id": "creator-eye-02",
+    "name": "فيرفول",
+    "answers": [
+      "فيرفول",
+      "فيرفل",
+      "ffearfful"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-02.jpg",
+    "imageSize": [
+      1638,
+      2048
+    ],
+    "crop": [
+      452,
+      930,
+      600,
+      235
+    ],
+    "revealCrop": [
+      405,
+      590,
+      805,
+      1080
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-02.jpg\" width=\"1638\" height=\"2048\"/>",
+    "source": "https://x.com/CcNewss/status/2032844122151591999"
+  },
+  {
+    "id": "creator-eye-03",
+    "name": "كمستكا",
+    "answers": [
+      "كمستكا",
+      "عزوز",
+      "kmstka"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/kmstka-correct.jpg",
+    "imageSize": [
+      1200,
+      1123
+    ],
+    "crop": [
+      160,
+      300,
+      740,
+      230
+    ],
+    "revealCrop": [
+      85,
+      0,
+      1020,
+      1123
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/kmstka-correct.jpg\" width=\"1200\" height=\"1123\"/>",
+    "source": "https://www.pinterest.com/pin/1080863979311456993/"
+  },
+  {
+    "id": "creator-eye-04",
+    "name": "فيروس",
+    "answers": [
+      "فيروس",
+      "طلال",
+      "virus"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-04.jpg",
+    "imageSize": [
+      1638,
+      2048
+    ],
+    "crop": [
+      549,
+      639,
+      555,
+      165
+    ],
+    "revealCrop": [
+      448,
+      320,
+      755,
+      944
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-04.jpg\" width=\"1638\" height=\"2048\"/>",
+    "source": "https://x.com/virussyy"
+  },
+  {
+    "id": "creator-eye-05",
+    "name": "توبز",
+    "answers": [
+      "توبز",
+      "topz"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-05.jpg",
+    "imageSize": [
+      2000,
+      2000
+    ],
+    "crop": [
+      1310,
+      565,
+      460,
+      205
+    ],
+    "revealCrop": [
+      1293,
+      425,
+      493,
+      840
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-05.jpg\" width=\"2000\" height=\"2000\"/>",
+    "source": "https://x.com/tu_topz"
+  },
+  {
+    "id": "creator-eye-06",
+    "name": "عادل",
+    "answers": [
+      "عادل",
+      "عادل فالكون",
+      "3adel"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-06.jpg",
+    "imageSize": [
+      1638,
+      2048
+    ],
+    "crop": [
+      566,
+      585,
+      510,
+      155
+    ],
+    "revealCrop": [
+      530,
+      358,
+      588,
+      734
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-06.jpg\" width=\"1638\" height=\"2048\"/>",
+    "source": "https://x.com/3adel_ss"
+  },
+  {
+    "id": "creator-eye-07",
+    "name": "سعود كاست",
+    "answers": [
+      "سعود كاست",
+      "سعودكاست",
+      "saudcast"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-07.jpg",
+    "imageSize": [
+      2160,
+      2600
+    ],
+    "crop": [
+      815,
+      565,
+      620,
+      275
+    ],
+    "revealCrop": [
+      720,
+      170,
+      1040,
+      1240
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-07.jpg\" width=\"2160\" height=\"2600\"/>",
+    "source": "https://x.com/TeamFalconsGG/status/1926684524185866741"
+  },
+  {
+    "id": "creator-eye-08",
+    "name": "طرباخ",
+    "answers": [
+      "طرباخ",
+      "ترباخ",
+      "i6rba5"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-08.jpg",
+    "imageSize": [
+      3000,
+      4000
+    ],
+    "crop": [
+      726,
+      1175,
+      1166,
+      347
+    ],
+    "revealCrop": [
+      515,
+      505,
+      1587,
+      1984
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-08.jpg\" width=\"3000\" height=\"4000\"/>",
+    "source": "https://www.momentsa.com/6rba5"
+  },
+  {
+    "id": "creator-eye-09",
+    "name": "بودي قيمر",
+    "answers": [
+      "بودي قيمر",
+      "بودي جيمر",
+      "بودي",
+      "bode",
+      "bodi"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-09.jpg",
+    "imageSize": [
+      3000,
+      4000
+    ],
+    "crop": [
+      996,
+      1167,
+      1228,
+      366
+    ],
+    "revealCrop": [
+      774,
+      462,
+      1672,
+      2090
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-09.jpg\" width=\"3000\" height=\"4000\"/>",
+    "source": "https://www.momentsa.com/bode"
+  },
+  {
+    "id": "creator-eye-10",
+    "name": "مصعب المالكي",
+    "answers": [
+      "مصعب المالكي",
+      "مصعب",
+      "mosab almalki"
+    ],
+    "type": "eye",
+    "cat": "من عينه",
+    "image": "portraits/creator-eyes/creator-eye-10.png",
+    "imageSize": [
+      3000,
+      4000
+    ],
+    "crop": [
+      908,
+      1145,
+      1160,
+      346
+    ],
+    "revealCrop": [
+      698,
+      479,
+      1580,
+      1974
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6,
+    "svg": "<image href=\"portraits/creator-eyes/creator-eye-10.png\" width=\"3000\" height=\"4000\"/>",
+    "source": "https://www.momentsa.com/mosab-almalki"
+  }
+]

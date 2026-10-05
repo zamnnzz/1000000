@@ -1,0 +1,802 @@
+[
+  {
+    "name": "بندريتا",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-14-eye.jpg",
+    "size": [
+      1080,
+      1080
+    ],
+    "fhd": false
+  },
+  {
+    "name": "دحومي 999",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-15-eye.jpg",
+    "size": [
+      1538,
+      2048
+    ],
+    "fhd": true
+  },
+  {
+    "name": "شونق بونق",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-16-eye.jpg",
+    "size": [
+      1283,
+      1439
+    ],
+    "fhd": false
+  },
+  {
+    "name": "ابو عبير",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-17-eye.jpg",
+    "size": [
+      1200,
+      1165
+    ],
+    "fhd": false
+  },
+  {
+    "name": "دربحه",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-42-eye.jpg",
+    "size": [
+      2160,
+      2700
+    ],
+    "fhd": true
+  },
+  {
+    "name": "غازي الذيابي",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-01-eye.jpg",
+    "size": [
+      1024,
+      835
+    ],
+    "fhd": false
+  },
+  {
+    "name": "ابراهيم العسيري",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-02-eye.jpg",
+    "size": [
+      900,
+      900
+    ],
+    "fhd": false
+  },
+  {
+    "name": "منصور الرقيبة",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-03-eye.jpg",
+    "size": [
+      1373,
+      1030
+    ],
+    "fhd": false
+  },
+  {
+    "name": "فهد البتيري",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-04-eye.jpg",
+    "size": [
+      1756,
+      2000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "خالد صقر",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-11-eye.jpg",
+    "size": [
+      1761,
+      1080
+    ],
+    "fhd": false
+  },
+  {
+    "name": "طارق الحربي",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-34-eye.jpg",
+    "size": [
+      1000,
+      667
+    ],
+    "fhd": false
+  },
+  {
+    "name": "ابو فلة",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-37-eye.jpg",
+    "size": [
+      1080,
+      1350
+    ],
+    "fhd": false
+  },
+  {
+    "name": "يزيد الراجحي",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-36-eye.jpg",
+    "size": [
+      2000,
+      2000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "عبدالرحمن المطيري",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-41-eye.jpg",
+    "size": [
+      1255,
+      1133
+    ],
+    "fhd": false
+  },
+  {
+    "name": "عبدالله السدحان",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-21-eye.jpg",
+    "size": [
+      6000,
+      4000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "عبدالإله السناني",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-23-eye.jpg",
+    "size": [
+      802,
+      835
+    ],
+    "fhd": false
+  },
+  {
+    "name": "ناصر القصبي",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-20-eye.jpg",
+    "size": [
+      1280,
+      960
+    ],
+    "fhd": false
+  },
+  {
+    "name": "محمد عبده",
+    "type": "eye",
+    "image": "portraits/hq/saudi-26.jpg",
+    "size": [
+      2208,
+      1080
+    ],
+    "fhd": true
+  },
+  {
+    "name": "خالد عبدالرحمن",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-08-eye.jpg",
+    "size": [
+      1600,
+      900
+    ],
+    "fhd": false
+  },
+  {
+    "name": "محمد العيسى",
+    "type": "eye",
+    "image": "portraits/eyes-upgrade/saudi-40-eye.jpg",
+    "size": [
+      1375,
+      1054
+    ],
+    "fhd": false
+  },
+  {
+    "name": "عبدالمحسن النمر",
+    "type": "eye",
+    "image": "portraits/new30/candidate-14.jpg",
+    "size": [
+      8256,
+      5504
+    ],
+    "fhd": true
+  },
+  {
+    "name": "محمد الربيعي",
+    "type": "eye",
+    "image": "portraits/new30/new-01.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "علي لاجامي",
+    "type": "eye",
+    "image": "portraits/new30/new-02.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "محمد العويس",
+    "type": "eye",
+    "image": "portraits/new30/new-03.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "ناصر الدوسري",
+    "type": "eye",
+    "image": "portraits/new30/new-04.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "متعب الحربي",
+    "type": "eye",
+    "image": "portraits/new30/new-05.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "محمد كنو",
+    "type": "eye",
+    "image": "portraits/new30/new-06.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "سالم الدوسري",
+    "type": "eye",
+    "image": "portraits/new30/new-07.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "حسان تمبكتي",
+    "type": "eye",
+    "image": "portraits/new30/new-08.png",
+    "size": [
+      2016,
+      3053
+    ],
+    "fhd": true
+  },
+  {
+    "name": "عبدالله الحمدان",
+    "type": "eye",
+    "image": "portraits/new30/last-11.jpg",
+    "size": [
+      1920,
+      1080
+    ],
+    "fhd": true
+  },
+  {
+    "name": "أبو نوح",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-01.jpg",
+    "size": [
+      1638,
+      2048
+    ],
+    "fhd": true
+  },
+  {
+    "name": "فيرفول",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-02.jpg",
+    "size": [
+      1638,
+      2048
+    ],
+    "fhd": true
+  },
+  {
+    "name": "كمستكا",
+    "type": "eye",
+    "image": "portraits/creator-eyes/kmstka-correct.jpg",
+    "size": [
+      1200,
+      1123
+    ],
+    "fhd": false
+  },
+  {
+    "name": "فيروس",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-04.jpg",
+    "size": [
+      1638,
+      2048
+    ],
+    "fhd": true
+  },
+  {
+    "name": "توبز",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-05.jpg",
+    "size": [
+      2000,
+      2000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "عادل",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-06.jpg",
+    "size": [
+      1638,
+      2048
+    ],
+    "fhd": true
+  },
+  {
+    "name": "سعود كاست",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-07.jpg",
+    "size": [
+      2160,
+      2600
+    ],
+    "fhd": true
+  },
+  {
+    "name": "طرباخ",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-08.jpg",
+    "size": [
+      3000,
+      4000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "بودي قيمر",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-09.jpg",
+    "size": [
+      3000,
+      4000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "مصعب المالكي",
+    "type": "eye",
+    "image": "portraits/creator-eyes/creator-eye-10.png",
+    "size": [
+      3000,
+      4000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "طلال مداح",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-01.jpg",
+    "size": [
+      720,
+      1280
+    ],
+    "fhd": false
+  },
+  {
+    "name": "هشام فقيه",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-02.jpg",
+    "size": [
+      854,
+      1024
+    ],
+    "fhd": false
+  },
+  {
+    "name": "عبادي الجوهر",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-03.jpg",
+    "size": [
+      1418,
+      1080
+    ],
+    "fhd": false
+  },
+  {
+    "name": "عايض يوسف",
+    "type": "mouth",
+    "image": "portraits/hq/saudi-09-clear.jpg",
+    "size": [
+      963,
+      1200
+    ],
+    "fhd": false
+  },
+  {
+    "name": "فيصل العيسى",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-05.jpg",
+    "size": [
+      1514,
+      1080
+    ],
+    "fhd": false
+  },
+  {
+    "name": "حبيب الحبيب",
+    "type": "mouth",
+    "image": "portraits/men/saudi-12.jpg",
+    "size": [
+      810,
+      810
+    ],
+    "fhd": false
+  },
+  {
+    "name": "فايز المالكي",
+    "type": "mouth",
+    "image": "portraits/men/saudi-22.jpg",
+    "size": [
+      1200,
+      675
+    ],
+    "fhd": false
+  },
+  {
+    "name": "ابراهيم الحساوي",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-08.jpg",
+    "size": [
+      1789,
+      1080
+    ],
+    "fhd": false
+  },
+  {
+    "name": "علي المدفع",
+    "type": "mouth",
+    "image": "portraits/men/saudi-25.jpg",
+    "size": [
+      1200,
+      731
+    ],
+    "fhd": false
+  },
+  {
+    "name": "راشد الماجد",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-10.jpg",
+    "size": [
+      960,
+      806
+    ],
+    "fhd": false
+  },
+  {
+    "name": "عبدالمجيد عبدالله",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-11.webp",
+    "size": [
+      1200,
+      610
+    ],
+    "fhd": false
+  },
+  {
+    "name": "رابح صقر",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-12.jpg",
+    "size": [
+      1258,
+      890
+    ],
+    "fhd": false
+  },
+  {
+    "name": "خالد الفراج",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-13.jpg",
+    "size": [
+      1956,
+      1080
+    ],
+    "fhd": true
+  },
+  {
+    "name": "يعقوب الفرحان",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-14.jpg",
+    "size": [
+      5760,
+      3840
+    ],
+    "fhd": true
+  },
+  {
+    "name": "عبدالعزيز الفريحي",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-15.png",
+    "size": [
+      1406,
+      800
+    ],
+    "fhd": false
+  },
+  {
+    "name": "علي الحميدي",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-16.jpg",
+    "size": [
+      675,
+      1200
+    ],
+    "fhd": false
+  },
+  {
+    "name": "أحمد الشقيري",
+    "type": "mouth",
+    "image": "portraits/men/saudi-35-quality.jpg",
+    "size": [
+      1080,
+      1080
+    ],
+    "fhd": false
+  },
+  {
+    "name": "حسن عسيري",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-18.jpg",
+    "size": [
+      2048,
+      1852
+    ],
+    "fhd": true
+  },
+  {
+    "name": "راشد الشمراني",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-19.webp",
+    "size": [
+      1600,
+      900
+    ],
+    "fhd": false
+  },
+  {
+    "name": "صالح الزهيري",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-20.jpg",
+    "size": [
+      3000,
+      3000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "سعيد صالح",
+    "type": "mouth",
+    "image": "portraits/new30/actor-12.jpg",
+    "size": [
+      6000,
+      4000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "نايف البحر",
+    "type": "mouth",
+    "image": "portraits/new30/laha-13.jpg",
+    "size": [
+      2048,
+      1152
+    ],
+    "fhd": true
+  },
+  {
+    "name": "أحمد الكعبي",
+    "type": "mouth",
+    "image": "portraits/new30/laha-14.jpg",
+    "size": [
+      2048,
+      1152
+    ],
+    "fhd": true
+  },
+  {
+    "name": "ياسر الرميان",
+    "type": "mouth",
+    "image": "portraits/new30/public-07.jpg",
+    "size": [
+      3333,
+      5000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "تركي آل الشيخ",
+    "type": "mouth",
+    "image": "portraits/new30/public-08.jpg",
+    "size": [
+      1701,
+      2266
+    ],
+    "fhd": true
+  },
+  {
+    "name": "سلطان بن سلمان",
+    "type": "mouth",
+    "image": "portraits/new30/public-09.jpg",
+    "size": [
+      2880,
+      1920
+    ],
+    "fhd": true
+  },
+  {
+    "name": "عبدالرحمن غريب",
+    "type": "mouth",
+    "image": "portraits/new30/sport-23.jpg",
+    "size": [
+      3886,
+      2959
+    ],
+    "fhd": true
+  },
+  {
+    "name": "غريب آل مخلص",
+    "type": "mouth",
+    "image": "portraits/new30/artist-16.jpg",
+    "size": [
+      3000,
+      3000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "بدر حكيم",
+    "type": "mouth",
+    "image": "portraits/new30/newer-17-01.jpg",
+    "size": [
+      3000,
+      3000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "إبراهيم الخيرالله",
+    "type": "mouth",
+    "image": "portraits/new30/creator-23.jpg",
+    "size": [
+      5302,
+      3534
+    ],
+    "fhd": true
+  },
+  {
+    "name": "مجرم قيمز",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-31.jpg",
+    "size": [
+      1638,
+      2048
+    ],
+    "fhd": true
+  },
+  {
+    "name": "خلودي 25",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-32.jpg",
+    "size": [
+      1152,
+      1440
+    ],
+    "fhd": false
+  },
+  {
+    "name": "مالك الروقي",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-33.png",
+    "size": [
+      2335,
+      2335
+    ],
+    "fhd": true
+  },
+  {
+    "name": "مشعل خالد",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-34.png",
+    "size": [
+      3000,
+      4000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "عبدالرحمن الشهري",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-35.png",
+    "size": [
+      3000,
+      4000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "نايف الظفيري",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-36.jpg",
+    "size": [
+      2000,
+      3000
+    ],
+    "fhd": true
+  },
+  {
+    "name": "ياسر السقاف",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-37.jpg",
+    "size": [
+      984,
+      1000
+    ],
+    "fhd": false
+  },
+  {
+    "name": "تركي اليوسف",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-38.jpg",
+    "size": [
+      780,
+      780
+    ],
+    "fhd": false
+  },
+  {
+    "name": "عبدالله المديفر",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-39.jpg",
+    "size": [
+      1200,
+      596
+    ],
+    "fhd": false
+  },
+  {
+    "name": "أحمد شو",
+    "type": "mouth",
+    "image": "portraits/mouth-final/mouth-40.jpg",
+    "size": [
+      1280,
+      720
+    ],
+    "fhd": false
+  }
+]

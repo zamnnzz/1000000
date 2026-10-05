@@ -1,0 +1,58 @@
+[
+  {
+    "name": "غريب آل مخلص",
+    "image": "portraits/new30/artist-16.jpg",
+    "size": [
+      3000,
+      3000
+    ],
+    "crop": [
+      670,
+      1080,
+      850,
+      425
+    ],
+    "face": [
+      410,
+      130,
+      1320,
+      1620
+    ],
+    "source": "https://music.apple.com/us/album/1874673160",
+    "old": {
+      "id": "reviewed-saudi-16-mouth",
+      "name": "غريب آل مخلص",
+      "answers": [
+        "غريب آل مخلص"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "image": "portraits/new30/artist-16.jpg",
+      "imageSize": [
+        3000,
+        3000
+      ],
+      "crop": [
+        740,
+        1161,
+        793,
+        324
+      ],
+      "revealCrop": [
+        469,
+        180,
+        1336,
+        1670
+      ],
+      "largeDisplay": true,
+      "source": "https://music.apple.com/us/album/%D9%8A%D8%A7%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D8%B1%D9%88%D8%AD/1874673160?i=1874673172&uo=4",
+      "originalSource": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/93/53/37/9353370e-a98f-1226-a8f6-352ca00f2520/6678990020076.jpg/3000x3000bb.jpg",
+      "nationality": "سعودي",
+      "gender": "male",
+      "reviewed": true,
+      "svg": "<image href=\"portraits/new30/artist-16.jpg\" width=\"3000\" height=\"3000\"/>",
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

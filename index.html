@@ -1,938 +1,115 @@
-
-
-
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Family Feud - Zamn Edition</title>
-    <style>
-:root { --gold-bright:#ffcc00; --blue-deep:#001a4d; --blue-light:#005cff; }
-* { box-sizing:border-box; }
-html { min-height:100%; }
-body { margin:0; min-height:100vh; min-height:100dvh; padding:clamp(10px,2vw,28px); display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at center,#003399 0%,#000 100%); color:white; font-family:'Arial Black',Arial,sans-serif; }
-.main-layout { width:100%; max-width:1280px; display:grid; grid-template-columns:minmax(100px, .22fr) minmax(0,1fr) minmax(100px,.22fr); gap:clamp(8px,1.5vw,22px); align-items:center; margin:auto; }
-.side { min-width:0; border:2px solid #444; border-radius:18px; padding:clamp(8px,1.5vw,18px); text-align:center; background:linear-gradient(180deg,#0a1a4d,#000); }
-.team-title { font-size:clamp(13px,1.6vw,21px); line-height:1.4; overflow-wrap:anywhere; margin-bottom:10px; }
-.team-score { background:#000; border:2px solid gold; border-radius:10px; font-size:clamp(22px,3vw,38px); padding:6px; margin-bottom:10px; overflow-wrap:anywhere; }
-.strikes { font-size:clamp(20px,2.6vw,32px); letter-spacing:2px; font-weight:bold; white-space:nowrap; }
-.center-board { min-width:0; border:3px solid gold; border-radius:20px; padding:clamp(12px,2vw,26px); background:linear-gradient(180deg,#001a4d,#000); }
-.round-box { width:fit-content; max-width:100%; margin:0 auto 12px; background:#000; border:2px solid gold; border-radius:10px; padding:5px 18px; text-align:center; color:var(--gold-bright); font-size:clamp(12px,1.3vw,16px); }
-.round-box div { color:white; font-size:clamp(22px,2.5vw,32px); font-weight:bold; }
-#qArea { text-align:center; font-size:clamp(18px,2.3vw,30px); margin:0 0 clamp(12px,2vh,22px); line-height:1.45; overflow-wrap:anywhere; font-weight:bold; }
-.answers-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(8px,1.2vw,14px); }
-.answer-slot { height:clamp(58px,10dvh,90px); min-width:0; perspective:1000px; cursor:pointer; }
-.card-flip { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; }
-.answer-slot.open .card-flip { transform:rotateX(180deg); }
-.card-face { position:absolute; width:100%; height:100%; backface-visibility:hidden; display:flex; align-items:center; border:2px solid white; border-radius:10px; background:linear-gradient(180deg,#4d7cff,#001a4d); }
-.face-front { justify-content:center; }
-.num-circle { width:32px; height:32px; border-radius:50%; background:var(--gold-bright); color:#000; border:2px solid white; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:900; }
-.face-back { transform:rotateX(180deg); justify-content:space-between; padding:5px clamp(6px,1vw,14px); gap:6px; font-size:clamp(14px,1.6vw,22px); font-weight:bold; }
-.face-back span { min-width:0; overflow-wrap:anywhere; line-height:1.3; }
-.points-box { flex-shrink:0; background:#000; color:white; border:1.5px solid white; border-radius:5px; padding:3px 7px; font-size:clamp(13px,1.5vw,20px); }
-#xOverlay { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); color:red; font-size:min(28vw,65dvh); font-weight:bold; display:none; z-index:9999; text-shadow:0 0 40px #000; pointer-events:none; }
-#buzzLink, #hostLink { min-width:0; direction:ltr; }
-#fastestBox { max-width:calc(100% - 24px); max-height:calc(100dvh - 24px); overflow:auto; overflow-wrap:anywhere; font-size:clamp(20px,4vw,32px) !important; }
-#copyToast { max-width:calc(100% - 24px); text-align:center; }
-
-/* Keep the same board composition and scale the entire stage together. */
-.board-viewport { position:relative; flex:none; }
-.main-layout { position:absolute; top:0; left:0; width:1100px; max-width:none; margin:0; grid-template-columns:160px minmax(0,1fr) 160px; gap:18px; transform-origin:top left; }
-.side { padding:16px; border-radius:18px; }
-.team-title { font-size:19px; margin-bottom:10px; }
-.team-score { font-size:34px; padding:8px; margin-bottom:10px; }
-.strikes { font-size:30px; letter-spacing:2px; }
-.center-board { position:relative; padding:48px 22px 22px; border-radius:20px; }
-.round-box { position:absolute; top:0; left:50%; transform:translate(-50%,-50%); font-size:15px; padding:5px 18px; margin:0; z-index:10; }
-.round-box div { font-size:30px; }
-#qArea { font-size:28px; margin-bottom:20px; line-height:1.45; }
-.answers-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.answer-slot { height:76px; }
-.face-back { padding:5px 12px; gap:8px; font-size:20px; }
-.points-box { font-size:18px; }
-
-#settingsModal { position:fixed; inset:0; z-index:10000; align-items:center; justify-content:center; padding:16px; height:100dvh; background:rgba(0,6,22,.82); backdrop-filter:blur(8px); }
-.settings-panel { width:min(100%,520px); max-height:100%; display:flex; flex-direction:column; min-height:0; background:linear-gradient(145deg,#071c44,#030d22); border:1px solid #bfa03f; border-radius:22px; box-shadow:0 24px 80px #0009; overflow:hidden; font-family:Arial,sans-serif; }
-.settings-header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:20px 22px 16px; border-bottom:1px solid #ffffff12; flex-shrink:0; }
-.settings-eyebrow { color:#ffcc00; font-size:11px; font-weight:bold; }
-.settings-header h2 { margin:5px 0 0; font-size:23px; color:white; }
-.settings-panel button { font-family:inherit; cursor:pointer; transition:background .15s; }
-.settings-close { width:34px; height:34px; border:1px solid #ffffff25; border-radius:10px; background:#ffffff08; color:#b9c8e5; font-size:26px; line-height:1; }
-.settings-content { overflow-y:auto; overscroll-behavior:contain; padding:18px 22px; min-height:0; }
-.settings-section-heading { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; font-size:14px; font-weight:bold; margin-bottom:12px; }
-.settings-section-heading span { color:#91a5c8; font-size:11px; font-weight:normal; }
-.join-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.join-card { min-width:0; padding:14px 12px 12px; border:1px solid #ffffff18; border-radius:14px; background:#ffffff04; text-align:center; }
-.join-card h3 { margin:0; font-size:15px; color:#ffda61; }
-.join-card p { margin:5px 0 12px; font-size:11px; color:#91a5c8; }
-.qr-tile { display:flex; align-items:center; justify-content:center; width:126px; height:126px; max-width:100%; padding:8px; margin:0 auto 10px; border-radius:12px; background:white; }
-.qr-tile img, .qr-tile canvas { max-width:100%; height:auto; }
-.join-link { color:#8195b9; font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:10px; }
-.copy-button { width:100%; min-height:36px; padding:8px 4px; font-size:12px; font-weight:bold; color:#e5edff; border:1px solid #395386; border-radius:8px; background:#162f59; }
-.copy-button:hover { background:#234777; }
-.team-settings { margin-top:20px; }
-.team-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.team-fields label { min-width:0; color:#9cafd0; font-size:12px; }
-.team-fields input { width:100%; margin-top:7px; padding:11px 10px; background:#020b1c; color:white; border:1px solid #2b4167; border-radius:9px; font-family:inherit; font-size:14px; }
-.team-fields input:focus { outline:2px solid #ffcc00; outline-offset:2px; }
-.settings-actions { flex-shrink:0; display:flex; gap:10px; padding:14px 22px; border-top:1px solid #ffffff12; background:#040f26; }
-.settings-actions button { padding:11px 18px; border-radius:9px; font-weight:bold; font-size:14px; }
-.settings-save { flex:1; background:#ffcc00; color:#18203a; border:1px solid #ffcc00; }
-.settings-save:hover { background:#ffdc4b; }
-.settings-cancel { background:transparent; color:#bac9e4; border:1px solid #314567; }
-@media (max-width:380px) {
- #settingsModal { padding:10px; }
- .settings-header { padding:14px; }
- .settings-content { padding:14px; }
- .settings-actions { padding:12px 14px; }
- .join-cards { gap:8px; }
- .join-card { padding:12px 8px; }
- .qr-tile { width:112px; height:112px; padding:6px; }
- .copy-button { font-size:11px; }
- .team-fields { grid-template-columns:1fr; gap:10px; }
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>خمن الشخصية | زامن</title><style>*{box-sizing:border-box}[hidden]{display:none!important}html,body{height:100%;margin:0;overflow:hidden}body{font-family:Tahoma,Arial,sans-serif;color:#292019;background:#fff1f0;background-image:radial-gradient(#efccca 1px,transparent 1px);background-size:24px 24px;display:flex;flex-direction:column}button,input{font:inherit}button{cursor:pointer;font-weight:900;border:3px solid #292019;border-radius:12px;padding:12px 18px;background:#ffe0dd;color:#292019;box-shadow:0 4px 0 #292019}button:active{transform:translateY(2px);box-shadow:0 2px 0 #292019}button:disabled{opacity:.5;cursor:default}button:focus-visible,input:focus-visible{outline:3px solid #dc3545;outline-offset:3px}header{height:60px;flex:none;padding:9px 24px;background:#fffafa;border-bottom:4px solid #292019;display:flex;align-items:center;justify-content:space-between}.brand{color:#c92f40;font-size:21px;font-weight:900}.back{font-size:12px;padding:8px 15px;box-shadow:0 2px 0 #292019}.wrap{flex:1;min-height:0;width:100%;max-width:1440px;margin:0 auto;display:flex;flex-direction:column;padding:12px 20px 20px;gap:12px}.title{flex:none;text-align:center}h1{margin:0;font-size:clamp(28px,5vh,48px);line-height:1.2;color:#e44852;text-shadow:2px 3px #292019}h2{margin:0 0 18px;font-size:24px}.card{background:#fffafa;border:4px solid #292019;border-radius:22px;padding:22px;box-shadow:0 6px #292019;min-width:0;min-height:0}.panel{width:min(670px,100%);margin:auto;max-height:100%;overflow:auto}.names,.modes{display:grid;grid-template-columns:1fr 1fr;gap:16px}.names label{display:block;font-size:14px;font-weight:bold;margin-bottom:8px}input{padding:12px;width:100%;min-width:0;background:white;border:3px solid #292019;border-radius:10px;color:#292019}.modes{margin:20px 0}.mode{text-align:right;line-height:1.6;background:#fff0ef}.mode small{display:block;font-weight:normal;font-size:12px}.selected{background:#ffc3c5}.primary{background:#e74b55}.start{width:100%;font-size:20px}.helper{font-size:12px;color:#866e55;line-height:1.7;margin:12px 0}.connection{padding:10px;background:#ffe0dd;border:2px solid #292019;border-radius:12px;flex:none}.screen{flex:1;min-height:0}.waiting{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,.8fr);gap:22px;max-width:960px;width:100%;margin:auto}.qr-panels{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}.qr-block{text-align:center;flex:1;min-width:170px}.qr-block h3{font-size:15px;margin:0 0 12px}.qr{background:white;border:3px solid #292019;border-radius:13px;width:182px;height:182px;padding:8px;margin:auto;display:grid;place-items:center}.qr img,.qr canvas{max-width:100%;max-height:100%}.qr-block button{font-size:12px;padding:8px 12px;margin-top:12px}.room-code{text-align:center;margin-bottom:20px;color:#957550}.room-code strong{font-size:22px;letter-spacing:4px;color:#292019;direction:ltr;display:inline-block}.members{list-style:none;margin:0;padding:0;overflow:auto;max-height:170px}.members li{padding:9px 0;border-bottom:1px solid #ead6b8;display:flex;justify-content:space-between;gap:10px;font-size:14px}.members span{font-size:12px;color:#87674b}.waiting-right{display:flex;flex-direction:column;gap:14px}.waiting-right h2{margin:0}.waiting-right .start{margin-top:auto}.readiness{font-size:13px;color:#8c601e}.game-grid{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:18px}.game-main{display:flex;flex-direction:column;gap:12px;padding:16px}.top{display:flex;justify-content:space-between;align-items:center;font-weight:bold;flex:none}.pill{padding:7px 14px;border:3px solid #292019;border-radius:12px;background:#ffc3c5;white-space:nowrap}.pill strong{font-size:25px}.board-space{flex:1;min-height:0;min-width:0;display:grid;place-items:center}.board{position:relative;overflow:hidden;border:4px solid #292019;border-radius:13px;background:#d6b083;box-shadow:0 0 0 2px #dc3545}.art{width:100%;height:100%;display:block}.tiles{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:3px}.tile{min-height:0;min-width:0;padding:0;border-radius:6px;border:3px solid #292019;background:linear-gradient(145deg,#ffb34e,#f58022);box-shadow:inset 0 3px #ffd791,inset 0 -4px #c75a14;font-size:clamp(16px,3vh,28px);transition:opacity .2s,transform .2s}.tile.open{opacity:0;pointer-events:none;transform:scale(.85)}.tile:disabled{opacity:1}.tile.open:disabled{opacity:0}.hint{color:#8f7152;font-size:12px;text-align:center;flex:none}.status{font-weight:bold;color:#b52f40;font-size:14px;line-height:1.5;flex:none;text-align:center}.status:empty{display:none}.next{background:#e74b55;width:100%;flex:none}.score-panel{display:flex;flex-direction:column;gap:16px;padding:16px}.team{display:flex;flex-direction:column;align-items:center;gap:8px;background:#fff0ef;min-width:0;width:100%;padding:16px 10px}.team-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}.team.active{background:#ffb8bd}.score{font-size:clamp(26px,6vh,52px);line-height:1.1}.turn{font-size:14px;text-align:center;line-height:1.6;margin:0;color:#9b5420}.small-info{margin-top:auto;font-size:12px;text-align:center;color:#9e7f5e}.host-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;height:100%;max-width:900px;margin:auto}.host-info{display:flex;flex-direction:column;gap:12px}.host-info h2{margin:0}.host-answer{background:#ffe0dd;border:3px dashed #292019;border-radius:14px;padding:20px;font-size:24px;text-align:center}.controls{display:flex;gap:10px}.controls button{flex:1;padding:12px 8px}.host-tiles{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:10px;height:100%;min-height:0}.host-tiles button{padding:0;min-height:0;font-size:20px}.phone-panel{text-align:center}.phone-panel .mode{text-align:center}.buzzer{width:100%;background:#e74b55;font-size:24px;padding:25px;margin-top:18px}.phone-answer-box{margin-top:18px}.phone-answer-box button{margin-top:10px;width:100%}.join-button{width:100%}.wait-message{padding:15px;border:2px dashed #bd935b;border-radius:12px;background:#fff0ef}.link-field{position:absolute;left:-9999px;width:1px;height:1px}
+@media(max-width:700px){header{height:50px;padding:7px 12px}.brand{font-size:18px}.wrap{padding:8px 10px 14px;gap:8px}.card{border-width:3px;padding:16px;border-radius:17px}.names,.modes{gap:10px}.modes{margin:15px 0}.mode{padding:12px 8px}.game-grid{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:10px}.score-panel{grid-row:1;padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px}.team{flex-direction:row;justify-content:space-between;padding:8px 10px;gap:5px}.score{font-size:27px}.team-name{font-size:13px}.turn{grid-column:1/-1;font-size:12px}.small-info{display:none}.game-main{gap:8px;padding:12px}.pill strong{font-size:21px}.waiting{grid-template-columns:1fr;gap:12px;overflow:auto;max-height:100%;padding-bottom:7px}.waiting-right{gap:10px}.waiting-right h2{font-size:20px}.waiting-right .helper{margin:0}.members{max-height:110px}.qr-panels{gap:12px;flex-wrap:nowrap}.qr-block{min-width:0}.qr{width:145px;height:145px;padding:7px}.qr-block h3{font-size:13px}.room-code{margin-bottom:12px}.host-grid{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:12px}.host-info{gap:8px;padding:12px}.host-info h2{font-size:20px}.host-answer{padding:10px;font-size:21px}.host-info p{margin:0}.host-tiles{gap:8px}.start{font-size:18px}.helper{font-size:11px}.status{font-size:12px}}
+@media(max-height:560px){.title{display:none}.wrap{gap:6px;padding-top:8px}.panel{padding:16px}.panel h2{font-size:20px;margin-bottom:10px}.modes{margin:12px 0}.host-answer{padding:10px}.team{padding:10px}.waiting .card{padding:14px}.qr{width:130px;height:130px}.qr-block h3{margin-bottom:8px}.room-code{margin-bottom:8px}.waiting-right{gap:8px}.members{max-height:90px}}.board.portrait-board{background:#fffafa;border:4px solid #292019;border-radius:14px;box-shadow:0 6px 0 #292019,0 0 0 3px #e44852}.portrait-board .art{object-fit:contain}</style><style>
+html,body{max-width:100%;width:100%;overflow:hidden}button,input{font-size:14px;line-height:1.35}button{overflow-wrap:anywhere;white-space:normal}h1{font-size:34px}h2{font-size:20px}header{height:52px;padding:8px 16px}.wrap{padding:10px 14px 16px;gap:10px}.panel{padding:18px}.card{overflow:hidden}.waiting{align-self:center;max-height:100%;grid-template-rows:minmax(0,1fr);gap:16px}.waiting>.card{overflow:auto}.qr-block{min-width:0}.qr-panels{gap:14px;flex-wrap:nowrap}.qr-block h3{font-size:13px}.qr{width:154px;height:154px;padding:8px}.qr-block button{font-size:11px;padding:7px 8px;max-width:100%;margin-top:9px;box-shadow:0 2px #292019}.qr-block #open-host{display:block;margin:8px auto 0}.room-code{font-size:12px;margin-bottom:14px}.room-code strong{font-size:18px;letter-spacing:2px}.waiting-right h2{font-size:20px}.waiting-right .start{font-size:16px;padding:13px}.waiting-right .helper{font-size:12px}.team-name{font-size:15px}.turn{font-size:13px;overflow-wrap:anywhere}.top{font-size:14px;gap:8px}.pill{padding:6px 10px}.pill strong{font-size:23px}.status{font-size:13px;overflow-wrap:anywhere}.host-info{overflow:auto;gap:9px}.host-info p{font-size:13px;overflow-wrap:anywhere}.host-answer{font-size:21px;padding:14px}.host-info button{font-size:14px;padding:11px}.buzzer{font-size:20px;padding:20px}.phone-panel h2{font-size:21px}.helper{overflow-wrap:anywhere}#join-note{display:none}.host-tiles button{font-size:18px}.names label{font-size:13px}.mode small{font-size:11px}.start{font-size:18px;padding:15px}
+@media(max-width:700px){.wrap{padding:8px 10px 12px;gap:8px}.title h1{font-size:28px}.waiting{grid-template-columns:1fr;grid-template-rows:min-content min-content;gap:12px;overflow:auto;max-height:100%;padding-bottom:6px}.waiting>.card{padding:12px;overflow:visible}.qr{width:128px;height:128px;padding:6px}.qr-panels{gap:10px}.qr-block h3{font-size:12px;margin-bottom:8px}.qr-block button{font-size:10px;padding:6px 8px;margin-top:8px}.qr-block #open-host{margin-top:6px}.room-code{margin-bottom:10px;font-size:11px}.room-code strong{font-size:17px}.waiting-right{gap:9px}.waiting-right h2{font-size:18px}.readiness{font-size:12px}.waiting-right .start{padding:10px;font-size:15px}.game-main{padding:10px;gap:6px}.score-panel{padding:8px;gap:6px}.team{padding:7px 8px;border-width:2px;box-shadow:0 2px #292019}.team-name{font-size:12px}.score{font-size:24px}.turn{font-size:11px}.top{font-size:12px}.pill strong{font-size:19px}.pill{padding:5px 8px;border-width:2px}.hint{font-size:10px}.status{font-size:11px;line-height:1.4}.game-grid{gap:8px}.tile{font-size:18px;border-width:2px}.next{font-size:13px;padding:9px}.host-grid{grid-template-rows:auto minmax(0,1fr);gap:9px}.host-info{padding:10px;gap:7px}.host-info h2{font-size:18px}.host-answer{font-size:18px;padding:8px}.host-info p{font-size:11px}.host-info button{font-size:12px;padding:8px}.controls{gap:8px}.host-tiles{padding:10px;gap:6px}.host-tiles button{font-size:16px;border-width:2px}.phone-panel{padding:16px}.phone-panel .mode{font-size:13px}.phone-panel .buzzer{font-size:18px;padding:18px}.names input{font-size:13px;padding:10px}.modes{gap:9px}.mode{font-size:13px}.mode small{font-size:10px}.brand{font-size:17px}
 }
-
-#menuScreen { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:24px; height:100dvh; overflow:auto; background:radial-gradient(ellipse at 50% 20%,#0d3d85 0%,#071c43 45%,#020916 100%); }
-#menuScreen::before { content:""; position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(#ffffff10 1px,transparent 1px); background-size:26px 26px; }
-.welcome-card { position:relative; width:min(100%,470px); max-height:100%; overflow:auto; padding:30px 34px 22px; text-align:center; border:1px solid #ffffff24; border-radius:28px; background:linear-gradient(150deg,#0b2452e8,#040f29f5); box-shadow:0 30px 90px #0006,inset 0 1px 0 #ffffff10; font-family:Arial,sans-serif; }
-.welcome-brand { display:flex; justify-content:center; align-items:center; gap:7px; color:#a9bada; font-size:12px; font-weight:bold; }
-.brand-dot { width:7px; height:7px; border-radius:50%; background:#ffcc00; box-shadow:0 0 12px #ffcc0070; }
-.welcome-emblem { display:flex; flex-direction:column; justify-content:center; width:240px; max-width:100%; margin:24px auto; padding:18px 12px 12px; border:2px solid #edc344; outline:1px solid #edc34440; outline-offset:5px; border-radius:50%; background:radial-gradient(ellipse,#164b98,#071a41); box-shadow:0 0 35px #005cff25; color:#ffda58; transform:rotate(-3deg); }
-.welcome-emblem span { font-size:28px; font-weight:900; line-height:1.15; }
-.welcome-emblem strong { font-size:52px; line-height:1.2; text-shadow:0 3px 0 #92701d; }
-.welcome-emblem i { font-size:11px; letter-spacing:5px; margin-top:4px; font-style:normal; }
-.welcome-card h1 { margin:0 0 10px; font-size:25px; color:#fff; }
-.welcome-description { margin:0 auto; max-width:330px; color:#a4b6d6; font-size:14px; line-height:1.8; }
-.welcome-details { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin:18px 0 24px; }
-.welcome-details span { padding:6px 10px; border:1px solid #ffffff16; background:#ffffff05; border-radius:20px; color:#c3d1e9; font-size:11px; }
-.welcome-card button { width:100%; cursor:pointer; font-family:inherit; border-radius:12px; font-weight:bold; }
-.welcome-start { display:flex; align-items:center; justify-content:center; gap:16px; padding:15px; border:1px solid #ffe27b; background:linear-gradient(180deg,#ffda45,#f5bc17); color:#17213a; font-size:18px; box-shadow:0 6px 24px #ffcc0018; }
-.welcome-start:hover { background:#ffe06b; }
-.welcome-settings { margin-top:10px; padding:13px 8px; border:1px solid #36517d; color:#d7e3fa; background:#11294d; font-size:14px; }
-.welcome-settings:hover { background:#1b3964; }
-.welcome-settings span { margin-left:6px; }
-.welcome-hint { margin:16px 0 22px; font-size:11px; line-height:1.6; color:#8498bc; }
-.welcome-credit { font-size:11px; color:#c1a454; text-decoration:none; }
-@media(max-width:480px) { #menuScreen { padding:16px; } .welcome-card { padding:24px 22px 18px; } .welcome-card h1 { font-size:22px; } .welcome-emblem { margin:22px auto; } }
-@media(max-height:550px) and (orientation:landscape) { .welcome-card { width:min(100%,740px); display:grid; grid-template-columns:220px minmax(0,1fr); column-gap:26px; padding:20px 26px; align-items:center; } .welcome-brand { grid-column:1; } .welcome-emblem { grid-column:1; grid-row:2 / 7; width:200px; margin:14px auto; } .welcome-card h1,.welcome-description,.welcome-details,.welcome-start,.welcome-settings,.welcome-hint { grid-column:2; } .welcome-card h1 { font-size:22px; } .welcome-details { margin:10px 0; } .welcome-hint { margin:10px 0; } .welcome-credit { grid-column:1 / -1; margin-top:8px; } }
-
-.welcome-card h1 { margin-bottom:22px; }
-.welcome-exit { display:block; padding:12px; margin-top:8px; color:#9dafcc; font-size:13px; text-decoration:none; border-radius:10px; }
-.welcome-exit:hover { color:white; background:#ffffff08; }
-@media(max-height:550px) and (orientation:landscape) { .welcome-exit { grid-column:2; } .welcome-emblem { grid-row:2 / 5; } .welcome-card h1 { margin-bottom:14px; } }
-
-/* Studio lighting stays behind the scaled, interactive game board. */
-body { background:radial-gradient(ellipse at 50% 35%,#103672 0%,#050e25 55%,#01040c 100%); }
-.studio-scene { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
-.studio-scene::before { content:""; position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent 0,transparent 12%,#03071555 12.5%,transparent 13%); }
-.studio-rig { position:absolute; top:18px; left:8%; right:8%; height:10px; border-top:1px solid #758db94d; border-bottom:1px solid #030915; background:linear-gradient(#14233e,#050a14); box-shadow:0 6px 20px #0009; }
-.studio-light { position:absolute; top:25px; width:42px; height:28px; border-radius:7px 7px 12px 12px; border:1px solid #6782af; background:linear-gradient(160deg,#334565,#07101f); box-shadow:0 5px 10px #000; }
-.studio-light::before { content:""; position:absolute; bottom:-4px; left:5px; right:5px; height:7px; border-radius:50%; background:#e3f0ff; box-shadow:0 0 16px 5px #8bb9ff88; }
-.studio-light::after { content:""; position:absolute; top:30px; left:50%; width:clamp(180px,26vw,430px); height:75vh; transform:translateX(-50%); transform-origin:top center; clip-path:polygon(48% 0,52% 0,100% 100%,0 100%); background:linear-gradient(180deg,#a6ceff30,#4c8fff0d 60%,transparent); }
-.light-one { left:15%; transform:rotate(-18deg); }
-.light-two { left:35%; transform:rotate(-8deg); }
-.light-three { right:35%; transform:rotate(8deg); }
-.light-four { right:15%; transform:rotate(18deg); }
-.light-two::before,.light-three::before { background:#fff1b1; box-shadow:0 0 16px 5px #ffda5780; }
-.light-two::after,.light-three::after { background:linear-gradient(180deg,#ffe3a126,#eabf4209 60%,transparent); }
-.studio-floor { position:absolute; bottom:-13%; left:-30%; width:160%; height:35%; transform:perspective(450px) rotateX(55deg); background:repeating-linear-gradient(90deg,#7a9eda18 0 1px,transparent 1px 100px),repeating-linear-gradient(0deg,#7a9eda18 0 1px,transparent 1px 65px); border-top:1px solid #668fdd40; mask-image:linear-gradient(transparent,#000); }
-.studio-glow { position:absolute; bottom:0; left:10%; right:10%; height:25%; background:radial-gradient(ellipse at bottom,#126aff30,transparent 65%); }
-.board-viewport { z-index:1; }
-.center-board { background:radial-gradient(ellipse at top,#12386f,#061631 65%,#020b1b); border-color:#e9c15b; box-shadow:0 0 0 5px #0a1730,0 0 0 6px #ad863e80,0 18px 42px #000a,0 0 38px #ffcd3220,inset 0 1px 0 #fff3; }
-.center-board::after { content:""; position:absolute; inset:8px; border:1px solid #ffffff0e; border-radius:13px; pointer-events:none; }
-.round-box { background:linear-gradient(145deg,#1a2e4c,#050e20); border-color:#ffdc7b; box-shadow:0 5px 20px #0008,0 0 20px #ffcc0020; border-radius:12px; color:#e9ca7a; }
-.round-box div { text-shadow:0 0 16px #ffe08e55; }
-#qArea { text-shadow:0 2px 8px #0008; color:#eef5ff; }
-.card-face { border-color:#739fde; box-shadow:inset 0 1px 0 #ffffff40,0 4px 10px #0005; border-radius:12px; }
-.face-front { background:radial-gradient(ellipse at top,#2c62ae,#0e2d61 70%); }
-.face-front::before { content:""; position:absolute; inset:6px; border:1px solid #ffffff12; border-radius:7px; pointer-events:none; }
-.num-circle { width:38px; height:38px; background:linear-gradient(#ffe49a,#e5b644); color:#17213a; border-color:#fff0bf; box-shadow:0 3px 10px #0007,0 0 16px #ffdc6c20; font-size:21px; }
-.face-back { background:linear-gradient(160deg,#24599b,#103467); border-color:#e8c064; }
-.points-box { padding:6px 10px; background:#07162d; color:#ffdd83; border-color:#b89c54; border-radius:7px; box-shadow:inset 0 2px 5px #0005; }
-.side { position:relative; background:linear-gradient(155deg,#163a6c,#07152e 65%,#040c1b); border-color:#536b90; box-shadow:0 14px 30px #0008,inset 0 1px 0 #ffffff26; }
-.side::before { content:""; position:absolute; top:-2px; left:25%; width:50%; height:3px; border-radius:4px; background:#ffdc78; box-shadow:0 0 15px #ffce5470; }
-.team-title { color:#d9e7ff; }
-.team-score { background:linear-gradient(#030a18,#0b1b35); border-color:#c8a44f; color:#fff3cc; text-shadow:0 0 20px #ffd45d40; box-shadow:inset 0 2px 12px #0009; }
-.strikes { color:#f35d69; text-shadow:0 2px 8px #0009; }
-@media (max-height:500px) { .studio-rig { top:6px; } .studio-light { top:12px; width:32px; height:22px; } }
-
-#gameSettingsButton { position:fixed; top:max(12px,env(safe-area-inset-top)); left:max(12px,env(safe-area-inset-left)); z-index:100; align-items:center; justify-content:center; min-height:36px; padding:8px 13px; border:1px solid #ac9155; border-radius:9px; background:#08182ee8; color:#ffe1a0; font-family:Arial,sans-serif; font-size:12px; font-weight:bold; cursor:pointer; box-shadow:0 4px 14px #0004; }
-#gameSettingsButton:hover { background:#19365b; }
-#gameSettingsButton:focus-visible { outline:2px solid #ffda6b; outline-offset:3px; }
-
-.welcome-team-fields { margin:0 0 20px; text-align:right; }
-#welcomeError { color:#ffb7bd; font-size:12px; margin:0 0 10px; }
-#welcomeError:empty { display:none; }
-.welcome-start:disabled { opacity:.6; cursor:wait; }
-.waiting-message { display:none; }
-.waiting-room .team-settings,.waiting-room .settings-actions,.waiting-room .settings-close { display:none; }
-.waiting-room .waiting-message { display:block; margin:0; padding:16px; border-top:1px solid #ffffff12; color:#ffdc80; text-align:center; font:14px Arial,sans-serif; }
-@media(max-height:550px) and (orientation:landscape) { .welcome-team-fields,#welcomeError { grid-column:2; } .welcome-emblem { grid-row:2 / 6; } }
-#settingsError { color:#ffb7bd; font-size:12px; margin:10px 0 0; }
-#settingsError:empty { display:none; }
-
-#turnNotice { color:#dfc17b; font:15px Arial,sans-serif; text-align:center; margin-bottom:10px; min-height:18px; }
-
-.question-count-settings { margin:0 0 20px; text-align:right; }
-.count-heading { display:flex; justify-content:space-between; align-items:center; margin-bottom:9px; color:#b8c9e4; font-size:12px; }
-.count-heading span { font-size:10px; color:#839bbf; }
-.count-options { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)) 1.3fr; gap:7px; }
-.welcome-card .count-options button { width:auto; padding:10px 2px; border:1px solid #36517d; border-radius:8px; background:#0b1d3b; color:#b9cbe8; font-size:14px; }
-.welcome-card .count-options button.selected { border-color:#ddba61; color:#ffdf8c; background:#3b3525; }
-.count-options input { width:100%; min-width:0; padding:8px 4px; border:1px solid #36517d; border-radius:8px; background:#030c20; color:#fff; text-align:center; font-size:14px; }
-@media(max-height:550px) and (orientation:landscape) { .question-count-settings { grid-column:2; } .welcome-emblem { grid-row:2 / 7; } }
-</style>
-</head>
-<body>
-<div class="studio-scene" aria-hidden="true">
- <div class="studio-rig"></div>
- <div class="studio-light light-one"></div><div class="studio-light light-two"></div>
- <div class="studio-light light-three"></div><div class="studio-light light-four"></div>
- <div class="studio-floor"></div><div class="studio-glow"></div>
-</div>
-
-    <button id="gameSettingsButton" onclick="openSettings()" aria-label="إعدادات اللعبة" style="display:none">إعدادات</button>
-    <div id="xOverlay">X</div>
-
-    <audio id="sndDing" src="https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptoken=8019053c-7467-4632-8418-4981881512ec"></audio>
-    <audio id="sndBuzz" src="https://image2url.com/r2/default/audio/1772595115310-2b88b3e1-99b8-4da4-8ef4-156220630678.mp3"></audio>
-
-  
-
-   <div class="main-layout">
-
-    <!-- الفريق الثاني -->
-    <div class="side team-left">
-        <div class="team-title" id="n2">الفريق الثاني</div>
-        <div class="team-score" id="s2">0</div>
-        <div class="strikes" id="x2">XXX</div>
-    </div>
-
-    <!-- الوسط -->
-    <div class="center-board">
-
-        <div class="round-box">
-            نقاط الجولة
-            <div id="rDisp">0</div>
-        </div>
-
-<div id="turnNotice"></div>
-<div id="qArea">...</div>
-        <div class="answers-grid" id="grid"></div>
-
-    </div>
-
-    <!-- الفريق الأول -->
-    <div class="side team-right">
-        <div class="team-title" id="n1">الفريق الأول</div>
-        <div class="team-score" id="s1">0</div>
-        <div class="strikes" id="x1">XXX</div>
-    </div>
-
-</div>
-
-  
-  <script src="questions.js"></script>
-<script src="script.js"></script>
-  <script>
-   
-        const game = window.FEUD_QUESTIONS;
-let questionOrder = game.map((_,i) => i);
-let resultsShown = false;
-function currentQuestion() { return game[questionOrder[idx]]; }
-
-let stealMode = false;
-let firstTeam = 1;
-let activeTeam = 1; // الفريق الحالي
-let strikes = {1:0, 2:0};
-
-
-let buzzTimeout = null;
-let currentScreen = "menu"; // menu أو game
-        let roundHistory = {};
-        let idx = 0, rPts = 0, xC = 0;
-        let teams = { 1: { n: "الفريق 1", s: 0 }, 2: { n: "الفريق 2", s: 0 } };
-       // 🔥 استقبال الجرس
-       
-       let session = new URLSearchParams(location.search).get("session") || localStorage.getItem("mySession");
-
-if (!session) {
-    session = Math.random().toString(36).substring(2,8);
-    localStorage.setItem("mySession", session);
-}
-
-        let active = 1;
-
-   function update() {
-
-    document.getElementById('n1').innerText = teams[1].n;
-    document.getElementById('s1').innerText = teams[1].s;
-
-    document.getElementById('n2').innerText = teams[2].n;
-    document.getElementById('s2').innerText = teams[2].s;
-
-    document.getElementById('rDisp').innerText = rPts;
-
-    updateStrikes(); // 🔥 مهم
-}
-    const grid = document.getElementById('grid');
-
-function renderBoard(){
-    const saved = roundHistory[idx] || {};
-
-    // 🔥 فتح الجرس مع بداية الجولة
-    buzzHandled = false;
-
-    db.ref("games/" + session + "/status").set({
-        locked: !!(saved.completed || saved.turn?.claimed)
-    });
-
-    // 🔥 تنظيف الإضاءة
-    document.querySelectorAll(".side").forEach(el=>{
-        el.style.boxShadow = "none";
-    });
-
-    // 🔥 تصفير الأخطاء
-    syncTurn(saved);
-
-    // 🔥 تصفير نقاط الجولة
-    rPts = saved.points || 0;
-    document.getElementById('rDisp').innerText = rPts;
-
-    // 🔥 حذف اللاعبين السابقين من الجرس
-    db.ref("games/" + session + "/buzzers").set(null);
-
-    // 🔥 تفريغ الشبكة
-    const grid = document.getElementById('grid');
-    grid.innerHTML = '';
-
-    // 🔥 إنشاء الإجابات
-    currentQuestion().a.forEach((item, i) => {
-
-        const slot = document.createElement('div');
-        slot.className = 'answer-slot' + (saved.completed || saved.revealed?.[i] ? ' open' : '');
-
-        slot.innerHTML = `
-        <div class="card-flip">
-            <div class="card-face face-front">
-                <div class="num-circle">${i+1}</div>
-            </div>
-            <div class="card-face face-back">
-                <span>${item.t}</span>
-                <div class="points-box">${item.p}</div>
-            </div>
-        </div>`;
-
-        slot.onclick = async function(){
-            if (!roundHistory[idx]?.turn?.claimed || roundHistory[idx]?.completed || this.classList.contains('open') || this.dataset.pending) return;
-            this.dataset.pending = 'true';
-            try {
-                const result = await FeudRules.answer(db,session,idx,i,currentQuestion().a);
-                if (result.committed) document.getElementById('sndDing').play().catch(()=>{});
-            } catch (e) {
-                document.getElementById('turnNotice').textContent = 'تعذر حفظ الإجابة، حاول مرة ثانية';
-            } finally { delete this.dataset.pending; }
-        };
-
-        grid.appendChild(slot);
-    });
-    document.getElementById('qArea').innerText = saved.completed || saved.show ? currentQuestion().q : '';
-}
-
-        function reveal() {
-            document.getElementById('qArea').innerText = currentQuestion().q;
-            roundHistory[idx] = {...roundHistory[idx],show:true};
-            db.ref('games/' + session + '/rounds/' + idx + '/show').set(true);
-        }
-
-function flashError() {
-    document.getElementById('sndBuzz').play().catch(()=>{});
-    const x = document.getElementById('xOverlay');
-    x.innerText = 'X';
-    x.style.display = 'block';
-    setTimeout(() => x.style.display = 'none', 1000);
-}
-async function errorX() {
-    try {
-        const result = await FeudRules.error(db,session,idx);
-        if (result.committed) flashError();
-    } catch (e) { document.getElementById('turnNotice').textContent = 'تعذر حفظ الخطأ، حاول مرة ثانية'; }
-}
-function syncTurn(saved) {
-    const turn = saved.turn || {firstTeam:null,activeTeam:null,strikes:{1:0,2:0},stealMode:false,claimed:false};
-    firstTeam = turn.firstTeam;
-    activeTeam = turn.activeTeam;
-    strikes = turn.strikes || {1:0,2:0};
-    stealMode = !!turn.stealMode;
-    updateStrikes();
-    highlightTeam(saved.completed ? saved.awardedTeam : activeTeam);
-    const winner = teams[saved.awardedTeam]?.n;
-    document.getElementById('turnNotice').textContent = saved.completed ? 'نقاط الجولة لـ ' + winner :
-        !turn.claimed ? 'بانتظار الجرس' :
-        stealMode ? 'محاولة سرقة · ' + teams[activeTeam].n : 'الدور · ' + teams[activeTeam].n;
-}
-
-function move(d) {
-
-    idx = Math.max(0,Math.min(questionOrder.length - 1,idx + d));
-    rPts = 0;
-    xC = 0;
-
-    // 🔥 تصفير الجرس فقط
-    db.ref("games/" + session + "/buzzers").set(null);
-
-    const old = document.getElementById("fastestBox");
-    if (old) old.remove();
-
-    buzzHandled = false;
-
-    renderBoard();
-    update();
-}
-        function openEdit(n) {
-            active = n;
-            document.getElementById('editName').value = teams[n].n;
-            document.getElementById('editScore').value = teams[n].s;
-            document.getElementById('editModal').style.display = 'block';
-        }
-
-        function saveEdit() {
-            teams[active].n = document.getElementById('editName').value || "الفريق " + active;
-            teams[active].s = parseInt(document.getElementById('editScore').value) || 0;
-            document.getElementById('editModal').style.display = 'none'; update();
-        }
-
-        const firebaseConfig = {
-  apiKey: "AIzaSy...",
-  authDomain: "horof-game-9934e.firebaseapp.com",
-  databaseURL: "https://horof-game-9934e-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "horof-game-9934e",
-  appId: "1:44896634225:web:62a672d8c94be6e0d762d0"
-};
-
-function sameTeamName(first, second) {
-    const normalize = name => name.normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('ar');
-    return normalize(first) === normalize(second);
-}
-
-function selectQuestionCount(count) {
-    document.getElementById('questionCount').value = count;
-    updateCountButtons();
-}
-function updateCountButtons() {
-    const count = Number(document.getElementById('questionCount').value);
-    document.querySelectorAll('.count-options button').forEach((button,i) => {
-        const selected = [5,10,15,20][i] === count;
-        button.classList.toggle('selected',selected);
-        button.setAttribute('aria-pressed',String(selected));
-    });
-}
-async function prepareGame() {
-    const button = document.getElementById('prepareButton');
-    const error = document.getElementById('welcomeError');
-    button.disabled = true;
-    error.textContent = '';
-    currentScreen = 'preparing';
-    const names = {
-        c1: document.getElementById('welcomeTeam1').value.trim(),
-        c2: document.getElementById('welcomeTeam2').value.trim()
-    };
-    if (!names.c1 || !names.c2) {
-        error.textContent = 'اكتب اسم الفريقين قبل البداية';
-        document.getElementById(!names.c1 ? 'welcomeTeam1' : 'welcomeTeam2').focus();
-        currentScreen = 'menu';
-        button.disabled = false;
-        return;
-    }
-    if (sameTeamName(names.c1, names.c2)) {
-        error.textContent = 'اسم الفريقين لازم يكون مختلف';
-        document.getElementById('welcomeTeam2').focus();
-        currentScreen = 'menu';
-        button.disabled = false;
-        return;
-    }
-    const count = Number(document.getElementById('questionCount').value);
-    if (!Number.isInteger(count) || count < 1 || count > game.length) {
-        error.textContent = 'اختر عدد أسئلة من ١ إلى ' + game.length;
-        document.getElementById('questionCount').focus();
-        currentScreen = 'menu';
-        button.disabled = false;
-        return;
-    }
-    const selectedQuestions = FeudRules.pickQuestions(game.length,count);
-    try {
-        await db.ref('games/' + session).update({
-            settings: { teamNames: names, questionCount:count },
-            questionOrder:selectedQuestions,
-            lifecycle: { started:false, time:Date.now() },
-            state: { index:0, show:false },
-            scores: { c1:0, c2:0 },
-            round: { points:0 },
-            status: { locked:true },
-            buzzers:null,
-            rounds:null,
-            players:null,
-            control:null
-        });
-        teams[1] = {n:names.c1,s:0};
-        teams[2] = {n:names.c2,s:0};
-        questionOrder = selectedQuestions;
-        resultsShown = false;
-        idx = 0;
-        currentScreen = 'waiting';
-        document.getElementById('menuScreen').style.display = 'none';
-        openSettings();
-    } catch (e) {
-        currentScreen = 'menu';
-        error.textContent = 'تعذر تجهيز اللعبة، حاول مرة ثانية';
-    } finally {
-        button.disabled = false;
-    }
-}
-
-function startGame() {
-    currentScreen = "game";
-    document.getElementById('settingsModal').classList.remove('waiting-room');
-    document.getElementById('settingsModal').style.display = 'none';
-    document.getElementById("gameSettingsButton").style.display = "inline-flex";
-    document.getElementById("menuScreen").style.display = "none";
-
-    renderBoard(); // 🔥 هذا كان ناقص
-    update();
-}
-
-function openSettings() {
-    document.getElementById('settingsError').textContent = '';
-    const waiting = currentScreen === 'waiting';
-    document.getElementById('settingsModal').classList.toggle('waiting-room', waiting);
-    document.getElementById('settingsTitle').textContent = waiting ? 'انضموا للتحدي' : 'إعدادات اللعبة';
-    document.getElementById("team1Input").value = teams[1].n;
-    document.getElementById("team2Input").value = teams[2].n;
-    document.getElementById("settingsModal").style.display = "flex";
-
-    setTimeout(() => {
-
-        const box = document.getElementById("qrBox");
-        const hostBox = document.getElementById("hostQR");
-
-        box.innerHTML = "";
-        hostBox.innerHTML = "";
-
-        const buzzUrl = window.location.origin + "/buzz.html?session=" + session;
-        const hostUrl = window.location.origin + "/host.html?session=" + session;
-document.getElementById("buzzLink").innerText = buzzUrl;
-document.getElementById("hostLink").innerText = hostUrl;
-new QRCode(box, {
-  text: buzzUrl,
-  width: 110,
-  height: 110
-});       
-new QRCode(hostBox, {
-  text: hostUrl,
-  width: 110,
-  height: 110
-});
-    }, 100);
-}
-
-
-
-function saveSettings() {
-
-const t1 = document.getElementById("team1Input").value.trim() || teams[1].n;
-const t2 = document.getElementById("team2Input").value.trim() || teams[2].n;
-const error = document.getElementById('settingsError');
-error.textContent = '';
-if (sameTeamName(t1, t2)) {
-    error.textContent = 'اسم الفريقين لازم يكون مختلف';
-    document.getElementById('team2Input').focus();
-    return;
-}
-
-    if (t1) teams[1].n = t1;
-    if (t2) teams[2].n = t2;
-
-    // 🔥 حدث الواجهة مباشرة
-    update();
-
-    // 🔥 ثم احفظ في فايربيس
-    db.ref("games/" + session + "/settings").update({
-        teamNames: {
-            c1: teams[1].n,
-            c2: teams[2].n
-        },
-    });
-
-    closeSettings(); // 👈 يقفل مباشرة
-}
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-db.ref('games/' + session + '/rounds').on('value', snap => {
-    roundHistory = snap.val() || {};
-    if (currentScreen !== 'game') return;
-    const saved = roundHistory[idx] || {};
-    rPts = saved.points || 0;
-    syncTurn(saved);
-    document.getElementById('rDisp').innerText = rPts;
-    document.querySelectorAll('.answer-slot').forEach((slot,i) => {
-        slot.classList.toggle('open', !!(saved.completed || saved.revealed?.[i]));
-    });
-    document.getElementById('qArea').innerText = saved.completed || saved.show ? currentQuestion().q : '';
-});
-db.ref('games/' + session + '/questionOrder').on('value', snap => {
-    const saved = snap.val();
-    if (Array.isArray(saved) && saved.length && saved.every(id => Number.isInteger(id) && id >= 0 && id < game.length) && new Set(saved).size === saved.length) {
-        questionOrder = saved;
-    } else { questionOrder = game.map((_,i) => i); }
-    if (currentScreen === 'game') renderBoard();
-});
-db.ref('games/' + session + '/lifecycle').on('value', snap => {
-    const data = snap.val();
-    if (data?.started && currentScreen === 'waiting') startGame();
-    if (data?.finished && currentScreen === 'game' && !resultsShown) {
-        resultsShown = true;
-        FeudRules.showResults(db,session).catch(()=>{resultsShown=false});
-    }
-    if (!data?.finished) resultsShown = false;
-});
-db.ref("games/" + session + "/state").on("value", snap => {
-
-    const data = snap.val();
-    if (!data) return;
-
-    idx = data.index || 0;
-    if (currentScreen !== "game") return;
-
-    // 🔥 مهم جداً
-    renderBoard(); 
-
-    if (data.show) {
-        reveal();
-    }
-
-    update();
-});
-// 👇 هنا تحطه بالضبط
-db.ref("games/" + session + "/control").on("value", snap => {
-
-    const data = snap.val();
-    if (!data) return;
-
-    if (currentScreen !== "game") return;
-    console.log("CONTROL:", data);
-
-    // 🟢 كشف السؤال
-    if (data.action === "showQuestion") {
-        reveal();
-    }
-
-    // 🟢 كشف إجابة
-    else if (data.action === "revealAnswer") {
-        const slots = document.querySelectorAll(".answer-slot");
-        const slot = slots[data.index];
-        if (slot && !slot.classList.contains("open")) {
-            slot.click();
-        }
-    }
-
-    // ❌ خطأ
-    else if (data.action === 'error') { errorX(); }
-    else if (data.action === 'flashError') { flashError(); }
-
-
-    // 🔥🔥🔥 مهم جداً (يمسح الأمر عشان يتكرر)
-    db.ref("games/" + session + "/control").set(null);
-
-});
-    
-    
-
-
-
-
-
-
-db.ref("games/" + session + "/settings").on("value", snap => {
-    const data = snap.val();
-    if (!data) return;
-
-    if(data.teamNames){
-        teams[1].n = data.teamNames.c1 || "الفريق 1";
-        teams[2].n = data.teamNames.c2 || "الفريق 2";
-    }
-
-    update();
-});
-
-// 🔥 scores listener
-db.ref("games/" + session + "/scores").on("value", snap => {
-    const data = snap.val();
-    if (!data) return;
-
-    teams[1].s = data.c1 || 0;
-    teams[2].s = data.c2 || 0;
-
-    update();
-});
-// 🔥 نفس السيشن
-
-
-let buzzHandled = false;
-let buzzLocked = true;
-
-// 🟢 نراقب حالة الجرس
-db.ref("games/" + session + "/status").on("value", snap => {
-    const data = snap.val();
-    buzzLocked = data?.locked !== false;
-});
-
-// 🟢 استقبال الجرس
-db.ref("games/" + session + "/buzzers").on("value", snap => {
-
-    const data = snap.val();
-    if (!data) return;
-
-    // 🔥 تجاهل لو الجرس مقفل
-    if (buzzLocked) return;
-
-    // 🔥 مهم: رجعناه هنا
-    if (buzzHandled) return;
-
-    const players = Object.values(data);
-    if (players.length === 0) return;
-
-    const fastest = players.sort((a,b) => a.time - b.time)[0];
-    if (!fastest) return;
-
-    buzzHandled = true;
-
-    document.getElementById('sndDing').play().catch(()=>{});
-
-    showFastest(fastest);
-});
-
-function showFastest(player) {
-
-    // 🧹 حذف أي نافذة قديمة
-    const old = document.getElementById("fastestBox");
-    if (old) old.remove();
-
-    // 📦 إنشاء الصندوق
-    const box = document.createElement("div");
-    box.id = "fastestBox";
-
-    box.style.position = "fixed";
-    box.style.top = "50%";
-    box.style.left = "50%";
-    box.style.transform = "translate(-50%, -50%)";
-    box.style.background = "#000";
-    box.style.color = "#fff";
-    box.style.border = "4px solid gold";
-    box.style.padding = "25px";
-    box.style.borderRadius = "20px";
-    box.style.fontSize = "32px";
-    box.style.zIndex = "9999";
-    box.style.textAlign = "center";
-
-    box.innerHTML = `🔥 الأسرع 🔥<br>${player.name}`;
-    document.body.appendChild(box);
-
-    FeudRules.claim(db,session,idx,player.team === 'c1' ? 1 : 2).catch(()=>{});
-    db.ref('games/' + session + '/status').set({locked:true,time:Date.now()});
-    // ⏱️ إخفاء الصندوق بعد ثانيتين
-    setTimeout(() => {
-        box.remove();
-    }, 2000);
-}
-
-// إغلاق
-function closeSettings() {
-    if (currentScreen === 'waiting') return;
-    document.getElementById("settingsModal").style.display = "none";
-}
-
-// حفظ
-
-function highlightTeam(team){
-    document.querySelectorAll(".side").forEach(el=>{
-        el.style.boxShadow = "none";
-    });
-
-    if (![1,2].includes(team)) return;
-    const target = team === 1 
-        ? document.querySelector(".team-right") 
-        : document.querySelector(".team-left");
-
-    target.style.boxShadow = "0 0 25px yellow";
-}
-function updateStrikes(){
-
-    function renderX(count){
-        let html = "";
-        for(let i=0;i<3;i++){
-            if(i < count){
-                html += `<span style="color:red">X</span>`;
-            }else{
-                html += `<span style="opacity:0.2">X</span>`;
-            }
-        }
-        return html;
-    }
-
-    document.getElementById("x1").innerHTML = renderX(strikes[1]);
-    document.getElementById("x2").innerHTML = renderX(strikes[2]);
-}
-function copyLink(type){
-
-    let text = "";
-
-    if(type === "buzz"){
-        text = document.getElementById("buzzLink").innerText;
-    }else{
-        text = document.getElementById("hostLink").innerText;
-    }
-
-    navigator.clipboard.writeText(text);
-
-    // 🔥 إظهار الإشعار
-    const toast = document.getElementById("copyToast");
-    toast.style.opacity = "1";
-
-    setTimeout(()=>{
-        toast.style.opacity = "0";
-    }, 1000); // 👈 ثانية واحدة
-}
-</script>
-
-<div id="menuScreen">
-  <main class="welcome-card">
-    <div class="welcome-brand"><span class="brand-dot"></span> ألعاب زامن</div>
-    <div class="welcome-emblem" aria-hidden="true"><span>فاميلي</span><strong>فيود</strong><i>★ ★ ★</i></div>
-    <h1>فاميلي فيود</h1>
-    
-    
-    <div class="welcome-team-fields team-fields">
-      <label for="welcomeTeam1">الفريق الأول<input id="welcomeTeam1" required placeholder="الفريق الأول" maxlength="40" autocomplete="off"></label>
-      <label for="welcomeTeam2">الفريق الثاني<input id="welcomeTeam2" required placeholder="الفريق الثاني" maxlength="40" autocomplete="off"></label>
-    </div>
-    <section class="question-count-settings">
-      <div class="count-heading"><label for="questionCount">عدد الأسئلة</label><span id="bankSizeLabel"></span></div>
-      <div class="count-options">
-        <button type="button" onclick="selectQuestionCount(5)">٥</button>
-        <button type="button" onclick="selectQuestionCount(10)">١٠</button>
-        <button type="button" onclick="selectQuestionCount(15)">١٥</button>
-        <button type="button" onclick="selectQuestionCount(20)">٢٠</button>
-        <input id="questionCount" type="number" value="10" min="1" step="1" aria-label="عدد الأسئلة" oninput="updateCountButtons()">
-      </div>
-    </section>
-    <p id="welcomeError" role="status"></p>
-    <button id="prepareButton" class="welcome-start" onclick="prepareGame()">ابدأ اللعب <span aria-hidden="true">←</span></button>
-
-    <a class="welcome-exit" href="https://zamn.games/">خروج</a>
-    
-  </main>
-</div>
-
-<div id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" style="display:none">
-  <div class="settings-panel">
-    <header class="settings-header">
-      <div><span class="settings-eyebrow">فاميلي فيود</span><h2 id="settingsTitle">إعدادات اللعبة</h2></div>
-      <button class="settings-close" onclick="closeSettings()" aria-label="إغلاق الإعدادات">×</button>
-    </header>
-    <div class="settings-content">
-      <div class="settings-section-heading">روابط الدخول <span>امسح الكود أو انسخ الرابط</span></div>
-      <div class="join-cards">
-        <section class="join-card">
-          <h3>جرس اللاعبين</h3><p>للأصدقاء المشاركين</p>
-          <div class="qr-tile"><div id="qrBox"></div></div>
-          <div id="buzzLink" class="join-link"></div>
-          <button class="copy-button" onclick="copyLink('buzz')">نسخ رابط الجرس</button>
-        </section>
-        <section class="join-card">
-          <h3>لوحة المقدم</h3><p>للتحكم في الجولة</p>
-          <div class="qr-tile"><div id="hostQR"></div></div>
-          <div id="hostLink" class="join-link"></div>
-          <button class="copy-button" onclick="copyLink('host')">نسخ رابط المقدم</button>
-        </section>
-      </div>
-      <section class="team-settings">
-        <div class="settings-section-heading">أسماء الفرق</div>
-        <div class="team-fields">
-          <label for="team1Input">الفريق الأول<input id="team1Input" placeholder="الفريق الأول" autocomplete="off"></label>
-          <label for="team2Input">الفريق الثاني<input id="team2Input" placeholder="الفريق الثاني" autocomplete="off"></label>
-        </div>
-      <p id="settingsError" role="status"></p>
-      </section>
-    </div>
-    <p class="waiting-message">بانتظار المقدم يبدأ اللعبة…</p>
-    <footer class="settings-actions">
-      <button class="settings-save" onclick="saveSettings()">حفظ التعديلات</button>
-      <button class="settings-cancel" onclick="closeSettings()">إغلاق</button>
-    </footer>
-  </div>
-</div>
-
-<!-- 🔥 هنا نحط الإشعار -->
-<div id="copyToast" style="
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%, -50%);
-background:#00cc66;
-color:#fff;
-padding:14px 22px;
-border-radius:14px;
-font-size:16px;
-font-weight:bold;
-box-shadow:0 0 25px rgba(0,0,0,0.6);
-opacity:0;
-transition:0.3s;
-z-index:99999;
-pointer-events:none;
-">
-تم النسخ ✅
-</div>
-
-<script>
-(function () {
-    document.getElementById('questionCount').max = game.length;
-    document.getElementById('bankSizeLabel').textContent = 'حتى ' + game.length + ' سؤال';
-    updateCountButtons();
-    const board = document.querySelector('.main-layout');
-    const viewport = document.createElement('div');
-    viewport.className = 'board-viewport';
-    board.before(viewport);
-    viewport.appendChild(board);
-    function fitBoard() {
-        const styles = getComputedStyle(document.body);
-        const availableWidth = (window.visualViewport ? window.visualViewport.width : window.innerWidth) - parseFloat(styles.paddingLeft) - parseFloat(styles.paddingRight);
-        const availableHeight = (window.visualViewport ? window.visualViewport.height : window.innerHeight) - parseFloat(styles.paddingTop) - parseFloat(styles.paddingBottom);
-        const width = board.offsetWidth;
-        const topInset = 36;
-        const height = board.offsetHeight + topInset;
-        const scale = Math.max(0.01, Math.min(availableWidth / width, availableHeight / height, 1.2));
-        viewport.style.width = (width * scale) + 'px';
-        viewport.style.height = (height * scale) + 'px';
-        board.style.top = (topInset * scale) + 'px';
-        board.style.transform = 'scale(' + scale + ')';
-    }
-    new ResizeObserver(fitBoard).observe(board);
-    window.addEventListener('resize', fitBoard);
-    if (window.visualViewport) window.visualViewport.addEventListener('resize', fitBoard);
-    fitBoard();
-})();
-</script>
-</body>
-</html>
-
-
-
-
-
-
+@media(max-width:370px){.qr{width:112px;height:112px;padding:5px}.qr-block button{font-size:9px;padding:6px}.qr-panels{gap:8px}.waiting>.card{padding:10px}.room-code strong{font-size:16px}.back{font-size:10px}.names{gap:8px}.mode{padding:10px 6px}}
+@media(max-height:560px){.title{display:none}.host-info{gap:5px}.host-info h2{font-size:16px}.host-info button{padding:7px}.host-answer{padding:7px;font-size:17px}.host-info p{font-size:11px}.waiting-right h2{font-size:17px}.waiting-right{gap:7px}}
+</style><style>
+.game-grid{display:flex;flex-direction:column;gap:12px}.score-panel{order:-1;flex:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:10px 14px;gap:8px 24px;background:transparent;border:0;box-shadow:none;overflow:visible}.score-panel .team{flex-direction:row;justify-content:space-between;gap:12px;padding:10px 16px;max-width:330px;min-width:0}.score-panel #t0{justify-self:start}.score-panel #t1{justify-self:end}.score-panel .score{font-size:32px}.score-panel .team-name{font-size:16px}.score-panel .turn{grid-column:1/-1;margin:0;font-size:12px}.small-info{display:none}.game-main{flex:1;min-height:0;width:100%;padding:12px 16px;gap:8px}.top{font-size:13px}.host-grid{gap:14px;max-width:1000px}.host-info{padding:16px;gap:10px}.host-info h2{font-size:19px}.host-info .controls{margin-top:auto}.host-info button{font-size:13px;padding:10px 8px}.host-answer{padding:12px;font-size:21px}.host-tiles{padding:14px;gap:8px}.host-tiles button{border-width:2px;font-size:18px}.hint{font-size:11px}.title h1{font-size:30px}dialog{padding:0;border:4px solid #292019;border-radius:18px;box-shadow:0 6px #292019;background:#fffafa;color:#292019;width:min(340px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto}dialog::backdrop{background:#21190e80;backdrop-filter:blur(3px)}.award-card{padding:24px 20px;position:relative;text-align:center}.award-card h2{font-size:20px;margin:5px 0 10px}.award-options{display:grid;gap:12px;margin-top:18px}.award-options button{font-size:15px;overflow-wrap:anywhere}.close-award{position:absolute;top:8px;left:8px;padding:2px 8px;box-shadow:none;border:0;background:transparent;font-size:23px}.award-card .helper{font-size:12px}
+@media(max-width:700px){.wrap{padding:7px 9px 12px;gap:7px}.game-grid{gap:8px}.score-panel{gap:5px 12px;padding:0 2px 3px}.score-panel .team{padding:7px 10px;gap:7px;border-width:2px}.score-panel .team-name{font-size:12px}.score-panel .score{font-size:24px}.score-panel .turn{font-size:10px}.game-main{padding:9px;gap:6px}.top{font-size:11px}.pill{padding:4px 8px}.pill strong{font-size:18px}.title h1{font-size:27px}.host-grid{grid-template-rows:auto minmax(0,1fr);gap:10px}.host-info{padding:10px;gap:7px}.host-info .controls{margin-top:0}.host-info button{padding:8px;font-size:12px}.host-info h2{font-size:16px}.host-info p{font-size:11px}.host-answer{font-size:18px;padding:8px}.host-tiles{padding:10px;gap:7px}.award-card{padding:22px 16px}.award-options button{font-size:14px}}
+@media(max-height:560px){.score-panel .team{padding:6px 12px}.score-panel .score{font-size:23px}.host-info{gap:5px}.host-info h2{font-size:15px}.host-info button{padding:6px 8px;font-size:11px}.host-answer{padding:6px;font-size:17px}.host-info p{font-size:10px}}
+</style><style>#settings-dialog{width:min(560px,calc(100vw - 24px))}.settings-card{padding:28px 20px 20px;position:relative}.settings-card h2{font-size:19px;margin-bottom:20px}.settings-card #save-names{width:100%;margin:15px 0 22px;font-size:14px}.settings-card .names{gap:12px}.settings-card .qr{width:154px;height:154px}.settings-card .qr-panels{margin-top:8px}.settings-card .qr-block h3{font-size:12px}.settings-card input{font-size:13px}.settings-card .helper{text-align:center;margin-bottom:0}@media(max-width:370px){.settings-card{padding:26px 12px 16px}.settings-card .qr{width:112px;height:112px}.settings-card .qr-panels{gap:8px}.settings-card .names{gap:8px}.settings-card input{padding:9px 7px}}</style><style>.host-presence{background:#b92d32;color:white;border:3px solid #292019;border-radius:12px;padding:9px 12px;font-size:13px;font-weight:bold;text-align:center;flex:none}.host-presence.connected{background:#238448}.lobby-teams{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;min-height:0;overflow:auto;max-height:260px}.lobby-team{background:#fff0ef;border:2px solid #292019;border-radius:12px;padding:10px;min-width:0}.lobby-team h3{font-size:14px;margin:0 0 9px;overflow-wrap:anywhere}.lobby-team ul{list-style:none;padding:0;margin:0}.lobby-team li{font-size:13px;padding:6px 0;overflow-wrap:anywhere;border-top:1px solid #ead6b8}.lobby-empty{font-size:12px;color:#866e55;margin:0}@media(max-height:560px){.lobby-teams{max-height:150px}}</style><style>
+.tiles{gap:1px;padding:0;background:#492615}
+.tile{position:relative;border:1px solid #663718;border-radius:2px;background:#ed6570;color:#492615;font-weight:900;text-shadow:none;box-shadow:inset 0 1px 0 #ffacb3;transition:opacity .2s,filter .15s;display:grid;place-items:center;font-size:clamp(18px,3.2vh,30px);line-height:1}
+.tile:disabled{cursor:default}
+@media(hover:hover){.tile:not(:disabled):hover{filter:brightness(1.08);transform:none;box-shadow:inset 0 1px 0 #ffacb3}}
+.tile:not(:disabled):active{transform:none;filter:brightness(.95);box-shadow:inset 0 1px 0 #ffacb3}
+.tile.open{transform:none;box-shadow:none}
+.tiles{background:transparent}
+@media(max-width:700px){.tiles{gap:1px;padding:0}.tile{border-radius:2px;font-size:clamp(16px,3vh,24px)}}
+@media(prefers-reduced-motion:reduce){.tile{transition:none}}
+</style><style>.help-entry{width:100%;margin-top:14px;padding:10px;font-size:14px;background:#fff0ef}.help-page{width:min(620px,100%)}.help-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.help-heading h2{margin:0}.help-count{font-size:13px;white-space:nowrap;color:#866e55}.help-card{background:#fff0ef;border:3px solid #292019;border-radius:16px;padding:24px;text-align:center}.help-step{display:inline-grid;place-items:center;width:48px;height:48px;background:#ed6570;border:3px solid #292019;border-radius:12px;font-size:23px;font-weight:bold}.help-card h3{font-size:22px;margin:18px 0 12px}.help-card p{font-size:16px;line-height:1.9;margin:0;overflow-wrap:anywhere}.help-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.help-dots{display:flex;justify-content:center;gap:7px;margin:18px 0}.help-dot{width:9px;height:9px;border-radius:50%;background:#e7c5c8}.help-dot.current{background:#d43647;transform:scale(1.25)}@media(max-width:700px),(max-height:560px){.help-card{padding:16px}.help-card h3{font-size:19px;margin:12px 0 8px}.help-card p{font-size:14px;line-height:1.75}.help-step{width:38px;height:38px;font-size:19px}.help-dots{margin:14px 0}}</style><style>.brand{color:#c92f40}.title h1{color:#e44852;text-shadow:1px 2px #4a2226}.guess-picker{border:0;padding:0;margin:0 0 20px;min-width:0}.guess-picker legend{font-size:16px;font-weight:bold;padding:0;margin-bottom:12px}.guess-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.guess-choice{background:#fff0ef;padding:13px;text-align:right;border-color:#4a2226}.guess-choice small{display:block;font-size:11px;font-weight:normal;margin-top:5px;color:#875b60}.guess-choice.selected{background:#e44852;color:white}.guess-choice.selected small{color:#fff0ef}.guess-picker .helper{margin-bottom:0}.tile{background:#ed6570;color:#4a2226;border-color:#76343c;box-shadow:inset 0 1px #ffacb3}.tile:not(:disabled):active{box-shadow:inset 0 1px #ffacb3}.panel{overflow:auto}.primary{color:white;background:#d93648}@media(max-width:700px){.guess-picker{margin-bottom:14px}.guess-choice{padding:10px}.guess-picker legend{font-size:14px}.guess-options{gap:8px}}</style><style>.voice-stage{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;overflow:auto}.voice-stage h2{margin:0;font-size:clamp(20px,4vh,30px)}.voice-stage p{font-size:13px;line-height:1.6;margin:0}.voice-emblem{display:grid;place-items:center;width:clamp(60px,16vh,120px);height:clamp(60px,16vh,120px);border:4px solid #4a2226;border-radius:28px;background:#ffd9dc;color:#cf3445;font-size:clamp(34px,9vh,68px);box-shadow:0 5px #4a2226}.voice-stage #play-voice{margin-top:7px;width:min(270px,100%)}.voice-stage #voice-note{color:#a63140;min-height:20px}.host-grid.voice-host{grid-template-columns:minmax(0,560px);justify-content:center}.voice-host .host-info{height:auto;align-self:center}.voice-host .host-info .controls{margin-top:10px}</style><style>.solo-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;flex:none}.solo-controls button{padding:10px 7px;font-size:13px}@media(max-width:700px){.solo-controls{gap:6px}.solo-controls button{font-size:11px;padding:9px 4px}}</style><style>.guess-choice[data-guess="mix"]{border-color:#c49a45;box-shadow:0 3px 0 #aa8032}.guess-choice[data-guess="mix"].selected{border-color:#d7ae58;box-shadow:0 3px 0 #aa8032}.mix-title{display:flex;align-items:center;justify-content:space-between;gap:8px}.mix-badge{font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid #c49a45;color:#926717;background:transparent;white-space:nowrap}.guess-choice[data-guess="mix"].selected .mix-badge{color:#fff0bc}</style><style>.question-count{border:0;padding:0;margin:0 0 18px;min-width:0}.question-count legend{font-size:16px;font-weight:bold}.question-presets{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.question-presets button{padding:8px 14px;font-size:13px}.question-presets button.selected{background:#e44852;color:white}.question-count input{margin-top:7px;width:100%}.question-count label{font-size:13px}</style><style>html,body{height:100dvh}.wrap{overflow:hidden}.screen{min-height:0;max-height:100%;width:100%}.panel{flex:0 1 auto;min-height:0;max-height:100%;overscroll-behavior:contain}.host-grid.photo-host{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.15fr);grid-template-rows:minmax(0,1fr);height:100%;min-height:0;gap:16px;align-items:stretch}.photo-host .host-info{height:100%;align-self:stretch;overflow:auto}.host-photo{display:flex;flex-direction:column;gap:12px;padding:14px;min-height:0;overflow:hidden}.host-photo span{display:block;font-size:12px;color:#875b60;margin-bottom:7px}.host-photo-small{flex:0 0 auto;min-height:0}.host-photo-small svg{display:block;width:min(260px,100%);height:90px;margin:auto;background:#fff0ef;border:2px solid #4a2226;border-radius:10px}.host-photo-full{flex:1;min-height:0;display:flex;flex-direction:column}.host-photo-full img{width:100%;flex:1;min-height:0;object-fit:contain;display:block;border-radius:10px}.game-grid,.game-main,.board-space{min-height:0;min-width:0}.team-name{overflow-wrap:anywhere}.top{flex-wrap:wrap}dialog{max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow:auto}@media(max-width:700px){.host-grid.photo-host{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(240px,1fr);overflow:auto;gap:12px}.photo-host .host-info{height:auto;overflow:visible;padding:12px}.host-photo{min-height:300px}.host-photo-small svg{height:65px;width:min(220px,100%)}.photo-host .host-answer{font-size:18px;padding:9px}.photo-host .host-info h2{font-size:18px}.photo-host .host-info button{padding:9px;font-size:13px}.panel{padding:14px}.guess-picker{margin-bottom:12px}.question-count{margin-bottom:12px}}@media(max-height:600px) and (min-width:701px){.title h1{font-size:25px}.wrap{gap:7px;padding:7px 12px 12px}.photo-host .host-info{padding:12px;gap:6px}.photo-host .host-info button{padding:8px}.host-photo-small svg{height:60px}.host-photo{gap:8px;padding:10px}}</style><style>.host-scores{display:grid;grid-template-columns:1fr 1fr;gap:8px}.host-scores>div{display:flex;align-items:center;justify-content:space-between;gap:8px;border:2px solid #4a2226;border-radius:10px;padding:8px;background:#fff0ef;min-width:0}.host-scores span{font-size:12px;overflow-wrap:anywhere}.host-scores strong{font-size:24px}.buzz-control{border:2px solid #4a2226;border-radius:12px;padding:10px;background:#fff0ef}.buzz-control h3{font-size:13px;margin:0}.buzz-control p{font-size:12px;line-height:1.5;margin:8px 0;overflow-wrap:anywhere}.buzz-control>div{display:grid;grid-template-columns:1fr 1fr;gap:6px}.buzz-control button{font-size:11px;padding:7px 5px;border-width:2px;box-shadow:0 2px #4a2226}@media(max-width:700px){.buzz-control{grid-column:1/-1;padding:8px}.buzz-control>div{gap:8px}.buzz-control p{margin:5px 0}.host-scores strong{font-size:20px}}</style><style>.score-panel .buzz-control{grid-column:1/-1;justify-self:center;width:min(420px,100%);padding:7px 10px}.score-panel{gap:6px 14px;padding:4px 8px}.score-panel .team{padding:6px 12px}.score-panel .score{font-size:25px}.score-panel .team-name{font-size:13px}.game-grid{gap:8px}.buzz-control h3{font-size:12px}.buzz-control p{font-size:11px;margin:5px 0}.buzz-control button{font-size:11px;padding:6px}.host-info,.photo-host .host-info{padding:12px;gap:7px}.host-info h2,.photo-host .host-info h2{font-size:17px}.host-info .host-answer{font-size:18px;padding:9px}.host-info p{font-size:11px;margin:0}.host-info button,.photo-host .host-info button{font-size:12px;padding:8px}.host-info .controls{margin-top:4px}.host-scores>div{padding:6px}.host-scores strong{font-size:21px}.host-buzz-control{flex:none;padding:8px}.host-info .host-buzz-control p{margin:5px 0}.host-info .host-buzz-control button{padding:6px;font-size:11px}.host-photo-small svg{height:72px}.title h1{font-size:clamp(24px,4vh,34px)}@media(max-width:700px),(max-height:600px){.wrap{padding:6px 8px 10px;gap:6px}.score-panel{gap:5px;padding:0 2px}.score-panel .team{padding:5px 8px}.score-panel .score{font-size:21px}.score-panel .team-name{font-size:11px}.host-info,.photo-host .host-info{padding:9px;gap:5px}.host-info button,.photo-host .host-info button{padding:6px;font-size:11px}.host-photo-small svg{height:55px}.host-grid.photo-host{gap:8px}.host-photo{padding:9px;gap:8px}.host-buzz-control{padding:6px}}</style><style>.host-photo-small svg{width:100%;max-width:100%;height:auto;max-height:140px;object-fit:contain;display:block;margin:auto}.host-photo-small{flex:none}@media(max-width:700px),(max-height:600px){.host-photo-small svg{height:auto;max-height:100px}}</style></head><body><header><div class="brand">ZAMN / زامن</div><button class="back" id="back">الرئيسية</button></header><main class="wrap"><p id="connection" class="connection helper" hidden role="status"></p><div class="title"><h1>خمن الشخصية</h1></div>
+<section id="setup" class="panel card"><h2>جهّزوا فرقكم</h2><fieldset class="guess-picker"><legend>كيف تبون تخمنون الشخصية</legend><div class="guess-options"><button type="button" class="guess-choice selected" data-guess="eye" aria-pressed="true">من عينه<small>ركزوا في النظرة</small></button><button type="button" class="guess-choice" data-guess="voice" aria-pressed="false">من صوته<small>اسمعوا وخمنوا</small></button><button type="button" class="guess-choice" data-guess="mouth" aria-pressed="false">من فمه<small>تعرفونه من ابتسامته</small></button><button type="button" class="guess-choice" data-guess="mix" aria-pressed="false"><span class="mix-title">مكس<span class="mix-badge">الأفضل</span></span><small>عين وصوت وفم</small></button></div></fieldset><fieldset class="question-count"><legend>كم سؤال تبون تلعبون</legend><p id="question-total" class="helper"></p><div id="question-presets" class="question-presets"></div><label for="question-number">أو اكتبوا العدد</label><input id="question-number" type="number" min="1" step="1" value="20" inputmode="numeric" required><p id="question-error" class="status" hidden>اختاروا عدد صحيح ضمن الأسئلة المتاحة</p></fieldset><div class="names"><div><label for="name0">الفريق الأول</label><input id="name0" placeholder="الفريق الأول" required maxlength="24"></div><div><label for="name1">الفريق الثاني</label><input id="name1" placeholder="الفريق الثاني" required maxlength="24"></div></div><p id="team-name-error" class="status" role="alert" hidden></p><div class="modes"><button class="mode selected" id="mode0">بدون مقدم<small>كلكم تحاولون تكتشفون الجواب مع بعض</small></button><button class="mode" id="mode1">مع مقدم<small>المقدم يكشف ويحسب النقاط</small></button></div><button id="create" class="primary start" disabled>ابدأ</button><button id="open-help" class="help-entry">شرح اللعبة</button><button id="exit-game" class="help-entry">خروج</button></section>
+<section id="help" class="panel card help-page" hidden aria-labelledby="help-title"><div class="help-heading"><h2 id="help-title">شرح اللعبة</h2><span id="help-count" class="help-count"></span></div><article id="help-card" class="help-card" aria-live="polite"><span id="help-step" class="help-step"></span><h3 id="help-card-title"></h3><p id="help-text"></p></article><div id="help-dots" class="help-dots" aria-label="خطوات الشرح"></div><div class="help-controls"><button id="help-prev">السابق</button><button id="help-next" class="primary">التالي</button></div><button id="help-close" class="help-entry">رجوع للبداية</button></section>
+<section id="waiting" class="waiting" hidden><div class="card"><div class="room-code">رمز الجلسة <strong id="room-code"></strong></div><div class="qr-panels"><div class="qr-block"><h3 id="join-title">دخول اللاعبين</h3><div id="player-qr" class="qr"></div><button id="copy-player">نسخ الرابط</button></div><div id="host-qr-block" class="qr-block" hidden><h3>دخول المقدم</h3><div id="host-qr" class="qr"></div><button id="copy-host">نسخ الرابط</button><button id="open-host">فتح الشاشة</button></div></div><p id="join-note" class="helper"></p></div><div class="card waiting-right"><div id="host-ready" class="host-presence" role="status" aria-live="polite"></div><h2>بانتظار الربع</h2><div id="members" class="lobby-teams"></div><p id="member-count" class="helper">ما دخل أحد للحين</p><button id="launch" class="primary start">ابدأ اللعب</button></div></section>
+<section id="game" class="screen" hidden><div class="game-grid"><div class="card game-main"><div class="top"><span id="round"></span><span class="pill"><strong id="value"></strong> نقطة</span></div><div id="voice-stage" class="voice-stage" hidden><div class="voice-emblem" aria-hidden="true">♫</div><h2>مين صاحب الصوت</h2><p>اسمعوا المقطع واضغطوا الجرس إذا عرفتوه</p><button id="play-voice" class="primary">تشغيل الصوت</button><p id="voice-note" role="status"></p><audio id="voice-audio" preload="metadata"></audio></div><div id="board-space" class="board-space"><div id="board" class="board"><svg id="art" class="art" viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg"></svg><div id="tiles" class="tiles"></div></div></div><div id="hint" class="hint" hidden></div><div id="status" class="status" aria-live="polite"></div><button id="next" class="next" hidden>التحدي التالي</button><div id="solo-controls" class="solo-controls" hidden><button id="solo-prev">السابق</button><button id="solo-reveal">كشف الإجابة</button><button id="solo-next" class="primary">التالي</button></div></div><aside class="card score-panel"><button id="t0" class="team"><span id="label0" class="team-name"></span><strong id="s0" class="score"></strong></button><button id="t1" class="team"><span id="label1" class="team-name"></span><strong id="s1" class="score"></strong></button><p id="turn" class="turn" hidden></p><div class="small-info">اكشف أقل · اكسب أكثر</div></aside></div></section>
+<section id="presenter" class="screen" hidden><div class="host-grid"><div class="card host-info"><h2>شاشة المقدم</h2><div class="host-scores"><div><span id="host-team0"></span><strong id="host-score0">٠</strong></div><div><span id="host-team1"></span><strong id="host-score1">٠</strong></div></div><p id="host-round"></p><div class="host-answer">الحل <strong id="solution"></strong></div><p id="host-turn" hidden></p><button id="host-play-voice" class="primary" hidden>تشغيل الصوت للجميع</button><button id="host-reveal">كشف الحل</button><div class="controls"><button id="host-prev">السؤال السابق</button><button id="host-next" class="primary">السؤال التالي</button></div><div class="buzz-control host-buzz-control"><h3>تحكم الجرس</h3><p id="host-buzz" class="helper" aria-live="polite"></p><div><button id="host-stop-buzz">توقيف الجرس</button><button id="reset-buzz" class="primary">إعادة فتح الجرس</button></div></div></div><div class="card host-tiles" id="host-tiles"></div><div id="host-photo" class="card host-photo" hidden><div class="host-photo-small"><span>صورة السؤال</span><svg id="host-photo-crop" role="img" aria-label="صورة السؤال المصغرة"></svg></div><div class="host-photo-full"><span>الشخصية كاملة</span><img id="host-photo-face" alt="صورة الشخصية كاملة"></div></div></div></section>
+<section id="host-wait" class="panel card" hidden><h2>المقدم جاهز</h2><p class="wait-message">إذا جهزوا اللاعبين ابدأ اللعب</p><button id="host-launch" class="primary start">ابدأ اللعب</button></section>
+<section id="phone" class="panel card phone-panel" hidden><h2 id="phone-title">انضم لفريقك</h2><div id="join-form"><input id="player-name" placeholder="اسمك" maxlength="24" aria-label="اسم اللاعب"><div class="modes"><button id="join-team0" class="mode selected">الفريق الأول</button><button id="join-team1" class="mode">الفريق الثاني</button></div><button id="join-player" class="primary join-button">انضم للجلسة</button></div><div id="phone-wait" class="wait-message" hidden>دخلت الجلسة · بانتظار بدء اللعبة</div><button id="player-buzz" class="buzzer" hidden>عندنا الإجابة</button><p id="player-status" class="status"></p><div id="phone-answer-box" class="phone-answer-box" hidden><input id="phone-answer" placeholder="إجابة فريقك" aria-label="إجابة الفريق"><button id="phone-submit" class="primary">ثبت الإجابة</button></div></section></main><dialog id="exit-dialog" aria-labelledby="exit-title" aria-describedby="exit-description"><div class="award-card"><h2 id="exit-title">تبغى تطلع من اللعبة؟</h2><p id="exit-description" class="helper">بنرجعك لموقع ألعاب زامن</p><div class="award-options"><button id="confirm-exit" class="primary">نعم خروج</button><button id="cancel-exit" autofocus>إلغاء</button></div></div></dialog><dialog id="settings-dialog" aria-labelledby="settings-title"><div class="settings-card"><button id="close-settings" class="close-award" aria-label="إغلاق الإعدادات">×</button><h2 id="settings-title">إعدادات الجلسة</h2><div class="names"><div><label for="settings-name0">الفريق الأول</label><input id="settings-name0" maxlength="24"></div><div><label for="settings-name1">الفريق الثاني</label><input id="settings-name1" maxlength="24"></div></div><button id="save-names" class="primary">حفظ الأسماء</button><div class="qr-panels"><div class="qr-block"><h3 id="settings-join-title">دخول اللاعبين</h3><div id="settings-player-qr" class="qr"></div><button id="settings-copy-player">نسخ الرابط</button></div><div id="settings-host-block" class="qr-block" hidden><h3>دخول المقدم</h3><div id="settings-host-qr" class="qr"></div><button id="settings-copy-host">نسخ الرابط</button></div></div><p id="settings-status" class="helper" aria-live="polite"></p></div></dialog><dialog id="award-dialog" aria-labelledby="award-title"><div class="award-card"><button id="close-award" class="close-award" aria-label="إغلاق">×</button><h2 id="award-title">مين جاوب؟</h2><p id="award-value" class="helper"></p><div class="award-options"><button id="award0" class="primary"></button><button id="award1" class="primary"></button><button id="award-none">ولا أحد جاوب</button></div></div></dialog><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script type="module">const $=id=>document.getElementById(id),ar=n=>n.toLocaleString('ar-SA');
+const sampleRounds=[{name:'برج المملكة',answers:['برج المملكة','المملكة','برج المملكه','المملكه'],cat:'معلم سعودي',svg:`<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#65b3d0"/><stop offset="1" stop-color="#f6d9ad"/></linearGradient><linearGradient id="tower"><stop stop-color="#9bbac6"/><stop offset=".5" stop-color="#edf2e9"/><stop offset="1" stop-color="#688e9d"/></linearGradient></defs><rect width="800" height="560" fill="url(#sky)"/><circle cx="640" cy="95" r="46" fill="#ffe9ad"/><path d="M0 440h800v120H0" fill="#d4b18b"/><g fill="#bca286"><path d="M30 350h80v140H30zM135 385h75v105h-75zM595 365h65v125h-65zM680 330h90v160h-90z"/></g><path d="M305 485L325 85Q400 20 475 85L495 485Z" fill="url(#tower)" stroke="#5c8390" stroke-width="5"/><path d="M349 96Q400 58 451 96L451 147Q400 228 349 147Z" fill="#8ac3d4"/><path d="M348 100Q400 81 452 100" fill="none" stroke="#faf7d9" stroke-width="14"/><g stroke="#5e8593" opacity=".45">${Array.from({length:18},(_,i)=>`<path d="M320 ${205+i*14}h161"/>`).join('')}</g><path d="M0 508h800" stroke="#8a7f6d" stroke-width="8"/>`},{name:'كبسة',answers:['كبسة','الكبسة','كبسه','الكبسه'],cat:'أكلة سعودية',svg:`<rect width="800" height="560" fill="#b57b54"/><path d="M0 90h800M0 260h800M0 450h800" stroke="#915d3d" stroke-width="5"/><ellipse cx="400" cy="305" rx="295" ry="205" fill="#f6eee0"/><ellipse cx="400" cy="300" rx="265" ry="175" fill="#d69632"/>${Array.from({length:150},(_,i)=>`<ellipse cx="${170+(i*43)%450}" cy="${170+(i*31)%255}" rx="9" ry="3" transform="rotate(${i%70} ${170+(i*43)%450} ${170+(i*31)%255})" fill="${i%2?'#f4d07b':'#e9b453'}"/>`).join('')}<path d="M330 260Q350 175 440 225Q495 248 461 330Q405 383 342 328Z" fill="#a94e22" stroke="#743617" stroke-width="7"/><path d="M433 300l87 47" stroke="#af5527" stroke-width="40" stroke-linecap="round"/><path d="M514 344l35 19" stroke="#efe0b8" stroke-width="16" stroke-linecap="round"/><circle cx="274" cy="346" r="24" fill="#b23921"/><circle cx="521" cy="230" r="20" fill="#b23921"/><path d="M292 222q25-36 40-10M457 392q30-24 45 1" fill="none" stroke="#567238" stroke-width="15"/>`},{name:'دلة',answers:['دلة','دله','الدلة','الدله','دلة قهوة','دله قهوه'],cat:'من الكشتة',svg:`<rect width="800" height="560" fill="#e5c6a0"/><path d="M0 380Q180 290 410 385T800 350V560H0" fill="#c4a06e"/><path d="M0 465h800v95H0" fill="#693d30"/><path d="M0 490h800M0 525h800" stroke="#c98559" stroke-width="12"/><g fill="#c4a35b" stroke="#806632" stroke-width="7"><path d="M305 395Q285 310 340 248L347 194H450L458 248Q507 329 485 395Z"/><path d="M336 192Q395 113 459 192Z"/><path d="M387 132v-28q13-20 26 0v28"/><path d="M460 267Q519 225 546 178Q550 265 487 326"/><path d="M328 253Q241 223 237 299Q240 358 309 346" fill="none" stroke-width="19"/></g><path d="M338 324h112M340 341h113" stroke="#ead296" stroke-width="5"/><g fill="#fff1d5" stroke="#bb9b66" stroke-width="4"><path d="M559 382h68l-12 51h-43Z"/><path d="M650 401h63l-12 45h-39Z"/></g>`}];
+
+const voiceRounds=[{"id": "voice-01", "name": "أبو كايد", "answers": ["أبو كايد", "ابو كايد"], "title": "هاك هاك", "type": "voice", "audio": "audio/voice-01.wav", "duration": 6.8, "source": "https://www.myinstants.com/en/instant/bw-kyd-hk-hk-90635/", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-03", "name": "عبدالعزيز الشهري", "answers": ["عبدالعزيز الشهري", "عبد العزيز الشهري"], "title": "ولد وشبك أنت", "type": "voice", "audio": "audio/voice-03.wav", "duration": 6.557, "source": "https://www.myinstants.com/en/instant/wld-wshbk-nt-bdl-zyz-lshhry-13754/", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-04", "name": "بندريتا", "answers": ["بندريتا", "بندر", "بندريتا اكس", "بندريتا X"], "title": "مو لاق", "type": "voice", "audio": "audio/voice-04.wav", "duration": 6.8, "source": "https://www.myinstants.com/en/instant/bndryt-whd-yqwl-mw-lq-ytltm-20850/", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-05", "name": "أسطورة الرياض", "answers": ["أسطورة الرياض", "اسطورة الرياض"], "title": "ياخي عيب عليكم", "type": "voice", "audio": "audio/voice-05.wav", "duration": 6.8, "source": "https://www.myinstants.com/en/instant/ykhy-yb-lykm-stwr-lryd-8780/", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-12", "name": "دحومي 999", "answers": ["دحومي 999", "دحومي", "دحومي٩٩٩", "دحومي ٩٩٩"], "title": "ابلع", "type": "voice", "audio": "audio/voice-12.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/525f468d-2b27-4b9b-801c-ae6f76c58417", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-16", "name": "شونق بونق", "answers": ["شونق بونق", "شونق", "احمد القحطاني", "أحمد القحطاني"], "title": "فري مايك", "type": "voice", "audio": "audio/voice-16.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/e0d0498b-ccc5-4fc7-895f-c66cf3d4b7a2", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-17", "name": "أبو عبير", "answers": ["أبو عبير", "ابو عبير", "أبو عبير أوبلز", "ابو عبير اوبلز", "صالح أوبلز", "صالح اوبلز"], "title": "يا مجنون يا لعيب", "type": "voice", "audio": "audio/voice-17.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/2f8934ad-5bdc-425c-9294-5cd4a5d235ab", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-18", "name": "ناصر القصبي", "answers": ["ناصر القصبي"], "title": "رياكشن", "type": "voice", "audio": "audio/voice-18.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/22cefafe-0a6f-4049-83a0-517ac1e8fc41", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-21", "name": "أحمد مكي", "answers": ["أحمد مكي"], "title": "ميم أحمد مكي", "type": "voice", "audio": "audio/voice-21.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/374f4e76-bc8e-4384-b8ae-72f6063aea2a", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-23", "name": "عمرو عبدالجليل", "answers": ["عمرو عبدالجليل"], "title": "سوق الجمعة", "type": "voice", "audio": "audio/voice-23.wav", "duration": 3.624, "source": "https://tuna.voicemod.net/sound/3d4cc629-28f8-45f2-b37c-2213d65f3268", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-24", "name": "عصام الشوالي", "answers": ["عصام الشوالي"], "title": "تعليق رياضي", "type": "voice", "audio": "audio/voice-24.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/3be9715a-f4a8-4e14-aad4-4f5f42d44eb7", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-25", "name": "رؤوف خليف", "answers": ["رؤوف خليف"], "title": "تعليق رياضي", "type": "voice", "audio": "audio/voice-25.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/61ebd29c-63e3-4990-8484-4d402d943677", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-26", "name": "أحمد حلمي", "answers": ["أحمد حلمي", "احمد حلمي"], "title": "مفيش أخبار عن فريدة", "type": "voice", "audio": "audio/voice-26.wav", "duration": 6.8, "source": "https://www.myinstants.com/en/instant/mfysh-khbr-n-fryd-56983/", "attribution": "اسم المتحدث حسب وصف المصدر"}, {"id": "voice-27", "name": "فهد سال", "answers": ["فهد سال"], "title": "ميم فهد سال", "type": "voice", "audio": "audio/voice-27.wav", "duration": 6.8, "source": "https://tuna.voicemod.net/sound/60a9ee32-e980-4e71-8695-c645a001ecd6", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-22", "name": "محمد سعد", "answers": ["محمد سعد"], "title": "كتكوت", "type": "voice", "audio": "audio/voice-22.wav", "duration": 3.0, "source": "https://tuna.voicemod.net/sound/6f265088-d9f9-4a2e-b17c-3a4ed4db9fea", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-28", "name": "عادل إمام", "answers": ["عادل إمام"], "title": "قلبك عامر بالإيمان", "type": "voice", "audio": "audio/voice-28.wav", "duration": 2.458, "source": "https://www.voicy.network/sounds/yrL2r6Y4y0S_cluxAmuUlg-", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-29", "name": "أبو فلة", "answers": ["أبو فلة"], "title": "ربي ارحمني", "type": "voice", "audio": "audio/voice-29.wav", "duration": 6.8, "source": "https://www.voicy.network/sounds/8ozL03kByky38TWZNev7VQ-", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-31", "name": "بهجت صابر", "answers": ["بهجت صابر"], "title": "أستاذ لغة عربية", "type": "voice", "audio": "audio/voice-31.wav", "duration": 5.783, "source": "https://www.myinstants.com/en/instant/bhjt-sbr-stdh-lg-rby-52544/", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-30", "name": "أيمن قنديل", "answers": ["أيمن قنديل"], "title": "أيوه كده يا وديع", "type": "voice", "audio": "audio/voice-30.wav", "duration": 5.448, "source": "https://www.voicy.network/sounds/iGWIJZnNdEa8fsfaOVC_3A-", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "voice-32", "name": "إسماعيل ياسين", "answers": ["إسماعيل ياسين"], "title": "مونولوج ما تستعجبشي", "type": "voice", "audio": "audio/voice-32.wav", "duration": 3.0, "source": "https://tuna.voicemod.net/sound/3a887a8b-1d2a-4f80-bb1d-6e226e69895e", "attribution": "اسم المتحدث حسب عنوان المقطع المنشور في المصدر"}, {"id": "saudi-talk-01", "name": "مالك الروقي", "answers": ["مالك الروقي"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-01.wav", "duration": 6.25, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3487/file.mp3", "title": "297: كيف تعمل السياسة السعودية مع مالك الروقي", "sourceStart": 28.2, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-02", "name": "عائض القرني", "answers": ["عائض القرني"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-02.wav", "duration": 5.1, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3497/file.mp3", "title": "288: العزلة والشهرة والحزن مع عائض القرني", "sourceStart": 0, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-03", "name": "ياسر الحزيمي", "answers": ["ياسر الحزيمي"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-03.wav", "duration": 4.55, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3509/file.mp3", "title": "277: كيف تنجح العلاقات مع ياسر الحزيمي", "sourceStart": 23, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-04", "name": "محمد بازيد", "answers": ["محمد بازيد"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-04.wav", "duration": 5.55, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3528/file.mp3", "title": "261: مشاكل الطيران السعودي وأسباب تقلب الأسعار مع محمد بازيد", "sourceStart": 10.6, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-05", "name": "حسن عسيري", "answers": ["حسن عسيري"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-05.wav", "duration": 6.3, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3535/file.mp3", "title": "256: السبب خلف سوء المسلسلات السعودية مع حسن عسيري", "sourceStart": 5.15, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-06", "name": "خالد القحطاني", "answers": ["خالد القحطاني"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-06.wav", "duration": 6.85, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3543/file.mp3", "title": "249: سبعة أجانب: النقلة التاريخية للدوري السعودي مع خالد القحطاني", "sourceStart": 24.4, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-07", "name": "عبدالعزيز المزيني", "answers": ["عبدالعزيز المزيني"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-07.wav", "duration": 6.75, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3547/file.mp3", "title": "246: الفساد في سوق الإنتاج مع عبدالعزيز المزيني", "sourceStart": 29.95, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-08", "name": "عبدالمجيد الكناني", "answers": ["عبدالمجيد الكناني"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-08.wav", "duration": 4.6, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3595/file.mp3", "title": "206: عن صناعة الدراما الخليجية، مع عبدالمجيد الكناني", "sourceStart": 7.55, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-09", "name": "فارس التركي", "answers": ["فارس التركي"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-09.wav", "duration": 5.3, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3598/file.mp3", "title": "203: تجربة فطور فارس، مستقبل المطاعم والتوصيل", "sourceStart": 10.85, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-10", "name": "تركي الدخيل", "answers": ["تركي الدخيل"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-10.wav", "duration": 6.55, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3630/file.mp3", "title": "173: لقاء مع سعادة السفير، تركي الدخيل", "sourceStart": 39, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-11", "name": "ياسر القحطاني", "answers": ["ياسر القحطاني"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-11.wav", "duration": 5.6, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3632/file.mp3", "title": "170: من المدرج، ياسر القحطاني", "sourceStart": 4.75, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-12", "name": "عبدالله السبع", "answers": ["عبدالله السبع"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-12.wav", "duration": 5.1, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3657/file.mp3", "title": "146: هل يخشى المؤثرون خسارة شهرتهم؟", "sourceStart": 125, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-13", "name": "مشهور الدبيان", "answers": ["مشهور الدبيان"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-13.wav", "duration": 6.7, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3727/file.mp3", "title": "61: الذكاء الاصطناعي من مسلمات العصر مع مشهور الدبيان", "sourceStart": 100.5, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-14", "name": "رشاد فقيها", "answers": ["رشاد فقيها"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-14.wav", "duration": 4.7, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1773/file.mp3", "title": "كيف تغير التنمية البشرية حياة الأشخاص مع رشاد فقيها", "sourceStart": 29.45, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-15", "name": "خالد الحربي", "answers": ["خالد الحربي"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-15.wav", "duration": 6.3, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1789/file.mp3", "title": "الفنان الذي كتب مسلسل بابا فرحان", "sourceStart": 13.65, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-16", "name": "صالح العريض", "answers": ["صالح العريض"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-16.wav", "duration": 6.1, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1802/file.mp3", "title": "الرجل الذي نشأ جيل كامل على برامجه", "sourceStart": 9.45, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-17", "name": "حاتم النجار", "answers": ["حاتم النجار"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-17.wav", "duration": 5.05, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1823/file.mp3", "title": "بودكاست مربع | قريبًا على ثمانية", "sourceStart": 19, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-18", "name": "نزار باهبري", "answers": ["نزار باهبري"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-18.wav", "duration": 6.1, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1875/file.mp3", "title": "كورونا! نخاف ولا ما نخاف؟ مع د. نزار باهبري", "sourceStart": 87, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-19", "name": "محمد الزهراني", "answers": ["محمد الزهراني"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-19.wav", "duration": 5.05, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1917/file.mp3", "title": "اشتهر وهو بالابتدائي، كيف يتعامل محمد الزهراني “بلا صياح” مع الشهرة.. وكيف يصنع محتواه في يوتيوب!", "sourceStart": 103, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}, {"id": "saudi-talk-20", "name": "عبدالرحمن أبومالح", "answers": ["عبدالرحمن أبومالح"], "type": "voice", "cat": "من صوته", "audio": "audio/saudi-talk-20.wav", "duration": 5.15, "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3509/file.mp3", "title": "كيف تنجح العلاقات", "sourceStart": 62.15, "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"}];let rounds=sampleRounds;let audioRound=-1,audioCueSeen=null;
+const eyeRounds=[{"id": "saudi-14-eye", "name": "بندريتا", "answers": ["بندريتا", "بندر", "بندريتا اكس"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-14-eye.jpg\" width=\"1080\" height=\"1080\"/>", "image": "portraits/eyes-upgrade/saudi-14-eye.jpg", "crop": [325, 252, 470, 140], "source": "https://etbilarabi.com/%D9%85%D9%8A%D9%83%D8%B3/%D8%B9%D8%A7%D9%86%D9%89-%D9%85%D9%86-%D8%A7%D9%84%D8%A7%D9%83%D8%AA%D8%A6%D8%A7%D8%A8-%D9%88%D9%81%D9%83%D9%91%D8%B1-%D8%A8%D8%A7%D9%84%D8%A7%D9%86%D8%AA%D8%AD%D8%A7%D8%B1-%D8%A8%D9%86%D8%AF%D8%B1%D9%8A%D8%AA%D8%A7-%D9%8A%D8%B1%D9%88%D9%8A-%D9%82%D8%B5%D8%AA%D9%87", "imageSize": [1080, 1080], "revealCrop": [240, 0, 640, 800], "largeDisplay": true}, {"id": "saudi-15-eye", "name": "دحومي 999", "answers": ["دحومي 999", "دحومي", "دحومي٩٩٩"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-15-eye.jpg\" width=\"1538\" height=\"2048\"/>", "image": "portraits/eyes-upgrade/saudi-15-eye.jpg", "crop": [695, 853, 506, 151], "source": "https://x.com/d7oomy_999/highlights", "imageSize": [1538, 2048], "revealCrop": [604, 563, 689, 861], "largeDisplay": true}, {"id": "saudi-16-eye", "name": "شونق بونق", "answers": ["شونق بونق", "شونق", "أحمد القحطاني"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-16-eye.jpg\" width=\"1283\" height=\"1439\"/>", "image": "portraits/eyes-upgrade/saudi-16-eye.jpg", "crop": [398, 425, 459, 137], "source": "https://x.com/FifanR", "imageSize": [1283, 1439], "revealCrop": [315, 162, 625, 781], "largeDisplay": true}, {"id": "saudi-17-eye", "name": "ابو عبير", "answers": ["ابو عبير", "أبو عبير"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-17-eye.jpg\" width=\"1200\" height=\"1165\"/>", "image": "portraits/eyes-upgrade/saudi-17-eye.jpg", "crop": [220, 194, 524, 156], "source": "https://www.pinterest.com/pin/626915210654642201/", "imageSize": [1200, 1165], "revealCrop": [125, 0, 713, 891], "largeDisplay": true}, {"id": "saudi-42-eye", "name": "دربحه", "answers": ["دربحه", "دربحة", "تركي الدوسري"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-42-eye.jpg\" width=\"2160\" height=\"2700\"/>", "image": "portraits/eyes-upgrade/saudi-42-eye.jpg", "crop": [583, 284, 622, 185], "source": "https://x.com/TeamFalconsGG/status/1929964604764963071", "imageSize": [2160, 2700], "revealCrop": [470, 0, 847, 1059], "largeDisplay": true}, {"id": "saudi-01-eye", "name": "غازي الذيابي", "answers": ["غازي الذيابي"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-01-eye.jpg\" width=\"1024\" height=\"835\"/>", "image": "portraits/eyes-upgrade/saudi-01-eye.jpg", "crop": [339, 231, 463, 138], "source": "https://arriyadiyah.com/539674/%D8%A7%D9%84%D8%B0%D9%8A%D8%A7%D8%A8%D9%8A-%D9%8A%D8%B7%D8%A7%D9%84%D8%A8-%D8%A7%D9%84%D9%86%D8%AC%D9%88%D9%85-%D8%A8%D8%AA%D9%82%D9%86%D9%8A%D9%86-%D8%AD%D8%B6%D9%88%D8%B1%D9%87%D9%85", "imageSize": [1024, 835], "revealCrop": [255, 0, 631, 789], "largeDisplay": true}, {"id": "saudi-02-eye", "name": "ابراهيم العسيري", "answers": ["ابراهيم العسيري"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-02-eye.jpg\" width=\"900\" height=\"900\"/>", "image": "portraits/eyes-upgrade/saudi-02-eye.jpg", "crop": [408, 181, 217, 85], "source": "https://mqalaty.net/من-هو-إبراهيم-العسيري/", "imageSize": [900, 900], "revealCrop": [360, 35, 380, 435], "largeDisplay": true}, {"id": "saudi-03-eye", "name": "منصور الرقيبة", "answers": ["منصور الرقيبة"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-03-eye.jpg\" width=\"1373\" height=\"1030\"/>", "image": "portraits/eyes-upgrade/saudi-03-eye.jpg", "crop": [477, 258, 303, 90], "source": "https://palsawa.com/post/326074/%D8%A7%D9%84%D8%B3%D8%A8%D8%A8-%D8%A7%D9%84%D8%AD%D9%82%D9%8A%D9%82%D9%8A-%D9%81%D9%8A-%D8%A7%D9%84%D9%82%D8%A8%D8%B6-%D8%B9%D9%84%D9%89-%D9%85%D9%86%D8%B5%D9%88%D8%B1-%D8%A7%D9%84%D8%B1%D9%82%D9%8A%D8%A8%D8%A9-%D9%85%D8%B4%D9%87%D9%88%D8%B1-%D8%B3%D9%86%D8%A7%D8%A8-%D8%B4%D8%A7%D8%AA-%D9%81%D9%8A-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9", "imageSize": [1373, 1030], "revealCrop": [422, 84, 412, 515], "largeDisplay": true}, {"id": "saudi-04-eye", "name": "فهد البتيري", "answers": ["فهد البتيري"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-04-eye.jpg\" width=\"1756\" height=\"2000\"/>", "image": "portraits/eyes-upgrade/saudi-04-eye.jpg", "crop": [619, 526, 477, 142], "source": "https://aawsat.com/%D9%8A%D9%88%D9%85%D9%8A%D8%A7%D8%AA-%D8%A7%D9%84%D8%B4%D8%B1%D9%82/5039299-%D9%81%D9%87%D8%AF-%D8%A7%D9%84%D8%A8%D8%AA%D9%8A%D8%B1%D9%8A-%D9%8A%D8%B3%D8%AA%D8%B9%D8%AF-%D9%84%D8%A8%D8%B7%D9%88%D9%84%D8%A9-%D8%A3%D8%B6%D8%AE%D9%85-%D8%A5%D9%86%D8%AA%D8%A7%D8%AC-%D8%B9%D8%B1%D8%A8%D9%8A", "imageSize": [1756, 2000], "revealCrop": [533, 252, 649, 811], "largeDisplay": true}, {"id": "saudi-11-eye", "name": "خالد صقر", "answers": ["خالد صقر"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-11-eye.jpg\" width=\"1761\" height=\"1080\"/>", "image": "portraits/eyes-upgrade/saudi-11-eye.jpg", "crop": [802, 260, 384, 114], "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1727386-%D8%B1%D8%A4%D9%89-%D9%85%D8%AE%D8%AA%D9%84%D9%81%D8%A9-%D9%88%D8%AA%D9%88%D9%84%D9%8A%D9%81%D8%A9-%D8%B4%D8%A8%D8%A7%D8%A8%D9%8A%D8%A9-%D8%B9%D9%88%D8%A7%D9%85%D9%84-%D8%B3%D8%A7%D9%87%D9%85%D8%AA-%D9%81%D9%8A-%D9%86%D8%AC%D8%A7%D8%AD-%D9%85%D8%B3%D9%84%D8%B3%D9%84-%D8%AB%D8%A7%D9%86%D9%88%D9%8A%D8%A9-%D8%A7%D9%84%D9%86%D8%B3%D9%8A%D9%85%C2%A0", "imageSize": [1761, 1080], "revealCrop": [733, 40, 522, 653], "largeDisplay": true}, {"id": "saudi-34-eye", "name": "طارق الحربي", "answers": ["طارق الحربي"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-34-eye.jpg\" width=\"1000\" height=\"667\"/>", "image": "portraits/eyes-upgrade/saudi-34-eye.jpg", "crop": [83, 179, 543, 162], "source": "https://www.hiamag.com/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%86%D8%AC%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/583461-%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84-%D8%B8%D9%87%D9%88%D8%B1-%D8%B7%D8%A7%D8%B1%D9%82-%D8%A7%D9%84%D8%AD%D8%B1%D8%A8%D9%8A-%D8%B9%D9%84%D9%89-%D8%B4%D8%A7%D8%B4%D8%A9-%D8%B1%D9%85%D8%B6%D8%A7%D9%86-2017", "imageSize": [1000, 667], "revealCrop": [0, 0, 740, 667], "largeDisplay": true}, {"id": "saudi-37-eye", "name": "ابو فلة", "answers": ["ابو فلة", "أبو فلة", "أبوفلة"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-37-eye.jpg\" width=\"1080\" height=\"1350\"/>", "image": "portraits/eyes-upgrade/saudi-37-eye.jpg", "crop": [309, 330, 450, 134], "source": "https://www.pinterest.com/hussein_awarka/%D8%A7%D8%A8%D9%88-%D9%81%D9%84%D9%87/", "imageSize": [1080, 1350], "revealCrop": [228, 71, 613, 766], "largeDisplay": true}, {"id": "saudi-36-eye", "name": "يزيد الراجحي", "answers": ["يزيد الراجحي"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-36-eye.jpg\" width=\"2000\" height=\"2000\"/>", "image": "portraits/eyes-upgrade/saudi-36-eye.jpg", "crop": [599, 540, 564, 168], "source": "https://www.forbesmiddleeast.com/lists/top-100-arab-family-businesses-2024/rajhi-invest/", "imageSize": [2000, 2000], "revealCrop": [497, 216, 768, 960], "largeDisplay": true}, {"id": "saudi-41-eye", "name": "عبدالرحمن المطيري", "answers": ["عبدالرحمن المطيري"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-41-eye.jpg\" width=\"1255\" height=\"1133\"/>", "image": "portraits/eyes-upgrade/saudi-41-eye.jpg", "crop": [430, 314, 346, 103], "source": "https://rattibha.com/thread/1829930075170468025", "imageSize": [1255, 1133], "revealCrop": [367, 116, 471, 589], "largeDisplay": true}, {"id": "saudi-21-eye", "name": "عبدالله السدحان", "answers": ["عبدالله السدحان"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-21-eye.jpg\" width=\"6000\" height=\"4000\"/>", "image": "portraits/eyes-upgrade/saudi-21-eye.jpg", "crop": [1867, 957, 1434, 427], "source": "https://www.sayidaty.net/node/1544461/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D8%A8%D8%A7%D9%84%D9%81%D9%8A%D8%AF%D9%8A%D9%88-%D9%81%D9%88%D8%B2-%D8%A7%D9%84%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87-%D8%AA%D8%AD%D8%B3%D9%85-%D8%A7%D9%84%D8%AC%D8%AF%D9%84-%D8%AD%D9%88%D9%84-%D8%B2%D9%88%D8%AC%D8%A9-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87-%D8%A7%D9%84%D8%B3%D8%AF%D8%AD%D8%A7%D9%86-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9", "imageSize": [6000, 4000], "revealCrop": [1607, 133, 1953, 2442], "largeDisplay": true}, {"id": "saudi-23-eye", "name": "عبدالإله السناني", "answers": ["عبدالإله السناني"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-23-eye.jpg\" width=\"802\" height=\"835\"/>", "image": "portraits/eyes-upgrade/saudi-23-eye.jpg", "crop": [216, 219, 310, 92], "source": "https://www.hiamag.com/%D8%AA%D8%B1%D9%81%D9%8A%D9%87-%D9%88%D9%81%D9%86%D9%88%D9%86/%D8%AA%D8%B1%D9%81%D9%8A%D9%87/1712726-%D8%AE%D8%A7%D8%B5-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%A5%D9%84%D9%87-%D8%A7%D9%84%D8%B3%D9%86%D8%A7%D9%86%D9%8A-%D9%8A%D9%81%D8%B1%D8%AC-%D8%B9%D9%86-%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA-%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9-%D8%AD%D9%88%D9%84-%D8%AA%D9%83%D8%B1%D9%8A%D9%85%D9%87-%D9%85%D9%86-%D9%85%D9%87%D8%B1%D8%AC%D8%A7%D9%86-%D8%B4%D8%B1%D9%85", "imageSize": [802, 835], "revealCrop": [160, 41, 422, 528], "largeDisplay": true}, {"id": "saudi-20-eye", "name": "ناصر القصبي", "answers": ["ناصر القصبي"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-20-eye.jpg\" width=\"1280\" height=\"960\"/>", "image": "portraits/eyes-upgrade/saudi-20-eye.jpg", "crop": [450, 288, 483, 144], "source": "https://www.arrajol.com/content/400928/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B3%D9%84%D8%B3%D9%84-%D8%A7%D9%84%D8%B9%D9%82%D9%8A%D9%84%D8%A7%D8%AA-%D9%8A%D8%B9%D9%88%D8%AF-%D8%A8%D8%A7%D9%84%D9%82%D8%B5%D8%A8%D9%8A-%D8%A5%D9%84%D9%89-%D8%A7%D9%84%D8%B4%D8%A7%D8%B4%D8%A9-%D8%A8%D8%B4%D9%83%D9%84-%D9%85%D8%AE%D8%AA%D9%84%D9%81-%D8%B1%D8%AD%D9%84%D8%A9-%D8%AA%D8%A7%D8%B1%D9%8A%D8%AE%D9%8A%D8%A9-%D8%B9%D8%A8%D8%B1-%D8%A7%D9%84%D8%B5%D8%AD%D8%A7%D8%B1%D9%89", "imageSize": [1280, 960], "revealCrop": [363, 11, 658, 822], "largeDisplay": true}, {"id": "saudi-26-eye", "name": "محمد عبده", "answers": ["محمد عبده"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/hq/saudi-26.jpg\" width=\"2208\" height=\"1080\"/>", "image": "portraits/hq/saudi-26.jpg", "crop": [665, 275, 575, 175], "source": "https://www.sayidaty.net/node/1598101/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D8%A8%D8%A7%D9%84%D9%81%D9%8A%D8%AF%D9%8A%D9%88-%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D8%AA-%D9%85%D8%AD%D9%85%D8%AF-%D8%B9%D8%A8%D8%AF%D9%87-%D9%84%D8%A5%D8%AD%D9%8A%D8%A7%D8%A1-%D8%AD%D9%81%D9%84%D8%A9-%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA", "imageSize": [2208, 1080], "revealCrop": [430, 10, 1120, 1060], "largeDisplay": true}, {"id": "saudi-08-eye", "name": "خالد عبدالرحمن", "answers": ["خالد عبدالرحمن"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-08-eye.jpg\" width=\"1600\" height=\"900\"/>", "image": "portraits/eyes-upgrade/saudi-08-eye.jpg", "crop": [854, 328, 535, 159], "source": "https://platinumlist.net/artist/684/khalid-abdulrahman-khald-aabd-alrhmn", "imageSize": [1600, 900], "revealCrop": [757, 20, 728, 880], "largeDisplay": true}, {"id": "saudi-40-eye", "name": "محمد العيسى", "answers": ["محمد العيسى"], "type": "eye", "cat": "من عينه", "svg": "<image href=\"portraits/eyes-upgrade/saudi-40-eye.jpg\" width=\"1375\" height=\"1054\"/>", "image": "portraits/eyes-upgrade/saudi-40-eye.jpg", "crop": [256, 297, 641, 191], "source": "https://www.hiamag.com/%D8%A8%D8%B1%D9%88%D9%81%D8%A7%D9%8A%D9%84/%D9%85%D8%AD%D9%85%D8%AF-%D8%A7%D9%84%D8%B9%D9%8A%D8%B3%D9%89", "imageSize": [1375, 1054], "revealCrop": [141, 0, 873, 1054], "largeDisplay": true}, {"name": "عبدالمحسن النمر", "image": "portraits/new30/candidate-14.jpg", "id": "approved-face-eye", "answers": ["عبدالمحسن النمر"], "type": "eye", "cat": "من عينه", "imageSize": [8256, 5504], "revealCrop": [3853, 510, 1548, 1934], "largeDisplay": true, "crop": [4058, 1163, 1136, 339], "svg": "<image href=\"portraits/new30/candidate-14.jpg\" width=\"8256\" height=\"5504\"/>", "source": "https://www.lahamag.com/article/233779"}, {"id": "reviewed-saudi-1-eye", "name": "محمد الربيعي", "answers": ["محمد الربيعي"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-01.png", "imageSize": [2016, 3053], "crop": [841, 563, 361, 108], "revealCrop": [775, 356, 492, 614], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/0kd0sVQ7xCAyrbGoNw4fb/99c024e9d35e345136e8dd227ec5c16f/_Mohammed_Al-Rubaie.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-01.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-2-eye", "name": "علي لاجامي", "answers": ["علي لاجامي"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-02.png", "imageSize": [2016, 3053], "crop": [763, 501, 457, 136], "revealCrop": [680, 238, 622, 778], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/1jQIoITFPeMcJ7IeunUGc7/c709f1dbd517a91fdf67ddca0d3122aa/Ali_Lajami.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-02.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-3-eye", "name": "محمد العويس", "answers": ["محمد العويس"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-03.png", "imageSize": [2016, 3053], "crop": [787, 561, 462, 137], "revealCrop": [703, 296, 628, 786], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/2HO1imZduvOzoh6xYYIHvZ/5fc854c9ceb2f195e2a11df18209d74e/Mohammed_Al-Owais.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-03.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-4-eye", "name": "ناصر الدوسري", "answers": ["ناصر الدوسري"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-04.png", "imageSize": [2016, 3053], "crop": [781, 507, 406, 121], "revealCrop": [708, 273, 553, 691], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/4FgpKNSrTxGuw2dWG5uVQ8/7e266a59c84f88937d5a5269d67548bf/_Nasser_Al-Dawsari.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-04.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-5-eye", "name": "متعب الحربي", "answers": ["متعب الحربي"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-05.png", "imageSize": [2016, 3053], "crop": [797, 546, 431, 128], "revealCrop": [719, 299, 586, 733], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/5EANQ26HME2wBedX24GRlP/472579b1ee62a1aebc2f0b0a2e38c5f0/_Moteb_Al-Harbi.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-05.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-6-eye", "name": "محمد كنو", "answers": ["محمد كنو"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-06.png", "imageSize": [2016, 3053], "crop": [812, 522, 379, 113], "revealCrop": [744, 304, 516, 645], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/5gtt03tna69eTk3Xug97Jz/9dc17966dc6b25d67446c1c3a8383a58/Mohamed_Kanno.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-06.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-7-eye", "name": "سالم الدوسري", "answers": ["سالم الدوسري"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-07.png", "imageSize": [2016, 3053], "crop": [738, 629, 498, 148], "revealCrop": [648, 343, 678, 848], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/5vnkdADwRaBoloY06H2tn6/302259719a80a21bfb2aa947e607b258/Salem_Al-Dawsari.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-07.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-8-eye", "name": "حسان تمبكتي", "answers": ["حسان تمبكتي"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/new-08.png", "imageSize": [2016, 3053], "crop": [800, 546, 396, 118], "revealCrop": [728, 319, 539, 674], "largeDisplay": true, "source": "https://alhilal.com/en/teams/mens-team", "originalSource": "https://images.ctfassets.net/eyc25wndlima/7d0rr0qXXtasKSJA9vSupg/2bae4f46bf756aedb1cf17a39a260cb0/Hassan_Tambakti.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/new-08.png\" width=\"2016\" height=\"3053\"/>"}, {"id": "reviewed-saudi-9-eye", "name": "عبدالله الحمدان", "answers": ["عبدالله الحمدان"], "type": "eye", "cat": "من عينه", "image": "portraits/new30/last-11.jpg", "imageSize": [1920, 1080], "crop": [890, 337, 364, 108], "revealCrop": [824, 128, 495, 619], "largeDisplay": true, "source": "https://www.goal.com/ar-sa/", "originalSource": "https://assets.goal.com/images/v3/bltdc85eec9728650cf/8e3d092ee1cc35760872c0d9739f2d332f95bffd.png", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/new30/last-11.jpg\" width=\"1920\" height=\"1080\"/>"}, {"id": "creator-eye-01", "name": "أبو نوح", "answers": ["ابو نوح", "أبو نوح", "abunoo7"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-01.jpg", "imageSize": [1638, 2048], "crop": [487, 637, 685, 204], "revealCrop": [363, 243, 933, 1166], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-01.jpg\" width=\"1638\" height=\"2048\"/>", "source": "https://x.com/POWReSports/status/1785768246844518906"}, {"id": "creator-eye-02", "name": "فيرفول", "answers": ["فيرفول", "فيرفل", "ffearfful"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-02.jpg", "imageSize": [1638, 2048], "crop": [452, 930, 600, 235], "revealCrop": [405, 590, 805, 1080], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-02.jpg\" width=\"1638\" height=\"2048\"/>", "source": "https://x.com/CcNewss/status/2032844122151591999"}, {"id": "creator-eye-03", "name": "كمستكا", "answers": ["كمستكا", "عزوز", "kmstka"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/kmstka-correct.jpg", "imageSize": [1200, 1123], "crop": [160, 300, 740, 230], "revealCrop": [85, 0, 1020, 1123], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/kmstka-correct.jpg\" width=\"1200\" height=\"1123\"/>", "source": "https://www.pinterest.com/pin/1080863979311456993/"}, {"id": "creator-eye-04", "name": "فيروس", "answers": ["فيروس", "طلال", "virus"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-04.jpg", "imageSize": [1638, 2048], "crop": [549, 639, 555, 165], "revealCrop": [448, 320, 755, 944], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-04.jpg\" width=\"1638\" height=\"2048\"/>", "source": "https://x.com/virussyy"}, {"id": "creator-eye-05", "name": "توبز", "answers": ["توبز", "topz"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-05.jpg", "imageSize": [2000, 2000], "crop": [1310, 565, 460, 205], "revealCrop": [1293, 425, 493, 840], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-05.jpg\" width=\"2000\" height=\"2000\"/>", "source": "https://x.com/tu_topz"}, {"id": "creator-eye-06", "name": "عادل", "answers": ["عادل", "عادل فالكون", "3adel"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-06.jpg", "imageSize": [1638, 2048], "crop": [566, 585, 510, 155], "revealCrop": [530, 358, 588, 734], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-06.jpg\" width=\"1638\" height=\"2048\"/>", "source": "https://x.com/3adel_ss"}, {"id": "creator-eye-07", "name": "سعود كاست", "answers": ["سعود كاست", "سعودكاست", "saudcast"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-07.jpg", "imageSize": [2160, 2600], "crop": [815, 565, 620, 275], "revealCrop": [720, 170, 1040, 1240], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-07.jpg\" width=\"2160\" height=\"2600\"/>", "source": "https://x.com/TeamFalconsGG/status/1926684524185866741"}, {"id": "creator-eye-08", "name": "طرباخ", "answers": ["طرباخ", "ترباخ", "i6rba5"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-08.jpg", "imageSize": [3000, 4000], "crop": [726, 1175, 1166, 347], "revealCrop": [515, 505, 1587, 1984], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-08.jpg\" width=\"3000\" height=\"4000\"/>", "source": "https://www.momentsa.com/6rba5"}, {"id": "creator-eye-09", "name": "بودي قيمر", "answers": ["بودي قيمر", "بودي جيمر", "بودي", "bode", "bodi"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-09.jpg", "imageSize": [3000, 4000], "crop": [996, 1167, 1228, 366], "revealCrop": [774, 462, 1672, 2090], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-09.jpg\" width=\"3000\" height=\"4000\"/>", "source": "https://www.momentsa.com/bode"}, {"id": "creator-eye-10", "name": "مصعب المالكي", "answers": ["مصعب المالكي", "مصعب", "mosab almalki"], "type": "eye", "cat": "من عينه", "image": "portraits/creator-eyes/creator-eye-10.png", "imageSize": [3000, 4000], "crop": [908, 1145, 1160, 346], "revealCrop": [698, 479, 1580, 1974], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "svg": "<image href=\"portraits/creator-eyes/creator-eye-10.png\" width=\"3000\" height=\"4000\"/>", "source": "https://www.momentsa.com/mosab-almalki"}, {"id": "user-eye-2", "name": "ثنيان خالد", "answers": ["ثنيان خالد"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/2/face.jpg", "imageSize": [1170, 758], "revealCrop": [0, 0, 1170, 758], "crop": [0, 0, 152, 152], "svg": "<image href=\"portraits/eyes-user-approved/2/eyes.png\" width=\"152\" height=\"152\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-3", "name": "جو حطاب", "answers": ["جو حطاب"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/3/face.jpg", "imageSize": [700, 1051], "revealCrop": [0, 0, 700, 1051], "crop": [0, 0, 126, 126], "svg": "<image href=\"portraits/eyes-user-approved/3/eyes.png\" width=\"126\" height=\"126\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-4", "name": "عبده ماجيك — عبدالله جميل", "answers": ["عبده ماجيك — عبدالله جميل", "عبده ماجيك", "عبدالله جميل"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/4/face.jpg", "imageSize": [1920, 2400], "revealCrop": [0, 0, 1920, 2400], "crop": [0, 0, 307, 307], "svg": "<image href=\"portraits/eyes-user-approved/4/eyes.png\" width=\"307\" height=\"307\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-5", "name": "للي — عبدالإله الصقعبي", "answers": ["للي — عبدالإله الصقعبي", "للي", "عبدالإله الصقعبي"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/5/face.jpg", "imageSize": [1920, 1080], "revealCrop": [0, 0, 1920, 1080], "crop": [0, 0, 288, 199], "svg": "<image href=\"portraits/eyes-user-approved/5/eyes.png\" width=\"288\" height=\"199\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-6", "name": "مدير العالم — محمد القحطاني", "answers": ["مدير العالم — محمد القحطاني", "مدير العالم", "محمد القحطاني"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/6/face.jpg", "imageSize": [1896, 1067], "revealCrop": [0, 0, 1896, 1067], "crop": [0, 0, 246, 173], "svg": "<image href=\"portraits/eyes-user-approved/6/eyes.png\" width=\"246\" height=\"173\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-7", "name": "مودي جناوه", "answers": ["مودي جناوه"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/7/face.jpg", "imageSize": [1075, 1075], "revealCrop": [0, 0, 1075, 1075], "crop": [0, 0, 505, 505], "svg": "<image href=\"portraits/eyes-user-approved/7/eyes.png\" width=\"505\" height=\"505\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-8", "name": "نايف حمدان", "answers": ["نايف حمدان"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/8/face.jpg", "imageSize": [2000, 1125], "revealCrop": [0, 0, 2000, 1125], "crop": [0, 0, 340, 340], "svg": "<image href=\"portraits/eyes-user-approved/8/eyes.png\" width=\"340\" height=\"340\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-9", "name": "هشام باعشن", "answers": ["هشام باعشن"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/9/face.jpg", "imageSize": [1920, 1080], "revealCrop": [0, 0, 1920, 1080], "crop": [0, 0, 288, 288], "svg": "<image href=\"portraits/eyes-user-approved/9/eyes.png\" width=\"288\" height=\"288\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "user-eye-10", "name": "يزيد المجيول", "answers": ["يزيد المجيول"], "type": "eye", "cat": "من عينه", "image": "portraits/eyes-user-approved/10/face.jpg", "imageSize": [7728, 5152], "revealCrop": [0, 0, 7728, 5152], "crop": [0, 0, 412, 412], "svg": "<image href=\"portraits/eyes-user-approved/10/eyes.png\" width=\"412\" height=\"412\"/>", "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}];
+const mouthRounds=[{"id": "saudi-28-mouth", "name": "عبدالمجيد عبدالله", "answers": ["عبدالمجيد عبدالله"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/1/face.jpg\" width=\"3000\" height=\"3000\"/>", "image": "portraits/mouth-approved-current/1/face.jpg", "crop": [1090, 1200, 860, 430], "source": "https://rotanamusic.com/ar/talents", "imageSize": [3000, 3000], "revealCrop": [750, 430, 1500, 1900], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-27-mouth", "name": "راشد الماجد", "answers": ["راشد الماجد", "راشد"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/2/face.png\" width=\"3000\" height=\"3000\"/>", "image": "portraits/mouth-approved-current/2/face.png", "crop": [995, 1165, 860, 430], "source": "https://rotanamusic.com/ar/talents", "imageSize": [3000, 3000], "revealCrop": [680, 350, 1750, 2000], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-29-mouth", "name": "رابح صقر", "answers": ["رابح صقر"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/3/face.png\" width=\"3000\" height=\"3000\"/>", "image": "portraits/mouth-approved-current/3/face.png", "crop": [1050, 1145, 860, 430], "source": "https://rotanamusic.com/ar/talents", "imageSize": [3000, 3000], "revealCrop": [750, 400, 1700, 2000], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-07-mouth", "name": "عبادي الجوهر", "answers": ["عبادي الجوهر"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/4/face.png\" width=\"3000\" height=\"3000\"/>", "image": "portraits/mouth-approved-current/4/face.png", "crop": [1000, 1185, 860, 430], "source": "https://rotanamusic.com/ar/talents", "imageSize": [3000, 3000], "revealCrop": [950, 400, 1600, 1900], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-31-mouth", "name": "يعقوب الفرحان", "answers": ["يعقوب الفرحان"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/5/face.jpg\" width=\"2000\" height=\"3000\"/>", "image": "portraits/mouth-approved-current/5/face.jpg", "crop": [340, 1580, 1100, 550], "source": "https://www.themoviedb.org/person/3248728", "imageSize": [2000, 3000], "revealCrop": [250, 650, 1550, 1900], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "creator-mouth-07", "name": "ياسر السقاف", "answers": ["ياسر السقاف"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/6/face.jpg", "imageSize": [1926, 2732], "source": "https://www.imdb.com/name/nm11626120/", "crop": [600, 1300, 820, 410], "revealCrop": [370, 550, 1170, 1650], "svg": "<image href=\"portraits/mouth-approved-current/6/face.jpg\" width=\"1926\" height=\"2732\"/>", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "creator-mouth-06", "name": "نايف الظفيري", "answers": ["نايف الظفيري", "نايف الضفيري"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/7/face.jpg", "imageSize": [2000, 3000], "source": "https://letterboxd.com/actor/naif-al-daferi/", "crop": [290, 1670, 1080, 540], "revealCrop": [250, 500, 1450, 2150], "svg": "<image href=\"portraits/mouth-approved-current/7/face.jpg\" width=\"2000\" height=\"3000\"/>", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-18-mouth", "name": "إبراهيم الخيرالله", "answers": ["إبراهيم الخيرالله"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/8/face.jpg", "imageSize": [5302, 3534], "crop": [2600, 730, 900, 450], "revealCrop": [2350, 40, 1450, 1680], "largeDisplay": true, "source": "https://www.imdb.com/name/nm6803991/news/", "originalSource": "https://m.media-amazon.com/images/M/MV5BNGNiMGJkODktOWQyZC00MTZhLWEwMDktYzc3NjY3MDUyMzY4XkEyXkFqcGc%40._V1_.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/8/face.jpg\" width=\"5302\" height=\"3534\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "creator-mouth-05", "name": "عبدالرحمن الشهري", "answers": ["عبدالرحمن الشهري", "عبد الرحمن الشهري"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/9/face.jpg", "imageSize": [3000, 4000], "source": "https://www.momentsa.com/abdulrahman-alshehri", "crop": [900, 1650, 850, 425], "revealCrop": [780, 740, 1270, 1650], "svg": "<image href=\"portraits/mouth-approved-current/9/face.jpg\" width=\"3000\" height=\"4000\"/>", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "creator-mouth-04", "name": "مشعل خالد", "answers": ["مشعل خالد"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/10/face.png", "imageSize": [3000, 4000], "source": "https://www.momentsa.com/meshal-khaled", "crop": [975, 1430, 1100, 550], "revealCrop": [1000, 580, 1050, 1500], "svg": "<image href=\"portraits/mouth-approved-current/10/face.png\" width=\"3000\" height=\"4000\"/>", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-17-mouth", "name": "بدر حكيم", "answers": ["بدر حكيم"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/11/face.jpg", "imageSize": [3000, 3000], "crop": [1450, 1080, 700, 350], "revealCrop": [1610, 400, 950, 1350], "largeDisplay": true, "source": "https://music.apple.com/us/album/dheeq-el-shawaree/1719321425", "originalSource": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/78/6d/5d/786d5d8c-5c1b-c416-4099-d9c4545c220e/6290190047402.jpg/3000x3000bb.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/11/face.jpg\" width=\"3000\" height=\"3000\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-16-mouth", "name": "غريب آل مخلص", "answers": ["غريب آل مخلص"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/12/face.jpg", "imageSize": [3000, 3000], "crop": [670, 1080, 850, 425], "revealCrop": [410, 130, 1320, 1620], "largeDisplay": true, "source": "https://music.apple.com/us/album/1874673160", "originalSource": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/93/53/37/9353370e-a98f-1226-a8f6-352ca00f2520/6678990020076.jpg/3000x3000bb.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/12/face.jpg\" width=\"3000\" height=\"3000\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-12-mouth", "name": "ياسر الرميان", "answers": ["ياسر الرميان"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/13/face.jpg", "imageSize": [3333, 5000], "crop": [900, 950, 850, 425], "revealCrop": [960, 150, 1120, 1550], "largeDisplay": true, "source": "https://en.wikipedia.org/wiki/Yasir_Al-Rumayyan", "originalSource": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Yasir_Al-Rumayyan_Argentina_v_Spain_19_July_2026-285.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/13/face.jpg\" width=\"3333\" height=\"5000\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-15-mouth", "name": "عبدالرحمن غريب", "answers": ["عبدالرحمن غريب"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/14/face.jpg", "imageSize": [3886, 2959], "crop": [2190, 840, 630, 315], "revealCrop": [2140, 260, 720, 1070], "largeDisplay": true, "source": "https://www.winwin.com/%D9%83%D8%B1%D8%A9-%D9%82%D8%AF%D9%85/%D8%A7%D9%84%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/%D8%A7%D9%84%D9%83%D8%B4%D9%81-%D8%B9%D9%86-%D9%82%D9%8A%D9%85%D8%A9-%D8%A7%D9%86%D8%AA%D9%82%D8%A7%D9%84-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86-%D8%BA%D8%B1%D9%8A%D8%A8-%D9%84%D9%86%D8%A7%D8%AF%D9%8A-%D8%A7%D9%84%D9%86%D8%B5%D8%B1-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A", "originalSource": "https://www.winwin.com/sites/default/files/2022-08/%D8%B9%D8%A8%D8%AF%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86%20%D8%BA%D8%B1%D9%8A%D8%A8.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/14/face.jpg\" width=\"3886\" height=\"2959\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-14-mouth", "name": "سلطان بن سلمان", "answers": ["سلطان بن سلمان"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/15/face.jpg", "imageSize": [2880, 1920], "crop": [1360, 670, 510, 255], "revealCrop": [1270, 160, 930, 1060], "largeDisplay": true, "source": "https://en.wikipedia.org/wiki/Sultan_bin_Salman_Al_Saud", "originalSource": "https://upload.wikimedia.org/wikipedia/commons/f/fd/HRH_Prince_Sultan_bin_Salman_bin_Abdulaziz_Al-Saud%2C_the_Chairman_%26_President_of_the_Saudi_Commission_for_Tourism_and_National_Heritage_%2826006959140%29.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/15/face.jpg\" width=\"2880\" height=\"1920\"/>", "displayWidth": 920, "displayScale": 1.6}, {"name": "سعيد صالح", "image": "portraits/mouth-approved-current/16/face.jpg", "id": "approved-face-mouth", "answers": ["سعيد صالح"], "type": "mouth", "cat": "من فمه", "imageSize": [6000, 4000], "revealCrop": [3140, 1000, 1450, 1500], "largeDisplay": true, "crop": [3425, 1840, 800, 400], "svg": "<image href=\"portraits/mouth-approved-current/16/face.jpg\" width=\"6000\" height=\"4000\"/>", "source": "https://www.lahamag.com/article/233892", "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-13-mouth", "name": "تركي آل الشيخ", "answers": ["تركي آل الشيخ"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/17/face.jpg", "imageSize": [1701, 2266], "crop": [480, 800, 680, 340], "revealCrop": [410, 50, 850, 1280], "largeDisplay": true, "source": "https://en.wikipedia.org/wiki/Turki_Al-Sheikh", "originalSource": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Turki_Al-Sheikh_%28cropped%29.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/17/face.jpg\" width=\"1701\" height=\"2266\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-38-mouth", "name": "حسن عسيري", "answers": ["حسن عسيري"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/18/face.jpg\" width=\"2048\" height=\"1852\"/>", "image": "portraits/mouth-approved-current/18/face.jpg", "crop": [655, 615, 700, 350], "source": "https://x.com/gorgeous4ew/status/2032231953487872247", "imageSize": [2048, 1852], "revealCrop": [510, 0, 1130, 1150], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "creator-mouth-01", "name": "مجرم قيمز", "answers": ["مجرم قيمز", "مجرم جيمز", "ريان الأحمري", "ريان الاحمري"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/19/face.jpg", "imageSize": [1638, 2048], "source": "https://x.com/MjrmGemz/status/1971896629902086247", "crop": [555, 550, 600, 250], "revealCrop": [510, 135, 605, 755], "svg": "<image href=\"portraits/mouth-approved-current/19/face.jpg\" width=\"1638\" height=\"2048\"/>", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-10-mouth", "name": "نايف البحر", "answers": ["نايف البحر"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/20/face.jpg", "imageSize": [2048, 1152], "crop": [1000, 575, 500, 250], "revealCrop": [965, 60, 560, 800], "largeDisplay": true, "source": "https://www.lahamag.com/article/206103", "originalSource": "https://s.lahamag.com/storage/attachments/206/2Shahid-_721718.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/20/face.jpg\" width=\"2048\" height=\"1152\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "reviewed-saudi-11-mouth", "name": "أحمد الكعبي", "answers": ["أحمد الكعبي"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/21/face.jpg", "imageSize": [2048, 1152], "crop": [590, 535, 660, 330], "revealCrop": [345, 0, 920, 1060], "largeDisplay": true, "source": "https://www.lahamag.com/article/206103", "originalSource": "https://s.lahamag.com/storage/attachments/206/3Shahid-_660208.jpg", "nationality": "سعودي", "gender": "male", "reviewed": true, "svg": "<image href=\"portraits/mouth-approved-current/21/face.jpg\" width=\"2048\" height=\"1152\"/>", "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-06-mouth", "name": "هشام فقيه", "answers": ["هشام فقيه"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/22/face.jpg\" width=\"1366\" height=\"2048\"/>", "image": "portraits/mouth-approved-current/22/face.jpg", "crop": [485, 590, 490, 220], "source": "https://www.imdb.com/name/nm5041798/mediaviewer/rm1092516353/", "imageSize": [1366, 2048], "revealCrop": [395, 195, 650, 735], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-39-mouth", "name": "راشد الشمراني", "answers": ["راشد الشمراني"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/23/face.webp\" width=\"1600\" height=\"900\"/>", "image": "portraits/mouth-approved-current/23/face.webp", "crop": [550, 430, 510, 255], "source": "https://www.annajah.net/%D8%B1%D8%A7%D8%B4%D8%AF-%D8%A7%D9%84%D8%B4%D9%85%D8%B1%D8%A7%D9%86%D9%8A-%D8%B1%D8%A7%D8%A6%D8%AF-%D8%A7%D9%84%D9%85%D8%B3%D8%B1%D8%AD-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-article-46539", "imageSize": [1600, 900], "revealCrop": [410, 0, 715, 765], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-24-mouth", "name": "ابراهيم الحساوي", "answers": ["ابراهيم الحساوي"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/24/face.jpg\" width=\"1789\" height=\"1080\"/>", "image": "portraits/mouth-approved-current/24/face.jpg", "crop": [555, 600, 660, 330], "source": "https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1782261-%D8%B4%D8%A7%D9%87%D8%AF%D9%88%D8%A7-%D8%A5%D8%A8%D8%B1%D8%A7%D9%87%D9%8A%D9%85-%D8%A7%D9%84%D8%AD%D8%B3%D8%A7%D9%88%D9%8A-%D9%8A%D9%86%D8%B4%D8%B1-%D8%AA%D9%83%D8%B1%D9%8A%D9%85-%D8%A3%D8%A8%D8%B7%D8%A7%D9%84-%D8%AE%D9%8A%D9%88%D8%B7-%D8%A7%D9%84%D9%85%D8%B9%D8%A7%D8%B2%D9%8A%D8%A8-%D9%85%D9%86-%D9%82%D8%A8%D9%84-%D9%85%D8%AD%D8%A7%D9%81%D8%B8", "imageSize": [1789, 1080], "revealCrop": [510, 0, 1020, 1080], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-32-mouth", "name": "عبدالعزيز الفريحي", "answers": ["عبدالعزيز الفريحي"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/25/face.png\" width=\"1406\" height=\"800\"/>", "image": "portraits/mouth-approved-current/25/face.png", "crop": [570, 525, 490, 245], "source": "https://www.sayidaty.net/node/1496691/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/%D9%87%D8%B0%D8%A7-%D9%85%D9%88%D8%B9%D8%AF-%D9%85%D8%B3%D8%B1%D8%AD%D9%8A%D8%A9-%D9%8A%D9%84%D8%A7-%D8%A8%D9%88%D9%84%D9%8A%D9%81%D8%A7%D8%B1%D8%AF-%D9%88%D8%B3%D8%A7%D8%B9%D8%A9-%D8%A3%D9%85%D9%84-%D9%81%D9%8A-%D9%85%D9%88%D8%B3%D9%85-%D8%A7%D9%84%D8%B1%D9%8A%D8%A7%D8%B6", "imageSize": [1406, 800], "revealCrop": [425, 0, 795, 800], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "saudi-33-mouth", "name": "علي الحميدي", "answers": ["علي الحميدي"], "type": "mouth", "cat": "من فمه", "svg": "<image href=\"portraits/mouth-approved-current/26/face.jpg\" width=\"675\" height=\"1200\"/>", "image": "portraits/mouth-approved-current/26/face.jpg", "crop": [150, 395, 350, 175], "source": "https://x.com/Al7my", "imageSize": [675, 1200], "revealCrop": [65, 80, 500, 620], "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "approved-mouth-27", "name": "عزيز بن محمد", "answers": ["عزيز بن محمد"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/27/face.jpg", "imageSize": [1188, 2048], "revealCrop": [475, 510, 490, 650], "source": "https://x.com/3zez12l", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [505, 910, 395, 197], "svg": "<image href=\"portraits/mouth-approved-current/27/face.jpg\" width=\"1188\" height=\"2048\"/>"}, {"id": "creator-mouth-02", "name": "خلودي 25", "answers": ["خلودي 25", "خلودي٢٥", "خلودي", "خالد الباعود"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/28/face.jpg", "imageSize": [1638, 2048], "source": "https://x.com/KLOoODE25", "crop": [520, 830, 570, 285], "revealCrop": [465, 205, 700, 1050], "svg": "<image href=\"portraits/mouth-approved-current/28/face.jpg\" width=\"1638\" height=\"2048\"/>", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6}, {"id": "approved-mouth-29", "name": "أبو عمر — يوسف حناوي", "answers": ["أبو عمر — يوسف حناوي"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/29/face.jpg", "imageSize": [1920, 1080], "revealCrop": [0, 0, 1920, 1080], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 211, 211], "svg": "<image href=\"portraits/mouth-approved-current/29/mouth.png\" width=\"211\" height=\"211\"/>"}, {"id": "approved-mouth-30", "name": "أحمد أبو الرب", "answers": ["أحمد أبو الرب"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/30/face.jpg", "imageSize": [905, 760], "revealCrop": [0, 0, 905, 760], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 217, 217], "svg": "<image href=\"portraits/mouth-approved-current/30/mouth.png\" width=\"217\" height=\"217\"/>"}, {"id": "approved-mouth-31", "name": "أسامة مروة", "answers": ["أسامة مروة"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/31/face.jpg", "imageSize": [970, 705], "revealCrop": [0, 0, 970, 705], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 184, 184], "svg": "<image href=\"portraits/mouth-approved-current/31/mouth.png\" width=\"184\" height=\"184\"/>"}, {"id": "approved-mouth-32", "name": "أوبلز — صالح الزهراني", "answers": ["أوبلز — صالح الزهراني"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/32/face.jpg", "imageSize": [1920, 1080], "revealCrop": [0, 0, 1920, 1080], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 192, 192], "svg": "<image href=\"portraits/mouth-approved-current/32/mouth.png\" width=\"192\" height=\"192\"/>"}, {"id": "approved-mouth-33", "name": "إبراهيم الحجاج", "answers": ["إبراهيم الحجاج"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/33/face.jpg", "imageSize": [3840, 4606], "revealCrop": [0, 0, 3840, 4606], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 614, 608], "svg": "<image href=\"portraits/mouth-approved-current/33/mouth.png\" width=\"614\" height=\"608\"/>"}, {"id": "approved-mouth-34", "name": "براء عالم", "answers": ["براء عالم"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/34/face.jpg", "imageSize": [7728, 5152], "revealCrop": [0, 0, 7728, 5152], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 515, 505], "svg": "<image href=\"portraits/mouth-approved-current/34/mouth.png\" width=\"515\" height=\"505\"/>"}, {"id": "approved-mouth-35", "name": "عبدالعزيز بكر", "answers": ["عبدالعزيز بكر"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/35/face.jpg", "imageSize": [933, 622], "revealCrop": [0, 0, 933, 622], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 187, 187], "svg": "<image href=\"portraits/mouth-approved-current/35/mouth.png\" width=\"187\" height=\"187\"/>"}, {"id": "approved-mouth-36", "name": "فيصل السيف", "answers": ["فيصل السيف"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/36/face.jpg", "imageSize": [5312, 2988], "revealCrop": [0, 0, 5312, 2988], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 687, 687], "svg": "<image href=\"portraits/mouth-approved-current/36/mouth.png\" width=\"687\" height=\"687\"/>"}, {"id": "approved-mouth-38", "name": "مساعد الدوسري", "answers": ["مساعد الدوسري"], "type": "mouth", "cat": "من فمه", "image": "portraits/mouth-approved-current/38/face.jpg", "imageSize": [1600, 2133], "revealCrop": [0, 0, 1600, 2133], "source": "", "largeDisplay": true, "displayWidth": 920, "displayScale": 1.6, "crop": [0, 0, 464, 464], "svg": "<image href=\"portraits/mouth-approved-current/38/mouth.png\" width=\"464\" height=\"464\"/>"}];
+const mixedRounds=[];const mixedPeople=new Set();for(let i=0;i<Math.max(eyeRounds.length,voiceRounds.length,mouthRounds.length);i++){for(const group of [eyeRounds,voiceRounds,mouthRounds]){const question=group[i];if(!question)continue;const key=nameKey(question.name).replace(/[أإآ]/g,"ا").replace(/\s+/g,"");if(!mixedPeople.has(key)){mixedPeople.add(key);mixedRounds.push(question)}}}
+function roundsBank(type){return ({eye:eyeRounds,voice:voiceRounds,mouth:mouthRounds,mix:mixedRounds})[type]||eyeRounds}function selectRounds(){const bank=roundsBank(state.guessType);if(Array.isArray(state.roundIds)){const byId=new Map([...eyeRounds,...mouthRounds,...voiceRounds].map(q=>[q.id,q]));rounds=state.roundIds.map(id=>byId.get(id)).filter(Boolean)}else rounds=bank.slice(0,state.questionCount||bank.length)}
+const playedKey='zamn-identity-played-v1';function readPlayed(){try{return new Set(JSON.parse(sessionStorage.getItem(playedKey)||'[]'))}catch{return new Set()}}
+function shuffleQuestions(list){return list.map(q=>({q,n:Math.random()})).sort((a,b)=>a.n-b.n).map(x=>x.q)}
+function questionPerson(q){return nameKey(q.name).replace(/[أإآ]/g,'ا').replace(/\s+/g,'')}
+function buildRoundSelection(type,count,played){const groups=type==='mix'?[eyeRounds,voiceRounds,mouthRounds]:[roundsBank(type)];const pools=groups.map(g=>shuffleQuestions(g));const picked=[],people=new Set(),counts=groups.map(()=>0);while(picked.length<count){let candidates=pools.map((pool,i)=>({i,q:pool.find(q=>!people.has(questionPerson(q))&&!played.has(questionPerson(q)))})).filter(x=>x.q);if(!candidates.length)candidates=pools.map((pool,i)=>({i,q:pool.find(q=>!people.has(questionPerson(q)))})).filter(x=>x.q);if(!candidates.length)break;const lowest=Math.min(...candidates.map(x=>counts[x.i]));const options=candidates.filter(x=>counts[x.i]===lowest);const chosen=options[Math.floor(Math.random()*options.length)];picked.push(chosen.q);people.add(questionPerson(chosen.q));counts[chosen.i]++}return shuffleQuestions(picked).map(q=>q.id)}
+function rememberPlayed(q){if(!q)return;const played=readPlayed();played.add(questionPerson(q));try{sessionStorage.setItem(playedKey,JSON.stringify([...played]))}catch{}}
+
+function initialCells(index){return ["eye","mouth"].includes(rounds[index]?.type)?[0]:[]} 
+const firebaseConfig={apiKey:"AIzaSyCcdd_dQrYeSzprt3vJEdYJc74fsVoqtVM",authDomain:"mn-ana-game-19256.firebaseapp.com",databaseURL:"https://mn-ana-game-19256-default-rtdb.europe-west1.firebasedatabase.app",projectId:"mn-ana-game-19256",storageBucket:"mn-ana-game-19256.firebasestorage.app",messagingSenderId:"229828779546",appId:"1:229828779546:web:66fe61f97b915196a9bba3"};
+
+let fb=null,online=false,mode=0,playerTeam=0,joined=false,lastRound=-1,buzz=null,pausedRound=null;
+const params=new URLSearchParams(location.search),room=params.get('room')||crypto.randomUUID().replaceAll('-','').slice(0,8),role=params.get('view')||'display',isHost=role==='host',isPlayer=role==='player'||role==='buzzer',isBuzzer=role==='buzzer',playerId=sessionStorage.getItem('reveal-player-id')||crypto.randomUUID();sessionStorage.setItem('reveal-player-id',playerId);
+let guessType='eye';const guessLabels={eye:'من عينه',voice:'من صوته',mouth:'من فمه',mix:'مكس'};
+document.querySelectorAll('[data-guess]').forEach(button=>button.onclick=()=>{guessType=button.dataset.guess;document.querySelectorAll('[data-guess]').forEach(other=>{const selected=other===button;other.classList.toggle('selected',selected);other.setAttribute('aria-pressed',String(selected))});updateQuestionCount(true);validateTeamNames()});
+let state={guessType:'eye',names:['',''],mode:0,phase:'waiting',r:0,active:0,points:[0,0],cells:[],done:false,status:''},members={},hostReady=false;
+const base='revealPrototype/rooms/'+room;
+function error(msg){$('connection').textContent=msg;$('connection').hidden=false}
+const ready=Promise.all([import('https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js'),import('https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js')]).then(([app,db])=>fb={...db,db:db.getDatabase(app.initializeApp(firebaseConfig))}).catch(()=>{error('تعذر الاتصال · تأكد من الإنترنت');return null});
+function path(part){return fb.ref(fb.db,base+'/'+part)}
+async function write(part,value){try{await fb.set(path(part),value);return true}catch(e){error('تعذر حفظ التغيير · '+e.code);return false}}
+async function save(){render();return write('state',state)}
+function points(){return 1}
+function show(id){for(const name of ['setup','help','waiting','game','presenter','host-wait','phone'])$(name).hidden=name!==id;requestAnimationFrame(fitBoard)}
+const helpCards=[
+{title:'مين هالشخصية',text:'تحدوا بعض واكتشفوا الشخصية من عينه أو صوته أو فمه'},
+{title:'اختاروا نوع التحدي',text:'من عينه أو من صوته أو من فمه وإذا تبون تنويع اختاروا مكس يجمع الأنواع الثلاثة'},
+{title:'جهزوا الفريقين',text:'كل فريق يختار اسم مختلف ثم تختارون مع مقدم أو بدون مقدم'},
+{title:'انضموا للجلسة',text:'صوروا باركود الدخول واكتبوا أسماءكم واختاروا فرقكم اسم اللاعب ما يتكرر في نفس الجلسة'},
+{title:'المقدم والجرس',text:'في وضع مع مقدم يبدأ اللعب من شاشة المقدم أول لاعب يضغط الجرس يظهر اسمه وفريقه ويقفل الجرس على الباقين لين المقدم يعيد فتحه'},
+{title:'خمنوا الشخصية',text:'خمنوا من قصّة العين أو الفم أو مقطع صوت أقل من ٧ ثواني الإجابة اسم الشخص والمكس ينوع التحديات بدون تكرار الشخصية أول فريق يجاوب صح يكسب نقطة واحدة'}
+];let helpIndex=0;
+function renderHelp(){const card=helpCards[helpIndex];$('help-count').textContent=ar(helpIndex+1)+' / '+ar(helpCards.length);$('help-step').textContent=ar(helpIndex+1);$('help-card-title').textContent=card.title;$('help-text').textContent=card.text;$('help-prev').disabled=helpIndex===0;$('help-next').textContent=helpIndex===helpCards.length-1?'خلنا نلعب':'التالي';$('help-dots').textContent='';helpCards.forEach((_,i)=>{const dot=document.createElement('span');dot.className='help-dot'+(i===helpIndex?' current':'');dot.setAttribute('aria-hidden','true');$('help-dots').append(dot)})}
+function closeHelp(){show('setup');$('open-help').focus()}
+$('exit-game').onclick=()=>{$('exit-dialog').showModal();$('cancel-exit').focus()};$('cancel-exit').onclick=()=>{$('exit-dialog').close();$('exit-game').focus()};$('confirm-exit').onclick=()=>location.assign('https://zamn.games/');
+$('open-help').onclick=()=>{helpIndex=0;renderHelp();show('help');$('help-next').focus()};$('help-prev').onclick=()=>{if(helpIndex>0){helpIndex--;renderHelp()}};$('help-next').onclick=()=>{if(helpIndex===helpCards.length-1){closeHelp();return}helpIndex++;renderHelp()};$('help-close').onclick=closeHelp;
+function fitBoard(){if($('game').hidden)return;const box=$('board-space').getBoundingClientRect();const q=rounds[state.r];const photo=q?.crop;const revealed=!!photo&&(state.answerShown||state.done);const bounds=photo?(revealed?(q.revealCrop||[0,0,...q.imageSize]):q.crop):null;const ratio=bounds?bounds[2]/bounds[3]:800/560;let w;if(revealed){const border=8;const availableWidth=Math.max(0,box.width-20);const availableHeight=Math.max(0,box.height-20);w=Math.max(0,Math.min(availableWidth,Math.max(0,availableHeight-border)*ratio+border));$('board').style.width=w+'px';$('board').style.height=Math.max(0,(w-border)/ratio+border)+'px';return}const maxWidth=bounds?(q.largeDisplay?Math.min(q.displayWidth||760,bounds[2]*(q.displayScale||1.25)+8):Math.min(700,bounds[2]+8)):Infinity;w=Math.max(0,Math.min(box.width-12,(box.height-12)*ratio,maxWidth));$('board').style.width=w+'px';$('board').style.height=(w-8)/ratio+8+'px'}
+new ResizeObserver(fitBoard).observe($('board-space'));window.addEventListener('resize',fitBoard);
+function participants(){const list=$('members');list.textContent='';const all=Object.values(members).filter(x=>x.connected!==false);[0,1].forEach(i=>{const section=document.createElement('section'),title=document.createElement('h3'),players=document.createElement('ul');section.className='lobby-team';title.textContent=state.names[i];const teamMembers=all.filter(m=>m.team===i);teamMembers.forEach(m=>{const li=document.createElement('li');li.textContent=m.name;players.append(li)});section.append(title,players);if(!teamMembers.length){const empty=document.createElement('p');empty.className='lobby-empty';empty.textContent='بانتظار اللاعبين';section.append(empty)}list.append(section)});$('members').hidden=false;$('member-count').hidden=false;$('member-count').textContent=all.length?ar(all.length)+' لاعبين جاهزين':'ما دخل أحد للحين';$('host-ready').hidden=state.mode!==1;$('host-ready').textContent=hostReady?'المقدم متصل':'المقدم غير متصل';$('host-ready').classList.toggle('connected',hostReady);$('launch').hidden=state.mode===1;$('launch').disabled=state.mode===1}
+function render(){if(!online)return;if(buzz&&buzz.round!==state.r)buzz=null;selectRounds();$('back').hidden=isHost||isPlayer;if(!isHost&&!isPlayer)$('back').textContent='الإعدادات';state.cells=state.cells||[];if(state.phase==='playing'&&!state.cells.length&&initialCells(state.r).length)state.cells=initialCells(state.r);state.points=state.points||[0,0];participants();if(isPlayer){show('phone');$('join-team0').textContent=state.names[0];$('join-team1').textContent=state.names[1];$('join-form').hidden=joined;$('join-player').hidden=false;$('join-player').textContent=isBuzzer?'حفظ وبدء':'انضم للجلسة';$('phone-wait').hidden=!joined||state.phase==='playing';$('player-buzz').hidden=!joined||(state.phase!=='playing'&&!isBuzzer);$('player-buzz').disabled=state.phase!=='playing'||state.done||!state.cells.length||(!!buzz||pausedRound===state.r);$('phone-title').textContent=joined?(isBuzzer?'جرس '+$('player-name').value.trim()+' · '+state.names[playerTeam]:state.names[playerTeam]):'اسمك وفريقك';if(isBuzzer&&joined){$('phone-wait').textContent='بانتظار بدء اللعبة';if(buzz)$('player-status').textContent=buzz.playerId===playerId?'أنت الأول · '+buzz.name:'الجرس مقفل · '+buzz.name+' ضغط أول';else if(!state.done)$('player-status').textContent=state.phase==='playing'?(pausedRound===state.r?'الجرس موقوف':'الجرس مفتوح'):'';}if(lastRound!==state.r||state.done){lastRound=state.r;$('phone-answer-box').hidden=true;$('phone-answer').value='';$('player-status').textContent=state.done?'الجرس مقفل بانتظار السؤال التالي':''}return}if(state.phase!=='playing'){show(isHost?'host-wait':'waiting');return}show(isHost?'presenter':'game');const q=rounds[state.r];if(!isHost&&!isPlayer)rememberPlayed(q);const voice=q.type==='voice';const photo=q.type==='eye'||q.type==='mouth';$('tiles').hidden=photo;document.querySelector('.small-info').textContent=photo?'خمنوا الشخصية '+guessLabels[q.type]:voice?'اسمعوا وخمنوا':'اكشف أقل · اكسب أكثر';$('voice-stage').hidden=!voice;$('board-space').hidden=voice;$('host-tiles').hidden=voice||photo;$('host-photo').hidden=!photo;document.querySelector('.host-grid').classList.toggle('photo-host',photo);if(photo){$('host-photo-crop').setAttribute('viewBox',q.crop.join(' '));$('host-photo-crop').style.aspectRatio=q.crop[2]+'/'+q.crop[3];$('host-photo-crop').innerHTML=q.svg;$('host-photo-face').src=q.image;$('host-photo-face').alt=q.name;}$('host-play-voice').hidden=!voice;document.querySelector('.host-grid').classList.toggle('voice-host',voice||photo);$('play-voice').disabled=state.done;$('host-play-voice').disabled=state.done;if(photo)$('voice-audio').pause();if(voice&&audioRound!==state.r){$('voice-audio').pause();$('voice-audio').src=q.audio;audioRound=state.r;audioCueSeen=state.audioCue||null;$('voice-note').textContent='المقطع أقل من ٧ ثواني'}if(voice&&!isHost&&state.audioCue&&state.audioCue!==audioCueSeen){audioCueSeen=state.audioCue;playLocalVoice()}$('round').textContent='الجولة '+ar(state.r+1)+' / '+ar(rounds.length)+' · '+(guessLabels[q.type]||'');$('value').textContent=ar(points());const fullPhoto=photo&&(state.answerShown||state.done);$('art').setAttribute('viewBox',photo?(fullPhoto?(q.revealCrop||[0,0,...q.imageSize]):q.crop).join(' '):'0 0 800 560');$('board').classList.toggle('portrait-board',photo);$('art').innerHTML=fullPhoto?'<image href="'+q.image+'" width="'+q.imageSize[0]+'" height="'+q.imageSize[1]+'"/>':q.svg||'';$('hint').textContent=q.cat+' · '+ar(state.cells.length)+' / ١٦';$('status').textContent=buzz&&!state.done?'أول ضغطة '+buzz.name+' من فريق '+state.names[buzz.team]:state.status;[0,1].forEach(i=>{$('label'+i).textContent=state.names[i];$('s'+i).textContent=ar(state.points[i]);$('t'+i).classList.toggle('active',!!buzz&&buzz.team===i)});$('turn').textContent='';$('tiles').textContent='';for(let i=0;i<16;i++){const b=document.createElement('button');b.className='tile'+(state.cells.includes(i)||state.done?' open':'');b.textContent=ar(i+1);b.setAttribute('aria-label','كشف المربع '+(i+1));b.disabled=state.done||state.cells.includes(i)||state.mode===1;b.onclick=()=>reveal(i);$('tiles').append(b)}$('next').hidden=true;$('solo-controls').hidden=state.mode!==0;$('solo-prev').disabled=state.r===0;$('solo-next').disabled=state.r===rounds.length-1;$('solo-reveal').disabled=!!state.answerShown;$('next').textContent=state.r===rounds.length-1?'النتيجة النهائية':'التحدي التالي';$('solution').textContent=q.name;$('host-round').textContent=$('round').textContent+' · '+ar(points())+' نقطة';$('host-turn').textContent=$('turn').textContent;$('host-buzz').textContent=buzz?'أول ضغطة '+buzz.name+' من فريق '+state.names[buzz.team]:'الجرس مفتوح';$('host-tiles').textContent='';for(let i=0;i<16;i++){const b=document.createElement('button');b.textContent=ar(i+1);b.disabled=state.done||state.cells.includes(i);b.onclick=()=>reveal(i);$('host-tiles').append(b)}$('host-next').disabled=!!state.finished||awardBusy;$('host-prev').disabled=state.r===0;$('host-reveal').disabled=state.done;$('reset-buzz').disabled=(!buzz&&pausedRound!==state.r)||state.done;$('reset-buzz').textContent=buzz||pausedRound===state.r?'إعادة فتح الجرس':'الجرس مفتوح';const buzzText=buzz?'أول ضغطة '+buzz.name+' من فريق '+state.names[buzz.team]:pausedRound===state.r?'الجرس موقوف':'الجرس مفتوح';$('host-buzz').textContent=buzzText;[0,1].forEach(i=>{$('host-team'+i).textContent=state.names[i];$('host-score'+i).textContent=ar(state.points[i])});$('host-stop-buzz').disabled=state.done||pausedRound===state.r;fitBoard()}
+async function connect(create=false){await ready;if(!fb)return false;try{if(create){await fb.set(path('state'),{...state,createdAt:Date.now()})}else{const snap=await fb.get(path('state'));if(!snap.exists()){error('الجلسة غير موجودة');return false}state=snap.val()}online=true;fb.onValue(path('state'),snap=>{if(snap.exists()){state=snap.val();render()}},e=>error('تعذر قراءة الجلسة · '+e.code));fb.onValue(path('players'),snap=>{members=snap.val()||{};if(isPlayer&&!joined&&members[playerId]){const member=members[playerId];playerTeam=member.team;$('player-name').value=member.name;joined=true;fb.onDisconnect(path('players/'+playerId)).update({connected:false}).then(()=>fb.update(path('players/'+playerId),{connected:true})).catch(e=>error('تعذر استعادة الاتصال · '+e.code));render()}participants()});fb.onValue(path('host'),snap=>{hostReady=!!snap.val()?.connected;participants()});fb.onValue(path('buzz'),snap=>{const value=snap.val();pausedRound=value?.paused?value.round:null;buzz=value&&!value.paused&&value.round===state.r?value:null;render()});$('connection').hidden=true;return true}catch(e){error('تعذر الاتصال بـ Firebase · '+e.code);return false}}
+function qr(id,url){$(id).textContent='';if(window.QRCode){const size=matchMedia('(max-width:700px), (max-height:560px)').matches?124:160;new window.QRCode($(id),{text:url,width:size,height:size,correctLevel:window.QRCode.CorrectLevel.M})}else $(id).textContent='استخدم الرابط'}
+let playerLink=location.origin+location.pathname+'?view=player&room='+room;const hostLink=location.origin+location.pathname+'?view=host&room='+room;
+async function copy(link,button){const message='قاعدين نلعب خمن الشخصية من زامن حياك\n'+link;try{await navigator.clipboard.writeText(message);$(button).textContent='تم النسخ'}catch(e){error(message)}}
+$('mode0').onclick=()=>{mode=0;$('mode0').classList.add('selected');$('mode1').classList.remove('selected')};$('mode1').onclick=()=>{mode=1;$('mode1').classList.add('selected');$('mode0').classList.remove('selected')};
+function nameKey(name){return name.normalize('NFKC').trim().replace(/\s+/g,' ').toLocaleLowerCase('ar').replace(/[\u064B-\u065F\u0670\u0640\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g,'')}
+function validateQuestionCount(){const input=$('question-number'),count=Number(input.value),total=roundsBank(guessType).length;const valid=input.value.trim()!==''&&Number.isInteger(count)&&count>=1&&count<=total;input.setCustomValidity(valid?'':'اختاروا عدد صحيح من ١ إلى '+ar(total));$('question-error').hidden=valid;document.querySelectorAll('[data-count]').forEach(b=>{const selected=Number(b.dataset.count)===count;b.classList.toggle('selected',selected);b.setAttribute('aria-pressed',String(selected))});return valid}
+function updateQuestionCount(reset=false){const total=roundsBank(guessType).length,input=$('question-number');input.max=total;if(reset)input.value=Math.min(20,total);$('question-total').textContent='المتاح في '+guessLabels[guessType]+' '+ar(total)+' سؤال';$('question-presets').textContent='';for(const n of [5,10,15,20].filter(n=>n<=total)){const b=document.createElement('button');b.type='button';b.dataset.count=n;b.textContent=ar(n);b.onclick=()=>{input.value=n;validateTeamNames()};$('question-presets').append(b)}validateQuestionCount()}
+$('question-number').addEventListener('input',validateTeamNames);updateQuestionCount(true);
+function validateTeamNames(){const first=nameKey($('name0').value),second=nameKey($('name1').value);const duplicate=!!first&&!!second&&first===second;const distinct=!duplicate;$('team-name-error').hidden=!duplicate;$('team-name-error').textContent=duplicate?'اختر اسم مختلف لكل فريق':'';$('name1').setCustomValidity(duplicate?'اختر اسم مختلف لكل فريق':'');['name0','name1'].forEach(id=>$(id).setAttribute('aria-invalid',String(duplicate)));const valid=distinct&&[$('name0'),$('name1')].every(input=>nameKey(input.value).length>0);const countValid=validateQuestionCount();$('create').disabled=!(valid&&countValid);return valid&&countValid}['name0','name1'].forEach(id=>$(id).addEventListener('input',validateTeamNames));validateTeamNames();
+$('create').onclick=async()=>{if(!validateTeamNames())return;state.names=[$('name0').value.trim(),$('name1').value.trim()];state.mode=mode;state.guessType=guessType;state.questionCount=Number($('question-number').value);state.roundIds=buildRoundSelection(guessType,state.questionCount,readPlayed());selectRounds();state.phase='waiting';$('create').disabled=true;$('create').textContent='جاري تجهيز الجلسة';if(!await connect(true)){validateTeamNames();$('create').textContent='ابدأ';return}$('room-code').textContent=room.toUpperCase();$('host-qr-block').hidden=mode===0;playerLink=location.origin+location.pathname+'?view='+(mode===1?'buzzer':'player')+'&room='+room;$('join-title').textContent=mode===1?'جرس اللاعبين':'دخول اللاعبين';qr('player-qr',playerLink);if(mode===1)qr('host-qr',hostLink);$('join-note').textContent=/^(localhost|127\.0\.0\.1)$/.test(location.hostname)?'لتفتح الروابط من جوال آخر نحتاج رابط اللعبة العام':'صوّروا الباركود أو افتحوا الرابط وانضموا لفريقكم';show('waiting');participants()};
+async function launchGame(){selectRounds();if(!online||state.phase==='playing')return;if(state.mode===1&&!isHost)return;if(state.mode===0&&(isHost||isPlayer))return;const button=$(isHost?'host-launch':'launch');button.disabled=true;try{state.phase='playing';state.cells=initialCells(state.r);await save()}finally{button.disabled=false}}$('launch').onclick=launchGame;$('host-launch').onclick=launchGame;$('copy-player').onclick=()=>copy(playerLink,'copy-player');$('copy-host').onclick=()=>copy(hostLink,'copy-host');$('open-host').onclick=()=>window.open(hostLink,'reveal-presenter');$('back').onclick=()=>{if(!$('help').hidden){closeHelp();return}if(online){openSettings()}else{location.href=location.pathname}};
+async function reveal(i){if(state.phase!=='playing'||state.done||state.cells.includes(i))return;state.cells.push(i);await save()}
+async function correct(){if(state.done)return;if(buzz)state.active=buzz.team;state.points[state.active]+=points();state.done=true;state.status='صح عليكم · '+rounds[state.r].name;await save();if(state.mode===0)await write('buzz',null)}
+async function wrong(){if(state.done)return;state.active=1-(buzz?buzz.team:state.active);state.status='الفرصة مع '+state.names[state.active];await save();if(state.mode===0)await write('buzz',null)}
+async function next(){if(!state.done)return;if(state.r===rounds.length-1){state.status=state.points[0]===state.points[1]?'تعادل':'الفائز '+state.names[state.points[0]>state.points[1]?0:1];await save();return}state.r++;state.active=1-state.active;state.done=false;state.cells=initialCells(state.r);state.status='';if(state.mode===0)await write('buzz',null);await save()}
+function openSettings(){if(isHost||isPlayer||!online)return;$('settings-name0').value=state.names[0];$('settings-name1').value=state.names[1];$('settings-status').textContent='';$('settings-join-title').textContent=state.mode===1?'جرس اللاعبين':'دخول اللاعبين';$('settings-host-block').hidden=state.mode!==1;const link=location.origin+location.pathname+'?view='+(state.mode===1?'buzzer':'player')+'&room='+room;qr('settings-player-qr',link);if(state.mode===1)qr('settings-host-qr',hostLink);$('settings-dialog').showModal()}
+$('close-settings').onclick=()=>$('settings-dialog').close();
+$('settings-copy-player').onclick=()=>copy(location.origin+location.pathname+'?view='+(state.mode===1?'buzzer':'player')+'&room='+room,'settings-copy-player');$('settings-copy-host').onclick=()=>copy(hostLink,'settings-copy-host');
+$('save-names').onclick=async()=>{const names=[$('settings-name0').value.trim(),$('settings-name1').value.trim()];if(names.some(name=>!nameKey(name))){$('settings-status').textContent='اكتب اسم الفريقين';return}if(nameKey(names[0])===nameKey(names[1])){$('settings-status').textContent='اختر اسم مختلف لكل فريق';return}$('save-names').disabled=true;try{await fb.update(path('state'),{names});state.names=names;render();$('settings-status').textContent='تم حفظ الأسماء'}catch(e){$('settings-status').textContent='تعذر حفظ الأسماء · حاول مرة ثانية'}finally{$('save-names').disabled=false}};
+let awardBusy=false;
+function openAward(){if(!isHost||state.finished||awardBusy)return;$('award0').textContent=state.names[0];$('award1').textContent=state.names[1];const existing=state.awards?.[state.r];$('award-value').textContent=ar(existing?.amount??(state.cells.length?points():0))+' نقطة لهذا السؤال';$('award-dialog').showModal();$('award0').focus()}
+$('close-award').onclick=()=>$('award-dialog').close();
+async function awardQuestion(teamIndex){if(awardBusy||!isHost)return;awardBusy=true;$('host-next').disabled=true;const roundIndex=state.r;['award0','award1','award-none'].forEach(id=>$(id).disabled=true);try{const result=await fb.runTransaction(path('state'),current=>{if(!current||current.r!==roundIndex||current.finished)return;current.cells=current.cells||[];current.awards=current.awards||{};current.history=current.history||{};const previous=current.awards[roundIndex];const amount=1;current.awards[roundIndex]={team:teamIndex,amount};current.history[roundIndex]={cells:[...current.cells]};current.points=[0,0];Object.values(current.awards).forEach(a=>{if(a.team===0||a.team===1)current.points[a.team]+=a.amount});if(roundIndex<rounds.length-1){current.r=roundIndex+1;current.cells=current.history[current.r]?.cells||initialCells(current.r);current.active=teamIndex>=0?teamIndex:current.active;current.done=false;current.answerShown=false;current.audioCue=null;current.status=''}else{current.done=true;current.finished=true;current.status=current.points[0]===current.points[1]?'تعادل':'الفائز '+current.names[current.points[0]>current.points[1]?0:1]}return current});if(result.committed){state=result.snapshot.val();state.cells=state.cells||[];await write('buzz',null);render();$('award-dialog').close()}else error('السؤال تغيّر · حاول مرة ثانية')}catch(e){error('تعذر تسجيل النقاط · '+e.code)}finally{awardBusy=false;$('host-next').disabled=!!state.finished;['award0','award1','award-none'].forEach(id=>$(id).disabled=false)}}
+async function previousQuestion(){if(!isHost||state.r===0)return;state.history=state.history||{};state.history[state.r]={cells:[...state.cells]};state.r--;state.cells=state.history[state.r]?.cells||initialCells(state.r);state.done=false;state.finished=false;state.status='';state.answerShown=false;state.audioCue=null;await write('buzz',null);await save()}
+$('award0').onclick=()=>awardQuestion(0);$('award1').onclick=()=>awardQuestion(1);$('award-none').onclick=()=>awardQuestion(-1);
+function canSoloControl(){return online&&!isHost&&!isPlayer&&state.mode===0&&state.phase==='playing'}
+async function soloNavigate(direction){if(!canSoloControl())return;const target=state.r+direction;if(target<0||target>=rounds.length)return;state.soloHistory=state.soloHistory||{};state.soloHistory[state.r]={cells:[...state.cells],done:!!state.done,status:state.status||'',answerShown:!!state.answerShown};const saved=state.soloHistory[target];$('voice-audio').pause();state.r=target;state.cells=saved?.cells||initialCells(target);state.done=saved?.done||false;state.status=saved?.status||'';state.answerShown=saved?.answerShown||false;state.audioCue=null;state.finished=false;await write('buzz',null);await save()}
+$('solo-prev').onclick=()=>soloNavigate(-1);$('solo-next').onclick=()=>soloNavigate(1);$('solo-reveal').onclick=async()=>{if(!canSoloControl())return;state.answerShown=true;state.done=true;state.status='الإجابة '+rounds[state.r].name;await write('buzz',null);await save()};
+async function controlBuzz(stop){if(isPlayer||!online||state.phase!=='playing'||state.done)return;try{await write('buzz',stop?{paused:true,round:state.r,time:Date.now()}:null)}catch(e){error('تعذر التحكم في الجرس')}}$('reset-buzz').onclick=()=>controlBuzz(false);$('host-stop-buzz').onclick=()=>controlBuzz(true);$('next').onclick=next;$('host-next').onclick=openAward;$('host-prev').onclick=previousQuestion;$('host-reveal').onclick=async()=>{state.done=true;state.status='الحل '+rounds[state.r].name+' · بدون نقاط';await save();if(state.mode===0)await write('buzz',null)};[0,1].forEach(i=>$('t'+i).onclick=()=>{if(state.mode===0&&!state.done){state.active=i;save()}});
+[0,1].forEach(i=>$('join-team'+i).onclick=()=>{if(joined)return;playerTeam=i;[0,1].forEach(n=>$('join-team'+n).classList.toggle('selected',n===i))});
+function playLocalVoice(){const audio=$('voice-audio');audio.currentTime=0;audio.play().then(()=>{$('voice-note').textContent='اسمعوا وخمنوا'}).catch(()=>{$('voice-note').textContent='اضغط تشغيل الصوت للسماح بالتشغيل على هالجهاز'})}
+async function requestVoice(){if(state.phase!=='playing'||state.done||rounds[state.r].type!=='voice')return;if(!state.cells.length)state.cells=[0];state.audioCue=Date.now();await save()}
+$('play-voice').onclick=async()=>{playLocalVoice();if(state.mode===0)await requestVoice()};$('host-play-voice').onclick=requestVoice;
+$('voice-audio').addEventListener('timeupdate',()=>{if($('voice-audio').currentTime>=7)$('voice-audio').pause()});$('voice-audio').addEventListener('ended',()=>{$('voice-note').textContent='تقدرون تعيدون سماع المقطع'});$('voice-audio').addEventListener('error',()=>{$('voice-note').textContent='تعذر تحميل الصوت حاول مرة ثانية'});
+$('join-player').onclick=async()=>{if(joined)return;const name=$('player-name').value.trim();if(!nameKey(name)){$('player-name').focus();$('player-status').textContent='اكتب اسمك أول';return}$('join-player').disabled=true;const memberRef=path('players/'+playerId);try{const result=await fb.runTransaction(path('players'),current=>{current=current||{};if(Object.entries(current).some(([id,m])=>id!==playerId&&nameKey(m.name||'')===nameKey(name)))return;current[playerId]={name,team:playerTeam,connected:true};return current});if(!result.committed){$('player-status').textContent='الاسم مستخدم في الجلسة اختر اسم ثاني';$('player-name').focus();return}await fb.onDisconnect(memberRef).update({connected:false});joined=true;$('player-status').textContent='';render()}catch(e){error('تعذر الانضمام · '+e.code)}finally{$('join-player').disabled=joined}};
+$('player-buzz').onclick=async()=>{if(!joined||state.phase!=='playing'||state.done||!state.cells.length||pausedRound===state.r)return;const playerName=$('player-name').value.trim();if(!playerName){$('player-status').textContent='اكتب اسمك أول';$('player-name').focus();return}try{const result=await fb.runTransaction(path('buzz'),current=>current?undefined:{team:playerTeam,name:$('player-name').value.trim(),playerId,round:state.r,time:Date.now()});$('player-status').textContent=result.committed?'أنت الأسرع · جاوبوا الآن':'الجرس مقفل · لاعب ثاني ضغط أول';$('phone-answer-box').hidden=true}catch(e){error('تعذر تسجيل الجرس')}};
+$('phone-submit').onclick=async()=>{if(isPlayer||state.mode!==0||state.done)return;const snap=await fb.get(path('buzz')),winner=snap.val();if(!winner||winner.playerId!==playerId||winner.round!==state.r){$('player-status').textContent='انتظر دورك';return}const a=$('phone-answer').value.trim();if(!a)return;const norm=s=>nameKey(s).replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/\s+/g,'');state.active=playerTeam;$('phone-submit').disabled=true;if(rounds[state.r].answers.some(v=>norm(v)===norm(a)))await correct();else await wrong();$('phone-answer-box').hidden=true;$('phone-submit').disabled=false};$('phone-answer').onkeydown=e=>{if(e.key==='Enter')$('phone-submit').click()};
+if(isHost||isPlayer){$('back').hidden=true;show(isHost?'host-wait':'phone');connect().then(async ok=>{if(!ok)return;if(isHost){await fb.onDisconnect(path('host')).update({connected:false});await write('host',{connected:true})}render()})}else show('setup');
+</script></body></html>

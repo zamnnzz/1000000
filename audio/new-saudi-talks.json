@@ -1,0 +1,302 @@
+[
+  {
+    "id": "saudi-talk-01",
+    "name": "مالك الروقي",
+    "answers": [
+      "مالك الروقي"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-01.wav",
+    "duration": 6.25,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3487/file.mp3",
+    "title": "297: كيف تعمل السياسة السعودية مع مالك الروقي",
+    "sourceStart": 28.2,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-02",
+    "name": "عائض القرني",
+    "answers": [
+      "عائض القرني"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-02.wav",
+    "duration": 5.1,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3497/file.mp3",
+    "title": "288: العزلة والشهرة والحزن مع عائض القرني",
+    "sourceStart": 0,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-03",
+    "name": "ياسر الحزيمي",
+    "answers": [
+      "ياسر الحزيمي"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-03.wav",
+    "duration": 4.55,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3509/file.mp3",
+    "title": "277: كيف تنجح العلاقات مع ياسر الحزيمي",
+    "sourceStart": 23,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-04",
+    "name": "محمد بازيد",
+    "answers": [
+      "محمد بازيد"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-04.wav",
+    "duration": 5.55,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3528/file.mp3",
+    "title": "261: مشاكل الطيران السعودي وأسباب تقلب الأسعار مع محمد بازيد",
+    "sourceStart": 10.6,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-05",
+    "name": "حسن عسيري",
+    "answers": [
+      "حسن عسيري"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-05.wav",
+    "duration": 6.3,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3535/file.mp3",
+    "title": "256: السبب خلف سوء المسلسلات السعودية مع حسن عسيري",
+    "sourceStart": 5.15,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-06",
+    "name": "خالد القحطاني",
+    "answers": [
+      "خالد القحطاني"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-06.wav",
+    "duration": 6.85,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3543/file.mp3",
+    "title": "249: سبعة أجانب: النقلة التاريخية للدوري السعودي مع خالد القحطاني",
+    "sourceStart": 24.4,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-07",
+    "name": "عبدالعزيز المزيني",
+    "answers": [
+      "عبدالعزيز المزيني"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-07.wav",
+    "duration": 6.75,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3547/file.mp3",
+    "title": "246: الفساد في سوق الإنتاج مع عبدالعزيز المزيني",
+    "sourceStart": 29.95,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-08",
+    "name": "عبدالمجيد الكناني",
+    "answers": [
+      "عبدالمجيد الكناني"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-08.wav",
+    "duration": 4.6,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3595/file.mp3",
+    "title": "206: عن صناعة الدراما الخليجية، مع عبدالمجيد الكناني",
+    "sourceStart": 7.55,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-09",
+    "name": "فارس التركي",
+    "answers": [
+      "فارس التركي"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-09.wav",
+    "duration": 5.3,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3598/file.mp3",
+    "title": "203: تجربة فطور فارس، مستقبل المطاعم والتوصيل",
+    "sourceStart": 10.85,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-10",
+    "name": "تركي الدخيل",
+    "answers": [
+      "تركي الدخيل"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-10.wav",
+    "duration": 6.55,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3630/file.mp3",
+    "title": "173: لقاء مع سعادة السفير، تركي الدخيل",
+    "sourceStart": 39,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-11",
+    "name": "ياسر القحطاني",
+    "answers": [
+      "ياسر القحطاني"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-11.wav",
+    "duration": 5.6,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3632/file.mp3",
+    "title": "170: من المدرج، ياسر القحطاني",
+    "sourceStart": 4.75,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-12",
+    "name": "عبدالله السبع",
+    "answers": [
+      "عبدالله السبع"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-12.wav",
+    "duration": 5.1,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3657/file.mp3",
+    "title": "146: هل يخشى المؤثرون خسارة شهرتهم؟",
+    "sourceStart": 125,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-13",
+    "name": "مشهور الدبيان",
+    "answers": [
+      "مشهور الدبيان"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-13.wav",
+    "duration": 6.7,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3727/file.mp3",
+    "title": "61: الذكاء الاصطناعي من مسلمات العصر مع مشهور الدبيان",
+    "sourceStart": 100.5,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-14",
+    "name": "رشاد فقيها",
+    "answers": [
+      "رشاد فقيها"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-14.wav",
+    "duration": 4.7,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1773/file.mp3",
+    "title": "كيف تغير التنمية البشرية حياة الأشخاص مع رشاد فقيها",
+    "sourceStart": 29.45,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-15",
+    "name": "خالد الحربي",
+    "answers": [
+      "خالد الحربي"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-15.wav",
+    "duration": 6.3,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1789/file.mp3",
+    "title": "الفنان الذي كتب مسلسل بابا فرحان",
+    "sourceStart": 13.65,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-16",
+    "name": "صالح العريض",
+    "answers": [
+      "صالح العريض"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-16.wav",
+    "duration": 6.1,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1802/file.mp3",
+    "title": "الرجل الذي نشأ جيل كامل على برامجه",
+    "sourceStart": 9.45,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-17",
+    "name": "حاتم النجار",
+    "answers": [
+      "حاتم النجار"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-17.wav",
+    "duration": 5.05,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1823/file.mp3",
+    "title": "بودكاست مربع | قريبًا على ثمانية",
+    "sourceStart": 19,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-18",
+    "name": "نزار باهبري",
+    "answers": [
+      "نزار باهبري"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-18.wav",
+    "duration": 6.1,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1875/file.mp3",
+    "title": "كورونا! نخاف ولا ما نخاف؟ مع د. نزار باهبري",
+    "sourceStart": 87,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-19",
+    "name": "محمد الزهراني",
+    "answers": [
+      "محمد الزهراني"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-19.wav",
+    "duration": 5.05,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/1917/file.mp3",
+    "title": "اشتهر وهو بالابتدائي، كيف يتعامل محمد الزهراني “بلا صياح” مع الشهرة.. وكيف يصنع محتواه في يوتيوب!",
+    "sourceStart": 103,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  },
+  {
+    "id": "saudi-talk-20",
+    "name": "عبدالرحمن أبومالح",
+    "answers": [
+      "عبدالرحمن أبومالح"
+    ],
+    "type": "voice",
+    "cat": "من صوته",
+    "audio": "audio/saudi-talk-20.wav",
+    "duration": 5.15,
+    "source": "https://api.hosting.thmanyah.com/episodeAudioFile/3509/file.mp3",
+    "title": "كيف تنجح العلاقات",
+    "sourceStart": 62.15,
+    "verification": "مصدر الحلقة وتفريغ آلي محلي ومراجعة النص المختار"
+  }
+]

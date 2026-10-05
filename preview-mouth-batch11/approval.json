@@ -1,0 +1,58 @@
+[
+  {
+    "name": "ياسر الرميان",
+    "image": "portraits/new30/public-07.jpg",
+    "size": [
+      3333,
+      5000
+    ],
+    "crop": [
+      900,
+      950,
+      850,
+      425
+    ],
+    "face": [
+      960,
+      150,
+      1120,
+      1550
+    ],
+    "source": "https://en.wikipedia.org/wiki/Yasir_Al-Rumayyan",
+    "old": {
+      "id": "reviewed-saudi-12-mouth",
+      "name": "ياسر الرميان",
+      "answers": [
+        "ياسر الرميان"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "image": "portraits/new30/public-07.jpg",
+      "imageSize": [
+        3333,
+        5000
+      ],
+      "crop": [
+        962,
+        1051,
+        687,
+        258
+      ],
+      "revealCrop": [
+        727,
+        179,
+        1157,
+        1446
+      ],
+      "largeDisplay": true,
+      "source": "https://en.wikipedia.org/wiki/Yasir_Al-Rumayyan",
+      "originalSource": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Yasir_Al-Rumayyan_Argentina_v_Spain_19_July_2026-285.jpg",
+      "nationality": "سعودي",
+      "gender": "male",
+      "reviewed": true,
+      "svg": "<image href=\"portraits/new30/public-07.jpg\" width=\"3333\" height=\"5000\"/>",
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

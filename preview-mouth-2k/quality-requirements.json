@@ -1,0 +1,9 @@
+{
+  "minimum_original_long_edge": 2048,
+  "upscaling_allowed": false,
+  "require_close_clear_face": true,
+  "check_mouth_crop_at_display_size": true,
+  "male_only": true,
+  "saudi_only": true,
+  "no_duplicate_persons": true
+}

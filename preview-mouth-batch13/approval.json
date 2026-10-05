@@ -1,0 +1,58 @@
+[
+  {
+    "name": "سلطان بن سلمان",
+    "image": "portraits/new30/public-09.jpg",
+    "size": [
+      2880,
+      1920
+    ],
+    "crop": [
+      1360,
+      670,
+      510,
+      255
+    ],
+    "face": [
+      1270,
+      160,
+      930,
+      1060
+    ],
+    "source": "https://en.wikipedia.org/wiki/Sultan_bin_Salman_Al_Saud",
+    "old": {
+      "id": "reviewed-saudi-14-mouth",
+      "name": "سلطان بن سلمان",
+      "answers": [
+        "سلطان بن سلمان"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "image": "portraits/new30/public-09.jpg",
+      "imageSize": [
+        2880,
+        1920
+      ],
+      "crop": [
+        1349,
+        747,
+        482,
+        197
+      ],
+      "revealCrop": [
+        1184,
+        151,
+        812,
+        1014
+      ],
+      "largeDisplay": true,
+      "source": "https://en.wikipedia.org/wiki/Sultan_bin_Salman_Al_Saud",
+      "originalSource": "https://upload.wikimedia.org/wikipedia/commons/f/fd/HRH_Prince_Sultan_bin_Salman_bin_Abdulaziz_Al-Saud%2C_the_Chairman_%26_President_of_the_Saudi_Commission_for_Tourism_and_National_Heritage_%2826006959140%29.jpg",
+      "nationality": "سعودي",
+      "gender": "male",
+      "reviewed": true,
+      "svg": "<image href=\"portraits/new30/public-09.jpg\" width=\"2880\" height=\"1920\"/>",
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

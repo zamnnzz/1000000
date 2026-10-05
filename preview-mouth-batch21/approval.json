@@ -1,0 +1,54 @@
+[
+  {
+    "name": "راشد الشمراني",
+    "image": "portraits/mouth-final/mouth-19.webp",
+    "size": [
+      1600,
+      900
+    ],
+    "crop": [
+      550,
+      430,
+      510,
+      255
+    ],
+    "face": [
+      410,
+      0,
+      715,
+      765
+    ],
+    "source": "https://www.annajah.net/%D8%B1%D8%A7%D8%B4%D8%AF-%D8%A7%D9%84%D8%B4%D9%85%D8%B1%D8%A7%D9%86%D9%8A-%D8%B1%D8%A7%D8%A6%D8%AF-%D8%A7%D9%84%D9%85%D8%B3%D8%B1%D8%AD-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-article-46539",
+    "old": {
+      "id": "saudi-39-mouth",
+      "name": "راشد الشمراني",
+      "answers": [
+        "راشد الشمراني"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "svg": "<image href=\"portraits/mouth-final/mouth-19.webp\" width=\"1600\" height=\"900\"/>",
+      "image": "portraits/mouth-final/mouth-19.webp",
+      "crop": [
+        646,
+        482,
+        325,
+        132
+      ],
+      "source": "https://www.annajah.net/%D8%B1%D8%A7%D8%B4%D8%AF-%D8%A7%D9%84%D8%B4%D9%85%D8%B1%D8%A7%D9%86%D9%8A-%D8%B1%D8%A7%D8%A6%D8%AF-%D8%A7%D9%84%D9%85%D8%B3%D8%B1%D8%AD-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-article-46539",
+      "imageSize": [
+        1600,
+        900
+      ],
+      "revealCrop": [
+        535,
+        81,
+        547,
+        683
+      ],
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "name": "عايض يوسف",
+  "image": "preview-mouth-batch30/ayed.jpg",
+  "size": [
+    3000,
+    3000
+  ],
+  "crop": [
+    1130,
+    1240,
+    660,
+    330
+  ],
+  "face": [
+    895,
+    450,
+    1270,
+    1390
+  ],
+  "source": "https://music.apple.com/sa/artist/ayed/1076825865",
+  "old": {
+    "id": "saudi-09-mouth",
+    "name": "عايض يوسف",
+    "answers": [
+      "عايض يوسف",
+      "عايض"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "svg": "<image href=\"portraits/hq/saudi-09-clear.jpg\" width=\"963\" height=\"1200\"/>",
+    "image": "portraits/hq/saudi-09-clear.jpg",
+    "crop": [
+      325,
+      662,
+      410,
+      167
+    ],
+    "source": "https://www.pinterest.com/pin/ayed-in-2024--1090645234779171305/",
+    "imageSize": [
+      963,
+      1200
+    ],
+    "revealCrop": [
+      184,
+      154,
+      691,
+      864
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6
+  },
+  "status": "pending_approval"
+}

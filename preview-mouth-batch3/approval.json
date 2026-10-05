@@ -1,0 +1,55 @@
+[
+  {
+    "name": "نايف الظفيري",
+    "image": "preview-mouth-batch3/0.jpg",
+    "size": [
+      2000,
+      3000
+    ],
+    "crop": [
+      290,
+      1670,
+      1080,
+      540
+    ],
+    "face": [
+      250,
+      500,
+      1450,
+      2150
+    ],
+    "source": "https://letterboxd.com/actor/naif-al-daferi/",
+    "old": {
+      "id": "creator-mouth-06",
+      "name": "نايف الظفيري",
+      "answers": [
+        "نايف الظفيري",
+        "نايف الضفيري"
+      ],
+      "type": "mouth",
+      "cat": "من فمه",
+      "image": "portraits/mouth-final/mouth-36.jpg",
+      "imageSize": [
+        2000,
+        3000
+      ],
+      "source": "https://letterboxd.com/actor/naif-al-daferi/",
+      "crop": [
+        308,
+        1703,
+        1016,
+        386
+      ],
+      "revealCrop": [
+        0,
+        418,
+        1711,
+        2139
+      ],
+      "svg": "<image href=\"portraits/mouth-final/mouth-36.jpg\" width=\"2000\" height=\"3000\"/>",
+      "largeDisplay": true,
+      "displayWidth": 920,
+      "displayScale": 1.6
+    }
+  }
+]

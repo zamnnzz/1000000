@@ -1,0 +1,52 @@
+{
+  "name": "يعقوب الفرحان",
+  "image": "preview-mouth-next/0.jpg",
+  "size": [
+    2000,
+    3000
+  ],
+  "crop": [
+    340,
+    1580,
+    1100,
+    550
+  ],
+  "face": [
+    250,
+    650,
+    1550,
+    1900
+  ],
+  "source": "https://www.themoviedb.org/person/3248728",
+  "old": {
+    "id": "saudi-31-mouth",
+    "name": "يعقوب الفرحان",
+    "answers": [
+      "يعقوب الفرحان"
+    ],
+    "type": "mouth",
+    "cat": "من فمه",
+    "svg": "<image href=\"portraits/mouth-final/mouth-14.jpg\" width=\"5760\" height=\"3840\"/>",
+    "image": "portraits/mouth-final/mouth-14.jpg",
+    "crop": [
+      2379,
+      868,
+      503,
+      205
+    ],
+    "source": "https://www.arrajol.com/content/249481/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%AC%D9%84%D8%B3%D8%A9-%D8%AA%D8%B5%D9%88%D9%8A%D8%B1-%D8%AE%D8%A7%D8%B5%D8%A9-%D9%85%D8%B9-%D8%A7%D9%84%D9%81%D9%86%D8%A7%D9%86-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A-%D9%8A%D8%B9%D9%82%D9%88%D8%A8-%D8%A7%D9%84%D9%81%D8%B1%D8%AD%D8%A7%D9%86",
+    "imageSize": [
+      5760,
+      3840
+    ],
+    "revealCrop": [
+      2207,
+      245,
+      847,
+      1059
+    ],
+    "largeDisplay": true,
+    "displayWidth": 920,
+    "displayScale": 1.6
+  }
+}
