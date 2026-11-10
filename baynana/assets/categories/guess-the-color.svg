@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800">
+ <defs>
+  <clipPath id="left"><rect width="320" height="800"/></clipPath>
+  <clipPath id="right"><rect x="320" width="320" height="800"/></clipPath>
+  <g id="mark">
+   <path d="M320 155v372" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+   <path d="M222 253q96-87 197-4l-21 29q-79-64-155 5zm9 44q84-71 178-7l-18 30q-71-51-146 7zm18 45q75-58 143-10l-15 31q-53-38-115 9zm15 44q59-42 113-9l-18 32q-37-22-81 6zm18 43q38-25 77-5l-17 27q-24-9-48 7zm15 41q24-12 46-6l-24 36z" fill="currentColor"/>
+   <text x="320" y="620" direction="rtl" text-anchor="middle" fill="currentColor" font-family="Arial,sans-serif" font-size="62" font-weight="900">شاورمر</text>
+  </g>
+ </defs>
+ <rect width="640" height="800" fill="#fff0ce"/>
+ <circle cx="320" cy="391" r="242" fill="#fae2ba"/>
+ <path d="m109 330 8 18 18 8-18 8-8 18-8-18-18-8 18-8zm422 106 6 13 13 6-13 6-6 13-6-13-13-6 13-6z" fill="#b68bd6"/>
+ <use href="#mark" clip-path="url(#left)" color="#79234b"/>
+ <use href="#mark" clip-path="url(#right)" color="#2e2033"/>
+ <path d="M320 148v484" stroke="#fff5dc" stroke-width="5"/>
+</svg>

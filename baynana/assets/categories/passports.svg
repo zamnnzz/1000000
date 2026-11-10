@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800">
+<defs>
+ <linearGradient id="sea" x2="0%" y2="100%" gradientUnits="objectBoundingBox"><stop stop-color="#e8d9f4"/><stop offset="1" stop-color="#bda2d9"/></linearGradient>
+ <linearGradient id="cover" x2="100%" y2="100%"><stop stop-color="#194c37"/><stop offset="1" stop-color="#082b1e"/></linearGradient>
+ <pattern id="grain" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r=".65" fill="#fff" opacity=".13"/></pattern>
+</defs>
+<rect width="640" height="800" fill="url(#sea)"/>
+<g fill="none" stroke="#fff8e5" opacity=".42" stroke-width="2">
+ <path d="M-20 244H660M-20 369H660M-20 494H660M-20 619H660M116 118Q10 382 117 707M232 112Q151 406 230 731M407 112Q488 406 409 731M524 118Q630 382 523 707"/>
+</g>
+<g fill="#fff0d7" stroke="#735883" stroke-width="2.6" stroke-linejoin="round">
+ <path d="M0 241 45 216 88 220 117 190 176 195 201 220 169 248 151 248 158 273 128 302 111 338 130 359 150 363 172 385 204 388 200 406 166 405 136 384 110 379 90 347 69 338 57 310 22 306 0 284Z"/>
+ <path d="m215 188 31-27 49 8 10 26-24 28-12 36-25 16-12-27 7-22-27-17z"/>
+ <path d="m178 411 25-12 35 15 33 31 11 39-32 36-17 47-33 46-15-13 7-55-10-50-24-38 3-29z"/>
+ <path d="m337 302 26-38 34-17 16-28 63-12 36-23 51 12 21 18 56-5v136l-34 4-31 37-40 1-29 33-22-22-21-45-40 14-28-29-27 10-24-22z"/>
+ <path d="m368 348 42 6 34 38-12 47-28 26-13 34-24-15-6-44-30-38 9-35zM550 533l30-30 44-5 16 19v64l-48 3-45-22z"/>
+</g>
+<path d="M39 549Q131 584 191 518T431 320Q511 266 594 328" fill="none" stroke="#684777" stroke-width="3" stroke-dasharray="7 10" opacity=".65"/>
+<g fill="#f4a76d" stroke="#624471" stroke-width="3"><circle cx="43" cy="549" r="8"/><circle cx="594" cy="328" r="8"/></g>
+<g transform="rotate(7 340 410)" stroke-linejoin="round">
+ <rect x="216" y="247" width="252" height="351" rx="19" fill="#4c305b" opacity=".22" transform="translate(14 17)"/>
+ <rect x="212" y="241" width="252" height="351" rx="19" fill="#f8dfaa" stroke="#302039" stroke-width="5"/>
+ <rect x="202" y="231" width="252" height="351" rx="17" fill="url(#cover)" stroke="#26392f" stroke-width="5"/>
+ <rect x="207" y="236" width="242" height="341" rx="13" fill="url(#grain)"/>
+ <path d="M221 246v320" stroke="#a5ae73" opacity=".65" stroke-width="2"/>
+ <rect x="228" y="254" width="202" height="305" rx="9" fill="none" stroke="#c9ad6c" opacity=".38"/>
+ <g transform="translate(329 330)" stroke="#efce82" stroke-linecap="round" fill="none">
+  <path d="M0 26V-21M0-18Q-15-41-36-21M0-21Q-8-45-24-43M0-21Q7-44 24-43M0-18Q15-41 36-21M0-12Q-18-33-36-10M0-12Q18-33 36-10M0-25v-21" stroke-width="3.5"/>
+  <path d="M-46 26Q-18 27 36 51M46 26Q18 27-36 51M30 55l10-10m-70 10-10-10" stroke-width="4"/>
+ </g>
+ <g text-anchor="middle" fill="#f6d894" font-family="Arial,sans-serif">
+  <text x="329" y="415" font-size="17" font-weight="700" direction="rtl">المملكة العربية السعودية</text>
+  <text x="329" y="437" font-size="10" letter-spacing=".6">KINGDOM OF SAUDI ARABIA</text>
+  <text x="329" y="480" font-size="23" font-weight="700" direction="rtl">جواز سفر</text>
+  <text x="329" y="499" font-size="10" letter-spacing="2.4">PASSPORT</text>
+ </g>
+ <g fill="none" stroke="#efce82" stroke-width="2"><rect x="317" y="521" width="24" height="12" rx="2"/><path d="M317 527h24"/><circle cx="329" cy="527" r="3"/></g>
+</g>
+<g stroke="#583648" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+ <path d="M74 800q-2-54 29-93l56-75q23-32 50-48l30-19q18-10 26 4 7 13-8 26l-28 26 54-11q20-6 32 2 16 12 6 29-8 16-20 28l-64 61q-22 23-29 70z" fill="#ecaa76"/>
+ <path d="M166 723q14-39 43-60l38-24q14-11 27-4 12 7 7 19-3 8-16 20l-31 26q-16 16-21 38" fill="#f6ba8d"/>
+ <path d="M82 758q60 0 134 42H65z" fill="#724c96"/>
+ <path d="M113 733q18-44 42-65m61 41q17-15 31-25" fill="none" stroke="#ac674c" stroke-width="3" opacity=".5"/>
+ <path d="m248 645 12-9q11-5 17 2M133 694q20-29 37-45" fill="none" opacity=".53"/>
+</g>
+<path d="m512 468 8 16 16 8-16 8-8 16-8-16-16-8 16-8z" fill="#fff3d6" stroke="#735883" stroke-width="2"/>
+</svg>
