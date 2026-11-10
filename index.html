@@ -1,4 +1,610 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ed633d"><title>ركز في الصورة | ألعاب زامن</title><meta name="description" content="١٥٠ صورة وثلاثة زومات، ومنافسة بين فريقين. لعبة جماعية من ألعاب زامن."><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css?v=solo-header-16"><script defer src="vendor/firebase-app.js"></script><script defer src="vendor/firebase-database.js"></script><script defer src="vendor/qrcode.js"></script><script defer src="catalog.js?v=150-1"></script><script defer src="app.js?v=solo-header-16"></script></head>
-<body><div class="shell"><header><div class="brand">ركز في الصورة <span>✦</span></div><div id="score-header" hidden></div><span class="connection" id="connection">جاري الاتصال…</span></header><main id="app"></main><nav class="bottom-actions" aria-label="خيارات اللعبة"><button class="btn small secondary" id="help" type="button">شرح اللعبة</button><button class="btn small secondary" id="exit" type="button">خروج</button></nav></div><dialog id="dialog"></dialog><div id="toast" role="status" aria-live="polite"></div></body></html>
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<link href="/favicon.png?v=11" rel="icon"/>
+<link href="/favicon.png?v=11" rel="shortcut icon"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<meta content="DuT1gHuCD6dDFT7s7EuWfnQMOAmpzF7dING4q6P6ZOk" name="google-site-verification"/>
+<meta content="inn2xViCLwRViHG1bO-4WjG8P9LWKz0m5Nwwq4rAynA" name="google-site-verification"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
+<meta content="العاب زامن" name="application-name"/>
+<meta content="#6d28d9" name="theme-color"/>
+<title>ألعاب زامن | ألعاب جماعية للجمعات بدون تحميل</title>
+<meta content="ألعاب جماعية عربية للعائلة والأصدقاء: حروف وألوف، فاميلي فيود، تحدي الصور وألعاب التخمين والخداع. اختر لعبة تناسب جمعتكم والعب من المتصفح بدون تحميل." id="pageDescription" name="description"/>
+<link href="https://zamn.games/" id="canonicalLink" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="ar_SA" property="og:locale"/>
+<meta content="العاب زامن" property="og:site_name"/>
+<meta content="ألعاب زامن | ألعاب جماعية للجمعات بدون تحميل" property="og:title"/>
+<meta content="ألعاب جماعية عربية للعائلة والأصدقاء: حروف وألوف، فاميلي فيود، تحدي الصور وألعاب التخمين والخداع. اختر لعبة تناسب جمعتكم والعب من المتصفح بدون تحميل." property="og:description"/>
+<meta content="https://zamn.games/" property="og:url"/>
+<meta content="https://zamn.games/images/share/zamn.webp" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="ألعاب زامن | ألعاب جماعية للجمعات بدون تحميل" name="twitter:title"/>
+<meta content="ألعاب جماعية عربية للعائلة والأصدقاء: حروف وألوف، فاميلي فيود، تحدي الصور وألعاب التخمين والخداع. اختر لعبة تناسب جمعتكم والعب من المتصفح بدون تحميل." name="twitter:description"/>
+<meta content="https://zamn.games/images/share/zamn.webp" name="twitter:image"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="/css/main.css?v=20261106-zoom-spacing" rel="stylesheet"/>
+<script id="page-schema" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://zamn.games/#website","name":"العاب زامن","alternateName":["ZAMN","زامن"],"url":"https://zamn.games/","inLanguage":"ar-SA"},{"@type":"Organization","@id":"https://zamn.games/#organization","name":"العاب زامن","alternateName":"ZAMN","url":"https://zamn.games/","logo":{"@type":"ImageObject","url":"https://zamn.games/favicon.png"}},{"@type":"WebPage","@id":"https://zamn.games/#webpage","url":"https://zamn.games/","name":"ألعاب زامن | ألعاب جماعية للجمعات بدون تحميل","description":"ألعاب جماعية عربية للعائلة والأصدقاء: حروف وألوف، فاميلي فيود، تحدي الصور وألعاب التخمين والخداع. اختر لعبة تناسب جمعتكم والعب من المتصفح بدون تحميل.","isPartOf":{"@id":"https://zamn.games/#website"},"about":{"@id":"https://zamn.games/#organization"},"inLanguage":"ar-SA","primaryImageOfPage":{"@type":"ImageObject","url":"https://zamn.games/images/share/zamn.webp","width":1200,"height":630,"caption":"ألعاب زامن"}},{"@type":"ItemList","name":"العاب زامن الجماعية","itemListElement":[{"@type":"ListItem","position":1,"name":"لعبة حروف","url":"https://zamn.games/hrof"},{"@type":"ListItem","position":2,"name":"تحدي الصور","url":"https://zamn.games/thdi"},{"@type":"ListItem","position":3,"name":"فوازير","url":"https://zamn.games/fwzr"},{"@type":"ListItem","position":4,"name":"خمن الرابط","url":"https://zamn.games/link"},{"@type":"ListItem","position":5,"name":"فاميلي فيود","url":"https://zamn.games/family"},{"@type":"ListItem","position":6,"name":"مين الأطرش في الزفة","url":"https://zamn.games/atrsh"},{"@type":"ListItem","position":7,"name":"لعبة توب تن","url":"https://zamn.games/top10"},{"@type":"ListItem","position":8,"name":"لعبة من أنا؟","url":"https://zamn.games/mnana"},{"@type":"ListItem","position":9,"name":"لعبة الجواب المجهول","url":"https://zamn.games/aljawab"},{"@type":"ListItem","position":10,"name":"خمن الشخصية","url":"https://zamn.games/guess-person"},{"@type":"ListItem","position":11,"name":"من سيربح المليون","url":"https://zamn.games/million"}]},{"@type":"FAQPage","@id":"https://zamn.games/#faq","mainEntity":[{"@type":"Question","name":"كيف أبدأ ألعب الالعاب؟","acceptedAnswer":{"@type":"Answer","text":"كل ما عليك هو فتح رابط الموقع من أي جهاز، سواء كان جوالًا أو جهازًا لوحيًا أو كمبيوتر، ثم تبدأ اللعب مباشرة دون الحاجة إلى تحميل أي تطبيق."}},{"@type":"Question","name":"هل الالعاب مجانية؟","acceptedAnswer":{"@type":"Answer","text":"يمكنك تجربة بعض الالعاب مجانًا لمدة محدودة، وبعد انتهاء الفترة التجريبية يمكنك شراء اللعبة أو الباقة المناسبة من متجرنا."}},{"@type":"Question","name":"كم عدد اللاعبين المطلوب؟","acceptedAnswer":{"@type":"Answer","text":"معظم العابنا تحتاج إلى لاعبين على الأقل، بينما تتطلب بعض الالعاب عددًا أكبر، وكلما زاد عدد المشاركين أصبحت اللعبة أكثر حماسًا ومتعة."}},{"@type":"Question","name":"هل أستطيع عرض اللعبة على التلفزيون؟","acceptedAnswer":{"@type":"Answer","text":"نعم، يمكنك تشغيل اللعبة على التلفزيون أو أي شاشة كبيرة، بينما يستخدم كل لاعب هاتفه للمشاركة حسب طريقة اللعبة."}},{"@type":"Question","name":"ما الفرق بين شراء لعبة واحدة وشراء الباقة؟","acceptedAnswer":{"@type":"Answer","text":"عند شراء لعبة واحدة تحصل على اللعبة التي اخترتها فقط، أما الباقة فتضم عدة العاب بسعر أقل من شراء كل لعبة بشكل منفصل، مما يمنحك خيارات أكثر وتوفيرًا أكبر."}},{"@type":"Question","name":"هل أحتاج إلى اشتراك شهري؟","acceptedAnswer":{"@type":"Answer","text":"لا، يتم الدفع مرة واحدة فقط عند شراء اللعبة، وبعدها تبقى متاحة في حسابك دون أي رسوم أو اشتراكات شهرية."}},{"@type":"Question","name":"إذا غيرت هاتفي، هل سأفقد اللعبة؟","acceptedAnswer":{"@type":"Answer","text":"لا، يمكنك تسجيل الدخول من أي جهاز جديد باستخدام رقم الجوال الذي استخدمته عند الشراء، وستتمكن من الوصول إلى العابك."}},{"@type":"Question","name":"كيف يمكنني التواصل مع الدعم الفني؟","acceptedAnswer":{"@type":"Answer","text":"يمكنك التواصل مع فريق الدعم بسهولة عبر زر واتساب الموجود أسفل الصفحة، وسنساعدك في أي استفسار أو مشكلة تواجهك."}},{"@type":"Question","name":"هل لديكم لعبة حروف مع عزيز؟","acceptedAnswer":{"@type":"Answer","text":"لدينا لعبة حروف وألوف تعمل مباشرة من المتصفح دون الحاجة إلى تحميل أي تطبيق، ويمكن تشغيلها على التلفزيون واستخدامها في الجلسات والتحديات الجماعية. اللعبة مستقلة وليست إصدارًا رسميًا من برنامج حروف مع عزيز، ولا توجد أي علاقة أو شراكة بيننا وبين البرنامج أو مقدمه."}}]}]}</script>
+<meta content="شعار العاب زامن" property="og:image:alt"/>
+<meta content="العاب زامن" name="apple-mobile-web-app-title"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<link href="/manifest.webmanifest?v=20261103-screens" rel="manifest"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<link href="/favicon.png?v=11" rel="apple-touch-icon"/>
+<meta content="العاب زامن" name="author"/><link href="https://zamn.games/" hreflang="ar" rel="alternate"/><link href="https://zamn.games/" hreflang="x-default" rel="alternate"/><link rel="stylesheet" href="/css/product-design.css?v=20261106-z3-final"><link rel="stylesheet" href="/css/news.css?v=20261106-subtle-news"><link rel="stylesheet" href="/css/support.css?v=20261102-desktop-right">
+<link rel="stylesheet" href="/css/icons.css?v=20261101-vector">
+<link rel="stylesheet" href="/css/bundles-e8b2c501673c.css">
+<link rel="stylesheet" href="/css/admin-stats.css?v=20261107-customer-whatsapp-v95">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/webp">
+
+<link rel="stylesheet" href="/css/responsive.css?v=20261106-form-keyboard">
+<script defer src="/js/responsive.js?v=20261106-form-keyboard"></script>
+<link rel="stylesheet" href="/css/admin-grants.css?v=20261106-grants">
+<style>
+#homeMain .zoom-game-card .game-image-box img{object-fit:contain!important;transform:none!important;padding:0!important}
+#homeMain .zoom-game-card .game-image-box{background:#ffecd4!important}
+#homeMain .zoom-game-card .game-content{justify-content:space-between}
+</style>
+
+<link rel="stylesheet" href="/css/section-nav.css?v=9b92cf54f6a4">
+<script>if(new URLSearchParams(location.search).get("section")==="baynana"){document.documentElement.classList.add("challenge-context");if(new URLSearchParams(location.search).get("embeddedAccount")==="1")document.documentElement.classList.add("challenge-auth")}</script><link rel="stylesheet" href="/css/section-context.css?v=caea20c9a228"><script defer src="/js/section-context.js?v=0e5830998f26"></script></head>
+<body>
+<header class="zamn-site-header"><div class="zamn-header-inner"><a class="zamn-header-brand" href="/" aria-label="زامن"><img src="/favicon.png" alt="" width="38" height="38"><strong>زامن</strong></a><nav class="zamn-section-nav zamn-home-switch" aria-label="أقسام زامن"><a href="/" class="is-active" aria-current="true">ألعاب زامن</a><a href="/baynana/">بيننا تحدّي</a></nav><button class="login-float" id="homeLogin" type="button">تسجيل الدخول <span aria-hidden="true"><span class="z-icon z-icon-game" aria-hidden="true"></span></span></button></div></header>
+
+<div class="home-screen-tip" hidden="" id="homeScreenTip">
+<div aria-labelledby="homeScreenTipTitle" aria-modal="true" class="home-screen-tip-card" role="dialog">
+<button aria-label="إغلاق" class="home-screen-tip-close" id="homeScreenTipClose" type="button">×</button>
+<div aria-hidden="true" class="home-screen-tip-app-icon"><img alt="" src="/favicon.png?v=10"/></div>
+<h2 id="homeScreenTipTitle">للحصول على أفضل تجربة</h2>
+<p class="home-screen-tip-lead">أضف العاب زامن إلى الشاشة الرئيسية للعب بملء الشاشة</p>
+<div class="home-screen-tip-step">
+<b>١</b>
+<span>اضغط على أيقونة المشاركة</span>
+<span aria-hidden="true" class="home-screen-tip-icon">
+<svg role="img" viewbox="0 0 24 24"><path d="M12 16V3m0 0L7.5 7.5M12 3l4.5 4.5M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"></path></svg>
+</span>
+</div>
+<div class="home-screen-tip-step">
+<b>٢</b>
+<span>اختر <em>«إضافة إلى الصفحة الرئيسية»</em></span>
+<span aria-hidden="true" class="home-screen-tip-icon home-screen-tip-plus">
+<svg role="img" viewbox="0 0 24 24"><path d="M12 6v12M6 12h12"></path></svg>
+</span>
+</div>
+<button class="home-screen-tip-done" id="homeScreenTipDone" type="button">فهمت</button>
+</div>
+</div>
+
+<header class="hero" id="homeHero">
+<div class="hero-inner">
+<div class="hero-copy">
+<h1>ألعاب جماعية عربية للجمعات والعائلة</h1>
+<p>تجاوزنا مرحلة تحميل التطبيقات وتعقيد الإعدادات.<br/> افتح متصفحك، اعرض اللعبة على شاشة التلفزيون.</p>
+<div class="hero-tags">
+<span>العاب تفاعلية</span>
+<span>لعبة حروف</span>
+<span>العب فوراً</span>
+<span>بدون تحميل</span>
+</div>
+<button class="hero-btn" id="browseBtn" type="button"><span class="play-dot"><span class="z-icon z-icon-play" aria-hidden="true"></span></span> استعرض الالعاب</button>
+</div>
+
+<div class="hero-logo-wrap">
+<img alt="شعار العاب زامن" class="hero-logo" fetchpriority="high" height="288" src="https://i.postimg.cc/Y9T6ZMng/nqn.webp" width="288"/>
+</div>
+</div>
+<svg aria-hidden="true" class="hero-wave" preserveaspectratio="none" viewbox="0 0 1440 120">
+<path d="M0,80 C250,130 500,130 720,90 C950,50 1200,40 1440,80 L1440,120 L0,120 Z" fill="#f4f0ff"></path>
+</svg>
+</header>
+<main class="page-bg" id="homeMain">
+<section aria-labelledby="games-heading" class="games-intro">
+<div class="games-intro-pill"><h2 id="games-heading">العابنا</h2></div>
+<p>اختر لعبتك المفضلة وابدأ التحدي مع أصدقائك.</p>
+</section>
+<section class="games-section" id="games-list">
+<section aria-labelledby="games-heading" class="game-category games-all-category">
+<div class="games-row games-new-row" aria-label="الألعاب الجديدة"><div class="new-games-offer"><span class="new-games-offer-label">عرض الألعاب الجديدة</span><h3>خذ اللعبتين والثالثة علينا مجانًا</h3><p>حماس أكثر لجمعّتكم</p><a class="new-games-order" href="https://zamn1.com/">اطلب الآن</a></div><a class="game-card empty-card zoom-game-card" data-game-slug="zoom" aria-label="لعبة زوم" href="/zoom"><div class="game-image-box"><span class="game-new-badge">جديد</span><img alt="لعبة زوم" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/zoom-fitted.jpg" width="600"/></div><div class="game-content"><h3 class="game-title">لعبة زوم</h3><div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-spark" aria-hidden="true"></span><span>تكبير تدريجي</span></span><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>تخمين الصور</span></span></div><div class="game-btn">عرض اللعبة</div></div></a><a class="game-card empty-card" aria-label="من سيربح المليون" data-game-slug="million" href="/million"><div class="game-image-box"><span class="game-new-badge">جديد</span><img alt="من سيربح المليون" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/million-fitted.webp" width="600"/></div><div class="game-content"><h3 class="game-title">من سيربح المليون</h3><div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>٢٠٠ سؤال</span></span><span class="game-tag"><span class="z-icon z-icon-screen" aria-hidden="true"></span><span>شاشة للمقدّم</span></span></div><div class="game-btn">عرض اللعبة</div></div></a><a aria-label="خمن الشخصية" class="game-card empty-card" data-game-slug="guess-person" href="/guess-person"><div class="game-image-box"><span class="game-new-badge">جديد</span><img alt="خمن الشخصية من العين والفم والصوت" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/guess-person-fitted.webp" width="600"/></div><div class="game-content"><h3 class="game-title">خمن الشخصية</h3><div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-spark" aria-hidden="true"></span><span>١٣٠ تحديًا</span></span><span class="game-tag"><span class="z-icon z-icon-screen" aria-hidden="true"></span><span>مع مقدم أو بدونه</span></span></div><div class="game-btn">العب الآن</div></div></a></div>
+<div class="games-row games-row-4">
+
+
+
+
+
+
+
+
+
+
+<a aria-label="لعبة حروف" class="game-card empty-card" data-game-slug="horof-bell" href="/hrof">
+<div class="game-image-box">
+<img alt="لعبة حروف" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/horof-bell-fitted.webp" width="600"/>
+<span class="game-rating"><span class="z-icon z-icon-star" aria-hidden="true"></span> 5</span>
+</div>
+<div class="game-content">
+<h3 class="game-title">لعبة حروف</h3>
+<p class="game-desc">لعبة حروف وألوف من زامن: 10,000 سؤال لفريقين، خلية حروف وجرس من الجوال وشاشة للمقدم. اختر حجم الشبكة والجولات والعب من المتصفح بدون تحميل.</p>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-screen" aria-hidden="true"></span><span>تدعم الجوال</span></span><span class="game-tag"><span class="z-icon z-icon-bell" aria-hidden="true"></span><span>جرس مدمج</span></span></div>
+<div class="game-btn">عرض اللعبة</div>
+</div>
+</a><a aria-label="تحدي الصور" class="game-card empty-card" data-game-slug="photos-1" href="/thdi">
+<div class="game-image-box">
+<img alt="تحدي الصور" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/photos-1-fitted.webp" width="600"/>
+<span class="game-rating"><span class="z-icon z-icon-star" aria-hidden="true"></span> 4.7</span>
+</div>
+<div class="game-content">
+<h3 class="game-title">تحدي الصور</h3>
+<p class="game-desc">تحدي الصور من زامن لعبة خمن الصور لفريقين. حلوا الألغاز البصرية وتنافسوا على سرعة الملاحظة مع شاشة عرض ومقدم، من المتصفح بدون تحميل.</p>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-users" aria-hidden="true"></span><span>٢+ لاعبين</span></span><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>الغاز بصريه</span></span></div>
+<div class="game-btn">عرض اللعبة</div>
+</div>
+</a>
+<a aria-label="لعبة الجواب المجهول" class="game-card empty-card" data-game-slug="aljawab-almajhool" href="/aljawab"><div class="game-image-box"><img alt="لعبة الجواب المجهول" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/aljawab-almajhool-fitted.webp" width="600"/></div><div class="game-content"><h3 class="game-title">لعبة الجواب المجهول</h3><div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>خداع وتخمين</span></span><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>لكل قروب</span></span></div><div class="game-btn">العب الآن</div></div></a><a aria-label="خمن الرابط" class="game-card empty-card" data-game-slug="guess-link" href="/link">
+<div class="game-image-box">
+<img alt="خمن الرابط" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/guess-link-fitted.webp" width="600"/>
+<span class="game-rating"><span class="z-icon z-icon-star" aria-hidden="true"></span> 4.9</span>
+</div>
+<div class="game-content">
+<h3 class="game-title">خمن الرابط</h3>
+<p class="game-desc">اكتشف الرابط بين أربع صور في لعبة جماعية لفريقين. اكشف الصور تدريجيًا، اضغط جرس الجوال وأجب مبكرًا لتحافظ على نقاط السؤال، بدون تحميل.</p>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-users" aria-hidden="true"></span><span>٢+ لاعبين</span></span><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>تجميع الصور</span></span></div>
+<div class="game-btn">عرض اللعبة</div>
+</div>
+</a><a aria-label="فاميلي فيود" class="game-card empty-card" data-game-slug="family-feud" href="/family">
+<div class="game-image-box">
+<img alt="فاميلي فيود" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/family-feud-fitted.webp" width="600"/>
+<span class="game-rating"><span class="z-icon z-icon-star" aria-hidden="true"></span> 5.0</span>
+</div>
+<div class="game-content">
+<h3 class="game-title">فاميلي فيود</h3>
+<p class="game-desc">العب فاميلي فيود بالعربي مع العائلة: فريقان يخمنان الإجابات الأكثر شيوعًا، جرس من الجوال وسرقة الجولة بعد ٣ أخطاء. من المتصفح بدون تحميل.</p>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-users" aria-hidden="true"></span><span>٢+ لاعبين</span></span><span class="game-tag"><span class="z-icon z-icon-spark" aria-hidden="true"></span><span>تحدي التخمين</span></span></div>
+<div class="game-btn">عرض اللعبة</div>
+</div>
+</a><a aria-label="فوازير" class="game-card empty-card" data-game-slug="fawazeer" href="/fwzr">
+<div class="game-image-box">
+<img alt="فوازير" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/fawazeer-fitted.webp" width="600"/>
+<span class="game-rating"><span class="z-icon z-icon-star" aria-hidden="true"></span> 4.7</span>
+</div>
+<div class="game-content">
+<h3 class="game-title">فوازير</h3>
+<p class="game-desc">فوازير وأسئلة لفريقين مع بطاقات تفاعلية، شاشة للمقدم وجرس من الجوال. جهّز مسابقة للعائلة والأصدقاء والعب من المتصفح بدون تحميل.</p>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>فوازير وأسئلة</span></span><span class="game-tag"><span class="z-icon z-icon-users" aria-hidden="true"></span><span>٢+ لاعبين</span></span></div>
+<div class="game-btn">عرض اللعبة</div>
+</div>
+</a><a aria-label="مين الأطرش في الزفة" class="game-card empty-card" data-game-slug="alatrash" href="/atrsh">
+<div class="game-image-box">
+<img alt="مين الأطرش في الزفة" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/alatrash-fitted.webp" width="600"/>
+<span class="game-rating"><span class="z-icon z-icon-star" aria-hidden="true"></span> 5.0</span>
+</div>
+<div class="game-content">
+<h3 class="game-title">مين الأطرش في الزفة</h3>
+<p class="game-desc">واحد منكم وصله سؤال مختلف وهو ما يدري! قارنوا الإجابات واكتشفوا مين الأطرش في الزفة. لعبة جماعية لثلاثة لاعبين فأكثر، من المتصفح بدون تحميل.</p>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-users" aria-hidden="true"></span><span>٣+ لاعبين</span></span><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>كتابة</span></span></div>
+<div class="game-btn">عرض اللعبة</div>
+</div>
+</a><a aria-label="لعبة من أنا؟" class="game-card empty-card" data-game-slug="mn-ana" href="/mnana">
+<div class="game-image-box">
+
+<img alt="لعبة من أنا؟" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/mn-ana-cover-v2.webp" width="600"/>
+</div>
+<div class="game-content">
+<h3 class="game-title">لعبة من أنا؟</h3>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-bell" aria-hidden="true"></span><span>جرس من الجوال</span></span><span class="game-tag"><span class="z-icon z-icon-spark" aria-hidden="true"></span><span>3 جولات متنوعة</span></span></div>
+<div class="game-btn">العب الآن</div>
+</div>
+</a><a aria-label="لعبة توب تن" class="game-card empty-card" data-game-slug="top-ten" href="/top10">
+<div class="game-image-box">
+
+<img alt="لعبة توب تن - أسئلة وتحديات جماعية" class="game-image game-card-image" decoding="async" height="420" loading="lazy" src="/images/cards/top-ten-fitted.webp" width="600"/>
+</div>
+<div class="game-content">
+<h3 class="game-title">لعبة توب تن</h3>
+<p class="game-desc">توب تن لعبة أسئلة جماعية لفريقين: اختاروا التصنيفات واكتشفوا ١٠ إجابات مخفية لكل سؤال. شاشة للمقدم وتلميحات أثناء اللعب، من المتصفح بدون تحميل.</p>
+<div class="game-tags"><span class="game-tag"><span class="z-icon z-icon-users" aria-hidden="true"></span><span>فريقان</span></span><span class="game-tag"><span class="z-icon z-icon-card" aria-hidden="true"></span><span>10 إجابات</span></span></div>
+<div class="game-btn">عرض اللعبة</div>
+</div>
+</a></div>
+</section>
+</section>
+<section class="packages-section" id="packages" aria-labelledby="bundlesTitle">
+<div class="center-heading"><span class="dark-pill">باقات زامن</span><h2 id="bundlesTitle">جمعتكم تستاهل أكثر</h2><p>اختر باقتك، وجهّزوا التحدّي.</p></div>
+<div class="packages-grid zamn-bundles"><article class="complete-card" aria-labelledby="bundle-complete-title">
+ <div class="complete-content">
+  <div class="complete-label"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 6 5 4 4-7 4 7 5-4-2 13H5L3 6Z" fill="currentColor"/><path d="M7 22h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>كل ألعاب زامن في باقة واحدة</span></div>
+  <h3 id="bundle-complete-title">باقة جميع الألعاب</h3>
+  <p class="complete-intro">١٢ لعبة لجمعات ما تخلص أفكارها.</p>
+  <div class="complete-pricing"><div class="complete-current" aria-label="99 ريال سعودي"><b dir="ltr">99</b><span class="complete-riyal" aria-hidden="true"></span></div><div class="complete-original"><span>بدلًا من</span><del dir="ltr">482.88</del><span>ريال</span></div></div>
+  <div class="complete-saving"><span>وفّر</span><strong dir="ltr">383.88</strong><span>ريال</span><span class="complete-saving-divider" aria-hidden="true"></span><span>توفير <b>٧٩٫٥٪</b></span></div>
+  <ul class="complete-benefits"><li>كل الألعاب الـ١٢ الحالية</li><li>شراء مرة واحدة</li><li>بدون تحميل تطبيقات</li></ul>
+  <a class="complete-button" href="https://zamn1.com/payment/p906015293" target="_blank" rel="noopener noreferrer" aria-label="اشتر باقة جميع ألعاب زامن الاثنتي عشرة بسعر 99 ريال"><span>خذها كاملة</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a>
+ </div>
+ <div class="complete-collection package-artwork"><img class="package-cover" src="/images/bundles/complete-original.webp" alt="باقة جميع الألعاب — صورة البكج" width="700" height="700" loading="lazy" decoding="async"></div>
+</article>
+<article class="complete-card collection-seven" data-bundle="seven" aria-labelledby="bundle-seven-title">
+ <div class="complete-content"><div class="complete-label"><span>٧ ألعاب في باقة واحدة</span></div>
+ <h3 id="bundle-seven-title">باقة ٧ ألعاب</h3><p class="complete-intro">ألعاب أكثر... وحماس يدوم.</p>
+ <div class="complete-pricing"><div class="complete-current" aria-label="59.99 ريال سعودي"><b dir="ltr">59.99</b><span class="complete-riyal" aria-hidden="true"></span></div><div class="complete-original"><span>بدلًا من</span><del dir="ltr">280.00</del><span>ريال</span></div></div>
+ <div class="complete-saving"><span>وفّر</span><strong dir="ltr">220.01</strong><span>ريال</span></div>
+ <ul class="complete-benefits"><li>٧ ألعاب جماعية</li><li>شراء مرة واحدة</li><li>بدون تحميل تطبيقات</li></ul>
+ <a class="complete-button" href="https://zamn1.com/-/p893537775" target="_blank" rel="noopener noreferrer" aria-label="اشتر باقة ٧ ألعاب بسعر 59.99 ريال"><span>اختر الباقة</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a></div>
+ <div class="complete-collection package-artwork"><img class="package-cover" src="/images/bundles/seven-original.webp" alt="باقة ٧ ألعاب — صورة البكج" width="700" height="700" loading="lazy" decoding="async"></div>
+</article>
+<article class="complete-card collection-classic" data-bundle="classic" aria-labelledby="bundle-classic-title">
+ <div class="complete-content"><div class="complete-label"><span>٤ ألعاب في باقة واحدة</span></div>
+ <h3 id="bundle-classic-title">باقة ٤ ألعاب</h3><p class="complete-intro">أربع تحديات... والجمعة تحلى.</p>
+ <div class="complete-pricing"><div class="complete-current" aria-label="39.99 ريال سعودي"><b dir="ltr">39.99</b><span class="complete-riyal" aria-hidden="true"></span></div><div class="complete-original"><span>بدلًا من</span><del dir="ltr">160.00</del><span>ريال</span></div></div>
+ <div class="complete-saving"><span>وفّر</span><strong dir="ltr">120.01</strong><span>ريال</span></div>
+ <ul class="complete-benefits"><li>٤ ألعاب جماعية</li><li>شراء مرة واحدة</li><li>بدون تحميل تطبيقات</li></ul>
+ <a class="complete-button" href="https://zamn1.com/-/p130244934" target="_blank" rel="noopener noreferrer" aria-label="اشتر باقة ٤ ألعاب بسعر 39.99 ريال"><span>اختر الباقة</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a></div>
+ <div class="complete-collection package-artwork"><img class="package-cover" src="/images/bundles/classic-original.webp" alt="باقة ٤ ألعاب — صورة البكج" width="700" height="700" loading="lazy" decoding="async"></div>
+</article>
+<article class="complete-card collection-new" data-bundle="new" aria-labelledby="bundle-new-title">
+ <div class="complete-content"><div class="complete-label"><span>٤ ألعاب في باقة واحدة</span></div>
+ <h3 id="bundle-new-title">باقة ٤ ألعاب الجديدة</h3><p class="complete-intro">أفكار مختلفة لكل جمعة.</p>
+ <div class="complete-pricing"><div class="complete-current" aria-label="34.99 ريال سعودي"><b dir="ltr">34.99</b><span class="complete-riyal" aria-hidden="true"></span></div><div class="complete-original"><span>بدلًا من</span><del dir="ltr">150.00</del><span>ريال</span></div></div>
+ <div class="complete-saving"><span>وفّر</span><strong dir="ltr">115.01</strong><span>ريال</span></div>
+ <ul class="complete-benefits"><li>٤ ألعاب جماعية</li><li>شراء مرة واحدة</li><li>بدون تحميل تطبيقات</li></ul>
+ <a class="complete-button" href="https://zamn1.com/-/p1029842905" target="_blank" rel="noopener noreferrer" aria-label="اشتر باقة ٤ ألعاب الجديدة بسعر 34.99 ريال"><span>اختر الباقة</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a></div>
+ <div class="complete-collection package-artwork"><img class="package-cover" src="/images/bundles/new-original.webp" alt="باقة ٤ ألعاب الجديدة — صورة البكج" width="700" height="700" loading="lazy" decoding="async"></div>
+</article>
+<article class="complete-card collection-duo" data-bundle="duo" aria-labelledby="bundle-duo-title">
+ <div class="complete-content"><div class="complete-label"><span>لعبتان في باقة واحدة</span></div>
+ <h3 id="bundle-duo-title">باقة اللعبتين</h3><p class="complete-intro">أول جولة… وبداية المنافسة.</p>
+ <div class="complete-pricing"><div class="complete-current" aria-label="19.99 ريال سعودي"><b dir="ltr">19.99</b><span class="complete-riyal" aria-hidden="true"></span></div><div class="complete-original"><span>بدلًا من</span><del dir="ltr">80.00</del><span>ريال</span></div></div>
+ <div class="complete-saving"><span>وفّر</span><strong dir="ltr">60.01</strong><span>ريال</span></div>
+ <ul class="complete-benefits"><li>لعبتان جماعيتان</li><li>شراء مرة واحدة</li><li>بدون تحميل تطبيقات</li></ul>
+ <a class="complete-button" href="https://zamn1.com/-/p1738957153" target="_blank" rel="noopener noreferrer" aria-label="اشتر باقة اللعبتين بسعر 19.99 ريال"><span>اختر الباقة</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></a></div>
+ <div class="complete-collection package-artwork"><img class="package-cover" src="/images/bundles/duo-original.webp" alt="باقة اللعبتين — صورة البكج" width="700" height="700" loading="lazy" decoding="async"></div>
+</article></div>
+</section>
+<section class="why-section">
+<div class="why-title"><h2>ليش تختار ألعاب زامن؟</h2></div>
+<div class="features-grid">
+<article class="feature-card"><div class="feature-icon"><span class="z-icon z-icon-library" aria-hidden="true"></span></div><h3>محتوى عربي</h3><p>العاب مصممة بالكامل باللغة العربية ومناسبة للثقافة العربية.</p></article>
+<article class="feature-card"><div class="feature-icon"><span class="z-icon z-icon-bolt" aria-hidden="true"></span></div><h3>العب فورًا</h3><p>بدون تحميل تطبيقات، افتح الرابط والعب مباشرة من أي جهاز.</p></article>
+<article class="feature-card"><div class="feature-icon"><span class="z-icon z-icon-screen" aria-hidden="true"></span></div><h3>شاشة كبيرة</h3><p>اعرض اللعبة على التلفزيون وكل لاعب يستخدم جواله حسب طريقة اللعبة.</p></article>
+<article class="feature-card"><div class="feature-icon"><span class="z-icon z-icon-users" aria-hidden="true"></span></div><h3>تجمعات أحلى</h3><p>حوّل أي جلسة إلى تحدٍ ممتع ومنافسة بين العائلة والأصدقاء.</p></article>
+</div>
+</section>
+<section class="faq-section" id="faq"><div class="faq-heading-wrap"><h2 class="faq-heading">الأسئلة الشائعة</h2></div><div class="faq-list">
+<article class="faq-item">
+<button class="faq-question" type="button">
+<span class="faq-question-text">كيف أبدأ ألعب الالعاب؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">كل ما عليك هو فتح رابط الموقع من أي جهاز، سواء كان جوالًا أو جهازًا لوحيًا أو كمبيوتر، ثم تبدأ اللعب مباشرة دون الحاجة إلى تحميل أي تطبيق.</p></div></div>
+</article>
+<article class="faq-item">
+<button class="faq-question" type="button">
+<span class="faq-question-text">هل الالعاب مجانية؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">يمكنك تجربة بعض الالعاب مجانًا لمدة محدودة، وبعد انتهاء الفترة التجريبية يمكنك شراء اللعبة أو الباقة المناسبة من متجرنا.</p></div></div>
+</article>
+<article class="faq-item">
+<button class="faq-question" type="button">
+<span class="faq-question-text">كم عدد اللاعبين المطلوب؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">معظم العابنا تحتاج إلى لاعبين على الأقل، بينما تتطلب بعض الالعاب عددًا أكبر، وكلما زاد عدد المشاركين أصبحت اللعبة أكثر حماسًا ومتعة.</p></div></div>
+</article>
+<article class="faq-item">
+<button class="faq-question" type="button">
+<span class="faq-question-text">هل أستطيع عرض اللعبة على التلفزيون؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">نعم، يمكنك تشغيل اللعبة على التلفزيون أو أي شاشة كبيرة، بينما يستخدم كل لاعب هاتفه للمشاركة حسب طريقة اللعبة.</p></div></div>
+</article>
+<article class="faq-item faq-extra" hidden="">
+<button class="faq-question" type="button">
+<span class="faq-question-text">ما الفرق بين شراء لعبة واحدة وشراء الباقة؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">عند شراء لعبة واحدة تحصل على اللعبة التي اخترتها فقط، أما الباقة فتضم عدة العاب بسعر أقل من شراء كل لعبة بشكل منفصل، مما يمنحك خيارات أكثر وتوفيرًا أكبر.</p></div></div>
+</article>
+<article class="faq-item faq-extra" hidden="">
+<button class="faq-question" type="button">
+<span class="faq-question-text">هل أحتاج إلى اشتراك شهري؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">لا، يتم الدفع مرة واحدة فقط عند شراء اللعبة، وبعدها تبقى متاحة في حسابك دون أي رسوم أو اشتراكات شهرية.</p></div></div>
+</article>
+<article class="faq-item faq-extra" hidden="">
+<button class="faq-question" type="button">
+<span class="faq-question-text">إذا غيرت هاتفي، هل سأفقد اللعبة؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">لا، يمكنك تسجيل الدخول من أي جهاز جديد باستخدام رقم الجوال الذي استخدمته عند الشراء، وستتمكن من الوصول إلى العابك.</p></div></div>
+</article>
+<article class="faq-item faq-extra" hidden="">
+<button class="faq-question" type="button">
+<span class="faq-question-text">كيف يمكنني التواصل مع الدعم الفني؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">يمكنك التواصل مع فريق الدعم بسهولة عبر زر واتساب الموجود أسفل الصفحة، وسنساعدك في أي استفسار أو مشكلة تواجهك.</p></div></div>
+</article>
+<article class="faq-item faq-extra" hidden="">
+<button class="faq-question" type="button">
+<span class="faq-question-text">هل لديكم لعبة حروف مع عزيز؟</span>
+<span aria-hidden="true" class="faq-icon"></span>
+</button>
+<div class="faq-answer"><div class="faq-answer-inner"><p class="faq-answer-text">لدينا لعبة حروف وألوف تعمل مباشرة من المتصفح دون الحاجة إلى تحميل أي تطبيق، ويمكن تشغيلها على التلفزيون واستخدامها في الجلسات والتحديات الجماعية. اللعبة مستقلة وليست إصدارًا رسميًا من برنامج حروف مع عزيز، ولا توجد أي علاقة أو شراكة بيننا وبين البرنامج أو مقدمه.</p></div></div>
+</article>
+</div>
+<div class="faq-more-wrap">
+<button aria-expanded="false" class="faq-more-btn" id="faqMoreBtn" type="button">
+      إظهار المزيد
+    </button>
+</div>
+</section>
+</main>
+<footer class="site-footer zamn-footer">
+<div class="footer-inner">
+<div class="footer-grid">
+<section class="footer-brand-block"><a class="footer-brand-link" href="/" aria-label="العاب زامن — الرئيسية"><img src="https://i.postimg.cc/Y9T6ZMng/nqn.webp" alt="" loading="lazy" decoding="async"><span>العاب زامن</span></a><p>ألعاب عربية تجمع العائلة والأصدقاء.<br>اختر لعبتك وابدأ التحدي.</p></section>
+<nav class="footer-explore" aria-label="روابط الموقع"><h3>اكتشف زامن</h3><div class="footer-links"><a href="/#games-list"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10c2 0 3 1.5 3.4 3.5l1 6a2.4 2.4 0 0 1-4 2.1L14 16h-4l-3.4 2.6a2.4 2.4 0 0 1-4-2.1l1-6C4 8.5 5 7 7 7Z"/><path d="M7 10v4m-2-2h4"/><circle cx="16" cy="11" r=".7"/><circle cx="18" cy="13" r=".7"/></svg><span>الألعاب</span></a><a href="/blog"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v15M3 4h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5v15h-5a4 4 0 0 0-4 1 4 4 0 0 0-4-1H3Z"/></svg><span>المدونة</span></a><a href="https://zamn1.com/" rel="noopener noreferrer" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg><span>المتجر</span></a></div></nav>
+<section class="footer-support"><h3>تواصل معنا</h3><p>للاستفسارات والمساعدة</p><a class="footer-whatsapp-link" href="https://wa.me/message/ZDFHGX5MVYMOF1" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.4 7.6L3 21l1.7-5.2A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="m8 7 2 3-1 1c1 2 2 3 4 4l1-1 3 2"/></svg><span>تواصل عبر واتساب</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7H7v10M7 7l10 10"/></svg></a></section>
+</div>
+<div class="footer-bottom"><p class="copyright">© 2026 زامن. جميع الحقوق محفوظة.</p><nav class="site-legal-links" aria-label="روابط المعلومات"><a href="/about">من نحن</a><a href="/contact">التواصل</a><a href="/privacy">الخصوصية</a><a href="/terms">الشروط والأحكام</a></nav></div>
+</div></footer>
+<section aria-live="polite" class="game-view" hidden id="gameView">
+<section class="retro-game-hero">
+<div aria-hidden="true" class="retro-grid-overlay"></div>
+<span aria-hidden="true" class="pixel pixel-a"></span>
+<span aria-hidden="true" class="pixel pixel-b"></span>
+<span aria-hidden="true" class="pixel pixel-c"></span>
+<span aria-hidden="true" class="pixel pixel-d"></span>
+<button class="retro-home-btn" id="gameBackBtn" type="button">الرئيسية <span aria-hidden="true"><span class="z-icon z-icon-home" aria-hidden="true"></span></span></button>
+<div class="retro-game-content"><span class="family-eyebrow">ليلة التحدّي تبدأ هنا</span>
+<h1 id="detailTitle">فاميلي فيود</h1>
+<div class="game-detail-subtitle" id="detailSubtitle">تحدي العائلة</div>
+<div class="retro-info-row has-rating">
+<div class="retro-info-card" id="detailPlayers">٣+ لاعبين</div>
+<div class="retro-info-card" id="detailCategory">عائلية</div>
+<div class="retro-info-card retro-status" id="detailStatus">متاحة الآن</div>
+<div class="retro-info-card retro-rating-card" id="detailRating" aria-label="تقييم اللعبة 4.9 من 5"><span class="z-icon z-icon-star" aria-hidden="true"></span> 4.9</div>
+</div>
+<div class="retro-desc-box">
+<strong><span class="z-icon z-icon-spark" aria-hidden="true"></span> وصف اللعبة</strong>
+<p id="detailDesc">تحدّي عائلي بين فريقين لتخمين الإجابات الأكثر شيوعًا، مع شاشة مستقلة للمقدم وجرس من جوالات اللاعبين. بعد ٣ أخطاء، يحصل الفريق المنافس على فرصة سرقة الجولة بإجابة صحيحة واحدة! اختر عدد الأسئلة، والعب أسئلة عشوائية بدون تكرار في الجلسة، مع احتساب النقاط وتوزيعها تلقائيًا. تعمل من المتصفح ويمكن عرضها على التلفزيون بدون تحميل.</p>
+</div>
+<section aria-label="خيارات اللعبة" class="game-actions-panel">
+<a class="action-wide action-play" href="#" id="gamePlayBtn" rel="noopener"><span class="z-icon z-icon-play" aria-hidden="true"></span> العب الآن</a>
+<a class="action-wide action-buy" href="#" id="gameBuyBtn" rel="noopener"><span class="z-icon z-icon-card" aria-hidden="true"></span> اشتر الآن</a>
+<button class="action-wide action-trial" id="gameTrialBtn" type="button"><span class="z-icon z-icon-game" aria-hidden="true"></span> جرّب مجاناً 45 ثانية</button>
+</section><p class="family-hero-note">شاشة للعرض · جوال للمقدم · جرس للاعبين</p>
+</div>
+</section>
+<main class="retro-game-body"><section class="family-highlights" aria-label="مزايا فاميلي فيود">
+<article><span class="family-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></span><h2>شاشة للمقدم</h2><p>الإجابات والتحكم في الجولة بيده.</p></article>
+<article><span class="family-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 16h14l-2-3V9a5 5 0 0 0-10 0v4l-2 3Z"/><path d="M10 20h4M12 2v2"/></svg></span><h2>جرس من الجوال</h2><p>أول ضغطة تحدد الفريق الذي يبدأ.</p></article>
+<article><span class="family-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m13 2-9 12h7l-1 8 10-13h-8l1-7Z"/></svg></span><h2>سرقة الجولة</h2><p>بعد ٣ أخطاء، إجابة واحدة تقلب النتيجة.</p></article>
+<article><span class="family-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8" cy="7" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="10" cy="17" r="2" fill="currentColor"/></svg></span><h2>جولة على مزاجكم</h2><p>اختر عدد الأسئلة، والنقاط تُوزّع تلقائيًا.</p></article>
+</section>
+
+<section class="retro-section screenshots-panel" id="gameShots">
+<h2>صور من الداخل</h2>
+<div class="retro-shots-grid" id="retroShotsGrid"></div>
+</section>
+<section class="retro-section reviews-panel">
+<h2>تقييمات اللاعبين</h2>
+<div class="retro-reviews-grid" id="retroReviewsGrid"><article><div class="review-head"><strong>محمد العمر</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article><article><div class="review-head"><strong>خالد عقيل</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div><p>تووب</p></article><article><div class="review-head"><strong>خالد الخصيبي</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div><p>يحتاج تحديث لزياده الاسئله و صوتيات للاجابات الصح</p></article><article><div class="review-head"><strong>فهد</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article><article><div class="review-head"><strong>محمد عبدالله</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div><p>لعبة ممتعة للعائلات لبساطتها</p></article><article><div class="review-head"><strong>مهند الترجمي</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article><article><div class="review-head"><strong>محمد</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article><article><div class="review-head"><strong>salem bandr</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article><article><div class="review-head"><strong>راكان عسيري</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article><article><div class="review-head"><strong>عبدالوهاب الوادعي</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article><article><div class="review-head"><strong>فارس البرغش</strong><span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span><span class="z-icon z-icon-star" aria-hidden="true"></span></span></div></article></div>
+</section>
+<section class="retro-section game-seo-content" id="gameSeoContent"><h2 id="gameSeoHowTitle"></h2><p class="seo-copy" id="gameSeoHowText"></p><h2 id="gameSeoExampleTitle"></h2><p class="seo-copy" id="gameSeoExampleText"></p><p class="seo-copy"><a id="gameSeoGuideLink" href="/blog">شرح طريقة اللعب</a></p>
+
+<h2 class="game-seo-faq-title" id="gameSeoFaqTitle">الأسئلة الشائعة حول فاميلي فيود</h2><div class="game-seo-faq" id="gameSeoFaq"><details class="game-seo-faq-item"><summary class="game-seo-faq-question"><span class="game-seo-faq-question-text">كيف نجهّز اللعبة وكم عدد الفرق؟</span><span aria-hidden="true" class="game-seo-faq-icon"></span></summary><div class="game-seo-faq-answer"><p>سمّ فريقين بأسماء مختلفة واختر عدد الأسئلة، ثم شارك باركود المقدم والجرس. تبدأ الجلسة من شاشة المقدم، وأول ضغطة على الجرس تحدد الفريق الذي يبدأ.</p></div></details><details class="game-seo-faq-item"><summary class="game-seo-faq-question"><span class="game-seo-faq-question-text">هل تحتاج تحميلًا، وهل تعمل على الجوال والتلفزيون؟</span><span aria-hidden="true" class="game-seo-faq-icon"></span></summary><div class="game-seo-faq-answer"><p>تعمل مباشرة من المتصفح دون تحميل. اعرض لوحة اللعبة على الكمبيوتر أو التلفزيون، وافتح شاشة المقدم والجرس على الجوالات.</p></div></details><details class="game-seo-faq-item"><summary class="game-seo-faq-question"><span class="game-seo-faq-question-text">كيف تعمل شاشة المقدم والجرس؟</span><span aria-hidden="true" class="game-seo-faq-icon"></span></summary><div class="game-seo-faq-answer"><p>يرى المقدم الإجابات ويتحكم في كشفها وتسجيل الأخطاء. يدخل اللاعبون إلى الجرس بأسمائهم، ويضغطون لطلب الإجابة؛ لا يمكن تكرار اسم داخل الفريق نفسه.</p></div></details><details class="game-seo-faq-item"><summary class="game-seo-faq-question"><span class="game-seo-faq-question-text">متى تتم سرقة الجولة وكيف تُوزّع النقاط؟</span><span aria-hidden="true" class="game-seo-faq-icon"></span></summary><div class="game-seo-faq-answer"><p>بعد ٣ أخطاء للفريق الأول، يحاول الفريق الثاني سرقة الجولة بإجابة صحيحة واحدة. إذا نجح يأخذ نقاط الإجابات المكشوفة، وإذا أخفق تبقى للفريق الأول. تتولى اللعبة توزيع النقاط تلقائيًا.</p></div></details><details class="game-seo-faq-item"><summary class="game-seo-faq-question"><span class="game-seo-faq-question-text">هل أختار عدد الأسئلة وهل تتكرر؟</span><span aria-hidden="true" class="game-seo-faq-icon"></span></summary><div class="game-seo-faq-answer"><p>نعم، تحدد عدد الأسئلة قبل البداية. تختار اللعبة الأسئلة عشوائيًا دون تكرار داخل الجلسة نفسها.</p></div></details></div>
+</section><section class="seo-related-section retro-section" id="seoRelatedSection">
+<h2>قد تعجبك أيضًا</h2>
+<div class="seo-related-grid" id="seoRelatedGames"></div>
+</section>
+<section class="retro-section other-games-section">
+<h2>العاب أخرى من زامن</h2>
+<div class="other-games-grid" id="otherGamesGrid"></div>
+</section>
+</main>
+<footer class="site-footer zamn-footer">
+<div class="footer-inner">
+<div class="footer-grid">
+<section class="footer-brand-block"><a class="footer-brand-link" href="/" aria-label="العاب زامن — الرئيسية"><img src="https://i.postimg.cc/Y9T6ZMng/nqn.webp" alt="" loading="lazy" decoding="async"><span>العاب زامن</span></a><p>ألعاب عربية تجمع العائلة والأصدقاء.<br>اختر لعبتك وابدأ التحدي.</p></section>
+<nav class="footer-explore" aria-label="روابط الموقع"><h3>اكتشف زامن</h3><div class="footer-links"><a href="/#games-list"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10c2 0 3 1.5 3.4 3.5l1 6a2.4 2.4 0 0 1-4 2.1L14 16h-4l-3.4 2.6a2.4 2.4 0 0 1-4-2.1l1-6C4 8.5 5 7 7 7Z"/><path d="M7 10v4m-2-2h4"/><circle cx="16" cy="11" r=".7"/><circle cx="18" cy="13" r=".7"/></svg><span>الألعاب</span></a><a href="/blog"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v15M3 4h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5v15h-5a4 4 0 0 0-4 1 4 4 0 0 0-4-1H3Z"/></svg><span>المدونة</span></a><a href="https://zamn1.com/" rel="noopener noreferrer" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg><span>المتجر</span></a></div></nav>
+<section class="footer-support"><h3>تواصل معنا</h3><p>للاستفسارات والمساعدة</p><a class="footer-whatsapp-link" href="https://wa.me/message/ZDFHGX5MVYMOF1" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.4 7.6L3 21l1.7-5.2A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="m8 7 2 3-1 1c1 2 2 3 4 4l1-1 3 2"/></svg><span>تواصل عبر واتساب</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7H7v10M7 7l10 10"/></svg></a></section>
+</div>
+<div class="footer-bottom"><p class="copyright">© 2026 زامن. جميع الحقوق محفوظة.</p><nav class="site-legal-links" aria-label="روابط المعلومات"><a href="/about">من نحن</a><a href="/contact">التواصل</a><a href="/privacy">الخصوصية</a><a href="/terms">الشروط والأحكام</a></nav></div>
+</div></footer>
+</section>
+<!-- نظام الحساب والمكتبة والأكواد - منطق المشروع القديم بصيغة خفيفة -->
+<div class="player-login-overlay" hidden="" id="accountModal">
+<div aria-labelledby="accountTitle" aria-modal="true" class="player-login-page" role="dialog">
+<header class="player-login-header">
+<div aria-hidden="true" class="player-login-header-grid"></div>
+<div aria-hidden="true" class="player-login-pixels"><span></span><span></span><span></span></div>
+<button class="player-login-back" data-close-modal="accountModal" type="button">← رجوع</button>
+<button class="player-login-logout" hidden="" id="logoutBtn" type="button">تسجيل الخروج</button>
+<div class="player-login-header-content">
+<div class="player-login-icon"><img src="https://i.postimg.cc/Y9T6ZMng/nqn.webp" alt="" width="76" height="76"/></div>
+<h2 class="player-login-title" id="accountTitle">العاب زامن</h2>
+<p class="player-login-subtitle">سجل دخولك وشاهد العابك المحفوظة</p>
+</div>
+</header>
+<main class="player-login-content">
+<section class="player-login-card" id="loginStage">
+<h3>دخول اللاعب</h3>
+<p class="player-login-card-text">اكتب رقم جوالك للوصول إلى الالعاب التي اشتريتها سابقًا.</p>
+<div class="player-phone-row">
+<div class="player-country-wrap">
+<select aria-label="الدولة" class="player-country-button" id="countrySelect"></select>
+</div>
+<input autocomplete="tel" class="player-login-input" id="phoneInput" inputmode="numeric" placeholder="رقم الجوال"/>
+</div>
+<button class="player-login-main-button" id="loginBtn" type="button">دخول / تسجيل</button>
+</section>
+<section class="player-login-card" hidden="" id="nameStage">
+<h3>أهلاً بك <span class="z-icon z-icon-wave" aria-hidden="true"></span></h3>
+<p class="player-login-card-text">هذه أول مرة تستخدم الرقم. اكتب اسم اللاعب لإكمال التسجيل.</p>
+<input class="player-login-input player-name-input" id="playerNameInput" maxlength="40" placeholder="اسم اللاعب"/>
+<label class="player-terms">
+<input id="termsAgree" type="checkbox"/>
+<span>أوافق على حفظ الاسم ورقم الجوال للوصول إلى العابي من أي جهاز.</span>
+</label>
+<button class="player-login-main-button" id="saveNameBtn" type="button">حفظ وإكمال</button>
+</section>
+<section hidden="" id="accountStage">
+<div class="player-account-card">
+<div class="player-account-avatar"><span class="z-icon z-icon-user" aria-hidden="true"></span></div>
+<div class="player-account-info">
+<strong class="player-account-name" id="accountName"></strong>
+<span class="player-account-phone" id="accountPhone"></span>
+</div>
+</div>
+<div class="player-activation-card" id="accountActivationCard">
+<div class="player-activation-icon" aria-hidden="true"><span class="z-icon z-icon-lock" aria-hidden="true"></span></div>
+<div class="player-activation-copy">
+<h3>أدخل كود اللعبة أو الباقة</h3>
+<p id="accountActivationHint">أدخل كود الشراء؛ كود اللعبة يفعّل لعبتها، وكود الباقة يفعّل جميع ألعابها.</p>
+</div>
+<div class="player-activation-row">
+<input autocomplete="one-time-code" class="player-login-input" id="accountGameCodeInput" inputmode="numeric" placeholder="كود اللعبة أو الباقة"/>
+<button class="player-activation-button" id="activateAccountCodeBtn" type="button">تفعيل الكود</button>
+</div>
+</div>
+<div class="player-library-heading">
+<div>
+<h3>العابي</h3>
+<p>الالعاب المحفوظة على حسابك</p>
+</div>
+</div>
+<div class="player-games-list" id="ownedGamesInline"></div>
+<button class="player-login-main-button" id="openLibraryBtn" type="button">عرض المكتبة كاملة</button>
+</section>
+</main>
+</div>
+</div>
+<div class="code-entry-overlay" hidden="" id="codeModal">
+<div aria-labelledby="codeEntryTitle" aria-modal="true" class="code-entry-card" role="dialog">
+<button class="code-entry-back" data-close-modal="codeModal" type="button">← رجوع</button>
+<div class="code-entry-icon"><span class="z-icon z-icon-lock" aria-hidden="true"></span></div>
+<h2 id="codeEntryTitle">أدخل رمز اللعبة</h2>
+<p class="code-entry-game-name" id="codeGameName"></p>
+<div class="code-entry-box">
+<label for="gameCodeInput">رمز التفعيل</label>
+<input autocomplete="one-time-code" class="code-entry-input" id="gameCodeInput" inputmode="numeric" placeholder="••••••"/>
+</div>
+<button class="code-entry-main" id="verifyCodeBtn" type="button">تأكيد الرمز وفتح اللعبة</button>
+<button class="code-entry-buy" id="codeBuyBtn" type="button">شراء اللعبة</button>
+<p class="code-entry-note">بعد إدخال الرمز الصحيح تُحفظ اللعبة في حسابك وتظهر داخل «العابي».</p>
+</div>
+</div>
+<div class="z-modal" hidden="" id="libraryModal">
+<div aria-modal="true" class="z-modal-card z-modal-wide" role="dialog">
+<button class="z-modal-close" data-close-modal="libraryModal" type="button">×</button>
+<h2><span class="z-icon z-icon-library" aria-hidden="true"></span> العابي</h2>
+<div class="owned-games-list" id="ownedGamesList"></div>
+</div>
+</div>
+<div class="z-message" hidden="" id="siteMessage"></div>
+<div class="game-player-overlay" hidden="" id="gamePlayerOverlay">
+<div class="game-player-top">
+<button id="closeGamePlayer" type="button"><span class="z-icon z-icon-close" aria-hidden="true"></span> إغلاق</button>
+<strong id="playingGameName">اللعبة</strong>
+<span id="trialCounter"></span>
+</div>
+<iframe allow="fullscreen; autoplay; clipboard-read; clipboard-write" allowfullscreen="" id="gameIframe" title="لعبة زامن"></iframe>
+</div>
+<script src="/js/games.js?v=20261106-zoom-purchase"></script>
+<script defer src="/js/product-design.js?v=20261106-zoom-v2"></script>
+<script defer src="/js/family-reviews.js?v=20261101-vector"></script>
+<script defer src="/js/app.js?v=20261106-zoom-purchase"></script>
+<script defer src="/js/support.js?v=20261107-customer-whatsapp-v95"></script>
+<script defer src="/js/admin-stats.js?v=20261107-customer-whatsapp-v95"></script>
+<script defer src="/js/admin-grants.js?v=20261107-home-grants-v85"></script>
+<script defer="" src="/js/account.js?v=20261108-header-login-v98"></script>
+<script>
+(function(){
+  var KEY="zamn_home_screen_tip_seen";
+  var tip=document.getElementById("homeScreenTip");
+  var close=document.getElementById("homeScreenTipClose");
+  var done=document.getElementById("homeScreenTipDone");
+  if(!tip) return;
+
+  function hide(){
+    tip.hidden=true;
+    try{ sessionStorage.setItem(KEY,"1"); }catch(e){}
+  }
+
+  function shouldShow(){
+    try{
+      if(sessionStorage.getItem(KEY)==="1") return false;
+    }catch(e){}
+    var standalone=window.matchMedia && window.matchMedia("(display-mode: standalone)").matches;
+    if(navigator.standalone===true) standalone=true;
+    return !standalone;
+  }
+
+  if(close) close.addEventListener("click",hide);
+  if(done) done.addEventListener("click",hide);
+  tip.addEventListener("click",function(e){ if(e.target===tip) hide(); });
+
+  window.addEventListener("load",function(){
+    if(false && shouldShow()) setTimeout(function(){ tip.hidden=false; },650);
+  });
+})();
+</script>
+<script defer="" src="/js/update-check.js?v=20260919-2"></script>
+<script>
+(function(){
+  function wireMobileKeyboard(){
+    var fields = document.querySelectorAll(
+      '#phoneInput, #playerNameInput, #gameCodeInput, input[type="text"], input[type="tel"], input[inputmode="numeric"], textarea'
+    );
+
+    fields.forEach(function(field){
+      if(field.dataset.zamnKeyboardReady === "1") return;
+      field.dataset.zamnKeyboardReady = "1";
+
+      field.addEventListener("touchend", function(){
+        if(document.activeElement !== field){
+          try { field.focus(); } catch(e) {}
+        }
+      }, {passive:true});
+
+      field.addEventListener("click", function(){
+        if(document.activeElement !== field){
+          try { field.focus(); } catch(e) {}
+        }
+      });
+
+      field.addEventListener("focus", function(){
+        setTimeout(function(){
+          try {
+            field.scrollIntoView({block:"center", inline:"nearest", behavior:"smooth"});
+          } catch(e) {}
+        }, 250);
+      });
+    });
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", wireMobileKeyboard);
+  }else{
+    wireMobileKeyboard();
+  }
+
+  /* الحقول داخل النوافذ قد تظهر بعد فتحها */
+  document.addEventListener("click", function(){
+    setTimeout(wireMobileKeyboard, 0);
+  });
+})();
+</script>
+
+
+</body>
+</html>
