@@ -1,7 +1,19 @@
 (()=>{'use strict';const $=id=>document.getElementById(id),tones=['#efab78','#b992de','#f4dfb8','#bd9bdc','#eda674','#dbc3ed'],symbols=['؟','✦','!','؟','✧','!'];
 function open(){window.openCategorySetup()} ['openPreview','openPreviewGuide','openPreviewScreen'].forEach(id=>$(id).onclick=open);document.querySelectorAll('[data-close]').forEach(n=>n.onclick=()=>$(n.dataset.close).close());})();
 
-(()=>{const rail=document.querySelector('.category-peek-window');if(!rail)return;let drag=null;rail.scrollLeft=(rail.scrollWidth-rail.clientWidth)/2;rail.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('.category-info-button'))return;drag={x:e.clientX,left:rail.scrollLeft};rail.setPointerCapture(e.pointerId);rail.classList.add('is-dragging')});rail.addEventListener('pointermove',e=>{if(drag){rail.scrollLeft=drag.left-(e.clientX-drag.x);e.preventDefault()}});const stop=()=>{drag=null;rail.classList.remove('is-dragging')};rail.addEventListener('pointerup',stop);rail.addEventListener('pointercancel',stop);rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();rail.scrollBy({left:e.key==='ArrowRight'?220:-220,behavior:'smooth'})}})})();
+(()=>{const rail=document.querySelector('.category-peek-window');if(!rail)return;let drag=null;let railTouched=false;
+const centerRail=()=>{
+ if(railTouched)return;
+ const overflow=rail.scrollWidth-rail.clientWidth;
+ rail.scrollLeft=(getComputedStyle(rail).direction==='rtl'?-1:1)*overflow/2;
+};
+requestAnimationFrame(centerRail);
+window.addEventListener('load',centerRail,{once:true});
+new ResizeObserver(centerRail).observe(rail);
+rail.addEventListener('pointerdown',()=>{railTouched=true},{passive:true});
+rail.addEventListener('wheel',()=>{railTouched=true},{passive:true});
+rail.addEventListener('keydown',()=>{railTouched=true});
+rail.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('.category-info-button'))return;drag={x:e.clientX,left:rail.scrollLeft};rail.setPointerCapture(e.pointerId);rail.classList.add('is-dragging')});rail.addEventListener('pointermove',e=>{if(drag){rail.scrollLeft=drag.left-(e.clientX-drag.x);e.preventDefault()}});const stop=()=>{drag=null;rail.classList.remove('is-dragging')};rail.addEventListener('pointerup',stop);rail.addEventListener('pointercancel',stop);rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();rail.scrollBy({left:e.key==='ArrowRight'?220:-220,behavior:'smooth'})}})})();
 
 document.querySelectorAll('.time-package-select').forEach(button=>button.addEventListener('click',()=>document.getElementById('packageDialog').showModal()));
 
@@ -112,19 +124,43 @@ document.querySelectorAll('.time-package-select').forEach(button=>button.addEven
     "id": 17,
     "name": "جوازات سفر",
     "tone": "#d9c7e8",
-    "art": "<img src=\"assets/categories/passports.svg?v=2aa7bbe3741e\" width=\"640\" height=\"800\" alt=\"جوازات سفر\">"
+    "art": "<img src=\"assets/categories/passports.svg?v=4ae013fb467a\" width=\"640\" height=\"800\" alt=\"جوازات سفر\">"
   },
   {
     "id": 18,
     "name": "وش الخطأ؟",
     "tone": "#fff0d3",
-    "art": "<img src=\"assets/categories/spot-the-error.svg?v=fb69bb7a3b94\" width=\"640\" height=\"800\" alt=\"وش الخطأ؟\">"
+    "art": "<img src=\"assets/categories/spot-the-error.svg?v=f8a3c2beb558\" width=\"640\" height=\"800\" alt=\"وش الخطأ؟\">"
   },
   {
     "id": 19,
     "name": "أتحداك تعرف اللون",
     "tone": "#fff0ce",
-    "art": "<img src=\"assets/categories/guess-the-color.svg?v=1dfef78aaf68\" width=\"640\" height=\"800\" alt=\"أتحداك تعرف اللون\">"
+    "art": "<img src=\"assets/categories/guess-the-color.svg?v=a98c2cc8a17f\" width=\"640\" height=\"800\" alt=\"أتحداك تعرف اللون\">"
+  },
+  {
+    "id": 20,
+    "name": "شخصيات سياسية",
+    "tone": "#fff0d3",
+    "art": "<img src=\"assets/categories/political-figures.svg?v=af2463751f18\" width=\"640\" height=\"800\" alt=\"شخصيات سياسية\">"
+  },
+  {
+    "id": 21,
+    "name": "فوازير رمضان",
+    "tone": "#fff0d3",
+    "art": "<img src=\"assets/categories/ramadan-riddles.svg?v=6c6bf6f63800\" width=\"640\" height=\"800\" alt=\"فوازير رمضان — صورة تجريبية\">"
+  },
+  {
+    "id": 22,
+    "name": "لون العلم",
+    "tone": "#fff0d3",
+    "art": "<img src=\"assets/categories/flag-color.svg?v=9f2fe576ce9b\" width=\"640\" height=\"800\" alt=\"لون العلم — صورة تجريبية\">"
+  },
+  {
+    "id": 23,
+    "name": "صوت المشهور",
+    "tone": "#fff0d3",
+    "art": "<img src=\"assets/categories/celebrity-voice.svg?v=9f5481f78919\" width=\"640\" height=\"800\" alt=\"صوت المشهور — صورة تجريبية\">"
   }
 ];
 const aids=[['إجابتين','بعد السؤال','فرصتان للإجابة بدل إجابة واحدة.','✌'],['دبلها','قبل كشف الإجابة','ضاعف نقاط السؤال.','×٢'],['كلّم المطنوخ','بعد السؤال','دقيقة كاملة للاتصال وطلب المساعدة.','☎'],['بلوك','قبل كشف الإجابة','امنع الخصم من إجابة سؤال تختاره.','✋'],['تحايل','بعد السؤال','١٥ ثانية للبحث عن الإجابة من أي مكان.','☝']];let picks=[[],[]],selectedAids=new Set();
@@ -148,7 +184,11 @@ const categoryDescriptions = {
   'شعارات كروية': ['خمّن النادي من شعاره.', 'انتبه للألوان والرموز اللي تميّز كل فريق.'],
   'جوازات سفر': ['جوازات من حول العالم! 🛂🌍', 'تعرّف على الدول من شكل جوازاتها وألوانها وتصاميمها، وشوف إذا تقدر تميّزها من أول نظرة.'],
   'وش الخطأ؟': ['معلومة غلط بين معلومات صحيحة! 🧠❌', 'اقرأ، ركّز، واكتشف الخطأ وصحّحه قبل ما ينكشف الجواب.'],
-  'أتحداك تعرف اللون': ['لون واحد، وتحدي بسيط… أو يمكن مو بهالبساطة! 🎨👀', 'ركّز زين وحاول تحدد اللون الصحيح قبل ما ينكشف الجواب.']
+  'أتحداك تعرف اللون': ['لون واحد، وتحدي بسيط… أو يمكن مو بهالبساطة! 🎨👀', 'ركّز زين وحاول تحدد اللون الصحيح قبل ما ينكشف الجواب.'],
+  'شخصيات سياسية': ['وجوه صنعت قرارات غيّرت مجرى الأحداث! 🌍🧠', 'تعرّف على أبرز الشخصيات السياسية حول العالم، من القادة والزعماء إلى الشخصيات المؤثرة في التاريخ والسياسة الحديثة.'],
+  'فوازير رمضان': ['فوازير بطابع رمضاني.', 'ركّز في السؤال وتحدّ فريقك في معرفة الجواب.'],
+  'لون العلم': ['شوف العلم وركّز بالمكان المشار إليه! 🎨🌍', 'هل تقدر تحدد اللون الصحيح قبل ما ينكشف الجواب؟'],
+  'صوت المشهور': ['يحتوي على مقاطع صوتية للمشاهير.', 'ويعتمد على مدى معرفتك وتركيزك.']
 };
 
 const categoryInfoDialog = $('categoryInfoDialog');

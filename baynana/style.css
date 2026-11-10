@@ -116,3 +116,18 @@ html,body{max-width:100%;overflow-x:clip}.arena-hero{width:100%;max-width:100%;o
   font-size: 22px;
   cursor: pointer;
 }
+
+
+/* Subtle clarity adjustment for the restored category artwork. */
+img[src*="assets/categories/sports.webp"],
+img[src*="assets/categories/world.webp"],
+img[src*="assets/categories/science.webp"],
+img[src*="assets/categories/entertainment.webp"],
+img[src*="assets/categories/history.webp"],
+img[src*="assets/categories/general.webp"],
+img[src*="assets/categories/literature.webp"],
+img[src*="assets/categories/football.webp"],
+img[src*="assets/categories/landmarks.webp"],
+img[src*="assets/categories/movies.webp"] {
+  filter: saturate(0.94) brightness(1.025);
+}
