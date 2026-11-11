@@ -154,10 +154,22 @@ function renderScores(){saveRound();$('liveTurn').disabled=Boolean(active);$('li
 function renderBoard(){const grid=$('liveBoard');grid.replaceChildren();const categories=session.categories.flat(),sources=[...document.querySelectorAll('#setupCategories .setup-category')];categories.forEach((name,c)=>{const col=el('article','live-category');const match=sources.find(n=>n.querySelector('strong').textContent===name);const art=el('div','live-category-art');if(match){art.style.setProperty('--cover-tone',match.style.getPropertyValue('--category-tone'));art.innerHTML=match.querySelector('img,svg').outerHTML}art.append(el('h2','',name));col.append(art);const points=el('div','live-point-grid');for(let i=0;i<6;i++){const value=[200,200,400,400,600,600][i],key=c+'-'+i,button=el('button','live-point live-point-'+value,ar(value));button.disabled=used.has(key);button.setAttribute('aria-label',name+' — '+value+' نقطة — سؤال '+(i+1));button.onclick=()=>transitionTo(()=>openQuestion({name,points:value,key}));points.append(button)}col.append(points);grid.append(col)})}
 function openQuestion(q){active=q;stage='question';stopTimer();$('liveExit').textContent='خروج من السؤال';$('liveBoardView').hidden=true;$('liveQuestionView').hidden=false;$('liveBackBoard').hidden=false;$('liveCategory').textContent=q.name;renderQuestionPoints();renderContent();renderScores();window.scrollTo({top:0,behavior:'instant'})}
 function renderContent(){const content=$('liveQuestionContent');content.replaceChildren();$('liveReveal').hidden=stage!=='question';$('liveReturnQuestion').hidden=stage==='question';$('liveJudge').hidden=stage!=='answer';if(stage==='question'){content.append(el('span','live-demo-label','سؤال تجريبي للواجهة'),el('h2','','ما عاصمة المملكة العربية السعودية؟'));const art=el('div','live-question-illustration');art.innerHTML='<svg viewBox="0 0 240 180" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#bd9bdc" d="M20 156h200V97h-24V63h-22v93h-30V42h-23v114H91V83H68v73H44v-45H20Z"/><path d="M13 162h214M131 42V20m-10 0h20M54 53l5-12 5 12 12 5-12 5-5 12-5-12-12-5Z"/></svg>';content.append(art)}else if(stage==='answer'){content.append(el('span','live-demo-label','الإجابة'),el('h2','live-answer-title','الرياض'));}else{content.append(el('h2','','مين جاوب؟'));const choices=el('div','live-judge-choices');for(let t=0;t<2;t++){const button=el('button','live-primary live-choice-'+t,session.teams[t]);button.disabled=questionAids.get(active.key)?.blockedTeam===t;button.onclick=()=>finishQuestion(t);choices.append(button)}const none=el('button','live-none','ولا أحد');none.onclick=()=>finishQuestion(-1);choices.append(none);content.append(choices)}}
-function finishQuestion(winner) {
+async function finishQuestion(winner) {
   if (!active || stage !== 'judge' || switching) return;
   const effect = questionAids.get(active.key);
   if (winner >= 0 && effect?.blockedTeam === winner) return;
+  if (active.questionId) {
+    switching = true;
+    try {
+      await window.BaynanaAvailability.consume(active.questionId);
+    } catch {
+      const notice = document.getElementById('liveAidNotice');
+      if (notice) notice.textContent = 'تعذّر حفظ السؤال. حاول مرة أخرى.';
+      return;
+    } finally {
+      switching = false;
+    }
+  }
   if (winner >= 0) scores[winner] += active.points * (effect?.doubleTeam === winner ? 2 : 1);
   used.add(active.key);
   questionAids.delete(active.key);

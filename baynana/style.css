@@ -131,3 +131,24 @@ img[src*="assets/categories/landmarks.webp"],
 img[src*="assets/categories/movies.webp"] {
   filter: saturate(0.94) brightness(1.025);
 }
+
+/* Remaining complete games appear only on selectable category cards. */
+#setupCategories .setup-category { position: relative; }
+#setupCategories .category-remaining {
+ position: absolute;
+ top: -7px;
+ left: 50%;
+ transform: translateX(-50%);
+ min-width: 25px;
+ padding: 1px 7px;
+ border-radius: 999px;
+ color: #fff7e4;
+ background: #684b7a;
+ font: 700 11px/1.3 Th, Arial, sans-serif;
+ box-shadow: 0 1px 3px #35203e16;
+ pointer-events: none;
+ z-index: 3;
+}
+
+#setupCategories .setup-category { overflow: visible; }
+#setupCategories .setup-category-art { border-radius: 16px 16px 0 0; }

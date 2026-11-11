@@ -15,8 +15,29 @@ module.exports=async function(req,res){
   if(origin){let host;try{host=new URL(origin).host;}catch{return reply(res,403,{ok:false,error:'forbidden'});}if(host!==req.headers.host)return reply(res,403,{ok:false,error:'forbidden'});}
   const body=typeof req.body==='string'?JSON.parse(req.body):req.body||{};
   const phone=digits(body.phone);if(!/^\d{10,15}$/.test(phone))return reply(res,422,{ok:false,error:'invalid_phone'});
-  if(!['library','activate'].includes(body.action))return reply(res,422,{ok:false,error:'invalid_action'});
+  if(!['library','activate','baynana-progress'].includes(body.action))return reply(res,422,{ok:false,error:'invalid_action'});
   const db=database();
+  if(body.action==='baynana-progress'){
+   const questions=require('./_lib/baynana-questions.json');
+   const ref=db.ref('customers/'+phone+'/baynana/usedQuestions');
+   if(body.questionId!==undefined){
+    const question=questions.find(item=>item.id===body.questionId);
+    if(!question)return reply(res,422,{ok:false,error:'invalid_question'});
+    const key=crypto.createHash('sha256').update(question.id).digest('hex');
+    await ref.child(key).transaction(value=>value||{id:question.id,at:Date.now()});
+   }
+   const used=new Set(Object.values((await ref.get()).val()||{}).map(item=>item.id));
+   const counts={};
+   for(const question of questions){
+    if(used.has(question.id)||![200,400,600].includes(question.points))continue;
+    const levels=counts[question.category]||(counts[question.category]={200:0,400:0,600:0});
+    levels[question.points]++;
+   }
+   const remaining=Object.fromEntries(Object.entries(counts).map(([category,levels])=>[
+    category,Math.min(...[200,400,600].map(points=>Math.floor(levels[points]/2)))
+   ]));
+   return reply(res,200,{ok:true,remaining});
+  }
   let activation=null;
   if(body.action==='activate'){
    const ip=String(req.headers['x-forwarded-for']||req.socket?.remoteAddress||'unknown').split(',')[0].trim();
