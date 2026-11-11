@@ -217,3 +217,202 @@
 @media (prefers-reduced-motion: reduce) {
   .previous-game-faces { transition: none; }
 }
+
+/* Shorter introductory section with proportionally scaled phone and posters. */
+.arena-hero { padding-top: 10px !important; }
+.arena-hero .hero-layout {
+ padding-top: 4px !important;
+ padding-bottom: 12px !important;
+ gap: 24px !important;
+}
+.arena-hero .game-visual.hero-phone-visual {
+ width: min(100%, 255px) !important;
+ max-width: 255px !important;
+ margin-block: 4px !important;
+}
+.arena-hero .game-logo {
+ font-size: clamp(76px, 8vw, 116px);
+ margin-block: 16px 25px;
+}
+.arena-hero .hero-copy > p { margin-bottom: 16px; }
+.arena-hero .hero-posters {
+ padding-top: 18px !important;
+ max-width: 760px !important;
+ gap: 38px !important;
+}
+.arena-hero .hero-poster {
+ flex-basis: 270px !important;
+ width: 270px !important;
+ max-width: 270px !important;
+}
+@media (max-width: 760px) {
+ .arena-hero .hero-layout { gap: 18px !important; }
+ .arena-hero .game-visual.hero-phone-visual {
+  width: min(76%, 205px) !important;
+  max-width: 205px !important;
+ }
+ .arena-hero .game-logo { font-size: 84px; margin-block: 12px 20px; }
+ .arena-hero .hero-posters {
+  padding: 16px 24px 0 !important;
+  gap: 24px !important;
+ }
+ .arena-hero .hero-poster {
+  flex-basis: 190px !important;
+  max-width: 190px !important;
+ }
+}
+
+/* Center the phone itself after removing its caption space. */
+.arena-hero .game-visual.hero-phone-visual {
+ aspect-ratio: 350 / 550 !important;
+ margin: 0 !important;
+ align-self: center;
+ justify-self: center;
+}
+.arena-hero .hero-phone-scene { height: 550px; }
+.arena-hero .hero-layout {
+ max-width: 1000px !important;
+ margin-inline: auto !important;
+ align-items: center !important;
+}
+@media (max-width: 760px) {
+ .arena-hero .game-visual.hero-phone-visual { margin-inline: auto !important; }
+}
+
+/* The phone illustrates the guide, while the intro copy stays centered. */
+.arena-hero .hero-layout {
+ grid-template-columns: minmax(0, 1fr) !important;
+ max-width: 900px !important;
+ text-align: center;
+}
+.arena-hero .hero-copy {
+ padding: 0 !important;
+ justify-self: center;
+ text-align: center;
+}
+.arena-hero .game-logo { margin-inline: auto; }
+.arena-hero .hero-actions, .arena-hero .hero-meta { justify-content: center; }
+.guide-phone-visual {
+ display: grid;
+ place-items: center;
+ min-width: 0;
+ margin: 0;
+ padding: 16px 12px;
+}
+.play-guide .guide-phone-visual .game-visual.hero-phone-visual {
+ width: min(100%, 310px) !important;
+ max-width: 310px !important;
+ aspect-ratio: 350 / 550 !important;
+ margin: 0 auto !important;
+ padding: 0 !important;
+ transform: none !important;
+}
+.guide-phone-visual .hero-phone-scene { height: 550px; }
+@media (max-width: 760px) {
+ .play-guide .guide-phone-visual .game-visual.hero-phone-visual {
+  width: min(80%, 250px) !important;
+  max-width: 250px !important;
+ }
+}
+
+/* A compact centered introduction above the promotional cards. */
+.arena-hero .hero-copy { max-width: 940px !important; }
+.arena-hero .hero-headline {
+ margin: 16px 0 10px;
+ color: #fff5df;
+ font: 700 clamp(28px, 3.4vw, 44px)/1.45 Th, Arial, sans-serif;
+ text-align: center;
+}
+.arena-hero .hero-copy > .hero-intro {
+ max-width: 820px;
+ margin: 0 auto 23px;
+ color: #fff5df;
+ font-size: clamp(17px, 1.8vw, 23px);
+ font-weight: 700;
+ line-height: 1.8;
+ text-align: center;
+}
+.arena-hero .hero-layout { padding-top: 12px !important; padding-bottom: 4px !important; }
+.arena-hero .hero-actions { gap: 20px; }
+@media (max-width: 760px) {
+ .arena-hero .hero-headline { margin-top: 12px; font-size: 28px; }
+ .arena-hero .hero-copy > .hero-intro { font-size: 16px; margin-bottom: 18px; }
+}
+
+/* Clear hierarchy and breathing room in the centered introduction. */
+.arena-hero .hero-layout {
+ padding-top: clamp(34px, 5vw, 70px) !important;
+ padding-bottom: 0 !important;
+}
+.arena-hero .hero-copy { width: 100%; max-width: 960px !important; }
+.arena-hero .hero-headline {
+ margin: 0 0 22px;
+ font-size: clamp(32px, 3.6vw, 48px);
+ line-height: 1.45;
+ letter-spacing: 0;
+}
+.arena-hero .hero-copy > .hero-intro {
+ max-width: 720px;
+ margin: 0 auto 34px;
+ font-size: clamp(17px, 1.55vw, 21px);
+ line-height: 1.95;
+ font-weight: 600;
+}
+.arena-hero .hero-actions {
+ gap: 24px;
+ align-items: center;
+}
+.arena-hero .main-cta {
+ padding: 15px 25px;
+ font-size: 16px;
+ min-height: 58px;
+}
+.arena-hero .how-link { font-size: 14px; }
+.arena-hero .hero-meta { margin-top: 24px; font-size: 13px; }
+.arena-hero .hero-posters {
+ padding-top: clamp(40px, 5vw, 65px) !important;
+ gap: clamp(32px, 5vw, 60px) !important;
+ max-width: 800px !important;
+}
+@media (max-width: 760px) {
+ .arena-hero .hero-layout { padding-top: 32px !important; }
+ .arena-hero .hero-headline { font-size: clamp(28px, 6.3vw, 36px); margin-bottom: 16px; }
+ .arena-hero .hero-copy > .hero-intro {
+  font-size: 16px;
+  line-height: 1.9;
+  margin-bottom: 26px;
+ }
+ .arena-hero .hero-intro br { display: none; }
+ .arena-hero .hero-actions { gap: 18px; }
+ .arena-hero .main-cta { font-size: 14px; padding: 13px 20px; min-height: 50px; }
+ .arena-hero .hero-meta { margin-top: 20px; font-size: 12px; }
+ .arena-hero .hero-posters { padding-top: 36px !important; gap: 26px !important; }
+}
+
+/* Slightly larger introductory copy within the established spacing. */
+.arena-hero .hero-headline {
+ font-size: clamp(35px, 4vw, 53px);
+ line-height: 1.45;
+}
+.arena-hero .hero-copy > .hero-intro {
+ max-width: 790px;
+ font-size: clamp(19px, 1.8vw, 24px);
+ line-height: 1.9;
+}
+@media (max-width: 760px) {
+ .arena-hero .hero-headline { font-size: clamp(30px, 6.7vw, 39px); }
+ .arena-hero .hero-copy > .hero-intro { font-size: 18px; line-height: 1.85; }
+}
+
+.arena-hero .hero-copy > .hero-intro {
+ max-width: 900px;
+ font-size: clamp(23px, 2.2vw, 29px);
+ line-height: 1.85;
+ font-weight: 700;
+}
+@media (max-width: 760px) {
+ .arena-hero .hero-copy > .hero-intro {
+  font-size: 20px;
+  line-height: 1.85;
+ }
+}
