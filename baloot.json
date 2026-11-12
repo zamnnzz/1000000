@@ -1,0 +1,780 @@
+{
+  "categoryId": "baloot",
+  "questionCount": 60,
+  "questions": [
+    {
+      "id": "baloot-v24-01",
+      "categoryId": "baloot",
+      "prompt": "كم عدد أوراق اللعب المستخدمة في البلوت؟",
+      "answer": "٣٢ ورقة",
+      "alternatives": [
+        "32",
+        "اثنتان وثلاثون ورقة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 1
+    },
+    {
+      "id": "baloot-v24-02",
+      "categoryId": "baloot",
+      "prompt": "كم ورقة تكون بيد كل لاعب بعد اكتمال الشراء والتوزيع؟",
+      "answer": "٨ ورقات",
+      "alternatives": [
+        "8",
+        "ثماني أوراق"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "baloot-v24-03",
+      "categoryId": "baloot",
+      "prompt": "وش أقوى ورقة من الزات المفتوح في الصن؟",
+      "answer": "الإكّة",
+      "alternatives": [
+        "الآس",
+        "الأكة",
+        "A"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 3
+    },
+    {
+      "id": "baloot-v24-04",
+      "categoryId": "baloot",
+      "prompt": "وش أقوى ورقة من زات الحكم؟",
+      "answer": "ولد الحكم",
+      "alternatives": [
+        "الولد",
+        "J"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "baloot-v24-05",
+      "categoryId": "baloot",
+      "prompt": "أي ورقتين من زات الحكم تكوّنان مشروع البلوت إذا كانت عند نفس اللاعب؟",
+      "answer": "الشايب والبنت",
+      "alternatives": [
+        "شايب وبنت الحكم",
+        "K وQ",
+        "البنت والشايب"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 5
+    },
+    {
+      "id": "baloot-v24-06",
+      "categoryId": "baloot",
+      "prompt": "وش اسم مشروع ثلاث ورقات متسلسلة من نفس الزات؟",
+      "answer": "سرا",
+      "alternatives": [
+        "سرى"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "baloot-v24-07",
+      "categoryId": "baloot",
+      "prompt": "كم ورقة متسلسلة من نفس الزات تحتاج لمشروع «خمسين»؟",
+      "answer": "أربع ورقات",
+      "alternatives": [
+        "٤",
+        "4"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 7
+    },
+    {
+      "id": "baloot-v24-08",
+      "categoryId": "baloot",
+      "prompt": "وش يسمّون الجولة اللي يأخذ فيها فريق واحد كل الأكلات؟",
+      "answer": "كبوت",
+      "alternatives": [
+        "الكبوت"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 8
+    },
+    {
+      "id": "baloot-v24-09",
+      "categoryId": "baloot",
+      "prompt": "بعد ما تكسب أكلة، مين يرمي أول ورقة في الأكلة اللي بعدها؟",
+      "answer": "اللي كسب الأكلة",
+      "alternatives": [
+        "صاحب الورقة الفائزة",
+        "الفائز بالأكلة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 9
+    },
+    {
+      "id": "baloot-v24-10",
+      "categoryId": "baloot",
+      "prompt": "كم قيد ينهي الصكّة إذا وصل له فريق واحد؟",
+      "answer": "١٥٢ قيدًا",
+      "alternatives": [
+        "152",
+        "١٥٢"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 10
+    },
+    {
+      "id": "baloot-v24-11",
+      "categoryId": "baloot",
+      "prompt": "في صن، أوراق الأكلة الأربع هي عشرة وشايب وبنت وولد، وكلها ديمن. أي ورقة تأخذ الأكلة؟",
+      "answer": "عشرة الديمن",
+      "alternatives": [
+        "العشرة",
+        "١٠ ديمن"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 11
+    },
+    {
+      "id": "baloot-v24-12",
+      "categoryId": "baloot",
+      "prompt": "في حكم هاص مفتوح، نزلت إكّة هاص وتسعة هاص وعشرة هاص وشايب هاص. أي ورقة تأخذ الأكلة؟",
+      "answer": "تسعة الهاص",
+      "alternatives": [
+        "التسعة",
+        "٩ هاص"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 12
+    },
+    {
+      "id": "baloot-v24-13",
+      "categoryId": "baloot",
+      "prompt": "فتح لاعب بإكّة السبيت في حكم ديمن مفتوح. لاعب ما معه سبيت رمى سبعة ديمن، والباقون رموا سبيت. أي ورقة تفوز؟",
+      "answer": "سبعة الديمن",
+      "alternatives": [
+        "سبعة الحكم",
+        "٧ ديمن"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "baloot-v24-14",
+      "categoryId": "baloot",
+      "prompt": "انكشفت ورقة هاص، وكل اللاعبين قالوا «بس» في الدورة الأولى. إذا اشترى أحدهم «حكم ثاني»، أي زات ممنوع يختاره حكم؟",
+      "answer": "الهاص",
+      "alternatives": [
+        "زات الورقة المكشوفة",
+        "♥"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "baloot-v24-15",
+      "categoryId": "baloot",
+      "prompt": "في صن، عندك شايب وبنت وولد وعشرة من نفس الزات. وش المشروع اللي تقدر تعلنه بهالأربع ورقات؟",
+      "answer": "خمسين",
+      "alternatives": [
+        "الخمسين"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "baloot-v24-16",
+      "categoryId": "baloot",
+      "prompt": "وش اسم المشروع المكوّن من أربع إكك في الصن؟",
+      "answer": "أربعمية",
+      "alternatives": [
+        "أربعمائة",
+        "أربع مئة",
+        "الأربعة"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 16
+    },
+    {
+      "id": "baloot-v24-17",
+      "categoryId": "baloot",
+      "prompt": "معك أربع إكك في الحكم. وش المشروع اللي تعلنه؟",
+      "answer": "مية",
+      "alternatives": [
+        "مائة",
+        "المية"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "baloot-v24-18",
+      "categoryId": "baloot",
+      "prompt": "وش قيمة ولد الحكم وتسعة الحكم مع بعض في عدّ الورق، قبل تحويلها لقيود؟",
+      "answer": "٣٤ بنط",
+      "alternatives": [
+        "34",
+        "أربعة وثلاثون"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "baloot-v24-19",
+      "categoryId": "baloot",
+      "prompt": "في حكم، خصم المشتري قال «دبل». وش يقول المشتري إذا أراد يرفع المضاعفة إلى ثلاثة أضعاف؟",
+      "answer": "تري",
+      "alternatives": [
+        "ثري",
+        "تربل",
+        "تريبل"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 19
+    },
+    {
+      "id": "baloot-v24-20",
+      "categoryId": "baloot",
+      "prompt": "فريقك اشترى صن، والخصم أخذ ٦٥ بنط في العدّ بدون مشاريع. وش نتيجة الجولة؟",
+      "answer": "تعادل",
+      "alternatives": [
+        "تعادل الفريقين"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "baloot-v24-21",
+      "categoryId": "baloot",
+      "prompt": "في حكم بدون دبل أو مشاريع، كم أقل عدد من أبناط الورق لازم يجيبه خصم المشتري عشان يخسّره؟",
+      "answer": "٨٢ بنط",
+      "alternatives": [
+        "82",
+        "اثنان وثمانون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 21
+    },
+    {
+      "id": "baloot-v24-22",
+      "categoryId": "baloot",
+      "prompt": "الخصم عنده سرا مقبول في الصن. حسب لائحة البطولة، كم أقل عدد من أبناط الورق يحتاجه عشان يخسّر المشتري؟",
+      "answer": "٥٦ بنط",
+      "alternatives": [
+        "56",
+        "ستة وخمسون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "baloot-v24-23",
+      "categoryId": "baloot",
+      "prompt": "في صن، الخصم عدّ ٤٠ بنط من الورق وعنده خمسين مقبولة. كم بنط من الورق ينقصه عشان يخسّر المشتري حسب لائحة البطولة؟",
+      "answer": "بنط واحد",
+      "alternatives": [
+        "واحد",
+        "١",
+        "1"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "baloot-v24-24",
+      "categoryId": "baloot",
+      "prompt": "في حكم، فريق معه خمس ورقات متسلسلة من زات واحد، والفريق الثاني معه أربع إكك. أي مشروع له الأولوية؟",
+      "answer": "المية المتسلسلة",
+      "alternatives": [
+        "المئة المتسلسلة",
+        "الخمس ورقات المتسلسلة"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 24
+    },
+    {
+      "id": "baloot-v24-25",
+      "categoryId": "baloot",
+      "prompt": "في حكم، فريق معه مية شيبان، والثاني معه مية بنات. أي مشروع أعلى؟",
+      "answer": "مية الشيبان",
+      "alternatives": [
+        "مئة الشيبان",
+        "أربع شياب"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "baloot-v24-26",
+      "categoryId": "baloot",
+      "prompt": "في حكم دبل، كم قيد يضيف مشروع البلوت نفسه بعد المضاعفة؟",
+      "answer": "قيدان",
+      "alternatives": [
+        "بنطين",
+        "٢",
+        "2"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 26
+    },
+    {
+      "id": "baloot-v24-27",
+      "categoryId": "baloot",
+      "prompt": "حسب لائحة البطولة، عندك شايب وبنت الحكم ومشروع البلوت غير مفروش. متى تقول «بلوت»؟",
+      "answer": "قبل ما تنزل الورقة الثانية منهما",
+      "alternatives": [
+        "عند لعب الثانية وقبل نزولها على الطاولة"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 27
+    },
+    {
+      "id": "baloot-v24-28",
+      "categoryId": "baloot",
+      "prompt": "في دبل حكم مقفّل، متى يقدر اللاعب يفتتح أكلة بورقة حكم؟",
+      "answer": "إذا ما بقي معه إلا ورق الحكم",
+      "alternatives": [
+        "إذا كل ورقه حكم"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 28
+    },
+    {
+      "id": "baloot-v24-29",
+      "categoryId": "baloot",
+      "prompt": "حسب لائحة البطولة، إذا صار كبوت في صن مدبّل وبدون مشاريع، كم قيد يسجّل الفريق الفائز؟",
+      "answer": "٤٤ قيدًا",
+      "alternatives": [
+        "44",
+        "أربعة وأربعون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "baloot-v24-30",
+      "categoryId": "baloot",
+      "prompt": "في دبل حكم بدون مشاريع، تساوى الفريقان في عدّ أبناط الورق. من يخسر الجولة حسب لائحة البطولة؟",
+      "answer": "الفريق اللي قال دبل",
+      "alternatives": [
+        "الفريق المدبّل",
+        "المدبّل"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 30
+    },
+    {
+      "id": "baloot-v26-01",
+      "categoryId": "baloot",
+      "prompt": "كم لاعب يشارك في صكّة البلوت؟",
+      "answer": "أربعة لاعبين",
+      "alternatives": [
+        "٤",
+        "4"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 31
+    },
+    {
+      "id": "baloot-v26-02",
+      "categoryId": "baloot",
+      "prompt": "وين يجلس شريكك على طاولة البلوت؟",
+      "answer": "قدّامك",
+      "alternatives": [
+        "مقابلك",
+        "في الجهة المقابلة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 32
+    },
+    {
+      "id": "baloot-v26-03",
+      "categoryId": "baloot",
+      "prompt": "كم ورقة بيد كل لاعب قبل ما يكشف الموزّع ورقة الشراء؟",
+      "answer": "خمس ورقات",
+      "alternatives": [
+        "٥",
+        "5"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 33
+    },
+    {
+      "id": "baloot-v26-04",
+      "categoryId": "baloot",
+      "prompt": "وش اسم الورقة اللي يكشفها الموزّع على الطاولة قبل المزايدة؟",
+      "answer": "المشترى",
+      "alternatives": [
+        "ورقة الشراء",
+        "الورقة المكشوفة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 34
+    },
+    {
+      "id": "baloot-v26-05",
+      "categoryId": "baloot",
+      "prompt": "مين أول لاعب له حق الشراء بعد كشف الورقة؟",
+      "answer": "اللاعب اللي على يمين الموزّع",
+      "alternatives": [
+        "يمين الموزع",
+        "اللي يمين الموزع"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 35
+    },
+    {
+      "id": "baloot-v26-06",
+      "categoryId": "baloot",
+      "prompt": "وش تقول في دورة الشراء الأولى إذا ما تبي تشتري؟",
+      "answer": "بس",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 36
+    },
+    {
+      "id": "baloot-v26-07",
+      "categoryId": "baloot",
+      "prompt": "وش تقول في دورة الشراء الثانية إذا ما تبي تشتري؟",
+      "answer": "ولا",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 37
+    },
+    {
+      "id": "baloot-v26-08",
+      "categoryId": "baloot",
+      "prompt": "وش اسم نوع اللعب اللي ما يكون فيه زات أقوى من باقي الزاتات؟",
+      "answer": "صن",
+      "alternatives": [
+        "الصن"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 38
+    },
+    {
+      "id": "baloot-v26-09",
+      "categoryId": "baloot",
+      "prompt": "إذا كان الحكم هاص، وش الزات اللي يقدر يقطع أكلة مفتوحة بسبيت؟",
+      "answer": "الهاص",
+      "alternatives": [
+        "هاص",
+        "♥"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 39
+    },
+    {
+      "id": "baloot-v26-10",
+      "categoryId": "baloot",
+      "prompt": "في بداية الأكلة، نزل أول لاعب ديمن ومعك ديمن. وش الزات اللي لازم تنزل منه؟",
+      "answer": "الديمن",
+      "alternatives": [
+        "ديمن",
+        "♦"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 40
+    },
+    {
+      "id": "baloot-v26-11",
+      "categoryId": "baloot",
+      "prompt": "في الصن، فتحت الأكلة بشايب السبيت. نزل بعده إكّة هاص، وبنت سبيت، وولد سبيت. أي ورقة تكسب؟",
+      "answer": "شايب السبيت",
+      "alternatives": [
+        "شايب سبيت",
+        "الشايب"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 41
+    },
+    {
+      "id": "baloot-v26-12",
+      "categoryId": "baloot",
+      "prompt": "بعد الشراء العادي، المشتري أخذ الورقة المكشوفة. كم ورقة إضافية يعطيه الموزّع عشان تكتمل يده؟",
+      "answer": "ورقتان",
+      "alternatives": [
+        "ورقتين",
+        "٢",
+        "2"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 42
+    },
+    {
+      "id": "baloot-v26-13",
+      "categoryId": "baloot",
+      "prompt": "في الحكم، افتُتحت الأكلة بعشرة هاص. رمى لاعب إكّة هاص، واللاعبان اللي ما معهم هاص رموا بنت الحكم وشايب الحكم. أي ورقة تكسب؟",
+      "answer": "شايب الحكم",
+      "alternatives": [
+        "الشايب"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 43
+    },
+    {
+      "id": "baloot-v26-14",
+      "categoryId": "baloot",
+      "prompt": "في الصن، كم بنط تساوي أكلة جمعت فيها إكّة وعشرة وشايب وبنت، إذا كانت الأكلة قبل الأخيرة؟",
+      "answer": "٢٨ بنط",
+      "alternatives": [
+        "28",
+        "ثمانية وعشرون"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 44
+    },
+    {
+      "id": "baloot-v26-15",
+      "categoryId": "baloot",
+      "prompt": "كم بنط زيادة تحسب للفريق اللي أخذ آخر أكلة، غير قيمة الورق اللي فيها؟",
+      "answer": "عشرة أبناط",
+      "alternatives": [
+        "١٠",
+        "10"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 45
+    },
+    {
+      "id": "baloot-v26-16",
+      "categoryId": "baloot",
+      "prompt": "في المزايدة، لاعب قال «حكم» في الدورة الأولى، وبعده لاعب قال «صن». وش نوع اللعب اللي يثبت؟",
+      "answer": "الصن",
+      "alternatives": [
+        "صن"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 46
+    },
+    {
+      "id": "baloot-v26-17",
+      "categoryId": "baloot",
+      "prompt": "إذا مرّر اللاعبون كلهم في دورة الشراء الثانية، وش يصير للورق؟",
+      "answer": "ينعاد التوزيع عند الموزّع التالي",
+      "alternatives": [
+        "إعادة توزيع الورق",
+        "تتغير اليد الموزعة وينعاد التوزيع"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 47
+    },
+    {
+      "id": "baloot-v26-18",
+      "categoryId": "baloot",
+      "prompt": "معك سبعة وثمانية وتسعة وعشرة وولد من نفس الزات في الحكم. وش المشروع اللي تجمعه هالأوراق؟",
+      "answer": "مية متسلسلة",
+      "alternatives": [
+        "مئة متسلسلة",
+        "مية",
+        "مائة"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 48
+    },
+    {
+      "id": "baloot-v26-19",
+      "categoryId": "baloot",
+      "prompt": "في حكم، عندك ولد وتسعة وإكّة من زات الحكم. ليه ما تعتبر هالثلاث مشروع سرا رغم إنها أقوى ثلاث ورقات في الحكم؟",
+      "answer": "لأن ترتيب المشاريع مختلف عن قوة الورق في اللعب",
+      "alternatives": [
+        "الأوراق غير متسلسلة في ترتيب المشاريع",
+        "التسعة والإكّة والولد ليست متتالية"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 49
+    },
+    {
+      "id": "baloot-v26-20",
+      "categoryId": "baloot",
+      "prompt": "وش نتيجة الفوز بجولة «قهوة» في الحكم؟",
+      "answer": "الفريق الفائز يأخذ الصكّة",
+      "alternatives": [
+        "يفوز بالصكّة كاملة",
+        "تنتهي الصكة لصالح الفائز بالجولة"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 50
+    },
+    {
+      "id": "baloot-v26-21",
+      "categoryId": "baloot",
+      "prompt": "في الصن غير المدبّل، فريقك أخذ ١٠٠ بنط من الورق شاملة آخر أكلة، وعنده سرا مقبولة. كم قيد يسجّل؟",
+      "answer": "٢٤ قيدًا",
+      "alternatives": [
+        "24",
+        "أربعة وعشرون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 51
+    },
+    {
+      "id": "baloot-v26-22",
+      "categoryId": "baloot",
+      "prompt": "في حكم غير مدبّل، فريقك أخذ ٩٠ بنط من الورق شاملة آخر أكلة، وعنده مشروع خمسين مقبول. كم قيد يسجّل؟",
+      "answer": "١٤ قيدًا",
+      "alternatives": [
+        "14",
+        "أربعة عشر"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 52
+    },
+    {
+      "id": "baloot-v26-23",
+      "categoryId": "baloot",
+      "prompt": "في حكم، أخذ فريقك أكلة فيها ولد الحكم وتسعة الحكم وإكّة الحكم وعشرة الحكم، وكانت آخر أكلة. كم بنط تضيف للعدّ؟",
+      "answer": "٦٥ بنط",
+      "alternatives": [
+        "65",
+        "خمسة وستون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 53
+    },
+    {
+      "id": "baloot-v26-24",
+      "categoryId": "baloot",
+      "prompt": "في صن بدون دبل، إذا خسر الفريق اللي اشترى الجولة وما فيه مشاريع، كم قيد يسجّل الخصم؟",
+      "answer": "٢٦ قيدًا",
+      "alternatives": [
+        "26",
+        "ستة وعشرون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 54
+    },
+    {
+      "id": "baloot-v26-25",
+      "categoryId": "baloot",
+      "prompt": "في حكم بدون دبل، إذا خسر المشتري الجولة وما فيه مشاريع، كم قيد يسجّل الخصم؟",
+      "answer": "١٦ قيدًا",
+      "alternatives": [
+        "16",
+        "ستة عشر"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 55
+    },
+    {
+      "id": "baloot-v26-26",
+      "categoryId": "baloot",
+      "prompt": "في دبل حكم، كم قيد يضيف مشروع خمسين مقبول بعد المضاعفة حسب لائحة البطولة؟",
+      "answer": "١٠ قيود",
+      "alternatives": [
+        "10",
+        "عشرة قيود"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 56
+    },
+    {
+      "id": "baloot-v26-27",
+      "categoryId": "baloot",
+      "prompt": "في حكم وصل إلى «فور»، كم قيد يضيف مشروع سرا مقبول حسب لائحة البطولة؟",
+      "answer": "قيدان",
+      "alternatives": [
+        "٢",
+        "2",
+        "بنطين"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 57
+    },
+    {
+      "id": "baloot-v26-28",
+      "categoryId": "baloot",
+      "prompt": "في صن بدون دبل، الخصم معه مشروع مية مقبول. كم أقل عدد من أبناط الورق يحتاجه عشان يخسّر المشتري حسب لائحة البطولة؟",
+      "answer": "١٦ بنط",
+      "alternatives": [
+        "16",
+        "ستة عشر بنط"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 58
+    },
+    {
+      "id": "baloot-v26-29",
+      "categoryId": "baloot",
+      "prompt": "في صن، نتيجة المشتري ١١٣ ونتيجة خصمه ١٠٠. مين يقدر يقول «دبل» حسب لائحة البطولة؟",
+      "answer": "الخصم",
+      "alternatives": [
+        "الفريق اللي معه ١٠٠",
+        "الفريق غير المشتري"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 59
+    },
+    {
+      "id": "baloot-v26-30",
+      "categoryId": "baloot",
+      "prompt": "في حكم، لاعب عنده شايب وبنت الحكم ظاهرين ضمن مشروع سرا مفروش. نسي يقول «بلوت». وش يصير لمشروع البلوت حسب اللائحة؟",
+      "answer": "يُحسب له البلوت",
+      "alternatives": [
+        "ينحسب البلوت",
+        "يُحسب المشروع"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 60
+    }
+  ]
+}

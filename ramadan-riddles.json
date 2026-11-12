@@ -1,0 +1,843 @@
+{
+  "categoryId": "ramadan-riddles",
+  "questionCount": 60,
+  "questions": [
+    {
+      "id": "ramadan-riddles-v44-01",
+      "categoryId": "ramadan-riddles",
+      "prompt": "أين اختُرع البارود أول مرة؟",
+      "answer": "الصين",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 1,
+      "sources": [
+        "https://en.chinaculture.org/library/2008-02/01/content_26504.htm"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-02",
+      "categoryId": "ramadan-riddles",
+      "prompt": "خرجت من النار، وإذا وقعت على الأرض انكسرت. وش أنا؟",
+      "answer": "الزجاج",
+      "alternatives": [
+        "زجاج"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "ramadan-riddles-v44-03",
+      "categoryId": "ramadan-riddles",
+      "prompt": "متى تأسست الدولة السعودية الثانية؟",
+      "answer": "١٨٢٤م، الموافق ١٢٤٠هـ",
+      "alternatives": [
+        "1824",
+        "١٨٢٤",
+        "1240 هـ",
+        "١٢٤٠هـ"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 3,
+      "sources": [
+        "https://www.darah.gov.sa/assets/pdf/foundation_day.pdf"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-04",
+      "categoryId": "ramadan-riddles",
+      "prompt": "نقول «امسكها» لواحد معصّب، وهي ما تنمسك باليد. وش هي؟",
+      "answer": "أعصابه",
+      "alternatives": [
+        "الأعصاب",
+        "أعصابك"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "ramadan-riddles-v44-05",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما السورة التي تُسمّى السبع المثاني؟",
+      "answer": "سورة الفاتحة",
+      "alternatives": [
+        "الفاتحة",
+        "فاتحة الكتاب"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 5,
+      "sources": [
+        "https://dorar.net/h/g6lpWkgv?osoul=1"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-06",
+      "categoryId": "ramadan-riddles",
+      "prompt": "له عينان، وتدخل أصابعك فيهما عشان تستخدمه. وش هو؟",
+      "answer": "المقص",
+      "alternatives": [
+        "مقص"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "ramadan-riddles-v44-07",
+      "categoryId": "ramadan-riddles",
+      "prompt": "أي طائر يقضي معظم حياته طائرًا، ويهبط عادةً لبناء العش والتفريخ؟",
+      "answer": "السمامة",
+      "alternatives": [
+        "طائر السمامة",
+        "السمامة الشائعة"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 7,
+      "sources": [
+        "https://www.rspb.org.uk/birds-and-wildlife/swift"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-08",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما أول مسجد أسّسه النبي ﷺ بعد هجرته إلى المدينة؟",
+      "answer": "مسجد قباء",
+      "alternatives": [
+        "قباء"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 8,
+      "sources": [
+        "https://www.spa.gov.sa/2224154"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-09",
+      "categoryId": "ramadan-riddles",
+      "prompt": "في أي سنة ظهرت أول نسخة متاحة للجمهور من ماين كرافت؟",
+      "answer": "٢٠٠٩م",
+      "alternatives": [
+        "2009",
+        "٢٠٠٩"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 9,
+      "sources": [
+        "https://www.minecraft.net/en-us/about-minecraft"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-10",
+      "categoryId": "ramadan-riddles",
+      "prompt": "في أي سنة هجرية انتهى حكم الدولة الأموية في دمشق؟",
+      "answer": "١٣٢هـ",
+      "alternatives": [
+        "132",
+        "١٣٢",
+        "132 هـ"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 10,
+      "sources": [
+        "https://islamicart.museumwnf.org/exhibitions/isl/the_umayyads/introduction.php"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-11",
+      "categoryId": "ramadan-riddles",
+      "prompt": "من أي معنى لغوي اشتُقّ اسم رمضان؟",
+      "answer": "شدة الحر، من الرمضاء",
+      "alternatives": [
+        "شدة الحرارة",
+        "الحر الشديد",
+        "الرمضاء"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 11,
+      "sources": [
+        "https://www.arabicacademy.gov.eg/ar/search_engine/roots/رمض"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-12",
+      "categoryId": "ramadan-riddles",
+      "prompt": "كم ركعة صلّى النبي ﷺ يوم فتح مكة كما روت أم هانئ؟",
+      "answer": "ثماني ركعات",
+      "alternatives": [
+        "٨ ركعات",
+        "8",
+        "ثمان ركعات"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 12,
+      "sources": [
+        "https://dorar.net/h/L2zIEQDf?osoul=1"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-13",
+      "categoryId": "ramadan-riddles",
+      "prompt": "سائق شاحنته بلا أنوار، والطريق بلا إنارة أو ضوء قمر. شاف كلبًا أسود وابتعد عنه. كيف شافه؟",
+      "answer": "كان يقود في النهار",
+      "alternatives": [
+        "كان الوقت نهارًا",
+        "في النهار",
+        "ضوء الشمس"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "ramadan-riddles-v44-14",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما أصغر دولة في العالم من حيث المساحة؟",
+      "answer": "الفاتيكان",
+      "alternatives": [
+        "دولة الفاتيكان",
+        "مدينة الفاتيكان"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "ramadan-riddles-v44-15",
+      "categoryId": "ramadan-riddles",
+      "prompt": "وش الشيء اللي ينام ولا يقوم؟",
+      "answer": "الرماد",
+      "alternatives": [
+        "رماد"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "ramadan-riddles-v44-16",
+      "categoryId": "ramadan-riddles",
+      "prompt": "أيّ بنات النبي ﷺ توفيت أولًا؟",
+      "answer": "رقية رضي الله عنها",
+      "alternatives": [
+        "رقية",
+        "رقية بنت محمد"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 16,
+      "sources": [
+        "https://www.islamweb.net/ar/fatwa/78326"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-17",
+      "categoryId": "ramadan-riddles",
+      "prompt": "كلمة من ٣ أحرف تعني طريقًا. حذف أولها يعطي عظيم الشأن، ووسطها حيوانًا، وآخرها لؤلؤًا. وعكسها يسبّب القشعريرة. وش هي؟",
+      "answer": "درب",
+      "alternatives": [
+        "الدرب"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "ramadan-riddles-v44-18",
+      "categoryId": "ramadan-riddles",
+      "prompt": "عدد إذا جمعتَه مع مثله ونصفه وربعه، ثم زدت ١، صار المجموع ١٠٠. كم هو؟",
+      "answer": "٣٦",
+      "alternatives": [
+        "36",
+        "ستة وثلاثون"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "ramadan-riddles-v44-19",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما اللقب التاريخي الذي كان يُطلق على إمبراطور اليابان؟",
+      "answer": "الميكادو",
+      "alternatives": [
+        "ميكادو",
+        "Mikado"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 19,
+      "sources": [
+        "https://www.oxfordlearnersdictionaries.com/definition/english/mikado"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-20",
+      "categoryId": "ramadan-riddles",
+      "prompt": "من النبي الذي يُلقّب بأبي الأنبياء؟",
+      "answer": "إبراهيم عليه السلام",
+      "alternatives": [
+        "إبراهيم",
+        "النبي إبراهيم"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "ramadan-riddles-v44-21",
+      "categoryId": "ramadan-riddles",
+      "prompt": "في أي دولة يقع نهر كانيو كريستاليس، المعروف بنهر الألوان الخمسة؟",
+      "answer": "كولومبيا",
+      "alternatives": [
+        "جمهورية كولومبيا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 21,
+      "sources": [
+        "https://colombia.travel/en/la-macarena/be-amazed-cano-cristales"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-22",
+      "categoryId": "ramadan-riddles",
+      "prompt": "كم دولة من أعضاء جامعة الدول العربية تقع في أفريقيا؟",
+      "answer": "١٠ دول",
+      "alternatives": [
+        "10",
+        "١٠",
+        "عشر دول"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "ramadan-riddles-v44-23",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما اسم الجبل الذي يقع فيه غار حراء؟",
+      "answer": "جبل النور",
+      "alternatives": [
+        "النور"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "ramadan-riddles-v44-24",
+      "categoryId": "ramadan-riddles",
+      "prompt": "سورة تبدأ بالحمد لله، وتنتهي كل آياتها بألف مدّ عند الوقف. ما هي؟",
+      "answer": "سورة الكهف",
+      "alternatives": [
+        "الكهف"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 24,
+      "sources": [
+        "https://quran.com/ar/al-kahf"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-25",
+      "categoryId": "ramadan-riddles",
+      "prompt": "يمشي في السماء بلا أرجل، ويطير بلا أجنحة. وش هو؟",
+      "answer": "السحاب",
+      "alternatives": [
+        "السحابة",
+        "الغيم",
+        "الغيوم"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "ramadan-riddles-v44-26",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ثديي يطير ويستعين بصدى صوته في الظلام. ما هو؟",
+      "answer": "الخفاش",
+      "alternatives": [
+        "خفاش",
+        "الوطواط"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 26,
+      "sources": [
+        "https://www.bats.org.uk/about-bats/flight-food-and-echolocation-2"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-27",
+      "categoryId": "ramadan-riddles",
+      "prompt": "في أي سنة هجرية فُرض صيام شهر رمضان؟",
+      "answer": "السنة الثانية للهجرة",
+      "alternatives": [
+        "٢هـ",
+        "2 هـ",
+        "السنة الثانية",
+        "الثانية للهجرة"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 27,
+      "sources": [
+        "https://dar-alifta.org/ar/release/details/28/الصيام"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-28",
+      "categoryId": "ramadan-riddles",
+      "prompt": "من أول صحابي جهر بالقرآن في مكة؟",
+      "answer": "عبدالله بن مسعود رضي الله عنه",
+      "alternatives": [
+        "عبد الله بن مسعود",
+        "عبدالله بن مسعود",
+        "ابن مسعود"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 28,
+      "sources": [
+        "https://islamweb.net/ar/library/content/58/347/أول-من-جهر-بالقرآن"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-29",
+      "categoryId": "ramadan-riddles",
+      "prompt": "إذا كان أمس السبت، فوش يصير اليوم بعد ١٨ يومًا؟",
+      "answer": "الخميس",
+      "alternatives": [
+        "يوم الخميس"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "ramadan-riddles-v44-30",
+      "categoryId": "ramadan-riddles",
+      "prompt": "كم خيارة تقدر تأكل على معدة فارغة؟",
+      "answer": "خيارة واحدة، بعدها ما تعود المعدة فارغة",
+      "alternatives": [
+        "واحدة",
+        "خيارة واحدة",
+        "١",
+        "1"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 30
+    },
+    {
+      "id": "ramadan-riddles-v44-31",
+      "categoryId": "ramadan-riddles",
+      "prompt": "عمتك أخت أبوك. أبوك يكون إيش لولد عمتك؟",
+      "answer": "خاله",
+      "alternatives": [
+        "خال",
+        "الخال"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 31
+    },
+    {
+      "id": "ramadan-riddles-v44-32",
+      "categoryId": "ramadan-riddles",
+      "prompt": "يحملك ويحمله الماء، أعلاه ناشف وأسفله مبلول. وش هو؟",
+      "answer": "السفينة",
+      "alternatives": [
+        "سفينة",
+        "القارب",
+        "المركب"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 32
+    },
+    {
+      "id": "ramadan-riddles-v44-33",
+      "categoryId": "ramadan-riddles",
+      "prompt": "شهر هجري من ٥ أحرف، إذا حذفت حرفه الأوسط صار فاكهة. وش هو؟",
+      "answer": "رمضان؛ بحذف الضاد يصير رمان",
+      "alternatives": [
+        "رمضان",
+        "رمضان ورمان"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 33
+    },
+    {
+      "id": "ramadan-riddles-v44-34",
+      "categoryId": "ramadan-riddles",
+      "prompt": "له إبهام وأربعة أصابع، لكنه مو يد. وش هو؟",
+      "answer": "القفاز",
+      "alternatives": [
+        "قفاز"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 34
+    },
+    {
+      "id": "ramadan-riddles-v44-35",
+      "categoryId": "ramadan-riddles",
+      "prompt": "يبدأ أسود، ويتوهّج أحمر، ويخلّف رمادًا فاتحًا. وش هو؟",
+      "answer": "الفحم",
+      "alternatives": [
+        "فحم"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 35
+    },
+    {
+      "id": "ramadan-riddles-v44-36",
+      "categoryId": "ramadan-riddles",
+      "prompt": "وش الموجود في وسط كلمة «باريس»؟",
+      "answer": "حرف الراء",
+      "alternatives": [
+        "الراء",
+        "ر"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 36
+    },
+    {
+      "id": "ramadan-riddles-v44-37",
+      "categoryId": "ramadan-riddles",
+      "prompt": "وش تُسمّى الإبل السوداء؟",
+      "answer": "المجاهيم",
+      "alternatives": [
+        "إبل المجاهيم",
+        "المجهم"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 37,
+      "sources": [
+        "https://ich.gov.jo/sites/default/files/alkarak2.pdf"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-38",
+      "categoryId": "ramadan-riddles",
+      "prompt": "يكتب ويرسم، وكل ما بريته صار أقصر. وش هو؟",
+      "answer": "قلم الرصاص",
+      "alternatives": [
+        "المرسام",
+        "قلم رصاص",
+        "المرسم"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 38
+    },
+    {
+      "id": "ramadan-riddles-v44-39",
+      "categoryId": "ramadan-riddles",
+      "prompt": "وش الشيء اللي يكبر كل ما أخذت منه؟",
+      "answer": "الحفرة",
+      "alternatives": [
+        "حفرة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 39
+    },
+    {
+      "id": "ramadan-riddles-v44-40",
+      "categoryId": "ramadan-riddles",
+      "prompt": "شيء يخصك، والناس يستخدمونه أكثر منك. وش هو؟",
+      "answer": "اسمك",
+      "alternatives": [
+        "الاسم",
+        "اسمي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 40
+    },
+    {
+      "id": "ramadan-riddles-v44-41",
+      "categoryId": "ramadan-riddles",
+      "prompt": "في قصة قابيل وهابيل، من الذي قتل أخاه؟",
+      "answer": "قابيل",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 41
+    },
+    {
+      "id": "ramadan-riddles-v44-42",
+      "categoryId": "ramadan-riddles",
+      "prompt": "كم نبيًّا ذُكروا بأسمائهم في القرآن الكريم؟",
+      "answer": "٢٥ نبيًّا",
+      "alternatives": [
+        "25",
+        "٢٥",
+        "خمسة وعشرون"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 42
+    },
+    {
+      "id": "ramadan-riddles-v44-43",
+      "categoryId": "ramadan-riddles",
+      "prompt": "في أي دولة تقع مقبرة وادي السلام، المسجّلة في غينيس أكبر مقبرة في العالم؟",
+      "answer": "العراق، في مدينة النجف",
+      "alternatives": [
+        "العراق",
+        "النجف",
+        "النجف في العراق"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 43,
+      "sources": [
+        "https://www.guinnessworldrecords.com/world-records/69153-largest-cemetery"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-44",
+      "categoryId": "ramadan-riddles",
+      "prompt": "كم عدد كواكب المجموعة الشمسية؟",
+      "answer": "٨ كواكب",
+      "alternatives": [
+        "8",
+        "٨",
+        "ثمانية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 44,
+      "sources": [
+        "https://science.nasa.gov/solar-system/planets/"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-45",
+      "categoryId": "ramadan-riddles",
+      "prompt": "يمرّ، لكن ما له أرجل ولا جسم يتحرّك. وش هو؟",
+      "answer": "الوقت",
+      "alternatives": [
+        "الزمن"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 45
+    },
+    {
+      "id": "ramadan-riddles-v44-46",
+      "categoryId": "ramadan-riddles",
+      "prompt": "أمامك دائمًا، وكلما وصلت له صار حاضرًا. وش هو؟",
+      "answer": "المستقبل",
+      "alternatives": [
+        "مستقبل"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 46
+    },
+    {
+      "id": "ramadan-riddles-v44-47",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما السورة التي فيها البسملة في أولها، ثم مرة أخرى داخل آياتها؟",
+      "answer": "سورة النمل",
+      "alternatives": [
+        "النمل"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 47,
+      "sources": [
+        "https://quran.com/27:30"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-48",
+      "categoryId": "ramadan-riddles",
+      "prompt": "له عين واحدة وما يشوف، ويدخل فيه خيط. وش هو؟",
+      "answer": "الإبرة",
+      "alternatives": [
+        "إبرة",
+        "إبرة الخياطة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 48
+    },
+    {
+      "id": "ramadan-riddles-v44-49",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما عاصمة الدولة السعودية الأولى؟",
+      "answer": "الدرعية",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 49,
+      "sources": [
+        "https://www.darah.gov.sa/assets/pdf/foundation_day.pdf"
+      ]
+    },
+    {
+      "id": "ramadan-riddles-v44-50",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ما عاصمة فرنسا؟",
+      "answer": "باريس",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 50
+    },
+    {
+      "id": "ramadan-riddles-v45-01",
+      "categoryId": "ramadan-riddles",
+      "prompt": "تجاوزت صاحب المركز الثاني في سباق. صرت في أي مركز؟",
+      "answer": "المركز الثاني",
+      "alternatives": [
+        "الثاني",
+        "٢",
+        "2"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 51
+    },
+    {
+      "id": "ramadan-riddles-v45-02",
+      "categoryId": "ramadan-riddles",
+      "prompt": "له أسنان، ويمرّ بين الشعر بدون ما يعضّ. وش هو؟",
+      "answer": "المشط",
+      "alternatives": [
+        "مشط"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 52
+    },
+    {
+      "id": "ramadan-riddles-v45-03",
+      "categoryId": "ramadan-riddles",
+      "prompt": "فيها مدن بلا بيوت، وأنهار بلا ماء، وطرق بلا سيارات. وش هي؟",
+      "answer": "الخريطة",
+      "alternatives": [
+        "خريطة",
+        "الخرائط"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 53
+    },
+    {
+      "id": "ramadan-riddles-v45-04",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ابن أمك وأبوك، لكنه مو أخوك ولا أختك. من هو؟",
+      "answer": "أنت",
+      "alternatives": [
+        "أنا",
+        "نفسك",
+        "الشخص نفسه"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 54
+    },
+    {
+      "id": "ramadan-riddles-v45-05",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ياكل وما يشبع، وإذا شرب ماء مات. وش هو؟",
+      "answer": "النار",
+      "alternatives": [
+        "نار",
+        "اللهب"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 55
+    },
+    {
+      "id": "ramadan-riddles-v45-06",
+      "categoryId": "ramadan-riddles",
+      "prompt": "تحفظ فيها الموية، ولها رقبة وما لها رأس. وش هي؟",
+      "answer": "الزجاجة",
+      "alternatives": [
+        "القارورة",
+        "قارورة الماء",
+        "زجاجة الماء"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 56
+    },
+    {
+      "id": "ramadan-riddles-v45-07",
+      "categoryId": "ramadan-riddles",
+      "prompt": "عدد من رقمين، مجموع رقميه ٩. إذا عكست رقميه نقص العدد ٢٧. كم هو؟",
+      "answer": "٦٣",
+      "alternatives": [
+        "63",
+        "ثلاثة وستون"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 57
+    },
+    {
+      "id": "ramadan-riddles-v45-08",
+      "categoryId": "ramadan-riddles",
+      "prompt": "ساعة تدقّ ٦ مرات في ٥ ثوانٍ، من أول دقّة لآخرها. كم تستغرق ١٢ دقّة بنفس الفاصل؟",
+      "answer": "١١ ثانية",
+      "alternatives": [
+        "11 ثانية",
+        "١١",
+        "إحدى عشرة ثانية"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 58
+    },
+    {
+      "id": "ramadan-riddles-v45-09",
+      "categoryId": "ramadan-riddles",
+      "prompt": "أب عمره الآن ٣ أضعاف عمر ابنه. بعد ١٢ سنة يصير عمره ضعف عمر ابنه. كم عمر الابن الآن؟",
+      "answer": "١٢ سنة",
+      "alternatives": [
+        "12",
+        "١٢",
+        "اثنتا عشرة سنة"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 59
+    },
+    {
+      "id": "ramadan-riddles-v45-10",
+      "categoryId": "ramadan-riddles",
+      "prompt": "٩ كرات، ٨ منها متساوية الوزن وواحدة أثقل. كيف تعرف الأثقل بوزنتين فقط بميزان كفّتين؟",
+      "answer": "زن ٣ مقابل ٣. خذ المجموعة الأثقل، أو المجموعة الثالثة إذا تساوت الكفتان. ثم زن كرة مقابل كرة من الثلاث؛ الأثقل هي المطلوبة، وإذا تساوتا فالثالثة.",
+      "alternatives": [
+        "تقسيم الكرات إلى ثلاث مجموعات من ثلاث، ثم مقارنة مجموعتين، وبعد تحديد المجموعة مقارنة كرتين منها"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 60
+    }
+  ]
+}

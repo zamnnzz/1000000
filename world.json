@@ -1,0 +1,712 @@
+{
+  "categoryId": "world",
+  "questionCount": 60,
+  "questions": [
+    {
+      "id": "world-v4-01",
+      "categoryId": "world",
+      "prompt": "لو بدأ يومك بفطور على النيل وانتهى عند أهرامات الجيزة، في أي دولة أنت؟",
+      "answer": "مصر",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 1
+    },
+    {
+      "id": "world-v4-02",
+      "categoryId": "world",
+      "prompt": "أي دولة تبدأ رحلتك فيها عند الكولوسيوم وتختمها بجولة جندول في البندقية؟",
+      "answer": "إيطاليا",
+      "alternatives": [
+        "ايطاليا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "world-v4-03",
+      "categoryId": "world",
+      "prompt": "في أي دولة تجتمع مدينتا مكة والمدينة؟",
+      "answer": "السعودية",
+      "alternatives": [
+        "المملكة العربية السعودية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 3
+    },
+    {
+      "id": "world-v4-04",
+      "categoryId": "world",
+      "prompt": "دولة تلقى فيها سورًا تاريخيًا يمتد فوق الجبال، وعاصمتها بكين. وش هي؟",
+      "answer": "الصين",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "world-v4-05",
+      "categoryId": "world",
+      "prompt": "أي مدينة تجمع برج إيفل ومتحف اللوفر على ضفاف نهر السين؟",
+      "answer": "باريس",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 5
+    },
+    {
+      "id": "world-v4-06",
+      "categoryId": "world",
+      "prompt": "وش اسم الجبل الياباني اللي قمته المغطاة بالثلج تظهر في صور كثيرة لطوكيو إذا الجو صافي؟",
+      "answer": "جبل فوجي",
+      "alternatives": [
+        "فوجي",
+        "فوجي سان"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "world-v4-07",
+      "categoryId": "world",
+      "prompt": "في أي دولة تلقى دار أوبرا سيدني وتشوف الكنغر في البرية؟",
+      "answer": "أستراليا",
+      "alternatives": [
+        "استراليا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 7
+    },
+    {
+      "id": "world-v4-08",
+      "categoryId": "world",
+      "prompt": "أي مدينة فيها ساعة بيغ بن ويمر فيها نهر التايمز؟",
+      "answer": "لندن",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 8
+    },
+    {
+      "id": "world-v4-09",
+      "categoryId": "world",
+      "prompt": "وش الدولة اللي تجمع برشلونة ومدريد؟",
+      "answer": "إسبانيا",
+      "alternatives": [
+        "اسبانيا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 9
+    },
+    {
+      "id": "world-v4-10",
+      "categoryId": "world",
+      "prompt": "وش الدولة اللي بين إسبانيا والمحيط الأطلسي وعاصمتها لشبونة؟",
+      "answer": "البرتغال",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 10
+    },
+    {
+      "id": "world-v4-11",
+      "categoryId": "world",
+      "prompt": "وش اسم الغابة المطيرة اللي أكبر جزء منها في البرازيل ويمر فيها نهر يحمل اسمها؟",
+      "answer": "غابة الأمازون",
+      "alternatives": [
+        "الأمازون"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 11
+    },
+    {
+      "id": "world-v4-12",
+      "categoryId": "world",
+      "prompt": "أي دولة أوروبية مدنها أمستردام وروتردام وتشتهر بحقول التوليب؟",
+      "answer": "هولندا",
+      "alternatives": [
+        "الأراضي المنخفضة",
+        "مملكة هولندا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 12
+    },
+    {
+      "id": "world-v4-13",
+      "categoryId": "world",
+      "prompt": "في أي دولة تقع مراكش والدار البيضاء؟",
+      "answer": "المغرب",
+      "alternatives": [
+        "المملكة المغربية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "world-v4-14",
+      "categoryId": "world",
+      "prompt": "وش الدولة اللي تجمع منتجع بوكيت والعاصمة بانكوك؟",
+      "answer": "تايلاند",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "world-v4-15",
+      "categoryId": "world",
+      "prompt": "في أي دولة تقع مدينة البتراء المنحوتة في الصخر ووادي رم؟",
+      "answer": "الأردن",
+      "alternatives": [
+        "الاردن"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "world-v4-16",
+      "categoryId": "world",
+      "prompt": "وش اسم المحيط اللي يفصل أوروبا عن أمريكا الشمالية؟",
+      "answer": "المحيط الأطلسي",
+      "alternatives": [
+        "الأطلسي",
+        "الأطلنطي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 16
+    },
+    {
+      "id": "world-v4-17",
+      "categoryId": "world",
+      "prompt": "وش الدولة اللي فيها تورونتو وفانكوفر، وعلمها يحمل ورقة القيقب؟",
+      "answer": "كندا",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "world-v4-18",
+      "categoryId": "world",
+      "prompt": "أي دولة تقدر تتنقّل فيها من سيول إلى بوسان بالقطار؟",
+      "answer": "كوريا الجنوبية",
+      "alternatives": [
+        "جمهورية كوريا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "world-v4-19",
+      "categoryId": "world",
+      "prompt": "في أي دولة تقع جزر سانتوريني وميكونوس؟",
+      "answer": "اليونان",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 19
+    },
+    {
+      "id": "world-v4-20",
+      "categoryId": "world",
+      "prompt": "لو تذكرتك إلى الإمارة اللي فيها برج خليفة، وش اسم المدينة اللي بتروح لها؟",
+      "answer": "دبي",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "world-v4-21",
+      "categoryId": "world",
+      "prompt": "وش عاصمة أستراليا اللي اختاروها بين سيدني وملبورن؟",
+      "answer": "كانبرا",
+      "alternatives": [
+        "كامبرا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 21
+    },
+    {
+      "id": "world-v4-22",
+      "categoryId": "world",
+      "prompt": "لو عبرت جسر البوسفور من ضفة إلى الثانية، تنتقل بين أي قارتين؟",
+      "answer": "آسيا وأوروبا",
+      "alternatives": [
+        "أوروبا وآسيا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "world-v4-23",
+      "categoryId": "world",
+      "prompt": "أي دولة علمها مربع وفيه صليب أبيض على خلفية حمراء، وتضم جنيف وزيورخ؟",
+      "answer": "سويسرا",
+      "alternatives": [],
+      "points": 400,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "world-v4-24",
+      "categoryId": "world",
+      "prompt": "وش الدولة اللي تقدر تشوف فيها هافانا وتطلع منها شمالًا باتجاه فلوريدا؟",
+      "answer": "كوبا",
+      "alternatives": [],
+      "points": 400,
+      "image": null,
+      "createdAt": 24
+    },
+    {
+      "id": "world-v4-25",
+      "categoryId": "world",
+      "prompt": "أي دولة في غرب أمريكا الجنوبية تمتد كشريط طويل بين جبال الأنديز والمحيط الهادئ؟",
+      "answer": "تشيلي",
+      "alternatives": [
+        "شيلي"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "world-v4-26",
+      "categoryId": "world",
+      "prompt": "أي دولة في المحيط الهادئ تضم الجزيرة الشمالية والجزيرة الجنوبية وعاصمتها ويلينغتون؟",
+      "answer": "نيوزيلندا",
+      "alternatives": [
+        "نيو زيلندا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 26
+    },
+    {
+      "id": "world-v4-27",
+      "categoryId": "world",
+      "prompt": "جزيرة في المحيط الهندي جنوب شرق الهند، وكان اسمها سيلان. وش اسمها اليوم؟",
+      "answer": "سريلانكا",
+      "alternatives": [
+        "سري لانكا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 27
+    },
+    {
+      "id": "world-v4-28",
+      "categoryId": "world",
+      "prompt": "وش اسم القناة اللي تخلّي السفن تعبر بين الأطلسي والهادئ في أمريكا الوسطى؟",
+      "answer": "قناة بنما",
+      "alternatives": [
+        "بنما"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 28
+    },
+    {
+      "id": "world-v4-29",
+      "categoryId": "world",
+      "prompt": "وش اسم البحر اللي بين شمال أفريقيا وجنوب أوروبا؟",
+      "answer": "البحر الأبيض المتوسط",
+      "alternatives": [
+        "المتوسط"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "world-v4-30",
+      "categoryId": "world",
+      "prompt": "وش عاصمة كندا اللي يمر فيها نهر يحمل نفس اسمها؟",
+      "answer": "أوتاوا",
+      "alternatives": [
+        "اوتاوا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 30
+    },
+    {
+      "id": "world-v4-31",
+      "categoryId": "world",
+      "prompt": "وش اسم مدينة الإنكا الأثرية فوق جبال الأنديز في بيرو، واللي تشتهر بمصاطبها الحجرية؟",
+      "answer": "ماتشو بيتشو",
+      "alternatives": [
+        "ماتشو بيشو",
+        "Machu Picchu"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 31
+    },
+    {
+      "id": "world-v4-32",
+      "categoryId": "world",
+      "prompt": "دولة شمالية عاصمتها ريكيافيك، تجمع الأنهار الجليدية والبراكين. وش هي؟",
+      "answer": "آيسلندا",
+      "alternatives": [
+        "أيسلندا",
+        "ايسلندا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 32
+    },
+    {
+      "id": "world-v4-33",
+      "categoryId": "world",
+      "prompt": "ركبت العبّارة من هلسنكي ونزلت في تالين. وش الدولة اللي وصلت لها؟",
+      "answer": "إستونيا",
+      "alternatives": [
+        "استونيا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 33
+    },
+    {
+      "id": "world-v4-34",
+      "categoryId": "world",
+      "prompt": "أي دولة في شبه الجزيرة العربية تضم مسقط وصلالة؟",
+      "answer": "عُمان",
+      "alternatives": [
+        "سلطنة عمان",
+        "عمان"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 34
+    },
+    {
+      "id": "world-v4-35",
+      "categoryId": "world",
+      "prompt": "وش الدولة اللي فيها براغ، وكانت تشكّل مع سلوفاكيا دولة واحدة؟",
+      "answer": "التشيك",
+      "alternatives": [
+        "تشيكيا",
+        "جمهورية التشيك"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 35
+    },
+    {
+      "id": "world-v4-36",
+      "categoryId": "world",
+      "prompt": "في أي دولة تقدر تزور كيب تاون وتشوف جبل الطاولة فوق المدينة؟",
+      "answer": "جنوب أفريقيا",
+      "alternatives": [
+        "جنوب إفريقيا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 36
+    },
+    {
+      "id": "world-v4-37",
+      "categoryId": "world",
+      "prompt": "تاج محل في الهند. لو تذكرتك إلى المدينة اللي فيها المعلم نفسه، وش اسم المدينة؟",
+      "answer": "أغرا",
+      "alternatives": [
+        "أجرا",
+        "آغرا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 37
+    },
+    {
+      "id": "world-v4-38",
+      "categoryId": "world",
+      "prompt": "أي دولة في جنوب شرق آسيا تضم هانوي وهو تشي منه؟",
+      "answer": "فيتنام",
+      "alternatives": [
+        "فيت نام"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 38
+    },
+    {
+      "id": "world-v4-39",
+      "categoryId": "world",
+      "prompt": "وش المضيق اللي يفصل المغرب عن جنوب إسبانيا؟",
+      "answer": "مضيق جبل طارق",
+      "alternatives": [
+        "جبل طارق"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 39
+    },
+    {
+      "id": "world-v4-40",
+      "categoryId": "world",
+      "prompt": "أي بلد يقع فيه جبل كليمنجارو، أعلى جبل في أفريقيا؟",
+      "answer": "تنزانيا",
+      "alternatives": [
+        "تانزانيا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 40
+    },
+    {
+      "id": "world-v4-41",
+      "categoryId": "world",
+      "prompt": "لو عطوك جوازًا من دولة تحيط بها جنوب أفريقيا بالكامل، وعاصمتها ماسيرو، وش الدولة؟",
+      "answer": "ليسوتو",
+      "alternatives": [
+        "لسوتو"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 41
+    },
+    {
+      "id": "world-v4-42",
+      "categoryId": "world",
+      "prompt": "في الأنديز، أي دولة عاصمتها الدستورية سوكري ومقر حكومتها لاباز؟",
+      "answer": "بوليفيا",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 42
+    },
+    {
+      "id": "world-v4-43",
+      "categoryId": "world",
+      "prompt": "نهر يمر بفيينا وبراتيسلافا وبودابست وبلغراد. وش اسمه؟",
+      "answer": "الدانوب",
+      "alternatives": [
+        "نهر الدانوب"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 43
+    },
+    {
+      "id": "world-v4-44",
+      "categoryId": "world",
+      "prompt": "وش اسم أعمق بحيرة في العالم، وتقع في سيبيريا؟",
+      "answer": "بحيرة بايكال",
+      "alternatives": [
+        "بايكال",
+        "بحيرة بايكَل"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 44
+    },
+    {
+      "id": "world-v4-45",
+      "categoryId": "world",
+      "prompt": "عاصمتها تبليسي، وتطل على البحر الأسود وتقع جنوب جبال القوقاز الكبرى. وش الدولة؟",
+      "answer": "جورجيا",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 45
+    },
+    {
+      "id": "world-v4-46",
+      "categoryId": "world",
+      "prompt": "سفينة طالعة من اليونان إلى جدة عبر قناة السويس. وش البحر اللي تدخله بعد القناة؟",
+      "answer": "البحر الأحمر",
+      "alternatives": [
+        "الأحمر"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 46
+    },
+    {
+      "id": "world-v4-47",
+      "categoryId": "world",
+      "prompt": "أي دولة تقع فيها مدينة سمرقند، إحدى أشهر محطات طريق الحرير؟",
+      "answer": "أوزبكستان",
+      "alternatives": [
+        "اوزبكستان"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 47
+    },
+    {
+      "id": "world-v4-48",
+      "categoryId": "world",
+      "prompt": "علم كمبوديا يحمل رسم معبد أثري قرب سييم ريب. وش اسمه؟",
+      "answer": "أنغكور وات",
+      "alternatives": [
+        "أنكور وات",
+        "أنجكور وات",
+        "Angkor Wat"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 48
+    },
+    {
+      "id": "world-v4-49",
+      "categoryId": "world",
+      "prompt": "أيسلندا وآيرلندا وبريطانيا جزر. أي وحدة منها الأكبر مساحة؟",
+      "answer": "بريطانيا العظمى",
+      "alternatives": [
+        "جزيرة بريطانيا العظمى",
+        "بريطانيا"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 49
+    },
+    {
+      "id": "world-v4-50",
+      "categoryId": "world",
+      "prompt": "شلالات إيغواسو لها جانب برازيلي. وش الدولة اللي فيها الجانب الثاني؟",
+      "answer": "الأرجنتين",
+      "alternatives": [
+        "الارجنتين"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 50
+    },
+    {
+      "id": "world-v4-51",
+      "categoryId": "world",
+      "prompt": "دلتا نهر تنتهي داخل اليابسة قرب صحراء كالاهاري بدل ما تصب في البحر. في أي دولة تقع دلتا أوكافانغو؟",
+      "answer": "بوتسوانا",
+      "alternatives": [
+        "بتسوانا"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 51
+    },
+    {
+      "id": "world-v4-52",
+      "categoryId": "world",
+      "prompt": "مسطح مائي اسمه بحر، لكنه مغلق وتطل عليه روسيا وإيران وكازاخستان. وش اسمه؟",
+      "answer": "بحر قزوين",
+      "alternatives": [
+        "قزوين",
+        "البحر القزويني"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 52
+    },
+    {
+      "id": "world-v4-53",
+      "categoryId": "world",
+      "prompt": "مدينتان اشتهرتا بالتجارة عبر الصحراء، تمبكتو ودجيني. في أي دولة تقع المدينتان؟",
+      "answer": "مالي",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 53
+    },
+    {
+      "id": "world-v4-54",
+      "categoryId": "world",
+      "prompt": "وش اسم الممر البحري بين شبه جزيرة الملايو وجزيرة سومطرة؟",
+      "answer": "مضيق ملقا",
+      "alternatives": [
+        "مضيق ملقة",
+        "مضيق مالاكا"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 54
+    },
+    {
+      "id": "world-v4-55",
+      "categoryId": "world",
+      "prompt": "أي دولة في البلقان يحدّها البحر الأدرياتيكي من الغرب وعاصمتها تيرانا؟",
+      "answer": "ألبانيا",
+      "alternatives": [
+        "البانيا"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 55
+    },
+    {
+      "id": "world-v4-56",
+      "categoryId": "world",
+      "prompt": "أي دولة في أمريكا الجنوبية عاصمتها مونتفيديو، وتقع بين الأرجنتين والبرازيل؟",
+      "answer": "أوروغواي",
+      "alternatives": [
+        "الأوروغواي",
+        "أورغواي"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 56
+    },
+    {
+      "id": "world-v4-57",
+      "categoryId": "world",
+      "prompt": "وش الجزيرة اللي تتقاسمها هايتي وجمهورية الدومينيكان؟",
+      "answer": "هيسبانيولا",
+      "alternatives": [
+        "هسبانيولا",
+        "هيسبانيولا الكاريبية"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 57
+    },
+    {
+      "id": "world-v4-58",
+      "categoryId": "world",
+      "prompt": "بين فرنسا وإسبانيا دولة صغيرة في جبال البرانس، وعاصمتها تحمل اسمها مع كلمة «لا فيلا». وش هي؟",
+      "answer": "أندورا",
+      "alternatives": [
+        "اندورا"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 58
+    },
+    {
+      "id": "world-v4-59",
+      "categoryId": "world",
+      "prompt": "أي دولة في الهيمالايا عاصمتها تيمفو وتقع بين الهند والصين؟",
+      "answer": "بوتان",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 59
+    },
+    {
+      "id": "world-v4-60",
+      "categoryId": "world",
+      "prompt": "أي دولة تقع فيها مدينة باغان الأثرية، وعاصمتها نايبيداو؟",
+      "answer": "ميانمار",
+      "alternatives": [
+        "بورما"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 60
+    }
+  ]
+}

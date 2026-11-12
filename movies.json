@@ -1,0 +1,401 @@
+{
+  "categoryId": "movies",
+  "questionCount": 30,
+  "questions": [
+    {
+      "id": "movies-v19-01",
+      "categoryId": "movies",
+      "prompt": "ما اسم فيلم بيكسار الذي يحلم فيه الفأر ريمي بأن يصبح طاهيًا في باريس؟",
+      "answer": "راتاتوي",
+      "alternatives": [
+        "راتاتويّ",
+        "خلطبيطة بالصلصة",
+        "Ratatouille"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 1
+    },
+    {
+      "id": "movies-v19-02",
+      "categoryId": "movies",
+      "prompt": "ما اسم السفينة التي يلتقي على متنها جاك وروز في فيلم جيمس كاميرون؟",
+      "answer": "تيتانيك",
+      "alternatives": [
+        "تايتانيك",
+        "Titanic"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "movies-v19-03",
+      "categoryId": "movies",
+      "prompt": "ما اسم المقهى الذي يجتمع فيه الأصدقاء في مسلسل «فريندز»؟",
+      "answer": "سنترال بيرك",
+      "alternatives": [
+        "سنترال بارك",
+        "Central Perk"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 3
+    },
+    {
+      "id": "movies-v19-04",
+      "categoryId": "movies",
+      "prompt": "أي فيلم مصري يعود فيه مصري سيد العربي إلى بلده بعد سنوات عاشها في أمريكا؟",
+      "answer": "عسل أسود",
+      "alternatives": [
+        "عسل اسود"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "movies-v19-05",
+      "categoryId": "movies",
+      "prompt": "ما اسم المدرسة التي يتعلم فيها هاري بوتر السحر؟",
+      "answer": "هوغوورتس",
+      "alternatives": [
+        "هوجورتس",
+        "هوغوارتس",
+        "Hogwarts"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 5
+    },
+    {
+      "id": "movies-v19-06",
+      "categoryId": "movies",
+      "prompt": "أي مسلسل كوري يتنافس فيه لاعبون على جائزة مالية عبر ألعاب أطفال تتحول إلى تحديات قاتلة؟",
+      "answer": "لعبة الحبار",
+      "alternatives": [
+        "سكويد غيم",
+        "سكويد جيم",
+        "Squid Game"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "movies-v19-07",
+      "categoryId": "movies",
+      "prompt": "ما اسم السمكة الزرقاء التي تساعد مارلن في البحث عن ابنه في «البحث عن نيمو»؟",
+      "answer": "دوري",
+      "alternatives": [
+        "دوري السمكة",
+        "Dory"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 7
+    },
+    {
+      "id": "movies-v19-08",
+      "categoryId": "movies",
+      "prompt": "ما المهنة التي يعمل بها والتر وايت قبل دخوله عالم الجريمة في مسلسل «بريكنغ باد»؟",
+      "answer": "مدرّس كيمياء",
+      "alternatives": [
+        "معلم الكيمياء",
+        "أستاذ كيمياء"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 8
+    },
+    {
+      "id": "movies-v19-09",
+      "categoryId": "movies",
+      "prompt": "أي فيلم كوميدي مصري يرث فيه صلاح الدين عاشور إدارة المدرسة عن أبيه؟",
+      "answer": "الناظر",
+      "alternatives": [
+        "الناظر صلاح الدين"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 9
+    },
+    {
+      "id": "movies-v19-10",
+      "categoryId": "movies",
+      "prompt": "ما اسم الفيلم السعودي الذي يقدّم أربع حكايات منفصلة تدور حول الخداع؟",
+      "answer": "الخلاط+",
+      "alternatives": [
+        "الخلاط",
+        "الخلاط بلس"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 10
+    },
+    {
+      "id": "movies-v19-11",
+      "categoryId": "movies",
+      "prompt": "ما اسم المدرسة الداخلية التي تلتحق بها وينزداي آدامز في مسلسل «وينزداي»؟",
+      "answer": "أكاديمية نيفرمور",
+      "alternatives": [
+        "نيفرمور",
+        "نيفر مور",
+        "Nevermore"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 11
+    },
+    {
+      "id": "movies-v19-12",
+      "categoryId": "movies",
+      "prompt": "ما اسم البلدة الأمريكية الخيالية التي تدور فيها أحداث «سترينجر ثينغز»؟",
+      "answer": "هوكينز",
+      "alternatives": [
+        "هوكنز",
+        "هاوكينز",
+        "Hawkins"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 12
+    },
+    {
+      "id": "movies-v19-13",
+      "categoryId": "movies",
+      "prompt": "أي عائلة من عائلات «صراع العروش» تتخذ عبارة «الشتاء قادم» شعارًا لها؟",
+      "answer": "آل ستارك",
+      "alternatives": [
+        "عائلة ستارك",
+        "ستارك",
+        "House Stark"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "movies-v19-14",
+      "categoryId": "movies",
+      "prompt": "ما اسم الفتى الذي يسافر إلى عالم الموتى في فيلم «كوكو» بحثًا عن صلته بالموسيقى؟",
+      "answer": "ميغيل",
+      "alternatives": [
+        "ميجيل",
+        "Miguel"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "movies-v19-15",
+      "categoryId": "movies",
+      "prompt": "ما اسم الضابط الذي يتعاون مع منصور الحفني في الجزء الأول من فيلم «الجزيرة»؟",
+      "answer": "رشدي",
+      "alternatives": [
+        "الضابط رشدي"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "movies-v19-16",
+      "categoryId": "movies",
+      "prompt": "في «اللمبي»، ما اسم الفتاة التي يحاول اللمبي الزواج منها؟",
+      "answer": "نوسة",
+      "alternatives": [
+        "نوسه"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 16
+    },
+    {
+      "id": "movies-v19-17",
+      "categoryId": "movies",
+      "prompt": "أي فيلم سعودي يتابع شابًا يحلم باحتراف المصارعة ويشارك في تجارب أداء؟",
+      "answer": "سطّار",
+      "alternatives": [
+        "سطار"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "movies-v19-18",
+      "categoryId": "movies",
+      "prompt": "ما اسم فيلم الأنمي الذي تحاول فيه تشيهيرو إنقاذ والديها بعدما تحوّلا إلى خنزيرين؟",
+      "answer": "المخطوفة",
+      "alternatives": [
+        "رحلة تشيهيرو",
+        "سبيريتد أواي",
+        "Spirited Away"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "movies-v19-19",
+      "categoryId": "movies",
+      "prompt": "ما اسم المدينة الخيالية التي يحميها باتمان في ثلاثية «ذا دارك نايت»؟",
+      "answer": "غوثام",
+      "alternatives": [
+        "جوثام",
+        "غوثام سيتي",
+        "Gotham"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 19
+    },
+    {
+      "id": "movies-v19-20",
+      "categoryId": "movies",
+      "prompt": "أي فيلم خيال علمي ينطلق فيه كوبر عبر ثقب دودي بحثًا عن موطن جديد للبشر؟",
+      "answer": "إنترستيلر",
+      "alternatives": [
+        "انترستيلر",
+        "Interstellar"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "movies-v19-21",
+      "categoryId": "movies",
+      "prompt": "ما اسم البلدة الألمانية الخيالية التي تتشابك فيها مصائر العائلات في مسلسل «دارك»؟",
+      "answer": "فيندن",
+      "alternatives": [
+        "ويندن",
+        "Winden"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 21
+    },
+    {
+      "id": "movies-v19-22",
+      "categoryId": "movies",
+      "prompt": "أي رسّام استُلهمت من ملامحه الأقنعة التي يرتديها فريق البروفيسور في «لا كاسا دي بابيل»؟",
+      "answer": "سلفادور دالي",
+      "alternatives": [
+        "دالي",
+        "Salvador Dalí"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "movies-v19-23",
+      "categoryId": "movies",
+      "prompt": "ما اسم الفيلم الذي أصبح أول عمل غير ناطق بالإنجليزية يفوز بأوسكار أفضل فيلم؟",
+      "answer": "باراسايت",
+      "alternatives": [
+        "طفيلي",
+        "الطفيلي",
+        "Parasite"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "movies-v19-24",
+      "categoryId": "movies",
+      "prompt": "في فيلم «ذا ترومان شو»، ما اسم المدينة المصطنعة التي يعيش فيها ترومان من دون أن يعرف أنه داخل برنامج تلفزيوني؟",
+      "answer": "سي هيفن",
+      "alternatives": [
+        "سيهافن",
+        "سيهيفن",
+        "Seahaven"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 24
+    },
+    {
+      "id": "movies-v19-25",
+      "categoryId": "movies",
+      "prompt": "ما اسم الشقيقين اللذين يحاولان الهروب من سجن فوكس ريفر في الموسم الأول من «بريزن بريك»؟",
+      "answer": "مايكل سكوفيلد ولينكولن بوروز",
+      "alternatives": [
+        "مايكل ولينكولن",
+        "لينكولن ومايكل"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "movies-v19-26",
+      "categoryId": "movies",
+      "prompt": "ما اسم الفندق الذي تتولى عائلة جاك تورانس حراسته شتاءً في فيلم «ذا شايننغ»؟",
+      "answer": "فندق أوفرلوك",
+      "alternatives": [
+        "أوفرلوك",
+        "Overlook Hotel"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 26
+    },
+    {
+      "id": "movies-v19-27",
+      "categoryId": "movies",
+      "prompt": "في فيلم «إنسبشن»، ما الغرض الذي يديره كوب في المشهد الأخير قبل أن تنقطع الصورة؟",
+      "answer": "بلبل دوّار",
+      "alternatives": [
+        "دوّامة",
+        "دوّامة معدنية",
+        "الدوّامة الدوّارة",
+        "Spinning top"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 27
+    },
+    {
+      "id": "movies-v19-28",
+      "categoryId": "movies",
+      "prompt": "ما اسم الفيلم المصري الذي يلعب فيه أحمد حلمي دور مهندس طيران يُدعى حسن ويشكّ في حقيقة ما يراه؟",
+      "answer": "آسف على الإزعاج",
+      "alternatives": [
+        "اسف على الازعاج"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 28
+    },
+    {
+      "id": "movies-v19-29",
+      "categoryId": "movies",
+      "prompt": "ما اسم زعيم العصابة الذي جسّده محمود عبد العزيز في فيلم «إبراهيم الأبيض»؟",
+      "answer": "عبد الملك زرزور",
+      "alternatives": [
+        "عبدالملك زرزور",
+        "زرزور"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "movies-v19-30",
+      "categoryId": "movies",
+      "prompt": "أي فيلم مصري يكتشف فيه الطبيب النفسي يحيى، بعد عودته إلى مستشفى العباسية، أن عليه تقييم صديق قديم متهم بجريمة؟",
+      "answer": "الفيل الأزرق",
+      "alternatives": [
+        "الفيل الازرق"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 30
+    }
+  ]
+}

@@ -1,0 +1,769 @@
+{
+  "categoryId": "general",
+  "questionCount": 60,
+  "questions": [
+    {
+      "id": "general-v11-01",
+      "categoryId": "general",
+      "prompt": "ما المكوّن الأساسي في الغواكامولي المكسيكي؟",
+      "answer": "الأفوكادو",
+      "alternatives": [
+        "أفوكادو"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 1
+    },
+    {
+      "id": "general-v11-02",
+      "categoryId": "general",
+      "prompt": "ما لون مسجّل بيانات الطائرة المعروف باسم «الصندوق الأسود» عادةً؟",
+      "answer": "برتقالي",
+      "alternatives": [
+        "البرتقالي",
+        "برتقالي فاقع"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "general-v11-03",
+      "categoryId": "general",
+      "prompt": "أي شركة سويدية اشتهرت ببيع أثاث مسطّح التغليف يركّبه المشتري بنفسه؟",
+      "answer": "إيكيا",
+      "alternatives": [
+        "ايكيا",
+        "IKEA"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 3
+    },
+    {
+      "id": "general-v11-04",
+      "categoryId": "general",
+      "prompt": "ما اسم الطبق الياباني الذي يُعدّ من معكرونة في مرق ويُقدّم غالبًا مع البيض؟",
+      "answer": "رامن",
+      "alternatives": [
+        "الرامن",
+        "رامين"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "general-v11-05",
+      "categoryId": "general",
+      "prompt": "ما اسم نبتة تُضاف إلى الماء لتحضير شراب أحمر حامض يُشرب باردًا أو ساخنًا؟",
+      "answer": "الكركديه",
+      "alternatives": [
+        "الكركدي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 5
+    },
+    {
+      "id": "general-v11-06",
+      "categoryId": "general",
+      "prompt": "ما اللغة التي جاءت منها كلمة «بونجور» للتحية؟",
+      "answer": "الفرنسية",
+      "alternatives": [
+        "اللغة الفرنسية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "general-v11-07",
+      "categoryId": "general",
+      "prompt": "ما اسم جائزة السينما الأمريكية التي يتخذ تمثالها شكل رجل ذهبي يحمل سيفًا؟",
+      "answer": "الأوسكار",
+      "alternatives": [
+        "أوسكار"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 7
+    },
+    {
+      "id": "general-v11-08",
+      "categoryId": "general",
+      "prompt": "ما اسم الزي الياباني التقليدي الذي يُلفّ حول الجسم ويُربط بحزام عريض؟",
+      "answer": "الكيمونو",
+      "alternatives": [
+        "كيمونو"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 8
+    },
+    {
+      "id": "general-v11-09",
+      "categoryId": "general",
+      "prompt": "ما الأكلة الشامية التي تعتمد على البقدونس المفروم والبرغل والليمون؟",
+      "answer": "التبولة",
+      "alternatives": [
+        "تبولة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 9
+    },
+    {
+      "id": "general-v11-10",
+      "categoryId": "general",
+      "prompt": "ما اسم الجائزة السنوية التي أسّسها مخترع سويدي وتُمنح في مجالات منها السلام والأدب؟",
+      "answer": "جائزة نوبل",
+      "alternatives": [
+        "نوبل"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 10
+    },
+    {
+      "id": "general-v11-11",
+      "categoryId": "general",
+      "prompt": "ما اسم الخشب العطري الذي يُحرق على الجمر في المبخرة الخليجية؟",
+      "answer": "خشب العود",
+      "alternatives": [
+        "العود",
+        "بخور العود"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 11
+    },
+    {
+      "id": "general-v11-12",
+      "categoryId": "general",
+      "prompt": "ما البلد الذي نشأت فيه لعبة الليغو؟",
+      "answer": "الدنمارك",
+      "alternatives": [
+        "دانمارك"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 12
+    },
+    {
+      "id": "general-v11-13",
+      "categoryId": "general",
+      "prompt": "ما اسم الشخصية التي تظهر في شعار كنتاكي، وهي مؤسس سلسلة المطاعم؟",
+      "answer": "الكولونيل ساندرز",
+      "alternatives": [
+        "هارلاند ساندرز",
+        "ساندرز"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "general-v11-14",
+      "categoryId": "general",
+      "prompt": "ما اسم اللباس التقليدي الطويل الذي يلبسه الرجال فوق الثوب في المناسبات الرسمية في الخليج؟",
+      "answer": "البشت",
+      "alternatives": [
+        "المشلح",
+        "العباءة الرجالية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "general-v11-15",
+      "categoryId": "general",
+      "prompt": "ما اسم المعجنات الفرنسية المعروفة بشكل الهلال وطبقاتها الهشّة؟",
+      "answer": "الكرواسون",
+      "alternatives": [
+        "كرواسون",
+        "Croissant"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "general-v11-16",
+      "categoryId": "general",
+      "prompt": "ما الصلصة اليابانية السوداء الشائعة التي تُصنع عادة من تخمير فول الصويا وتُقدّم مع السوشي؟",
+      "answer": "صلصة الصويا",
+      "alternatives": [
+        "صويا صوص",
+        "صلصة فول الصويا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 16
+    },
+    {
+      "id": "general-v11-17",
+      "categoryId": "general",
+      "prompt": "ما اسم السلسلة التي يتعلّم فيها هاري السحر في مدرسة هوغوورتس؟",
+      "answer": "هاري بوتر",
+      "alternatives": [
+        "Harry Potter"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "general-v11-18",
+      "categoryId": "general",
+      "prompt": "ما اللقب الذي اشتهر به مايكل جاكسون؟",
+      "answer": "ملك البوب",
+      "alternatives": [
+        "King of Pop"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "general-v11-19",
+      "categoryId": "general",
+      "prompt": "ما اسم الدمية التي أنتجتها شركة ماتيل واشتهرت باللون الوردي وبشخصية كين؟",
+      "answer": "باربي",
+      "alternatives": [
+        "Barbie"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 19
+    },
+    {
+      "id": "general-v11-20",
+      "categoryId": "general",
+      "prompt": "ما اسم الحلوى التركية المعروفة بمكعباتها الطرية المغطاة بالسكر البودرة؟",
+      "answer": "راحة الحلقوم",
+      "alternatives": [
+        "الحلقوم",
+        "الملبن التركي",
+        "لوكوم"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "general-v11-21",
+      "categoryId": "general",
+      "prompt": "ما اسم الدليل الذي بدأته شركة إطارات لمساعدة السائقين، ثم اشتهر بتقييم المطاعم بالنجوم؟",
+      "answer": "دليل ميشلان",
+      "alternatives": [
+        "ميشلان",
+        "Michelin Guide"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 21
+    },
+    {
+      "id": "general-v11-22",
+      "categoryId": "general",
+      "prompt": "ما الشركة التي أطلقت جهاز «ووكمان» لتشغيل أشرطة الكاسيت أثناء التنقّل؟",
+      "answer": "سوني",
+      "alternatives": [
+        "Sony"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "general-v11-23",
+      "categoryId": "general",
+      "prompt": "ما البلد الذي جاء منه فن الأوريغامي بصورته المعروفة عالميًا؟",
+      "answer": "اليابان",
+      "alternatives": [],
+      "points": 400,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "general-v11-24",
+      "categoryId": "general",
+      "prompt": "ما اسم سلالة الكلاب التي سُمّيت نسبةً إلى إقليم دالماسيا وتظهر في فيلم «١٠١ كلب»؟",
+      "answer": "الدلماسي",
+      "alternatives": [
+        "كلب الدلماسي",
+        "Dalmatian"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 24
+    },
+    {
+      "id": "general-v11-25",
+      "categoryId": "general",
+      "prompt": "أي توابل تُستخرج من مياسم زهرة وتُستخدم لإضفاء لون ذهبي على الأرز؟",
+      "answer": "الزعفران",
+      "alternatives": [
+        "زعفران"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "general-v11-26",
+      "categoryId": "general",
+      "prompt": "ما اسم التابلت الذي أطلقته آبل بين الآيفون وأجهزة ماك من حيث الحجم وطريقة الاستخدام؟",
+      "answer": "آيباد",
+      "alternatives": [
+        "آي باد",
+        "iPad"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 26
+    },
+    {
+      "id": "general-v11-27",
+      "categoryId": "general",
+      "prompt": "ما اسم الحلوى الإيطالية التي تُغمس فيها بسكويتات الأصابع في القهوة وتُرصّ مع الماسكاربوني؟",
+      "answer": "تيراميسو",
+      "alternatives": [
+        "تيراميسو الإيطالية",
+        "Tiramisu"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 27
+    },
+    {
+      "id": "general-v11-28",
+      "categoryId": "general",
+      "prompt": "أي متجر إلكتروني بدأ ببيع الكتب قبل التوسع في بيع منتجات أخرى؟",
+      "answer": "أمازون",
+      "alternatives": [
+        "امازون",
+        "Amazon"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 28
+    },
+    {
+      "id": "general-v11-29",
+      "categoryId": "general",
+      "prompt": "ما اسم الشعوب التي بنت بيوت الإيغلو الثلجية في القطب الشمالي الكندي؟",
+      "answer": "الإنويت",
+      "alternatives": [
+        "شعب الإنويت",
+        "إنويت"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "general-v11-30",
+      "categoryId": "general",
+      "prompt": "ما اسم الحلوى الفرنسية التي تتكوّن من كريمة مخبوزة تعلوها طبقة سكر تُحرق حتى تتكرمل؟",
+      "answer": "كريم بروليه",
+      "alternatives": [
+        "كريم برولي",
+        "Crème brûlée"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 30
+    },
+    {
+      "id": "general-v11-31",
+      "categoryId": "general",
+      "prompt": "أي نبات يُعطي الخلطة الخضراء التي تُقدّم مع السوشي اسمها، حتى عندما يُستخدم الفجل الحار بدلًا منه؟",
+      "answer": "الواسابي",
+      "alternatives": [
+        "واسابي"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 31
+    },
+    {
+      "id": "general-v11-32",
+      "categoryId": "general",
+      "prompt": "ما اسم مادة العطر التي تُستخرج من الغزال المسكي؟",
+      "answer": "المسك",
+      "alternatives": [
+        "المسك الطبيعي"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 32
+    },
+    {
+      "id": "general-v11-33",
+      "categoryId": "general",
+      "prompt": "ما اسم البيت المتنقل التقليدي الدائري الذي اشتهر به الرعاة في منغوليا؟",
+      "answer": "اليورت",
+      "alternatives": [
+        "اليُرت",
+        "يورت",
+        "غير",
+        "الخيمة المنغولية"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 33
+    },
+    {
+      "id": "general-v11-34",
+      "categoryId": "general",
+      "prompt": "في أي لعبة لوحية يسعى اللاعب إلى بناء مستوطنات على جزيرة بجمع موارد منها الطوب والخشب والصوف؟",
+      "answer": "كاتان",
+      "alternatives": [
+        "مستوطنو كاتان",
+        "Catan"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 34
+    },
+    {
+      "id": "general-v11-35",
+      "categoryId": "general",
+      "prompt": "ما اسم نسيج بناطيل الجينز التقليدي، الذي يرتبط اسمه بمدينة نيم الفرنسية؟",
+      "answer": "الدنيم",
+      "alternatives": [
+        "دينم",
+        "Denim"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 35
+    },
+    {
+      "id": "general-v11-36",
+      "categoryId": "general",
+      "prompt": "ما اسم طبق الأرُز الإسباني الذي ارتبط بمدينة فالنسيا ويُطهى عادة في مقلاة واسعة؟",
+      "answer": "الباييّا",
+      "alternatives": [
+        "الباييا",
+        "بايلا",
+        "Paella"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 36
+    },
+    {
+      "id": "general-v11-37",
+      "categoryId": "general",
+      "prompt": "ما اسم آلة التصوير التي اشتهرت بإخراج الصورة المطبوعة فور التقاطها وتحمل اسم الشركة التي طوّرتها؟",
+      "answer": "بولارويد",
+      "alternatives": [
+        "كاميرا بولارويد",
+        "Polaroid"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 37
+    },
+    {
+      "id": "general-v11-38",
+      "categoryId": "general",
+      "prompt": "ما التقنية اللاسلكية التي يحمل اسمها لقب ملك اسكندنافي وحّد مناطق من الدنمارك؟",
+      "answer": "البلوتوث",
+      "alternatives": [
+        "بلوتوث",
+        "Bluetooth"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 38
+    },
+    {
+      "id": "general-v11-39",
+      "categoryId": "general",
+      "prompt": "أي بلد يُصنع فيه تقليديًا جبن «فيتا» الذي يُقدّم مع الزيتون والطماطم في سلطة تحمل اسم البلد؟",
+      "answer": "اليونان",
+      "alternatives": [],
+      "points": 400,
+      "image": null,
+      "createdAt": 39
+    },
+    {
+      "id": "general-v11-40",
+      "categoryId": "general",
+      "prompt": "ما اسم نوع القهوة الذي يأخذ اسمه من ميناء المخا اليمني؟",
+      "answer": "الموكا",
+      "alternatives": [
+        "موكا",
+        "قهوة المخا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 40
+    },
+    {
+      "id": "general-v11-41",
+      "categoryId": "general",
+      "prompt": "ما اسم الجائزة الأمريكية التي أسّسها ناشر صحف وأصبحت تُمنح للصحافة والأدب والموسيقى؟",
+      "answer": "جائزة بوليتزر",
+      "alternatives": [
+        "بوليتزر",
+        "Pulitzer"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 41
+    },
+    {
+      "id": "general-v11-42",
+      "categoryId": "general",
+      "prompt": "ما اسم الاختراع الذي اشتهر به ألفرد نوبل قبل أن يوصي بتأسيس الجوائز التي تحمل اسمه؟",
+      "answer": "الديناميت",
+      "alternatives": [
+        "ديناميت"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 42
+    },
+    {
+      "id": "general-v11-43",
+      "categoryId": "general",
+      "prompt": "أي شركة أطلقت أوراق الملاحظات اللاصقة باسم Post-it؟",
+      "answer": "ثري إم",
+      "alternatives": [
+        "3M",
+        "٣ إم"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 43
+    },
+    {
+      "id": "general-v11-44",
+      "categoryId": "general",
+      "prompt": "ما اسم الصبغة الزرقاء التي تُستخدم تقليديًا لتلوين الدنيم، وكانت تُستخرج من نبات النيلة؟",
+      "answer": "النيلي",
+      "alternatives": [
+        "صبغة النيلة",
+        "الإنديغو",
+        "Indigo"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 44
+    },
+    {
+      "id": "general-v11-45",
+      "categoryId": "general",
+      "prompt": "ما اسم الأداة الطبية التي تُنسب إلى رينيه لينيك، وصنع أول نسخة منها من ورق ملفوف؟",
+      "answer": "السمّاعة الطبية",
+      "alternatives": [
+        "سماعة الطبيب",
+        "Stethoscope"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 45
+    },
+    {
+      "id": "general-v11-46",
+      "categoryId": "general",
+      "prompt": "أي شركة يابانية طوّرت رمز QR في الأصل لتتبّع قطع السيارات؟",
+      "answer": "دينسو ويف",
+      "alternatives": [
+        "دينسو",
+        "Denso Wave"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 46
+    },
+    {
+      "id": "general-v11-47",
+      "categoryId": "general",
+      "prompt": "من هو الفنان الذي حوّل علب شوربة كامبل إلى سلسلة لوحات شهيرة؟",
+      "answer": "آندي وارهول",
+      "alternatives": [
+        "أندي وارهول",
+        "Andy Warhol"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 47
+    },
+    {
+      "id": "general-v11-48",
+      "categoryId": "general",
+      "prompt": "ما اسم الحجر الذي استُخدم لصناعة صبغة الأزرق الفائق الثمينة في اللوحات قبل توفر بديل صناعي؟",
+      "answer": "اللازورد",
+      "alternatives": [
+        "لازورد",
+        "Lapis lazuli"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 48
+    },
+    {
+      "id": "general-v11-49",
+      "categoryId": "general",
+      "prompt": "ما الاسم الشائع لقطع الزجاج الملوّن التي تجمعها النوافذ الكنسية في صور ومشاهد؟",
+      "answer": "الزجاج المعشّق",
+      "alternatives": [
+        "الزجاج الملوّن المعشّق",
+        "Stained glass"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 49
+    },
+    {
+      "id": "general-v11-50",
+      "categoryId": "general",
+      "prompt": "ما اسم التصوير الذي استُخدم لإحياء مجسّمات الصلصال بتحريكها قليلًا بين كل لقطة والتالية؟",
+      "answer": "التحريك بإيقاف الحركة",
+      "alternatives": [
+        "ستوب موشن",
+        "Stop motion"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 50
+    },
+    {
+      "id": "general-v11-51",
+      "categoryId": "general",
+      "prompt": "أي دولتين تعاونتا في تطوير طائرة الركاب الأسرع من الصوت «كونكورد»؟",
+      "answer": "بريطانيا وفرنسا",
+      "alternatives": [
+        "فرنسا وبريطانيا",
+        "المملكة المتحدة وفرنسا",
+        "فرنسا والمملكة المتحدة"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 51
+    },
+    {
+      "id": "general-v11-52",
+      "categoryId": "general",
+      "prompt": "أي مدينة أمريكية استُلهمت منها أسماء الشوارع على لوحة المونوبولي الأمريكية الكلاسيكية؟",
+      "answer": "أتلانتيك سيتي",
+      "alternatives": [
+        "أتلانتك سيتي",
+        "Atlantic City"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 52
+    },
+    {
+      "id": "general-v11-53",
+      "categoryId": "general",
+      "prompt": "من أي مدينة ألمانية أخذ عطر «أو دو كولون» اسمه؟",
+      "answer": "كولونيا",
+      "alternatives": [
+        "كولون",
+        "كولن",
+        "Cologne"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 53
+    },
+    {
+      "id": "general-v11-54",
+      "categoryId": "general",
+      "prompt": "ما اسم الزخرفة اليابانية التي تُصلح أواني الفخار المكسورة وتُبرز الشقوق بمسحوق الذهب؟",
+      "answer": "كينتسوغي",
+      "alternatives": [
+        "كينتسوجي",
+        "Kintsugi"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 54
+    },
+    {
+      "id": "general-v11-55",
+      "categoryId": "general",
+      "prompt": "ما اسم عملية صنع الكيمتشي وتقاسمه جماعيًا في كوريا، والمسجّلة ضمن التراث غير المادي لليونسكو؟",
+      "answer": "كيمجانغ",
+      "alternatives": [
+        "كيمجانج",
+        "Kimjang"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 55
+    },
+    {
+      "id": "general-v11-56",
+      "categoryId": "general",
+      "prompt": "أي مدينة إيطالية اشتهرت بكرنفال الأقنعة وقوارب الجندول، وافتُتحت فيها دار أوبرا سان كاسيانو؟",
+      "answer": "البندقية",
+      "alternatives": [
+        "فينيسيا",
+        "Venice"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 56
+    },
+    {
+      "id": "general-v11-57",
+      "categoryId": "general",
+      "prompt": "ما اسم الشاعر الذي تُستهل قصيدته «نهج البردة» بالبيت «ريم على القاع بين البان والعلم»؟",
+      "answer": "أحمد شوقي",
+      "alternatives": [
+        "شوقي"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 57
+    },
+    {
+      "id": "general-v11-58",
+      "categoryId": "general",
+      "prompt": "ما اسم نظام تحديد المواقع الفضائي الأوروبي، الذي يحمل اسم عالم إيطالي اشتهر برصد السماء بالتلسكوب؟",
+      "answer": "غاليليو",
+      "alternatives": [
+        "جاليليو",
+        "Galileo"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 58
+    },
+    {
+      "id": "general-v11-59",
+      "categoryId": "general",
+      "prompt": "ما اسم أول قمر صناعي أطلقه الإنسان إلى المدار؟",
+      "answer": "سبوتنيك ١",
+      "alternatives": [
+        "سبوتنيك 1",
+        "سبوتنيك"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 59
+    },
+    {
+      "id": "general-v11-60",
+      "categoryId": "general",
+      "prompt": "أي شركة ألعاب صنعت أوراق اللعب اليابانية «هانافودا» قبل أن تشتهر بشخصية ماريو؟",
+      "answer": "نينتندو",
+      "alternatives": [
+        "Nintendo"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 60
+    }
+  ]
+}

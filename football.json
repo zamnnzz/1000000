@@ -1,0 +1,395 @@
+{
+  "categoryId": "football",
+  "questionCount": 30,
+  "questions": [
+    {
+      "id": "football-v14-01",
+      "categoryId": "football",
+      "prompt": "أي منتخب فاز بكأس العالم ٢٠٢٢ بعدما حسم النهائي أمام فرنسا بركلات الترجيح؟",
+      "answer": "الأرجنتين",
+      "alternatives": [
+        "منتخب الأرجنتين",
+        "الارجنتين"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 1
+    },
+    {
+      "id": "football-v14-02",
+      "categoryId": "football",
+      "prompt": "ما النادي الإسباني الذي قلب خسارته ٤–٠ أمام باريس سان جيرمان إلى تأهل بعد فوزه ٦–١ في الإياب؟",
+      "answer": "برشلونة",
+      "alternatives": [
+        "البارسا",
+        "Barcelona"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "football-v14-03",
+      "categoryId": "football",
+      "prompt": "ما النادي الإنجليزي الذي عاد من تأخره بثلاثة أهداف أمام ميلان في نهائي دوري الأبطال بإسطنبول؟",
+      "answer": "ليفربول",
+      "alternatives": [
+        "نادي ليفربول",
+        "Liverpool"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 3
+    },
+    {
+      "id": "football-v14-04",
+      "categoryId": "football",
+      "prompt": "أي منتخب هزم البرازيل بنتيجة ٧–١ في نصف نهائي كأس العالم ٢٠١٤؟",
+      "answer": "ألمانيا",
+      "alternatives": [
+        "المنتخب الألماني",
+        "المانيا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "football-v14-05",
+      "categoryId": "football",
+      "prompt": "ما أول منتخب أفريقي يصل إلى نصف نهائي كأس العالم؟",
+      "answer": "المغرب",
+      "alternatives": [
+        "المنتخب المغربي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 5
+    },
+    {
+      "id": "football-v14-06",
+      "categoryId": "football",
+      "prompt": "من سجّل هدف فوز إسبانيا على هولندا في نهائي كأس العالم ٢٠١٠؟",
+      "answer": "أندريس إنييستا",
+      "alternatives": [
+        "إنييستا",
+        "إنيستا",
+        "انييستا"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "football-v14-07",
+      "categoryId": "football",
+      "prompt": "أي منتخب فاز ببطولة أوروبا ٢٠١٦ على حساب فرنسا في باريس؟",
+      "answer": "البرتغال",
+      "alternatives": [
+        "المنتخب البرتغالي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 7
+    },
+    {
+      "id": "football-v14-08",
+      "categoryId": "football",
+      "prompt": "ما النادي الإسباني الذي فاز بلقبه الأوروبي العاشر بعدما عادل النتيجة أمام أتلتيكو مدريد في الوقت بدل الضائع؟",
+      "answer": "ريال مدريد",
+      "alternatives": [
+        "الريال",
+        "Real Madrid"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 8
+    },
+    {
+      "id": "football-v14-09",
+      "categoryId": "football",
+      "prompt": "من اللاعب الذي سجّل هدفي البرازيل أمام ألمانيا في نهائي كأس العالم ٢٠٠٢؟",
+      "answer": "رونالدو نازاريو",
+      "alternatives": [
+        "رونالدو البرازيلي",
+        "الظاهرة رونالدو",
+        "رونالدو"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 9
+    },
+    {
+      "id": "football-v14-10",
+      "categoryId": "football",
+      "prompt": "من قائد منتخب فرنسا الذي طُرد في نهائي كأس العالم ٢٠٠٦ بعد نطح ماركو ماتيراتزي؟",
+      "answer": "زين الدين زيدان",
+      "alternatives": [
+        "زيدان"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 10
+    },
+    {
+      "id": "football-v14-11",
+      "categoryId": "football",
+      "prompt": "من سجّل هدف فوز السعودية على الأرجنتين في مونديال قطر؟",
+      "answer": "سالم الدوسري",
+      "alternatives": [
+        "سالم"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 11
+    },
+    {
+      "id": "football-v14-12",
+      "categoryId": "football",
+      "prompt": "أي منتخب هزم البرتغال في افتتاح يورو ٢٠٠٤ ثم هزمها مرة ثانية في النهائي؟",
+      "answer": "اليونان",
+      "alternatives": [
+        "المنتخب اليوناني"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 12
+    },
+    {
+      "id": "football-v14-13",
+      "categoryId": "football",
+      "prompt": "من اللاعب السعودي الذي سجّل هدفه الشهير أمام بلجيكا في مونديال ١٩٩٤ بعد انطلاقة من نصف ملعبه؟",
+      "answer": "سعيد العويران",
+      "alternatives": [
+        "العويران"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "football-v14-14",
+      "categoryId": "football",
+      "prompt": "من سجّل هدف ألمانيا في الوقت الإضافي من نهائي كأس العالم ٢٠١٤ أمام الأرجنتين؟",
+      "answer": "ماريو غوتزه",
+      "alternatives": [
+        "ماريو جوتزه",
+        "غوتزه",
+        "غوتسه",
+        "جوتزه"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "football-v14-15",
+      "categoryId": "football",
+      "prompt": "أي منتخب حسم لقب كأس العالم ١٩٥٠ بفوزه على البرازيل في ماراكانا؟",
+      "answer": "الأوروغواي",
+      "alternatives": [
+        "أوروغواي",
+        "الأورغواي",
+        "منتخب أوروغواي"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "football-v14-16",
+      "categoryId": "football",
+      "prompt": "ما النادي الذي سجّل هدفين في الوقت بدل الضائع أمام بايرن ميونخ ليفوز بنهائي دوري أبطال أوروبا ١٩٩٩؟",
+      "answer": "مانشستر يونايتد",
+      "alternatives": [
+        "مان يونايتد",
+        "اليونايتد",
+        "Manchester United"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 16
+    },
+    {
+      "id": "football-v14-17",
+      "categoryId": "football",
+      "prompt": "أي منتخب أفريقي فاز بكأس أمم أفريقيا ثلاث نسخ متتالية في ٢٠٠٦ و٢٠٠٨ و٢٠١٠؟",
+      "answer": "مصر",
+      "alternatives": [
+        "المنتخب المصري"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "football-v14-18",
+      "categoryId": "football",
+      "prompt": "أي نادٍ فاز بالدوري الإنجليزي الممتاز موسم ٢٠١٥–٢٠١٦ بقيادة كلاوديو رانييري؟",
+      "answer": "ليستر سيتي",
+      "alternatives": [
+        "ليستر",
+        "Leicester City"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "football-v14-19",
+      "categoryId": "football",
+      "prompt": "أي منتخب حلّ مكان يوغوسلافيا قبيل يورو ١٩٩٢ ثم فاز بالبطولة؟",
+      "answer": "الدنمارك",
+      "alternatives": [
+        "الدانمارك",
+        "منتخب الدنمارك"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 19
+    },
+    {
+      "id": "football-v14-20",
+      "categoryId": "football",
+      "prompt": "ما النادي السعودي الذي هزم أوراوا الياباني في نهائي دوري أبطال آسيا ٢٠١٩؟",
+      "answer": "الهلال",
+      "alternatives": [
+        "نادي الهلال",
+        "الهلال السعودي"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "football-v14-21",
+      "categoryId": "football",
+      "prompt": "أمام أي منتخب حققت السعودية أول لقب لها في كأس آسيا عام ١٩٨٤؟",
+      "answer": "الصين",
+      "alternatives": [
+        "المنتخب الصيني"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 21
+    },
+    {
+      "id": "football-v14-22",
+      "categoryId": "football",
+      "prompt": "من سجّل الهدف الذهبي لفرنسا أمام إيطاليا في نهائي يورو ٢٠٠٠؟",
+      "answer": "دافيد تريزيغيه",
+      "alternatives": [
+        "ديفيد تريزيغيه",
+        "تريزيغيه",
+        "تريزيجيه"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "football-v14-23",
+      "categoryId": "football",
+      "prompt": "من سجّل ثلاثة أهداف لإنجلترا في نهائي كأس العالم ١٩٦٦ أمام ألمانيا الغربية؟",
+      "answer": "جيف هيرست",
+      "alternatives": [
+        "جيف هيرسْت",
+        "هيرست",
+        "Geoff Hurst"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "football-v14-24",
+      "categoryId": "football",
+      "prompt": "أي لاعب سجّل ركلة الترجيح الحاسمة بطريقة السقطة في نهائي يورو ١٩٧٦، فصارت الطريقة تُعرف باسمه؟",
+      "answer": "أنتونين بانينكا",
+      "alternatives": [
+        "بانينكا",
+        "Antonín Panenka"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 24
+    },
+    {
+      "id": "football-v14-25",
+      "categoryId": "football",
+      "prompt": "أي منتخب أفريقي هزم الأرجنتين حاملة اللقب في افتتاح كأس العالم ١٩٩٠ رغم إنهائه المباراة بتسعة لاعبين؟",
+      "answer": "الكاميرون",
+      "alternatives": [
+        "منتخب الكاميرون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "football-v14-26",
+      "categoryId": "football",
+      "prompt": "أي نادٍ فاز بكأس العالم للأندية ٢٠١٢ على حساب تشيلسي بهدف من باولو غيريرو؟",
+      "answer": "كورينثيانز",
+      "alternatives": [
+        "كورينتيانز",
+        "كورينثيانس",
+        "Corinthians"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 26
+    },
+    {
+      "id": "football-v14-27",
+      "categoryId": "football",
+      "prompt": "أي نادٍ فرنسي فاز بنهائي النسخة الأولى بعد تسمية البطولة «دوري أبطال أوروبا» على حساب ميلان؟",
+      "answer": "مارسيليا",
+      "alternatives": [
+        "أولمبيك مارسيليا",
+        "مرسيليا",
+        "أولمبيك مرسيليا"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 27
+    },
+    {
+      "id": "football-v14-28",
+      "categoryId": "football",
+      "prompt": "من سجّل هدف قطر الأول بضربة مقصية أمام اليابان في نهائي كأس آسيا ٢٠١٩؟",
+      "answer": "المعز علي",
+      "alternatives": [
+        "معز علي",
+        "المعز"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 28
+    },
+    {
+      "id": "football-v14-29",
+      "categoryId": "football",
+      "prompt": "من اللاعب الذي أبعد كرة غانا بيده من على خط المرمى في آخر لحظات ربع نهائي مونديال ٢٠١٠؟",
+      "answer": "لويس سواريز",
+      "alternatives": [
+        "سواريز"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "football-v14-30",
+      "categoryId": "football",
+      "prompt": "أي منتخب خسر نهائي كأس العالم ١٩٧٤ أمام ألمانيا الغربية ثم خسر النهائي التالي أمام الأرجنتين؟",
+      "answer": "هولندا",
+      "alternatives": [
+        "منتخب هولندا"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 30
+    }
+  ]
+}

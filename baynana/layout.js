@@ -1,2 +1,0 @@
-(()=>{const scenes=[...document.querySelectorAll('.hero-poster')];const observer=new ResizeObserver(entries=>{for(const entry of entries){entry.target.style.setProperty('--poster-scale',entry.target.clientWidth/340)}});scenes.forEach(card=>observer.observe(card));})();
-(()=>{const phone=document.querySelector('.hero-phone-visual');if(phone)new ResizeObserver(entries=>{for(const e of entries)e.target.style.setProperty('--phone-scale',e.target.clientWidth/350)}).observe(phone)})();

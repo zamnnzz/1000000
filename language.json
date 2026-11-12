@@ -1,0 +1,731 @@
+{
+  "categoryId": "language",
+  "questionCount": 60,
+  "questions": [
+    {
+      "id": "language-v13-01",
+      "categoryId": "language",
+      "prompt": "في جملة «حضر الضيفُ»، ما إعراب كلمة «الضيف»؟",
+      "answer": "فاعل مرفوع",
+      "alternatives": [
+        "فاعل"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 1
+    },
+    {
+      "id": "language-v13-02",
+      "categoryId": "language",
+      "prompt": "ما جمع التكسير لكلمة «قاضٍ»؟",
+      "answer": "قضاة",
+      "alternatives": [
+        "القضاة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "language-v13-03",
+      "categoryId": "language",
+      "prompt": "ما علامة رفع المثنى في جملة «وصل المسافرانِ»؟",
+      "answer": "الألف",
+      "alternatives": [
+        "الألف نيابة عن الضمة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 3
+    },
+    {
+      "id": "language-v13-04",
+      "categoryId": "language",
+      "prompt": "ما نوع الهمزة في أول كلمة «إجابة»؟",
+      "answer": "همزة قطع",
+      "alternatives": [
+        "القطع"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "language-v13-05",
+      "categoryId": "language",
+      "prompt": "ما ضدّ كلمة «شحيح»؟",
+      "answer": "كريم",
+      "alternatives": [
+        "سخي",
+        "جواد"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 5
+    },
+    {
+      "id": "language-v13-06",
+      "categoryId": "language",
+      "prompt": "ما الأداة التي تجزم الفعل المضارع وتدل على نفي وقوعه في الماضي؟",
+      "answer": "لم",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "language-v13-07",
+      "categoryId": "language",
+      "prompt": "ما نوع الجملة «الوقتُ ثمينٌ»؟",
+      "answer": "جملة اسمية",
+      "alternatives": [
+        "اسمية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 7
+    },
+    {
+      "id": "language-v13-08",
+      "categoryId": "language",
+      "prompt": "ما اسم الكلمة التي نوجّه إليها النداء في جملة «يا خالدُ» من حيث وظيفتها النحوية؟",
+      "answer": "المنادى",
+      "alternatives": [
+        "منادى"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 8
+    },
+    {
+      "id": "language-v13-09",
+      "categoryId": "language",
+      "prompt": "ما الضمير المتصل الذي يدل على المتكلم في «هذا كتابي»؟",
+      "answer": "ياء المتكلم",
+      "alternatives": [
+        "الياء"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 9
+    },
+    {
+      "id": "language-v13-10",
+      "categoryId": "language",
+      "prompt": "ما اسم الفن البلاغي في عبارة «العلم كالنور»؟",
+      "answer": "التشبيه",
+      "alternatives": [
+        "تشبيه"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 10
+    },
+    {
+      "id": "language-v13-11",
+      "categoryId": "language",
+      "prompt": "من الشاعر الملقّب بـ«أمير الشعراء»؟",
+      "answer": "أحمد شوقي",
+      "alternatives": [
+        "شوقي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 11
+    },
+    {
+      "id": "language-v13-12",
+      "categoryId": "language",
+      "prompt": "من الشاعر العربي صاحب البيت الذي يبدأ بـ«الخيل والليل والبيداء تعرفني»؟",
+      "answer": "المتنبي",
+      "alternatives": [
+        "أبو الطيب المتنبي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 12
+    },
+    {
+      "id": "language-v13-13",
+      "categoryId": "language",
+      "prompt": "ما اسم مجموعة الحكايات التي تضمّ «علاء الدين» و«علي بابا» في أشهر طبعاتها؟",
+      "answer": "ألف ليلة وليلة",
+      "alternatives": [
+        "ألف ليلة و ليلة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "language-v13-14",
+      "categoryId": "language",
+      "prompt": "ما نوع الأدب الذي تُكتب فيه عادةً الحوارات والإرشادات لتقديم النص على الخشبة؟",
+      "answer": "المسرحية",
+      "alternatives": [
+        "الأدب المسرحي",
+        "المسرح"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "language-v13-15",
+      "categoryId": "language",
+      "prompt": "ما اسم مجموعة القصائد الجاهلية التي تضم قصيدة امرئ القيس المفتتحة بـ«قفا نبكِ»؟",
+      "answer": "المعلقات",
+      "alternatives": [
+        "المعلّقات"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "language-v13-16",
+      "categoryId": "language",
+      "prompt": "ما اسم الشطر الأول والشطر الثاني من البيت الشعري بالترتيب؟",
+      "answer": "الصدر ثم العجز",
+      "alternatives": [
+        "الصدر والعجز"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 16
+    },
+    {
+      "id": "language-v13-17",
+      "categoryId": "language",
+      "prompt": "من الأديب المصري الملقّب بـ«عميد الأدب العربي»؟",
+      "answer": "طه حسين",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "language-v13-18",
+      "categoryId": "language",
+      "prompt": "من الروائي العربي الذي نال نوبل في الأدب وكتب «بين القصرين»؟",
+      "answer": "نجيب محفوظ",
+      "alternatives": [],
+      "points": 200,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "language-v13-19",
+      "categoryId": "language",
+      "prompt": "ما اسم الفن النثري الذي يروي حياة الكاتب بلسانه؟",
+      "answer": "السيرة الذاتية",
+      "alternatives": [
+        "سيرة ذاتية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 19
+    },
+    {
+      "id": "language-v13-20",
+      "categoryId": "language",
+      "prompt": "ما مفرد كلمة «خصال»؟",
+      "answer": "خصلة",
+      "alternatives": [
+        "الخصلة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "language-v13-21",
+      "categoryId": "language",
+      "prompt": "في جملة «إنَّ الصبرَ مفتاحُ الفرج»، ما إعراب كلمة «الصبر»؟",
+      "answer": "اسم إن منصوب",
+      "alternatives": [
+        "اسم إن"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 21
+    },
+    {
+      "id": "language-v13-22",
+      "categoryId": "language",
+      "prompt": "في جملة «صار الجوُّ معتدلًا»، ما إعراب كلمة «معتدلًا»؟",
+      "answer": "خبر صار منصوب",
+      "alternatives": [
+        "خبر صار"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "language-v13-23",
+      "categoryId": "language",
+      "prompt": "ما علامة نصب جمع المذكر السالم في جملة «كرّم المديرُ المهندسينَ»؟",
+      "answer": "الياء",
+      "alternatives": [
+        "الياء نيابة عن الفتحة"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "language-v13-24",
+      "categoryId": "language",
+      "prompt": "ما سبب كتابة كلمة «استخرج» بألف من غير همزة مرسومة في أولها؟",
+      "answer": "لأن همزتها همزة وصل",
+      "alternatives": [
+        "همزة وصل"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 24
+    },
+    {
+      "id": "language-v13-25",
+      "categoryId": "language",
+      "prompt": "ما اسم الفاعل من الفعل «استمع»؟",
+      "answer": "مُستمِع",
+      "alternatives": [
+        "مستمع"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "language-v13-26",
+      "categoryId": "language",
+      "prompt": "في عبارة «ما حضر إلا خالدٌ»، ما نوع الأسلوب الذي يؤدّيه النفي مع «إلّا»؟",
+      "answer": "القصر",
+      "alternatives": [
+        "الحصر",
+        "أسلوب القصر"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 26
+    },
+    {
+      "id": "language-v13-27",
+      "categoryId": "language",
+      "prompt": "ما الفن البلاغي القائم على الجمع بين لفظين متضادين مثل «الليل» و«النهار»؟",
+      "answer": "الطباق",
+      "alternatives": [
+        "المطابقة",
+        "التضاد"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 27
+    },
+    {
+      "id": "language-v13-28",
+      "categoryId": "language",
+      "prompt": "ما الصفة التي كنّى عنها العرب بقولهم عن المضياف «كثير الرماد»؟",
+      "answer": "الكرم",
+      "alternatives": [
+        "السخاء",
+        "كثرة العطاء"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 28
+    },
+    {
+      "id": "language-v13-29",
+      "categoryId": "language",
+      "prompt": "ما المحسّن البديعي القائم على تشابه لفظين مع اختلاف المعنى بينهما؟",
+      "answer": "الجناس",
+      "alternatives": [
+        "التجنيس"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "language-v13-30",
+      "categoryId": "language",
+      "prompt": "ما اسم توافق أواخر الجمل في النثر، مثل «الحرُّ إذا وعد وفى، وإذا أعان كفى»؟",
+      "answer": "السجع",
+      "alternatives": [],
+      "points": 400,
+      "image": null,
+      "createdAt": 30
+    },
+    {
+      "id": "language-v13-31",
+      "categoryId": "language",
+      "prompt": "من الأديب العباسي الذي ألّف «البخلاء»؟",
+      "answer": "الجاحظ",
+      "alternatives": [
+        "عمرو بن بحر الجاحظ",
+        "أبو عثمان الجاحظ"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 31
+    },
+    {
+      "id": "language-v13-32",
+      "categoryId": "language",
+      "prompt": "من نقل «كليلة ودمنة» إلى العربية؟",
+      "answer": "عبد الله بن المقفّع",
+      "alternatives": [
+        "ابن المقفع",
+        "عبدالله بن المقفع"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 32
+    },
+    {
+      "id": "language-v13-33",
+      "categoryId": "language",
+      "prompt": "ما اسم كتاب طه حسين الذي يروي فيه طفولته وفقدانه البصر ورحلته في طلب العلم؟",
+      "answer": "الأيام",
+      "alternatives": [
+        "الايام"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 33
+    },
+    {
+      "id": "language-v13-34",
+      "categoryId": "language",
+      "prompt": "من الشاعر العراقي صاحب قصيدة «أنشودة المطر»؟",
+      "answer": "بدر شاكر السياب",
+      "alternatives": [
+        "السياب"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 34
+    },
+    {
+      "id": "language-v13-35",
+      "categoryId": "language",
+      "prompt": "ما عنوان قصيدة محمود درويش التي تفتتح بعبارة «سجّل أنا عربي»؟",
+      "answer": "بطاقة هوية",
+      "alternatives": [
+        "بطاقة الهويّة"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 35
+    },
+    {
+      "id": "language-v13-36",
+      "categoryId": "language",
+      "prompt": "إلى أي عصر أدبي ينتمي أبو نواس؟",
+      "answer": "العصر العباسي",
+      "alternatives": [
+        "العصر العباسي الأول"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 36
+    },
+    {
+      "id": "language-v13-37",
+      "categoryId": "language",
+      "prompt": "من الشاعرة التي اشتهرت برثاء أخيها صخر؟",
+      "answer": "الخنساء",
+      "alternatives": [
+        "تماضر بنت عمرو",
+        "تماضر بنت عمرو السلمية"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 37
+    },
+    {
+      "id": "language-v13-38",
+      "categoryId": "language",
+      "prompt": "من الشاعر الأندلسي صاحب نونية تبدأ بـ«أضحى التنائي بديلاً من تدانينا»؟",
+      "answer": "ابن زيدون",
+      "alternatives": [
+        "أحمد بن زيدون"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 38
+    },
+    {
+      "id": "language-v13-39",
+      "categoryId": "language",
+      "prompt": "ما اسم الفن النثري الذي اشتهر فيه الهمذاني والحريري، ويجمع الحكاية والسجع؟",
+      "answer": "المقامات",
+      "alternatives": [
+        "فن المقامة",
+        "المقامة"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 39
+    },
+    {
+      "id": "language-v13-40",
+      "categoryId": "language",
+      "prompt": "من مؤلف «رسالة الغفران»؟",
+      "answer": "أبو العلاء المعرّي",
+      "alternatives": [
+        "أبو العلاء المعري",
+        "المعري"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 40
+    },
+    {
+      "id": "language-v13-41",
+      "categoryId": "language",
+      "prompt": "في عبارة «كم كتابًا قرأتَ؟»، ما إعراب كلمة «كتابًا»؟",
+      "answer": "تمييز منصوب",
+      "alternatives": [
+        "تمييز كم الاستفهامية",
+        "تمييز"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 41
+    },
+    {
+      "id": "language-v13-42",
+      "categoryId": "language",
+      "prompt": "في جملة «أعجبني الكتابُ أسلوبُه»، ما نوع البدل في «أسلوبه»؟",
+      "answer": "بدل اشتمال",
+      "alternatives": [
+        "بدل الاشتمال"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 42
+    },
+    {
+      "id": "language-v13-43",
+      "categoryId": "language",
+      "prompt": "في جملة «سرتُ والنهرَ»، ما إعراب كلمة «النهر»؟",
+      "answer": "مفعول معه منصوب",
+      "alternatives": [
+        "مفعول معه"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 43
+    },
+    {
+      "id": "language-v13-44",
+      "categoryId": "language",
+      "prompt": "ما علامة جزم الفعل في عبارة «لم يسعَ إلى الشهرة»؟",
+      "answer": "حذف حرف العلة",
+      "alternatives": [
+        "حذف الألف المقصورة",
+        "حذف الألف"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 44
+    },
+    {
+      "id": "language-v13-45",
+      "categoryId": "language",
+      "prompt": "في جملة «إن تجتهدْ تنجحْ»، ما إعراب الفعل «تنجحْ»؟",
+      "answer": "جواب الشرط مجزوم",
+      "alternatives": [
+        "فعل مضارع مجزوم لأنه جواب الشرط",
+        "جواب الشرط"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 45
+    },
+    {
+      "id": "language-v13-46",
+      "categoryId": "language",
+      "prompt": "في جملة «لا طالبَ علمٍ مهملٌ»، ما نوع اسم «لا» النافية للجنس من جهة التركيب؟",
+      "answer": "مضاف",
+      "alternatives": [
+        "اسم مضاف"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 46
+    },
+    {
+      "id": "language-v13-47",
+      "categoryId": "language",
+      "prompt": "ما اسم الاستعارة في عبارة «ابتسم الصباح»، حيث حُذف الإنسان وبقيت صفة من صفاته؟",
+      "answer": "استعارة مكنية",
+      "alternatives": [
+        "المكنية"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 47
+    },
+    {
+      "id": "language-v13-48",
+      "categoryId": "language",
+      "prompt": "ما المحسّن البديعي الذي يُذكر فيه معنيان أو أكثر ثم تُذكر أضدادها بالترتيب؟",
+      "answer": "المقابلة",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 48
+    },
+    {
+      "id": "language-v13-49",
+      "categoryId": "language",
+      "prompt": "ما اسم الأسلوب البلاغي الذي يُذكر فيه لفظ له معنيان، قريب ظاهر وبعيد مقصود؟",
+      "answer": "التورية",
+      "alternatives": [],
+      "points": 600,
+      "image": null,
+      "createdAt": 49
+    },
+    {
+      "id": "language-v13-50",
+      "categoryId": "language",
+      "prompt": "ما اسم العلم الذي وضع الخليل بن أحمد أصوله لتمييز أوزان الشعر العربي؟",
+      "answer": "علم العَروض",
+      "alternatives": [
+        "العروض"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 50
+    },
+    {
+      "id": "language-v13-51",
+      "categoryId": "language",
+      "prompt": "ما البحر الشعري الذي تقوم تفعيلته الأصلية على «متفاعلن»؟",
+      "answer": "البحر الكامل",
+      "alternatives": [
+        "الكامل"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 51
+    },
+    {
+      "id": "language-v13-52",
+      "categoryId": "language",
+      "prompt": "ما اسم القصيدة التي يرثي فيها أبو البقاء الرندي مدن الأندلس بعد سقوطها، وتبدأ بـ«لكل شيء إذا ما تم نقصان»؟",
+      "answer": "نونية أبي البقاء الرندي",
+      "alternatives": [
+        "نونية الرندي",
+        "رثاء الأندلس"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 52
+    },
+    {
+      "id": "language-v13-53",
+      "categoryId": "language",
+      "prompt": "ما اسم المفكّر الأندلسي الذي ألّف قصة «حي بن يقظان» عن فتى نشأ وحيدًا في جزيرة؟",
+      "answer": "ابن طفيل",
+      "alternatives": [
+        "أبو بكر بن طفيل",
+        "محمد بن طفيل"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 53
+    },
+    {
+      "id": "language-v13-54",
+      "categoryId": "language",
+      "prompt": "ما اسم كتاب النقد الذي ألّفه عباس محمود العقاد وإبراهيم عبد القادر المازني معًا؟",
+      "answer": "الديوان في الأدب والنقد",
+      "alternatives": [
+        "الديوان"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 54
+    },
+    {
+      "id": "language-v13-55",
+      "categoryId": "language",
+      "prompt": "من الشاعرة العراقية صاحبة قصيدة «الكوليرا» التي تُذكر في بدايات الشعر الحر العربي؟",
+      "answer": "نازك الملائكة",
+      "alternatives": [
+        "نازك الملائكه"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 55
+    },
+    {
+      "id": "language-v13-56",
+      "categoryId": "language",
+      "prompt": "من مؤلف كتاب «الأغاني» الذي جمع أخبار الشعراء والمغنّين؟",
+      "answer": "أبو الفرج الأصفهاني",
+      "alternatives": [
+        "أبو الفرج الأصبهاني",
+        "الأصفهاني"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 56
+    },
+    {
+      "id": "language-v13-57",
+      "categoryId": "language",
+      "prompt": "من الكاتب اللبناني الذي ألّف «النبي» بالإنجليزية؟",
+      "answer": "جبران خليل جبران",
+      "alternatives": [
+        "جبران"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 57
+    },
+    {
+      "id": "language-v13-58",
+      "categoryId": "language",
+      "prompt": "من الأديب الأندلسي الذي ألّف «العقد الفريد» وجعل أبوابه كأنها جواهر في عقد؟",
+      "answer": "ابن عبد ربّه",
+      "alternatives": [
+        "ابن عبد ربه",
+        "أحمد بن عبد ربه"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 58
+    },
+    {
+      "id": "language-v13-59",
+      "categoryId": "language",
+      "prompt": "ما اسم الرواية التي يعود فيها مصطفى سعيد إلى السودان بعد سنوات عاشها في بريطانيا؟",
+      "answer": "موسم الهجرة إلى الشمال",
+      "alternatives": [
+        "موسم الهجرة الى الشمال"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 59
+    },
+    {
+      "id": "language-v13-60",
+      "categoryId": "language",
+      "prompt": "من الأديب الذي ارتبط اسمه بـ«المقدمة» التي تناولت العمران البشري ونشوء الدول؟",
+      "answer": "ابن خلدون",
+      "alternatives": [
+        "عبد الرحمن بن خلدون"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 60
+    }
+  ]
+}

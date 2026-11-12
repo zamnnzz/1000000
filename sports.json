@@ -1,0 +1,767 @@
+{
+  "categoryId": "sports",
+  "questionCount": 60,
+  "questions": [
+    {
+      "id": "sports-v2-01",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي إذا سجّلت فيها من بعيد ممكن تاخذ ثلاث نقاط؟",
+      "answer": "كرة السلة",
+      "alternatives": [
+        "الباسكت"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 1
+    },
+    {
+      "id": "sports-v2-02",
+      "categoryId": "sports",
+      "prompt": "وش يلبس السبّاح على عيونه عشان يشوف تحت الموية؟",
+      "answer": "نظارة سباحة",
+      "alternatives": [
+        "نظارة السباحة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 2
+    },
+    {
+      "id": "sports-v2-03",
+      "categoryId": "sports",
+      "prompt": "في البولينغ، وش تطيّح بالكرة؟",
+      "answer": "القوارير",
+      "alternatives": [
+        "قوارير البولينغ",
+        "الدبابيس"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 3
+    },
+    {
+      "id": "sports-v2-04",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي يضربون فيها بعض بقفازات داخل حلبة؟",
+      "answer": "الملاكمة",
+      "alternatives": [
+        "البوكس"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 4
+    },
+    {
+      "id": "sports-v2-05",
+      "categoryId": "sports",
+      "prompt": "وش لون ميدالية المركز الأول؟",
+      "answer": "ذهبي",
+      "alternatives": [
+        "الذهب",
+        "الذهبي"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 5
+    },
+    {
+      "id": "sports-v2-06",
+      "categoryId": "sports",
+      "prompt": "في تنس الطاولة، وش يفصل بين نصّين الطاولة؟",
+      "answer": "الشبكة",
+      "alternatives": [
+        "شبك"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 6
+    },
+    {
+      "id": "sports-v2-07",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي تلعبها بلوح فوق موج البحر؟",
+      "answer": "ركوب الأمواج",
+      "alternatives": [
+        "السيرف",
+        "السيرفينغ"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 7
+    },
+    {
+      "id": "sports-v2-08",
+      "categoryId": "sports",
+      "prompt": "وش يلبس راكب الدراجة عشان يحمي راسه؟",
+      "answer": "خوذة",
+      "alternatives": [
+        "الخوذة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 8
+    },
+    {
+      "id": "sports-v2-09",
+      "categoryId": "sports",
+      "prompt": "في شد الحبل، وش الشي اللي يمسكه الفريقان؟",
+      "answer": "الحبل",
+      "alternatives": [
+        "حبل"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 9
+    },
+    {
+      "id": "sports-v2-10",
+      "categoryId": "sports",
+      "prompt": "في الرماية بالقوس، وين تصوّب على الهدف الدائري عشان تجيب أعلى نقطة؟",
+      "answer": "وسط الهدف",
+      "alternatives": [
+        "المنتصف",
+        "مركز الهدف"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 10
+    },
+    {
+      "id": "sports-v2-11",
+      "categoryId": "sports",
+      "prompt": "إذا دخلت كرة الغولف مكانها، وين صارت؟",
+      "answer": "في الحفرة",
+      "alternatives": [
+        "الحفرة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 11
+    },
+    {
+      "id": "sports-v2-12",
+      "categoryId": "sports",
+      "prompt": "وش اسم الرياضة اللي كرتها اسمها «ريشة»؟",
+      "answer": "الريشة الطائرة",
+      "alternatives": [
+        "البادمنتون"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 12
+    },
+    {
+      "id": "sports-v2-13",
+      "categoryId": "sports",
+      "prompt": "وش اسم الجهاز بالنادي اللي تركض عليه وأنت ما تتحرك من مكانك؟",
+      "answer": "جهاز المشي",
+      "alternatives": [
+        "السير",
+        "المشاية",
+        "Treadmill"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 13
+    },
+    {
+      "id": "sports-v2-14",
+      "categoryId": "sports",
+      "prompt": "وش اسم الرياضة اللي تتسابق فيها من طرف المسبح للطرف الثاني؟",
+      "answer": "السباحة",
+      "alternatives": [
+        "سباق السباحة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 14
+    },
+    {
+      "id": "sports-v2-15",
+      "categoryId": "sports",
+      "prompt": "في الجمباز، وش تفرش تحت اللاعب عشان تخفف طيحته؟",
+      "answer": "بساط",
+      "alternatives": [
+        "حصيرة",
+        "مرتبة"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 15
+    },
+    {
+      "id": "sports-v2-16",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي فكرتها ترفع بار عليه أوزان فوق راسك؟",
+      "answer": "رفع الأثقال",
+      "alternatives": [
+        "الأثقال"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 16
+    },
+    {
+      "id": "sports-v2-17",
+      "categoryId": "sports",
+      "prompt": "في سباق الجري، مين يفوز إذا الكل بدأ مع بعض؟",
+      "answer": "اللي يوصل خط النهاية أول",
+      "alternatives": [
+        "أول من يعبر خط النهاية"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 17
+    },
+    {
+      "id": "sports-v2-18",
+      "categoryId": "sports",
+      "prompt": "في سباق الخيل، على ظهر أي حيوان يجلس المتسابق؟",
+      "answer": "الحصان",
+      "alternatives": [
+        "الخيل",
+        "الفرس"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 18
+    },
+    {
+      "id": "sports-v2-19",
+      "categoryId": "sports",
+      "prompt": "وش تتحرّك عليه في التزلج على الجليد؟",
+      "answer": "الجليد",
+      "alternatives": [
+        "الثلج المتجمّد"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 19
+    },
+    {
+      "id": "sports-v2-20",
+      "categoryId": "sports",
+      "prompt": "في تنس الفردي، كم لاعب موجود في الملعب إجمالًا؟",
+      "answer": "اثنين",
+      "alternatives": [
+        "لاعبان",
+        "٢",
+        "2"
+      ],
+      "points": 200,
+      "image": null,
+      "createdAt": 20
+    },
+    {
+      "id": "sports-v2-21",
+      "categoryId": "sports",
+      "prompt": "وش اسم رياضة الشتاء اللي تلعبها بعصا وقرص بدل كرة؟",
+      "answer": "هوكي الجليد",
+      "alternatives": [
+        "الهوكي على الجليد"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 21
+    },
+    {
+      "id": "sports-v2-22",
+      "categoryId": "sports",
+      "prompt": "إذا شلت كل قوارير البولينغ برمية وحدة من أول الإطار، وش تصيح؟",
+      "answer": "سترايك",
+      "alternatives": [
+        "Strike"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 22
+    },
+    {
+      "id": "sports-v2-23",
+      "categoryId": "sports",
+      "prompt": "وش اسم سباق الجري اللي مسافته تقريبًا ٤٢ كيلومتر؟",
+      "answer": "الماراثون",
+      "alternatives": [
+        "المارثون"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 23
+    },
+    {
+      "id": "sports-v2-24",
+      "categoryId": "sports",
+      "prompt": "في سباق التتابع على المضمار، وش تعطي زميلك وهو يبدأ يركض؟",
+      "answer": "عصا التتابع",
+      "alternatives": [
+        "عصا",
+        "العصا"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 24
+    },
+    {
+      "id": "sports-v2-25",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي من بعيد تحسبهم يلعبون كرة يد، لين تلاحظ إنهم كلهم يسبحون؟",
+      "answer": "كرة الماء",
+      "alternatives": [
+        "ووتر بولو"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 25
+    },
+    {
+      "id": "sports-v2-26",
+      "categoryId": "sports",
+      "prompt": "كم حلقة في شعار الأولمبياد؟",
+      "answer": "خمس حلقات",
+      "alternatives": [
+        "٥",
+        "5"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 26
+    },
+    {
+      "id": "sports-v2-27",
+      "categoryId": "sports",
+      "prompt": "وش رياضة الراكيت اللي تلعبها داخل غرفة وتضرب الكرة على الجدار الأمامي؟",
+      "answer": "الإسكواش",
+      "alternatives": [
+        "السكواش",
+        "Squash"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 27
+    },
+    {
+      "id": "sports-v2-28",
+      "categoryId": "sports",
+      "prompt": "في البلياردو، وش لون الكرة اللي تضربها بالعصا مباشرة؟",
+      "answer": "أبيض",
+      "alternatives": [
+        "الأبيض",
+        "بيضاء"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 28
+    },
+    {
+      "id": "sports-v2-29",
+      "categoryId": "sports",
+      "prompt": "في كرة الطائرة الشاطئية، كم لاعب في الفريق الواحد داخل الملعب؟",
+      "answer": "لاعبان",
+      "alternatives": [
+        "اثنين",
+        "٢",
+        "2"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 29
+    },
+    {
+      "id": "sports-v2-30",
+      "categoryId": "sports",
+      "prompt": "وش القطعة اللي يحطّها الملاكم داخل فمه قبل النزال؟",
+      "answer": "واقي الأسنان",
+      "alternatives": [
+        "واقي الفم",
+        "حامي الأسنان"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 30
+    },
+    {
+      "id": "sports-v2-31",
+      "categoryId": "sports",
+      "prompt": "وش اسم المكان اللي تقفز منه للمسبح في بداية سباق السباحة؟",
+      "answer": "منصة الانطلاق",
+      "alternatives": [
+        "منصة البداية",
+        "بلوك الانطلاق"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 31
+    },
+    {
+      "id": "sports-v2-32",
+      "categoryId": "sports",
+      "prompt": "وش اسم حركة كرة السلة اللي يغرز فيها اللاعب الكرة داخل السلة بيده؟",
+      "answer": "دانك",
+      "alternatives": [
+        "سلام دانك",
+        "Slam dunk"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 32
+    },
+    {
+      "id": "sports-v2-33",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي تمسك فيها خصمك وتحاول تثبّت كتفيه على البساط؟",
+      "answer": "المصارعة",
+      "alternatives": [],
+      "points": 400,
+      "image": null,
+      "createdAt": 33
+    },
+    {
+      "id": "sports-v2-34",
+      "categoryId": "sports",
+      "prompt": "إذا واحد يلعب معك ضد اثنين في التنس، وش تسمّون هالنوع من اللعب؟",
+      "answer": "زوجي",
+      "alternatives": [
+        "التنس الزوجي",
+        "دبلز"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 34
+    },
+    {
+      "id": "sports-v2-35",
+      "categoryId": "sports",
+      "prompt": "مين لُقّب بـ«البرق» واشتهر بسباقات السرعة ووقفة الإشارة للسماء بعد الفوز؟",
+      "answer": "يوسين بولت",
+      "alternatives": [
+        "بولت",
+        "Usain Bolt"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 35
+    },
+    {
+      "id": "sports-v2-36",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي تخليك تركب حصان وتضرب كرة بعصا طويلة؟",
+      "answer": "البولو",
+      "alternatives": [
+        "بولو الخيل"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 36
+    },
+    {
+      "id": "sports-v2-37",
+      "categoryId": "sports",
+      "prompt": "إذا تلعب تنس، وش اسم الضربة اللي تبدأ فيها النقطة؟",
+      "answer": "الإرسال",
+      "alternatives": [
+        "السيرف",
+        "Serve"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 37
+    },
+    {
+      "id": "sports-v2-38",
+      "categoryId": "sports",
+      "prompt": "وش اسم سباق السيارات اللي تشوف فيه السائقين يوقفون ثواني والفريق يبدّل أربع كفرات دفعة وحدة، واسمه ينتهي برقم واحد؟",
+      "answer": "فورمولا ١",
+      "alternatives": [
+        "فورمولا ون",
+        "Formula 1",
+        "F1"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 38
+    },
+    {
+      "id": "sports-v2-39",
+      "categoryId": "sports",
+      "prompt": "في سباق الدراجات، وش يسمّون طلوع العجلة الأمامية عن الأرض وأنت ماشي على الخلفية؟",
+      "answer": "ويلي",
+      "alternatives": [
+        "Wheelie",
+        "رفع العجلة الأمامية"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 39
+    },
+    {
+      "id": "sports-v2-40",
+      "categoryId": "sports",
+      "prompt": "في رمي الجلة، وش شكل الجلة اللي يدفعها اللاعب من عند رقبته؟",
+      "answer": "كرة معدنية",
+      "alternatives": [
+        "كروية",
+        "كرة"
+      ],
+      "points": 400,
+      "image": null,
+      "createdAt": 40
+    },
+    {
+      "id": "sports-v2-41",
+      "categoryId": "sports",
+      "prompt": "مضمار طوله ٤٠٠ متر. ركضت لفتين ونص. كم متر قطعت؟",
+      "answer": "ألف متر",
+      "alternatives": [
+        "كيلومتر واحد",
+        "١٠٠٠ متر",
+        "1000 متر"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 41
+    },
+    {
+      "id": "sports-v2-42",
+      "categoryId": "sports",
+      "prompt": "في السلة، سجلت رميتين من خارج قوس الثلاثيات ورمية حرة. كم نقطة؟",
+      "answer": "سبع نقاط",
+      "alternatives": [
+        "٧",
+        "7"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 42
+    },
+    {
+      "id": "sports-v2-43",
+      "categoryId": "sports",
+      "prompt": "وش اسم لعبة المضرب اللي تشبه التنس وتقدر تستخدم فيها زجاج الملعب بعد ما ترتد الكرة على الأرض؟",
+      "answer": "البادل",
+      "alternatives": [
+        "بادل",
+        "Padel"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 43
+    },
+    {
+      "id": "sports-v2-44",
+      "categoryId": "sports",
+      "prompt": "وش اسم بطولة التنس اللي في لندن، ملعبها عشب واللاعبين مشهورين باللبس الأبيض؟",
+      "answer": "ويمبلدون",
+      "alternatives": [
+        "وِمبلدون",
+        "Wimbledon"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 44
+    },
+    {
+      "id": "sports-v2-45",
+      "categoryId": "sports",
+      "prompt": "وش الرياضة اللي تجمع سباحة ودراجة وجري في سباق واحد؟",
+      "answer": "الترايثلون",
+      "alternatives": [
+        "السباق الثلاثي",
+        "Triathlon"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 45
+    },
+    {
+      "id": "sports-v2-46",
+      "categoryId": "sports",
+      "prompt": "أي رياضة شتوية تشوف فيها لاعبين يكنسون الجليد قدّام حجر عشان يوجّهونه؟",
+      "answer": "الكيرلنغ",
+      "alternatives": [
+        "الكيرلينغ",
+        "Curling"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 46
+    },
+    {
+      "id": "sports-v2-47",
+      "categoryId": "sports",
+      "prompt": "أي لعبة يابانية يحاول فيها اللاعب يطلّع خصمه من الدائرة أو يخليه يلمس الأرض بغير باطن قدميه؟",
+      "answer": "السومو",
+      "alternatives": [
+        "مصارعة السومو"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 47
+    },
+    {
+      "id": "sports-v2-48",
+      "categoryId": "sports",
+      "prompt": "في أي رياضة فيه سلاح اسمه «فلوريه» واللاعبين يلبسون أقنعة شبك؟",
+      "answer": "المبارزة",
+      "alternatives": [
+        "مبارزة السلاح"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 48
+    },
+    {
+      "id": "sports-v2-49",
+      "categoryId": "sports",
+      "prompt": "أنا أسبح ووجهي فوق، وأشوف السقف طول السباق. وش نوع السباحة؟",
+      "answer": "سباحة الظهر",
+      "alternatives": [
+        "الظهر"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 49
+    },
+    {
+      "id": "sports-v2-50",
+      "categoryId": "sports",
+      "prompt": "في البيسبول، وش اسم الضربة اللي تخلي الضارب يلف القواعد كلها ويسجل، وغالبًا تطلع الكرة من الملعب؟",
+      "answer": "هوم رن",
+      "alternatives": [
+        "هوم ران",
+        "Home run"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 50
+    },
+    {
+      "id": "sports-v2-51",
+      "categoryId": "sports",
+      "prompt": "في البولينغ، طيّحت ٧ قوارير بالأولى والثلاث الباقية بالثانية. وش اسمها؟",
+      "answer": "سبير",
+      "alternatives": [
+        "Spare"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 51
+    },
+    {
+      "id": "sports-v2-52",
+      "categoryId": "sports",
+      "prompt": "في الغولف، إذا المطلوب أربع ضربات وأنهيت الحفرة بثلاث، وش يسمّون النتيجة؟",
+      "answer": "بيردي",
+      "alternatives": [
+        "Birdie"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 52
+    },
+    {
+      "id": "sports-v2-53",
+      "categoryId": "sports",
+      "prompt": "كم كرة في طاولة البلياردو لو حطّيت ١٥ كرة ملوّنة ومعها البيضاء؟",
+      "answer": "١٦ كرة",
+      "alternatives": [
+        "16",
+        "ست عشرة كرة"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 53
+    },
+    {
+      "id": "sports-v2-54",
+      "categoryId": "sports",
+      "prompt": "وش اسم الميدالية اللي أخذها السعودي طارق حامدي في كاراتيه أولمبياد طوكيو؟",
+      "answer": "الفضية",
+      "alternatives": [
+        "فضة",
+        "ميدالية فضية"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 54
+    },
+    {
+      "id": "sports-v2-55",
+      "categoryId": "sports",
+      "prompt": "مين الملاكم اللي ارتبطت فيه عبارة «حلّق مثل الفراشة والسع مثل النحلة»؟",
+      "answer": "محمد علي كلاي",
+      "alternatives": [
+        "محمد علي",
+        "Muhammad Ali"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 55
+    },
+    {
+      "id": "sports-v2-56",
+      "categoryId": "sports",
+      "prompt": "في فورمولا ١، وش شكل العلم اللي يلوّحون به عند نهاية السباق؟",
+      "answer": "مربعات سوداء وبيضاء",
+      "alternatives": [
+        "علم الشطرنج",
+        "علم مربّع أبيض وأسود",
+        "Chequered flag"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 56
+    },
+    {
+      "id": "sports-v2-57",
+      "categoryId": "sports",
+      "prompt": "إذا قلت «ضربة إرسال ما قدر الخصم حتى يلمسها بالمضرب»، وش يسمّونها في التنس؟",
+      "answer": "إيس",
+      "alternatives": [
+        "آيس",
+        "Ace"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 57
+    },
+    {
+      "id": "sports-v2-58",
+      "categoryId": "sports",
+      "prompt": "وش اسم منافسة ألعاب القوى اللي تجمع عشر مسابقات، منها الجري والقفز والرمي؟",
+      "answer": "العشاري",
+      "alternatives": [
+        "الديكاثلون",
+        "Decathlon"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 58
+    },
+    {
+      "id": "sports-v2-59",
+      "categoryId": "sports",
+      "prompt": "وش اسم رياضة تجمع تزلّج على الثلج وتطلق فيها على أهداف ببندقية؟",
+      "answer": "البياثلون",
+      "alternatives": [
+        "البياتلون",
+        "Biathlon"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 59
+    },
+    {
+      "id": "sports-v2-60",
+      "categoryId": "sports",
+      "prompt": "أي رياضة قتالية كورية مشهورة بالركلات العالية والدوران؟",
+      "answer": "التايكوندو",
+      "alternatives": [
+        "تايكواندو",
+        "Taekwondo"
+      ],
+      "points": 600,
+      "image": null,
+      "createdAt": 60
+    }
+  ]
+}
