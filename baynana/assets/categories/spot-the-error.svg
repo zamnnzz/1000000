@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800">
+ <rect width="640" height="800" fill="#fff0d3"/>
+ <path d="M0 660Q248 579 640 714V800H0Z" fill="#f6d7b7"/>
+ <g fill="#b88bd8"><path d="m86 366 7 17 17 7-17 7-7 17-7-17-17-7 17-7z"/><path d="m554 279 5 12 12 5-12 5-5 12-5-12-12-5 12-5z"/></g>
+ <path d="M253 800v-70q-43-48-38-103l12-77q4-24 24-23l172 11q41 7 33 47l-13 70q-7 36-42 78l-3 67z" fill="#d48e72" stroke="#513141" stroke-width="3.5"/>
+ <g transform="rotate(-3 320 355)">
+  <rect x="127" y="152" width="401" height="435" rx="20" fill="#9f76b9"/>
+  <rect x="115" y="137" width="401" height="435" rx="20" fill="#fffdf8" stroke="#513141" stroke-width="3.5"/>
+  <path d="M160 190h311" stroke="#f0dff8" stroke-width="4" stroke-linecap="round"/>
+  <text x="315" y="339" direction="rtl" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="58" fill="#452650">وش الخطأ؟</text>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="7">
+   <path d="m190 412 8 8 14-17m-22 55 8 8 14-17" stroke="#6c8e73"/>
+   <path d="m190 494 18 18m0-18-18 18" stroke="#d66d57"/>
+   <path d="M238 413h184m-184 46h148m-148 44h172" stroke="#e7dbed"/>
+  </g>
+ </g>
+ <g stroke="#513141" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M247 775q-33-56-23-105 7-31 28-57l36-48q16-22 34-12 19 11 10 34l-24 52q30 22 39 57" fill="#efae90"/>
+  <path d="M295 572q8-14 18-13 13 1 15 13l-4 14q-17 5-31-4z" fill="#ffdbc9" stroke-width="2"/>
+  <path d="M421 591q-3 22-12 43m-1 17q-5 17-15 33M245 670l9-14" fill="none" stroke="#a55f58" stroke-width="2"/>
+  <path d="M243 752q85 9 163-12l17 60H232Z" fill="#a776c4"/>
+  <path d="M246 768q84 8 163-12" fill="none" stroke="#e6c8f4" stroke-width="2"/>
+ </g>
+</svg>
