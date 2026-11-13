@@ -416,3 +416,367 @@
   line-height: 1.85;
  }
 }
+/* Refined two-section header layout. */
+.zamn-site-header .zamn-header-inner {
+ display: grid !important;
+ grid-template-columns: 1fr auto 1fr !important;
+ align-items: center !important;
+ gap: 22px !important;
+ min-height: 58px !important;
+ padding-block: 8px !important;
+}
+.zamn-site-header .zamn-header-brand {
+ grid-column: 3;
+ justify-self: end;
+}
+.zamn-site-header .zamn-section-nav {
+ grid-column: 2;
+ justify-self: center;
+ order: initial !important;
+ flex: initial !important;
+ width: auto !important;
+}
+.zamn-site-header .zamn-header-login {
+ grid-column: 1;
+ justify-self: start;
+}
+.zamn-site-header .zamn-section-nav a {
+ min-width: 124px !important;
+ padding: 8px 16px !important;
+ font-size: 13px !important;
+}
+.zamn-site-header .zamn-header-brand strong {
+ font-size: 24px;
+}
+.zamn-site-header .zamn-header-brand img {
+ width: 34px;
+ height: 34px;
+}
+.zamn-site-header--challenge .zamn-header-inner {
+ min-height: 58px !important;
+}
+.zamn-site-header--challenge .zamn-section-nav {
+ padding: 3px !important;
+ gap: 3px !important;
+}
+.zamn-site-header--challenge .zamn-section-nav a {
+ min-width: 124px !important;
+ padding: 8px 16px !important;
+}
+.zamn-site-header--challenge .zamn-header-login {
+ min-height: 34px !important;
+ padding: 7px 14px !important;
+}
+@media (max-width: 760px) {
+ .zamn-site-header .zamn-header-inner {
+  grid-template-columns: auto 1fr auto !important;
+  gap: 8px !important;
+  min-height: 52px !important;
+  padding-inline: 12px !important;
+ }
+ .zamn-site-header .zamn-header-brand {
+  grid-column: 3;
+ }
+ .zamn-site-header .zamn-section-nav {
+  grid-column: 2;
+  width: 100% !important;
+ }
+ .zamn-site-header .zamn-header-login {
+  grid-column: 1;
+ }
+ .zamn-site-header .zamn-section-nav a {
+  min-width: 0 !important;
+  flex: 1 1 0;
+  padding-inline: 8px !important;
+  font-size: 11px !important;
+ }
+ .zamn-site-header .zamn-header-brand strong {
+  font-size: 19px;
+ }
+ .zamn-site-header .zamn-header-brand img {
+  width: 28px;
+  height: 28px;
+ }
+ .zamn-site-header .zamn-header-login {
+  min-height: 29px !important;
+  padding: 5px 8px !important;
+  font-size: 11px !important;
+ }
+}
+/* Dedicated Baynana challenge header treatment. */
+.zamn-site-header--challenge {
+ background: linear-gradient(135deg, #f58a49 0%, #f6a16a 100%) !important;
+ color: #35203e !important;
+ border-bottom: 0 !important;
+}
+.zamn-site-header--challenge::after {
+ left: 0;
+ right: 0;
+ height: 3px;
+ background: #8e61b8;
+}
+.zamn-site-header--challenge .zamn-header-inner {
+ grid-template-columns: 1fr minmax(245px, auto) 1fr !important;
+ max-width: 1220px !important;
+ min-height: 72px !important;
+ padding: 10px 24px !important;
+ gap: 28px !important;
+}
+.zamn-site-header--challenge .zamn-header-brand {
+ justify-self: end;
+}
+.zamn-site-header--challenge .zamn-header-brand .challenge-site-logo {
+ width: 92px;
+ height: 60px;
+ transform: rotate(-3deg);
+}
+.zamn-site-header--challenge .zamn-header-brand .challenge-site-logo > span {
+ font-size: 30px;
+}
+.zamn-site-header--challenge .zamn-header-brand .challenge-site-logo > strong {
+ font-size: 34px !important;
+}
+.zamn-site-header--challenge .zamn-section-nav {
+ display: flex !important;
+ justify-content: center;
+ align-items: center;
+ padding: 5px !important;
+ gap: 4px !important;
+ border: 2px solid #6f4e7d40 !important;
+ border-radius: 999px !important;
+ background: #fff0d455 !important;
+ box-shadow: 0 3px 0 #6f4e7d22;
+}
+.zamn-site-header--challenge .zamn-section-nav a {
+ min-width: 132px !important;
+ padding: 10px 18px !important;
+ border-radius: 999px !important;
+ color: #59384d !important;
+ font-size: 14px !important;
+ font-weight: 900 !important;
+}
+.zamn-site-header--challenge .zamn-section-nav a.is-active {
+ background: #a974d3 !important;
+ color: #302039 !important;
+ box-shadow: inset 0 -2px 0 #724496;
+}
+.zamn-site-header--challenge .zamn-header-login {
+ justify-self: start;
+ min-height: 40px !important;
+ padding: 9px 18px !important;
+ border: 2px solid #6f4e7d80 !important;
+ border-radius: 999px !important;
+ background: #fff0d455 !important;
+ color: #35203e !important;
+ font-size: 13px !important;
+ font-weight: 900 !important;
+}
+@media (max-width: 760px) {
+ .zamn-site-header--challenge .zamn-header-inner {
+  grid-template-columns: auto 1fr auto !important;
+  min-height: 62px !important;
+  padding: 7px 10px !important;
+  gap: 8px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-brand .challenge-site-logo {
+  width: 65px;
+  height: 44px;
+ }
+ .zamn-site-header--challenge .zamn-header-brand .challenge-site-logo > span {
+  font-size: 21px;
+ }
+ .zamn-site-header--challenge .zamn-header-brand .challenge-site-logo > strong {
+  font-size: 24px !important;
+ }
+ .zamn-site-header--challenge .zamn-section-nav {
+  width: 100% !important;
+  padding: 3px !important;
+ }
+ .zamn-site-header--challenge .zamn-section-nav a {
+  min-width: 0 !important;
+  padding: 8px 7px !important;
+  font-size: 11px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-login {
+  min-height: 32px !important;
+  padding: 6px 9px !important;
+  font-size: 11px !important;
+ }
+}
+/* Keep the challenge header in one compact horizontal row. */
+.zamn-site-header--challenge .zamn-header-inner {
+ display: flex !important;
+ position: relative !important;
+ height: 72px !important;
+ min-height: 72px !important;
+ padding: 8px 24px !important;
+ align-items: center !important;
+ justify-content: space-between !important;
+}
+.zamn-site-header--challenge .zamn-header-brand {
+ order: 3 !important;
+ margin-inline-start: 0 !important;
+}
+.zamn-site-header--challenge .zamn-section-nav {
+ position: absolute !important;
+ left: 50% !important;
+ top: 50% !important;
+ transform: translate(-50%, -50%) !important;
+ order: initial !important;
+ flex: none !important;
+ width: auto !important;
+}
+.zamn-site-header--challenge .zamn-header-login {
+ order: 1 !important;
+ margin-inline-end: 0 !important;
+}
+@media (max-width: 760px) {
+ .zamn-site-header--challenge .zamn-header-inner {
+  height: 62px !important;
+  min-height: 62px !important;
+  padding-inline: 10px !important;
+ }
+ .zamn-site-header--challenge .zamn-section-nav {
+  position: static !important;
+  transform: none !important;
+  order: 2 !important;
+  width: min(52vw, 250px) !important;
+ }
+}
+/* Absolute anchors keep Baynana header controls inside the viewport. */
+.zamn-site-header--challenge .zamn-header-inner {
+ display: block !important;
+ position: relative !important;
+ overflow: hidden;
+}
+.zamn-site-header--challenge .zamn-header-brand {
+ position: absolute !important;
+ right: 24px;
+ top: 50%;
+ transform: translateY(-50%);
+ margin: 0 !important;
+}
+.zamn-site-header--challenge .zamn-section-nav {
+ position: absolute !important;
+ left: 50% !important;
+ top: 50% !important;
+ transform: translate(-50%, -50%) !important;
+ margin: 0 !important;
+}
+.zamn-site-header--challenge .zamn-header-login {
+ position: absolute !important;
+ left: 24px;
+ top: 50%;
+ transform: translateY(-50%);
+ margin: 0 !important;
+}
+@media (max-width: 760px) {
+ .zamn-site-header--challenge .zamn-header-inner {
+  display: block !important;
+  padding-inline: 8px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-brand { right: 8px; }
+ .zamn-site-header--challenge .zamn-header-login { left: 8px; }
+ .zamn-site-header--challenge .zamn-section-nav {
+  width: min(52vw, 250px) !important;
+ }
+}
+@media (max-width: 760px) {
+ .zamn-site-header--challenge .zamn-header-inner {
+  height: 58px !important;
+  min-height: 58px !important;
+  padding: 4px 6px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-brand {
+  right: 6px !important;
+  width: 52px;
+  overflow: visible;
+ }
+ .zamn-site-header--challenge .zamn-header-brand .challenge-site-logo {
+  width: 52px !important;
+  height: 43px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-brand .challenge-site-logo > span {
+  font-size: 17px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-brand .challenge-site-logo > strong {
+  font-size: 20px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-login {
+  left: 6px !important;
+  max-width: 82px;
+  min-height: 27px !important;
+  padding: 4px 7px !important;
+  font-size: 10px !important;
+  white-space: nowrap;
+ }
+ .zamn-site-header--challenge .zamn-section-nav {
+  width: 162px !important;
+  max-width: 162px !important;
+  padding: 2px !important;
+ }
+ .zamn-site-header--challenge .zamn-section-nav a {
+  padding: 7px 4px !important;
+  font-size: 10px !important;
+  white-space: nowrap;
+ }
+}
+@media (max-width: 400px) {
+ .zamn-site-header--challenge .zamn-section-nav {
+  width: 148px !important;
+  max-width: 148px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-brand {
+  right: 4px !important;
+ }
+ .zamn-site-header--challenge .zamn-header-login {
+  left: 4px !important;
+  max-width: 76px;
+  font-size: 9px !important;
+ }
+}
+@media (max-width: 760px) {
+ .arena-hero {
+  overflow: visible !important;
+  padding-top: 22px !important;
+ }
+ .arena-hero .hero-layout {
+  padding-top: 34px !important;
+  padding-bottom: 8px !important;
+  gap: 16px !important;
+ }
+ .arena-hero .hero-copy {
+  overflow: visible !important;
+  width: 100% !important;
+ }
+ .arena-hero .hero-headline {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 auto 18px !important;
+  padding-inline: 12px;
+  font-size: clamp(29px, 7vw, 38px) !important;
+  line-height: 1.6 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+ }
+ .arena-hero .hero-copy > .hero-intro {
+  display: block !important;
+  width: min(94%, 680px) !important;
+  margin: 0 auto 25px !important;
+  padding-inline: 8px;
+  font-size: 18px !important;
+  line-height: 1.9 !important;
+  white-space: normal !important;
+ }
+}
+/* final mobile challenge header anchoring */
+.zamn-site-header--challenge .zamn-header-brand { right: 24px !important; left: auto !important; }
+.zamn-site-header--challenge .zamn-header-login { left: 24px !important; right: auto !important; }
+@media (max-width:760px){
+ .zamn-site-header--challenge .zamn-header-brand { right: 6px !important; left:auto !important; }
+ .zamn-site-header--challenge .zamn-header-login { left: 6px !important; right:auto !important; }
+}
+@media (max-width:400px){
+ .zamn-site-header--challenge .zamn-header-brand { right: 4px !important; left:auto !important; }
+ .zamn-site-header--challenge .zamn-header-login { left: 4px !important; right:auto !important; }
+}

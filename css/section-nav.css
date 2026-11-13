@@ -55,3 +55,7 @@ body:has(#landing[hidden], #baynanaAccountFrame) .zamn-home-switch,
 html.challenge-auth .zamn-home-switch {
   display: none;
 }
+
+.zamn-site-header{position:relative}
+.zamn-site-header::after{content:"";position:absolute;left:clamp(18px,4vw,64px);right:clamp(18px,4vw,64px);bottom:0;height:2px;border-radius:99px;background:#ffffff55;pointer-events:none}
+.zamn-site-header--challenge::after{background:#6d4a6f66}
