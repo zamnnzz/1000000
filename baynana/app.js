@@ -13,7 +13,7 @@ new ResizeObserver(centerRail).observe(rail);
 rail.addEventListener('pointerdown',()=>{railTouched=true},{passive:true});
 rail.addEventListener('wheel',()=>{railTouched=true},{passive:true});
 rail.addEventListener('keydown',()=>{railTouched=true});
-rail.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('.category-info-button'))return;drag={x:e.clientX,left:rail.scrollLeft};rail.setPointerCapture(e.pointerId);rail.classList.add('is-dragging')});rail.addEventListener('pointermove',e=>{if(drag){rail.scrollLeft=drag.left-(e.clientX-drag.x);e.preventDefault()}});const stop=()=>{drag=null;rail.classList.remove('is-dragging')};rail.addEventListener('pointerup',stop);rail.addEventListener('pointercancel',stop);rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();rail.scrollBy({left:e.key==='ArrowRight'?220:-220,behavior:'smooth'})}})})();
+rail.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('.category-info-button'))return;e.preventDefault();drag={x:e.clientX,left:rail.scrollLeft};rail.setPointerCapture(e.pointerId);rail.classList.add('is-dragging')});rail.addEventListener('pointermove',e=>{if(drag){rail.scrollLeft=drag.left-(e.clientX-drag.x);e.preventDefault()}});rail.addEventListener('dragstart',e=>e.preventDefault());rail.querySelectorAll('img').forEach(img=>img.draggable=false);const stop=()=>{drag=null;rail.classList.remove('is-dragging')};rail.addEventListener('pointerup',stop);rail.addEventListener('pointercancel',stop);rail.addEventListener('lostpointercapture',stop);rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();rail.scrollBy({left:e.key==='ArrowRight'?220:-220,behavior:'smooth'})}})})();
 
 document.querySelectorAll('.time-package-select').forEach(button=>button.addEventListener('click',()=>document.getElementById('packageDialog').showModal()));
 
@@ -159,6 +159,7 @@ document.querySelectorAll('.time-package-select').forEach(button=>button.addEven
 ];
 const aids=[['إجابتين','بعد السؤال','فرصتان للإجابة بدل إجابة واحدة.','✌'],['دبلها','قبل كشف الإجابة','ضاعف نقاط السؤال.','×٢'],['كلّم المطنوخ','بعد السؤال','دقيقة كاملة للاتصال وطلب المساعدة.','☎'],['بلوك','قبل كشف الإجابة','امنع الخصم من إجابة سؤال تختاره.','✋'],['تحايل','بعد السؤال','١٥ ثانية للبحث عن الإجابة من أي مكان.','☝']];let picks=[[],[]],selectedAids=new Set();
 const categoryDescriptions = {
+ 'رؤساء وقادة دول': ['وجوه تعرفونها… لكن مين يتذكر أسماءها؟', 'تعرّفوا على رؤساء وقادة دول من صورهم، واختبروا معرفتكم بالشخصيات من حول العالم.'],
   'رياضة': ['أسئلة عن الرياضات المختلفة وأبرز نجومها.', 'تعرّف على البطولات والأرقام واللحظات الشهيرة.'],
   'حول العالم': ['سافر بين الدول والثقافات من شاشة التحدّي.', 'خمّن الأماكن والعادات من الأدلة.'],
   'علوم': ['اختبر معلوماتك عن الطبيعة والفضاء والاكتشافات.', 'جاوب عن ظواهر علمية من حياتنا اليومية.'],
@@ -228,7 +229,114 @@ grid.append(card);
 function openNames(){const chips=$('chosenCategoryChips');chips.replaceChildren();for(const id of picks.flat()){const chip=document.createElement('span');chip.textContent=categories.find(category=>category.id===id).name;chips.append(chip)}if(!$('sessionSetupDialog').open)$('sessionSetupDialog').showModal()}
 const aidArtwork=["<svg viewBox=\"0 0 80 84\" fill=\"#fff5df\" stroke=\"#2c1537\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m27 48-9-19q-2-6 3-7 4-1 6 4l8 15-2-27q0-6 5-6 4 0 5 5l2 23 4-22q1-6 6-4 4 1 3 6l-3 27 7-7q4-4 8 0 3 4-1 8L55 65v10H32V64L20 48q-4-6 1-8 4-1 8 5Z\"/></svg>", "<svg viewBox=\"0 0 80 84\" fill=\"#fff5df\" stroke=\"#2c1537\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M10 35h12v28H10Zm48 0h12v28H58ZM4 40h6v18H4Zm66 0h6v18h-6ZM22 44h36v10H22Z\"/><path d=\"m32 34 8-13 8 13M40 21v23\"/></svg>", "<svg viewBox=\"0 0 80 84\" fill=\"#fff5df\" stroke=\"#2c1537\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m27 55-10-8q-5-5-1-9 4-3 9 1l5 4-1-25q0-6 5-6t5 6v18l2-25q1-5 5-5 5 1 4 6l-1 24 5-22q1-5 5-4 5 1 3 7l-4 23 6-16q2-5 6-3 4 2 1 7l-10 29-9 10v10H29V64Z\"/></svg>", "<svg viewBox=\"0 0 80 84\" fill=\"#fff5df\" stroke=\"#2c1537\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M22 42V26q0-7 6-7 5 0 5 6v13-21q0-6 5-6t5 6v20-19q0-6 5-6t5 6v20-13q0-6 5-6t5 6v23q0 12-11 20v10H29V64L17 53q-6-7-1-10 4-3 10 4l7 5\"/></svg>", "<svg viewBox=\"0 0 80 84\" fill=\"#fff5df\" stroke=\"#2c1537\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M31 45V12q0-7 6-7t6 7v25l3-2q5-2 7 4 6-3 9 3 7 0 7 7v11l-12 10v8H31V65L18 52q-5-5-1-9 4-4 9 1l5 6Z\"/></svg>"];
 window.BaynanaAidArtwork=aidArtwork;
-function renderAids(){const root=$('setupAids');root.replaceChildren();aids.forEach((a,i)=>{const label=document.createElement('label');label.className='setup-aid';label.setAttribute('data-explanation',a[0]+' — '+a[1]+': '+a[2]);const input=document.createElement('input');input.type='checkbox';input.checked=selectedAids.has(i);input.disabled=selectedAids.size===3&&!input.checked;input.onchange=()=>{input.checked?selectedAids.add(i):selectedAids.delete(i);renderAids();const next=$('setupAids').children[i];if(next){next.classList.add('show-aid-tip');next.querySelector('input').focus()}};const icon=document.createElement('b');icon.innerHTML=aidArtwork[i];const name=document.createElement('strong');name.textContent=a[0];const when=document.createElement('small');when.textContent=a[1];const desc=document.createElement('span');desc.textContent=a[2];label.append(input,icon,name,when,desc);root.append(label)});$('aidCount').textContent=ar(selectedAids.size)+' / ٣'}
+function describeAid(index) {
+  const [name, , description] = aids[index];
+  const hint = $('setupAidHint');
+  hint.querySelector('strong').textContent = name + ':';
+  hint.querySelector('span').textContent = description;
+}
+
+function renderAids() {
+  const root = $('setupAids');
+  if (!root.children.length) {
+    aids.forEach(([name, , description], index) => {
+      const label = document.createElement('label');
+      label.className = 'setup-aid';
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.setAttribute('aria-label', name);
+      input.setAttribute('aria-description', description);
+      const icon = document.createElement('b');
+      icon.innerHTML = aidArtwork[index];
+      input.onfocus = label.onpointerenter = () => describeAid(index);
+      input.onchange = () => {
+        if (input.checked) selectedAids.add(index);
+        else selectedAids.delete(index);
+        describeAid(index);
+        renderAids();
+        if (selectedAids.size === 3) $('sessionSetupError').textContent = '';
+      };
+      label.append(input, icon);
+      root.append(label);
+    });
+    describeAid(0);
+  }
+  [...root.querySelectorAll('input')].forEach((input, index) => {
+    input.checked = selectedAids.has(index);
+    input.disabled = selectedAids.size === 3 && !input.checked;
+  });
+  $('aidCount').textContent = '، المحدد ' + ar(selectedAids.size) + ' من ٣';
+}
+
+const teamInputs = $('sessionTeamInputs');
+const addTeam = $('addSessionTeam');
+const removeTeam = $('removeSessionTeam');
+const choices = $('teamRemovalChoices');
+const optionalNames = ['الفريق الثالث', 'الفريق الرابع'];
+
+function updateTeamControls() {
+  const extras = [...teamInputs.querySelectorAll('.optional-team')];
+  extras.forEach((input, index) => {
+    const name = optionalNames[index];
+    input.setAttribute('aria-label', name);
+    input.placeholder = 'اسم ' + name;
+  });
+  addTeam.hidden = extras.length === optionalNames.length;
+  removeTeam.hidden = !extras.length;
+  choices.hidden = true;
+  choices.replaceChildren();
+  if (extras.length > 1) {
+    removeTeam.setAttribute('aria-expanded', 'false');
+    removeTeam.setAttribute('aria-controls', choices.id);
+  } else {
+    removeTeam.removeAttribute('aria-expanded');
+    removeTeam.removeAttribute('aria-controls');
+  }
+  $('sessionSetupError').textContent = '';
+}
+
+addTeam.onclick = () => {
+  if (teamInputs.children.length >= 4) return;
+  const input = document.createElement('input');
+  input.className = 'optional-team';
+  input.maxLength = 20;
+  input.required = true;
+  teamInputs.append(input);
+  updateTeamControls();
+  input.focus();
+};
+
+function deleteTeam(input) {
+  input.remove();
+  updateTeamControls();
+  addTeam.focus();
+}
+
+removeTeam.onclick = () => {
+  const extras = [...teamInputs.querySelectorAll('.optional-team')];
+  if (extras.length === 1) {
+    deleteTeam(extras[0]);
+    return;
+  }
+  if (!choices.hidden) {
+    choices.hidden = true;
+    removeTeam.setAttribute('aria-expanded', 'false');
+    return;
+  }
+  choices.replaceChildren();
+  extras.forEach((input, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = 'حذف ' + (input.value.trim() || optionalNames[index]);
+    button.setAttribute('aria-label', 'حذف ' + optionalNames[index] + (input.value.trim() ? '، ' + input.value.trim() : ''));
+    button.onclick = () => deleteTeam(input);
+    choices.append(button);
+  });
+  choices.hidden = false;
+  removeTeam.setAttribute('aria-expanded', 'true');
+  choices.firstElementChild.focus();
+};
+
 window.showBaynanaHistory = show => {
   $('selectionStatus').hidden = show;
   $('setupPageTitle').textContent = show ? 'ألعابي السابقة' : 'اختاروا ساحة التحدّي.';
@@ -255,10 +363,46 @@ if (fresh) {
   selectedAids.clear();
   $('categorySearch').value = '';
   $('sessionSetupForm').reset();
+  teamInputs.querySelectorAll('.optional-team').forEach(row => row.remove());
+  updateTeamControls();
+  describeAid(0);
   $('sessionSetupError').textContent = '';
   renderAids();
 }
 $('landing').hidden=true;$('gamePreview').hidden=true;$('categorySetup').hidden=false;render();if(picks.flat().length===6)openNames();window.scrollTo({top:0,behavior:'instant'})};$('leaveSetup').onclick=()=>{$('categorySetup').hidden=true;$('landing').hidden=false;window.scrollTo({top:0,behavior:'instant'})};$('categorySearch').oninput=render;
-$('sessionSetupForm').onsubmit=e=>{e.preventDefault();const a=$('sessionTeamOne').value.trim(),b=$('sessionTeamTwo').value.trim(),name=$('sessionGameName').value.trim();if(!a||!b||!name||a===b||selectedAids.size!==3){$('sessionSetupError').textContent='اكتب اسم اللعبة واسمين مختلفين للفريقين، واختر ٣ وسائل مساعدة.';return}$('sessionSetupError').textContent='';window.BaynanaSession={name,teams:[a,b],categories:picks.map(ids=>ids.map(id=>categories.find(category=>category.id===id).name)),aids:[...selectedAids].map(i=>aids[i][0])};$('sessionSetupDialog').close();$('categorySearch').value='';render();$('categorySetup').hidden=true;$('gamePreview').hidden=false;window.startBaynanaBoard(window.BaynanaSession);window.scrollTo({top:0,behavior:'instant'})};renderAids();render();})();
+$('sessionSetupForm').onsubmit = event => {
+  event.preventDefault();
+  const name = $('sessionGameName').value.trim();
+  const inputs = [...teamInputs.querySelectorAll('input')];
+  const teams = inputs.map(input => input.value.trim());
+  const invalid = teams.findIndex((value, index) => !value || teams.indexOf(value) !== index);
+  const error = $('sessionSetupError');
+  if (!name || invalid >= 0) {
+    error.textContent = !name ? 'اكتب اسم اللعبة.' : 'اكتب اسمًا مختلفًا لكل فريق.';
+    (!name ? $('sessionGameName') : inputs[invalid]).focus();
+    return;
+  }
+  if (selectedAids.size !== 3) {
+    error.textContent = 'اختاروا ٣ وسائل مساعدة لبدء التحدّي.';
+    $('setupAids').querySelector('input:not(:checked)').focus();
+    return;
+  }
+  error.textContent = '';
+  window.BaynanaSession = {
+    name, teams,
+    categories: picks.map(ids => ids.map(id => categories.find(category => category.id === id).name)),
+    aids: [...selectedAids].map(i => aids[i][0])
+  };
+  $('sessionSetupDialog').close();
+  $('categorySearch').value = '';
+  render();
+  $('categorySetup').hidden = true;
+  $('gamePreview').hidden = false;
+  window.startBaynanaBoard(window.BaynanaSession);
+  window.scrollTo({ top: 0, behavior: 'instant' });
+};
+renderAids();render();})();
 
 (()=>{const list=document.getElementById('aidShowcaseList');if(!list)return;const data=[{name:'إجابتين',when:'بعد السؤال',desc:'فرصتان للإجابة بدل إجابة واحدة.',tips:['عندما تكونون محتارين بين إجابتين.','عندما تحتاجون فرصة ثانية لحسم السؤال.']},{name:'دبلها',when:'قبل كشف الإجابة',desc:'ضاعف نقاط السؤال لفريقك.',tips:['عند اختيار فئة تثقون بمعرفتكم فيها.','عندما تحتاجون لتعويض فارق النقاط.']},{name:'كلّم المطنوخ',when:'بعد السؤال',desc:'دقيقة كاملة للاتصال بصديق وطلب المساعدة.',tips:['عندما يكون السؤال خارج معرفة الفريق.','إذا تعرفون شخصًا متمكنًا من موضوع السؤال.']},{name:'بلوك',when:'قبل كشف الإجابة',desc:'امنع الخصم من الإجابة على سؤال تختاره.',tips:['عند اختيار سؤال يتقنه الفريق المنافس.','عندما تحتاجون لحماية فرصة جمع النقاط.']},{name:'تحايل',when:'بعد السؤال',desc:'١٥ ثانية للبحث عن الإجابة من أي مكان.',tips:['عندما تحتاجون معلومة محددة بسرعة.','جهّزوا طريقة البحث قبل بدء الثواني.']}];function select(i){const item=data[i];document.getElementById('aidShowcaseName').textContent=item.name;document.getElementById('aidShowcaseIcon').innerHTML=window.BaynanaAidArtwork[i];const tips=document.getElementById('aidShowcaseTips');tips.replaceChildren(...item.tips.map(text=>{const li=document.createElement('li');li.textContent=text;return li}));[...list.children].forEach((button,j)=>button.setAttribute('aria-pressed',String(i===j)))}data.forEach((item,i)=>{const button=document.createElement('button');button.type='button';button.className='aid-showcase-option';button.setAttribute('aria-pressed','false');const icon=document.createElement('span');icon.className='aid-option-icon';icon.innerHTML=window.BaynanaAidArtwork[i];const body=document.createElement('span');body.className='aid-option-body';const top=document.createElement('span');top.className='aid-option-top';const name=document.createElement('strong');name.textContent=item.name;const badge=document.createElement('small');badge.textContent=item.when;top.append(name,badge);const desc=document.createElement('span');desc.className='aid-option-description';desc.textContent=item.desc;body.append(top,desc);button.append(icon,body);button.onclick=()=>select(i);button.addEventListener('pointerenter',()=>{if(matchMedia('(hover:hover)').matches)select(i)});button.addEventListener('focus',()=>select(i));list.append(button)});select(0)})();
+(()=>{const rail=document.querySelector('.category-peek-window');if(!rail)return;const cards=[...rail.querySelectorAll('.category-peek-card')];let frame=0;function update(){frame=0;const bounds=rail.getBoundingClientRect(),center=bounds.left+bounds.width/2;for(const card of cards){const rect=card.getBoundingClientRect();const distance=Math.abs(rect.left+rect.width/2-center);const weight=Math.max(0,1-distance/(card.offsetWidth*1.15));card.style.setProperty('--card-scale',(1+.28*weight).toFixed(4));card.style.setProperty('--card-layer',String(Math.round(weight*100)));}}function schedule(){if(!frame)frame=requestAnimationFrame(update)}rail.addEventListener('scroll',schedule,{passive:true});new ResizeObserver(schedule).observe(rail);window.addEventListener('load',schedule,{once:true});schedule()})();
+(()=>{const rail=document.querySelector('.category-peek-window');if(!rail)return;rail.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse'||e.button!==0)return;requestAnimationFrame(()=>{const r=rail.getBoundingClientRect(),center=r.left+r.width/2;let nearest=null,delta=Infinity;for(const card of rail.querySelectorAll('.category-peek-card')){const c=card.getBoundingClientRect(),d=c.left+c.width/2-center;if(Math.abs(d)<Math.abs(delta)){nearest=card;delta=d}}if(nearest){const max=rail.scrollWidth-rail.clientWidth,edge=nearest.offsetWidth*.6;const target=rail.scrollLeft<=edge?0:rail.scrollLeft>=max-edge?max:rail.scrollLeft+delta;rail.scrollTo({left:target,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'})}})})})();

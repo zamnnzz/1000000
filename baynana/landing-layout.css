@@ -1,0 +1,47 @@
+/* Consistent landing-page measurements without changing the approved header or cards. */
+#landing{--page-width:1120px;--page-gutter:clamp(18px,4vw,48px);--section-space:clamp(42px,6vw,72px)}
+#landing .arena-hero{padding-inline:var(--page-gutter)!important;overflow:hidden!important}
+#landing .hero-layout{max-width:var(--page-width);padding:clamp(32px,5vw,64px) 0 24px!important;gap:24px!important}
+#landing .hero-copy{max-width:900px!important;margin-inline:auto!important}
+#landing .hero-headline{font-size:clamp(30px,3.5vw,50px)!important;line-height:1.4!important;margin:0 auto 18px!important;padding:0!important;white-space:normal!important}
+#landing .hero-copy>.hero-intro{width:100%!important;max-width:700px!important;font-size:clamp(16px,1.4vw,20px)!important;line-height:1.9!important;padding:0!important;margin:0 auto 24px!important}
+#landing .hero-actions{gap:20px;flex-wrap:wrap;justify-content:center;align-items:center}
+#landing .main-cta,#landing .guide-start{min-height:48px;padding:12px 24px;font-size:16px}
+#landing .hero-meta{margin-top:20px;line-height:1.7}
+#landing .hero-posters{margin-block:28px 32px!important;gap:clamp(18px,3vw,36px)!important}
+#landing .play-guide,#landing .challenge-packages,#landing .aid-showcase,#landing .screen-invite{padding:var(--section-space) var(--page-gutter)!important}
+#landing .play-guide-inner,#landing .aid-showcase-layout,#landing .screen-invite-inner,#landing .time-packages-grid{width:100%;max-width:var(--page-width);margin-inline:auto;gap:clamp(24px,4vw,56px)}
+#landing .play-guide-inner,#landing .screen-invite-inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#landing .play-guide-copy h2,#landing .category-peek-heading h2,#landing .challenge-packages-heading h2,#landing .aid-showcase-heading h2{font-size:clamp(28px,2.7vw,38px)!important;line-height:1.4;margin:0 0 14px!important}
+#landing .category-peek{padding-top:var(--section-space)!important;padding-bottom:16px!important}
+#landing .category-peek-heading{margin:0!important;padding-inline:var(--page-gutter)}
+#landing .challenge-packages-heading,#landing .aid-showcase-heading{max-width:700px;margin:0 auto 32px!important;text-align:center}
+#landing .time-packages-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+#landing .time-package{padding:22px 18px}
+#landing .time-package h3 strong{font-size:clamp(22px,2vw,29px)}
+#landing .time-package-price b{font-size:34px}
+#landing .aid-showcase-layout{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:28px}
+#landing .aid-showcase-option{min-height:86px;padding:14px 16px}
+#landing .screen-invite-copy h2{font-size:clamp(32px,3.2vw,44px);line-height:1.4}
+#landing .screen-invite-visual{max-width:480px}
+.challenge-footer{padding:48px clamp(18px,4vw,48px) 24px!important}
+.challenge-footer-inner{max-width:1120px;gap:32px}
+@media(max-width:800px){
+ #landing .play-guide-inner,#landing .screen-invite-inner,#landing .aid-showcase-layout{grid-template-columns:minmax(0,1fr)!important;gap:30px}
+ #landing .play-guide-inner{max-width:620px}
+ #landing .hero-posters{margin-top:20px!important}
+ #landing .time-packages-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px}
+ #landing .screen-invite-copy{text-align:center}
+ #landing .aid-showcase-layout{max-width:620px}
+ #landing .screen-invite-visual{max-width:420px}
+ #landing .hero-actions{gap:16px}
+}
+@media(max-width:400px){
+ #landing .main-cta,#landing .guide-start{font-size:14px;padding:12px 18px}
+ #landing .hero-headline{font-size:30px!important}
+ #landing .time-packages-grid{gap:12px}
+ #landing .time-package{padding:18px 12px}
+ #landing .time-package h3 strong{font-size:22px}
+ #landing .time-package-select{padding:8px;font-size:12px}
+ .challenge-footer-inner{gap:24px 18px}
+}

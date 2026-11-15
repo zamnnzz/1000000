@@ -1,4 +1,4 @@
-(()=>{'use strict';const $=id=>document.getElementById(id),ar=n=>new Intl.NumberFormat('ar-SA').format(n);let session,turn=0,scores=[0,0],used=new Set(),aidUsed=[new Set(),new Set()],active=null,stage='question',timer=null,seconds=0,paused=false,questionAids=new Map();const aidNames=['إجابتين','دبلها','كلّم المطنوخ','بلوك','تحايل'];const el=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text!==undefined)n.textContent=text;return n};
+(()=>{'use strict';const $=id=>document.getElementById(id),ar=n=>new Intl.NumberFormat('ar-SA').format(n);let session,turn=0,scores=[],used=new Set(),aidUsed=[],active=null,stage='question',timer=null,seconds=0,paused=false,questionAids=new Map();const aidNames=['إجابتين','دبلها','كلّم المطنوخ','بلوك','تحايل'];const el=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text!==undefined)n.textContent=text;return n};
 const legacyRoundKey = 'baynana-round-v1';
 const totalQuestions = 36;
 let roundId;
@@ -150,10 +150,30 @@ function stopTimer(){clearInterval(timer);timer=null;$('liveTimer').hidden=true}
 function teamCard(t,editable){const card=el('section','live-team-score live-team-'+t);card.append(el('h2','',session.teams[t]));const row=el('div','live-score-controls');if(editable){const minus=el('button','','−');minus.setAttribute('aria-label','إنقاص نقاط '+session.teams[t]);minus.onclick=()=>{scores[t]-=100;renderScores()};row.append(minus)}row.append(el('b','',ar(scores[t])));if(editable){const plus=el('button','','+');plus.setAttribute('aria-label','زيادة نقاط '+session.teams[t]);plus.onclick=()=>{scores[t]+=100;renderScores()};row.append(plus)}card.append(row);return card}
 function teamAids(t,onBoard=false){const root=el('div','live-team-aids'+(t===turn?' is-active-turn':''));root.setAttribute('aria-label','مساعدات '+session.teams[t]);session.aids.forEach(name=>{const i=aidNames.indexOf(name),usedAid=aidUsed[t].has(name),button=el('button','live-team-aid'+(usedAid?' is-used':''));button.type='button';button.title=usedAid?name+' — مستخدمة':t!==turn?'متاحة في دور '+session.teams[t]:name;button.setAttribute('aria-label',name+' — '+session.teams[t]+(usedAid?' — مستخدمة':''));button.disabled=onBoard||!canUseAid(name,t);button.setAttribute('aria-pressed',String(usedAid));const icon=el('span','');icon.innerHTML=window.BaynanaAidArtwork[i]||'';button.append(icon,el('small','',name));button.onclick=()=>{if(onBoard||t!==turn||aidUsed[t].has(name))return;openAid(name,i,t)};root.append(button)});return root}
 function teamDock(t){const group=el('div','live-team-dock live-team-dock-'+t+(t===turn?' is-turn':''));const card=teamCard(t,true);card.querySelector('h2').append(teamAids(t,true));group.append(card);return group}
-function renderScores(){saveRound();$('liveTurn').disabled=Boolean(active);$('liveTurn').textContent='دور الفريق: '+session.teams[turn]+' ↻';const footer=$('liveBoardFooter');footer.replaceChildren(teamDock(0),el('b','live-dock-brand','بيننا تحدّي'),teamDock(1));const side=$('liveSidebar');side.replaceChildren(teamCard(0,false),teamAids(0),teamCard(1,false),teamAids(1));if(!$('liveAidNotice')){const notice=el('p','live-aid-notice');notice.id='liveAidNotice';notice.textContent=questionNotice();side.append(notice)}}
+function nextTeam() {
+  return (turn + 1) % session.teams.length;
+}
+
+function renderScores() {
+  saveRound();
+  $('liveTurn').disabled = Boolean(active);
+  $('liveTurn').textContent = 'دور الفريق: ' + session.teams[turn] + ' ↻';
+  const footer = $('liveBoardFooter');
+  const docks = session.teams.map((_, index) => teamDock(index));
+  if (docks.length === 2) docks.splice(1, 0, el('b', 'live-dock-brand', 'بيننا تحدّي'));
+  footer.classList.toggle('many-teams', session.teams.length > 2);
+  footer.style.setProperty('--team-count', session.teams.length);
+  footer.replaceChildren(...docks);
+  const side = $('liveSidebar');
+  side.replaceChildren();
+  session.teams.forEach((_, index) => side.append(teamCard(index, false), teamAids(index)));
+  const notice = el('p', 'live-aid-notice', questionNotice());
+  notice.id = 'liveAidNotice';
+  side.append(notice);
+}
 function renderBoard(){const grid=$('liveBoard');grid.replaceChildren();const categories=session.categories.flat(),sources=[...document.querySelectorAll('#setupCategories .setup-category')];categories.forEach((name,c)=>{const col=el('article','live-category');const match=sources.find(n=>n.querySelector('strong').textContent===name);const art=el('div','live-category-art');if(match){art.style.setProperty('--cover-tone',match.style.getPropertyValue('--category-tone'));art.innerHTML=match.querySelector('img,svg').outerHTML}art.append(el('h2','',name));col.append(art);const points=el('div','live-point-grid');for(let i=0;i<6;i++){const value=[200,200,400,400,600,600][i],key=c+'-'+i,button=el('button','live-point live-point-'+value,ar(value));button.disabled=used.has(key);button.setAttribute('aria-label',name+' — '+value+' نقطة — سؤال '+(i+1));button.onclick=()=>transitionTo(()=>openQuestion({name,points:value,key}));points.append(button)}col.append(points);grid.append(col)})}
 function openQuestion(q){active=q;stage='question';stopTimer();$('liveExit').textContent='خروج من السؤال';$('liveBoardView').hidden=true;$('liveQuestionView').hidden=false;$('liveBackBoard').hidden=false;$('liveCategory').textContent=q.name;renderQuestionPoints();renderContent();renderScores();window.scrollTo({top:0,behavior:'instant'})}
-function renderContent(){const content=$('liveQuestionContent');content.replaceChildren();$('liveReveal').hidden=stage!=='question';$('liveReturnQuestion').hidden=stage==='question';$('liveJudge').hidden=stage!=='answer';if(stage==='question'){content.append(el('span','live-demo-label','سؤال تجريبي للواجهة'),el('h2','','ما عاصمة المملكة العربية السعودية؟'));const art=el('div','live-question-illustration');art.innerHTML='<svg viewBox="0 0 240 180" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#bd9bdc" d="M20 156h200V97h-24V63h-22v93h-30V42h-23v114H91V83H68v73H44v-45H20Z"/><path d="M13 162h214M131 42V20m-10 0h20M54 53l5-12 5 12 12 5-12 5-5 12-5-12-12-5Z"/></svg>';content.append(art)}else if(stage==='answer'){content.append(el('span','live-demo-label','الإجابة'),el('h2','live-answer-title','الرياض'));}else{content.append(el('h2','','مين جاوب؟'));const choices=el('div','live-judge-choices');for(let t=0;t<2;t++){const button=el('button','live-primary live-choice-'+t,session.teams[t]);button.disabled=questionAids.get(active.key)?.blockedTeam===t;button.onclick=()=>finishQuestion(t);choices.append(button)}const none=el('button','live-none','ولا أحد');none.onclick=()=>finishQuestion(-1);choices.append(none);content.append(choices)}}
+function renderContent(){const content=$('liveQuestionContent');content.replaceChildren();$('liveReveal').hidden=stage!=='question';$('liveReturnQuestion').hidden=stage==='question';$('liveJudge').hidden=stage!=='answer';if(stage==='question'){content.append(el('span','live-demo-label','سؤال تجريبي للواجهة'),el('h2','','ما عاصمة المملكة العربية السعودية؟'));const art=el('div','live-question-illustration');art.innerHTML='<svg viewBox="0 0 240 180" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path fill="#bd9bdc" d="M20 156h200V97h-24V63h-22v93h-30V42h-23v114H91V83H68v73H44v-45H20Z"/><path d="M13 162h214M131 42V20m-10 0h20M54 53l5-12 5 12 12 5-12 5-5 12-5-12-12-5Z"/></svg>';content.append(art)}else if(stage==='answer'){content.append(el('span','live-demo-label','الإجابة'),el('h2','live-answer-title','الرياض'));}else{content.append(el('h2','','مين جاوب؟'));const choices=el('div','live-judge-choices');for(let t=0;t<session.teams.length;t++){const button=el('button','live-primary live-choice-'+t,session.teams[t]);button.disabled=questionAids.get(active.key)?.blockedTeam===t;button.onclick=()=>finishQuestion(t);choices.append(button)}const none=el('button','live-none','ولا أحد');none.onclick=()=>finishQuestion(-1);choices.append(none);content.append(choices)}}
 async function finishQuestion(winner) {
   if (!active || stage !== 'judge' || switching) return;
   const effect = questionAids.get(active.key);
@@ -173,7 +193,7 @@ async function finishQuestion(winner) {
   if (winner >= 0) scores[winner] += active.points * (effect?.doubleTeam === winner ? 2 : 1);
   used.add(active.key);
   questionAids.delete(active.key);
-  turn = 1 - turn;
+  turn = nextTeam();
   showBoard();
   renderBoard();
   renderScores();
@@ -197,7 +217,9 @@ function endGame() {
   $('liveQuestionView').hidden = true;
   $('liveBackBoard').hidden = true;
   const root = $('liveResults');
-  const winner = scores[0] === scores[1] ? -1 : scores[0] > scores[1] ? 0 : 1;
+  const topScore = Math.max(...scores);
+  const leaders = session.teams.filter((_, index) => scores[index] === topScore);
+  const tied = leaders.length > 1;
 
   const header = el('header', 'result-header');
   const leave = el('button', 'result-button result-secondary', 'خروج');
@@ -215,11 +237,14 @@ function endGame() {
   trophy.append(trophyImage);
   const title = el('h2', '', 'انتهت اللعبة!');
   title.tabIndex = -1;
-  const outcome = el('p', 'result-outcome', winner < 0 ? 'تعادل الفريقان' : 'الفائز: ' + session.teams[winner]);
+  let headline = 'الفائز: ' + leaders[0];
+  if (tied) headline = session.teams.length === 2 ? 'تعادل الفريقان' : 'تعادل في الصدارة: ' + leaders.join(' و');
+  const outcome = el('p', 'result-outcome', headline);
   const cards = el('div', 'result-cards');
   session.teams.forEach((name, index) => {
-    const status = winner < 0 ? 'تعادل' : winner === index ? 'كفووو!' : 'جبت العيد';
-    const card = el('article', 'result-card' + (winner === index ? ' result-winner' : ''));
+    const inLead = scores[index] === topScore;
+    const status = inLead ? (tied ? 'تعادل' : 'كفووو!') : 'جبت العيد';
+    const card = el('article', 'result-card' + (inLead ? ' result-winner' : ''));
     card.append(el('span', 'result-status', status), el('h3', '', name),
       el('strong', 'result-score', ar(scores[index]) + ' نقطة'));
     cards.append(card);
@@ -247,7 +272,18 @@ function endGame() {
 function exit(){stopTimer();if(viewingHistory){document.body.classList.remove('baynana-playing');window.openCategorySetup({fresh:true});window.showBaynanaHistory(true);return;}$('gamePreview').hidden=true;$('landing').hidden=false;document.body.classList.remove('baynana-playing');window.scrollTo({top:0,behavior:'instant'})}
 
 let pendingAid=null,pendingAidTeam=null;const aidDescriptions={'إجابتين':'لديكم فرصتان للإجابة على السؤال بدل فرصة واحدة.','دبلها':'ضاعف نقاط هذا السؤال لفريقك.','كلّم المطنوخ':'لديك ٦٠ ثانية للاتصال بصديق ومساعدتك في الإجابة.','بلوك':'امنع الفريق المنافس من الإجابة على هذا السؤال.','تحايل':'لديك ١٥ ثانية للبحث عن الإجابة من أي مكان.'};
-function openAid(name,index,team=turn){if(!canUseAid(name,team))return;pendingAid=name;pendingAidTeam=team;$('liveAidIcon').innerHTML=window.BaynanaAidArtwork[index]||'';$('liveAidTitle').textContent=name;$('liveAidDescription').textContent=aidDescriptions[name];const timed=name==='كلّم المطنوخ'||name==='تحايل';$('aidCountdown').hidden=!timed;$('aidCountdownValue').textContent=ar(name==='كلّم المطنوخ'?60:15);$('liveAidInstruction').textContent=timed?'اضغط ابدأ لما تكونون جاهزين':'تُستخدم هذه المساعدة مرة واحدة لفريقك';$('beginLiveAid').textContent=timed?'ابدأ':'استخدم المساعدة';$('liveAidDialog').showModal()}
+function openAid(name,index,team=turn){if(!canUseAid(name,team))return;pendingAid=name;pendingAidTeam=team;$('liveAidIcon').innerHTML=window.BaynanaAidArtwork[index]||'';$('liveAidTitle').textContent=name;$('liveAidDescription').textContent=aidDescriptions[name];const timed=name==='كلّم المطنوخ'||name==='تحايل';$('aidCountdown').hidden=!timed;$('aidCountdownValue').textContent=ar(name==='كلّم المطنوخ'?60:15);$('liveAidInstruction').textContent=timed?'اضغط ابدأ لما تكونون جاهزين':'تُستخدم هذه المساعدة مرة واحدة لفريقك';$('beginLiveAid').textContent=timed?'ابدأ':'استخدم المساعدة';const field = $('blockOpponentField');
+  field.hidden = name !== 'بلوك' || session.teams.length === 2;
+  if (!field.hidden) {
+    const opponents = $('blockOpponent');
+    opponents.replaceChildren();
+    session.teams.forEach((name, index) => {
+      if (index !== team) opponents.add(new Option(name, String(index)));
+    });
+    opponents.value = String(nextTeam());
+  }
+  $('liveAidDialog').showModal()
+}
 $('closeLiveAid').onclick = () => $('liveAidDialog').close();
 $('beginLiveAid').onclick = () => {
   const name = pendingAid;
@@ -256,7 +292,7 @@ $('beginLiveAid').onclick = () => {
   pendingAid = null;
   const effect = questionAids.get(active.key) || {};
   if (name === 'دبلها') effect.doubleTeam = turn;
-  if (name === 'بلوك') effect.blockedTeam = 1 - turn;
+  if (name === 'بلوك') effect.blockedTeam = session.teams.length === 2 ? nextTeam() : Number($('blockOpponent').value);
   if (name === 'إجابتين') effect.secondChanceTeam = turn;
   questionAids.set(active.key, effect);
   aidUsed[turn].add(name);
@@ -284,9 +320,9 @@ function renderRound() {
 window.startBaynanaBoard = newSession => {
   session = newSession;
   turn = 0;
-  scores = [0, 0];
+  scores = session.teams.map(() => 0);
   used = new Set();
-  aidUsed = [new Set(), new Set()];
+  aidUsed = session.teams.map(() => new Set());
   questionAids = new Map();
   roundId = crypto.randomUUID();
   roundHistoryKey = historyKey();
@@ -297,7 +333,7 @@ window.startBaynanaBoard = newSession => {
 
 $('liveTurn').onclick = () => {
   if (active || switching) return;
-  turn = 1 - turn;
+  turn = nextTeam();
   renderScores();
 };
 $('liveBackBoard').onclick = () => transitionTo(showBoard);
